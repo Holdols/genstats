@@ -1,0 +1,2 @@
+# genstats
+ Analyse genetic data
