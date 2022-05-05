@@ -2,11 +2,8 @@
 % Please edit documentation in R/calc_distribution.R
 \name{calc_distribution}
 \alias{calc_distribution}
-\title{Calculates the parameters for the conditional distribution belonging to each
-liabilities of the multivariate gaussian. Of the form
-mu_mult = \eqn{\Sigma _{12}\Sigma _{22}^{-1}\mu _2}
-sigma_bar = \eqn{\Sigma_11 - \Sigma _{12}\Sigma _{22}^{-1}\Sigma_21}
-It is used as a helper function for LTFH}
+\title{Calculates the constants parameters for the conditional distribution belonging to each
+liabilities of the multivariate gaussian.}
 \usage{
 calc_distribution(sigma)
 }
@@ -17,10 +14,9 @@ calc_distribution(sigma)
 a list containing sigma_bar and mu_mult for each liability
 }
 \description{
-Calculates the parameters for the conditional distribution belonging to each
-liabilities of the multivariate gaussian. Of the form
-mu_mult = \eqn{\Sigma _{12}\Sigma _{22}^{-1}\mu _2}
-sigma_bar = \eqn{\Sigma_11 - \Sigma _{12}\Sigma _{22}^{-1}\Sigma_21}
+Of the form \cr
+mu_mult = \eqn{\Sigma_{12}\Sigma_{22}^{-1}\mu _2} \cr
+sigma_bar = \eqn{\Sigma_{11} - \Sigma_{12}\Sigma_{22}^{-1}\Sigma_{21}} \cr
 It is used as a helper function for LTFH
 }
 \examples{
