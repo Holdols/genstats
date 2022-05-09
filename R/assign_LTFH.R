@@ -56,7 +56,7 @@ estimate_liabilities = function(pheno, K=0.05, n_sib=0, h2=0.5){
 #' @export
 get_all_data = function(data, K=0.05, n_sib=0, h2=0.5){
   full_liabil = calc_full_liabil(data, n_sib)
-  pheno = calc_phen(data, n_sib, K)
+  pheno = calc_phen(data, K, n_sib)
   estimate_liabil = estimate_liabilities(pheno, K, n_sib, h2)
   order = get_names(c('l', 'l_g', 'l_e', "phen"), n_sib)
   print(order)
@@ -64,3 +64,4 @@ get_all_data = function(data, K=0.05, n_sib=0, h2=0.5){
 
   return(full_data)
 }
+

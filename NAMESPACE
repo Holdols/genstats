@@ -2,6 +2,8 @@
 
 export(GWAS)
 export(LTFH)
+export(calc_full_liabil)
+export(calc_phen)
 export(estimate_liabilities)
 export(get_all_data)
 export(get_cov)
