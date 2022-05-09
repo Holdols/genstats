@@ -2,6 +2,7 @@
 
 export(GWAS)
 export(LTFH)
+export(LTFH_notrunc)
 export(calc_full_liabil)
 export(calc_phen)
 export(estimate_liabilities)
