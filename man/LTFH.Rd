@@ -2,7 +2,7 @@
 % Please edit documentation in R/LTFH.R
 \name{LTFH}
 \alias{LTFH}
-\title{Create LTFH estimations}
+\title{Create LTFH estimations for a configuration.}
 \usage{
 LTFH(
   covmat,
@@ -37,7 +37,7 @@ c(genetic_liability_subject, liability_subject, liability_parent1, \cr
 liability_parent2, liability_sibling1, ..., liability_siblingN)
 }
 \description{
-Create LTFH estimations
+Create LTFH estimations for a configuration.
 }
 \examples{
 LTFH(get_cov(0.5, n_sib = 1), c(1, 1, 0, 0))

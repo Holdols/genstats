@@ -2,7 +2,6 @@
 
 export(GWAS)
 export(LTFH)
-export(calc_distribution)
 export(estimate_liabilities)
 export(get_all_data)
 export(get_cov)
