@@ -7,6 +7,7 @@
 #' @return Normalized values
 #' @noRd
 normalized_prod = function(Gx, beta_cut, probs){
+  #pas meget på med at have Gx[,] her. I kan nemt komme til at give for stor et objekt til denne funktion og så henter den altså alt(!).
   out = c(sweep(sweep(Gx[,], FUN = '-', STATS=2*probs, MARGIN = 2), FUN='/', STATS=sqrt(2*probs*(1-probs)), MARGIN = 2)  %*% beta_cut)
   return(out)
 }
@@ -37,13 +38,13 @@ get_index = function(i, block_size){
 get_member = function(i, beta, MAF, N=1e5, block_size=1000){
 
   index = get_index(i, block_size)
-  probs = MAF[index$start:index$end]
+  probs = MAF[index$start:index$end] #hvorfor ikke bare kalde det MAF_cut også ?
   beta_cut = beta[index$start:index$end]
 
   Gx = matrix(rbinom(block_size*N, 2, probs), ncol=block_size, nrow=N, byrow = T)
   l_g_x = normalized_prod(Gx, beta_cut, probs)
 
-  return(list('Gx'=Gx, 'l_g_x'=l_g_x))
+  return(list('Gx'=Gx, 'l_g_x'=l_g_x)) #hvis denne funktion skal bruges til at fylde en FBM ud, så kunne i fx bare få den til at gøre det direkte og så returner intet (NULL) eller bare gen liab
 }
 
 
@@ -58,7 +59,7 @@ get_member = function(i, beta, MAF, N=1e5, block_size=1000){
 assign_snp = function(G1, G2, N=1e5, block_size=1000){
   k = matrix(rnorm(block_size*N, 0, 0.0000001), ncol=block_size, nrow=N, byrow = T)
   G_input = round((G1 + G2)/2 - k)
-  return(G_input)
+  return(G_input) #her gælder lidt det samme. Alt efter hvordan i bruger funktionen, kan det være en idé at returner null og gemme direkte i fbm i funktionen
 }
 
 
@@ -99,6 +100,16 @@ sim_fam = function(i, beta, MAF, n_sib = 0, N=1e5, block_size=1000){
     }
 
     s_tibble = do.call(cbind, l_g_sibs)
+    # hvis jeg forstår det korrekt, så overvej fx at lave denne konstruktion i stedet:
+
+    # s_tibble = lapply(1:n_sib, function(j){ # j bruges bare til at angive iteration, i.e. hvilken sibling vi er på og bruges altså ikke direkte
+    #   Gs = assign_snp(G1, G2, N, block_size)
+    #   index = get_index(i, block_size)
+    #   probs = MAF[index$start:index$end]
+    #   beta_cut = beta[index$start:index$end]
+    #   temp = normalized_prod(Gs, beta_cut, probs)
+    # }) %>% do.call("cbind", .)
+
     col_names_g = get_names(c("l_g_partial"), id=FALSE, parents = FALSE, n_sib)
     colnames(s_tibble) = col_names_g
     fam_tibble = bind_cols(fam_tibble, s_tibble)
@@ -123,12 +134,16 @@ sim_fam = function(i, beta, MAF, n_sib = 0, N=1e5, block_size=1000){
 #' @return Simulated SNPs for all subjects and family's liabilities
 #' @export
 G_func_fam = function(filename, beta, MAF, n_sib = 0, N=1e5, M=1e5, block_size=1000){
+  # jeg synes i skal lave en funktion, som laver et tjek om i allerede har en FBM ved det navn, og hvis i har, så indlæser i den.
+  # ellers laver i en i stil med dette, udfylder lidt dummy info til jeres .rds fil, og gemmer MED DET SAMME. Så har i ikke nogen problemer med
+  # filer der ikke kan læses og ikke fjernes uden at lukke R.
+  # så brug file.exists() i et if statement og gør snp_attach ellers noget i stil med nedenstående, hvor i også gemmer (snp_save)
   G = FBM.code256(nrow = N,
                   ncol = M,
                   code = c(0L, 1L, 2L, rep(NA_integer_, 256 - 3)),
                   backingfile = filename)
 
-
+  # hvad bliver de her brugt til?
   l_g_p1 = rep(0, M)
   l_g_p2 = rep(0, M)
 
@@ -143,7 +158,8 @@ G_func_fam = function(filename, beta, MAF, n_sib = 0, N=1e5, M=1e5, block_size=1
 
     return(fam_tibble)
   },future.seed = TRUE) %>%
-    do.call(bind_cols, .) %>% collapse_data(., n_sib)
+    do.call(bind_cols, .) %>%
+    collapse_data(., n_sib)
 
 
   return(list("G"=G, "liabil"=liabil))
@@ -167,13 +183,16 @@ G_func_simple = function(filename, MAF, N=1e5, M=1e5, block_size=1000){
 
 
   iterations = M/block_size
-  future_lapply(1:iterations, function(i){
+  null_catcher = future_lapply(1:iterations, function(i){ # gemmer lige output some null_catcher, for ikke at spam consolen.
     current_start = (i-1) * block_size + 1
     current_end = current_start + block_size - 1
 
     probs = MAF[current_start:current_end]
 
-    G[,current_start:current_end] = matrix(rbinom(block_size*N, 2, probs), ncol=block_size, nrow=N)
+    G[,current_start:current_end] = matrix(rbinom(block_size*N, 2, probs), ncol=block_size, nrow=N) # byrow = T  ????????
+
+    #jeg er ikke sikker, men jeg tror i skal have NULL her, ellers vil den måske prøve at returnere jeres genotypes.
+    NULL
 
   }, future.seed = TRUE) %>% do.call('cbind', .)
 
@@ -204,7 +223,7 @@ collapse_data = function(data, n_sib){
 
   return(out)
 
-}
+} #jeg gætter på, at denne funktion udregner jeres partials til hele liabs ?
 
 
 #' Simulate beta
@@ -246,24 +265,32 @@ liabilities_func_fam = function(G, MAF, beta, n_sib = 0, N=1e5, h_sq=0.5, block_
     l_g_0[index$start:index$end] = normalized_prod(G[index$start:index$end,], probs, beta_cut)
 
   }
+  # doubble tjek lige at det er korrekt, men umiddelbart vil jeg mene, at nedenstående er simplere, da vi ikke skal bruge så mange ekstra ting.
+  # lg = lapply(1:iterations, function(i) {
+  #   index = get_index(i, block_size)
+  #   probs = MAF[index$start:index$end]
+  #   beta_cut = beta[index$start:index$end]
+  #   l_g_0[index$start:index$end] = normalized_prod(G[index$start:index$end,], probs, beta_cut)
+  # }) %>% do.call("c", .)
 
   l_e_0 = rnorm(N, 0, sqrt(1-h_sq))
   l_e_p1 = rnorm(N, 0, sqrt(1-h_sq))
   l_e_p2 = rnorm(N, 0, sqrt(1-h_sq))
 
   l_e_out = tibble(l_g_0, l_e_0, l_e_p1, l_e_p2)
+  #jeg ville bare lave jeres tibble direkte, fx:
+  # l_e_out = tibble("child_gen"  = l_g_0,
+  #                  "child_full" = child_gen + rnorm(N, 0, sqrt(1-h_sq)),
+  #                  "p1_full"    = rnorm(N, 0, sqrt(1-h_sq)),
+  #                  "p2_full"    = rnorm(N, 0, sqrt(1-h_sq)))
 
 
-  if (n_sib != 0){
+  if (n_sib != 0) {
     col_names = get_names(c("l_e"), id=FALSE, parents = FALSE, n_sib)
     l_e_sibs = as_tibble(matrix(rnorm(N * n_sib, 0, sqrt(1-h_sq)), ncol = n_sib))
     colnames(l_e_sibs) = col_names
-
-
-
     return(bind_cols(l_e_out,l_e_sibs))
-  }
-  else{
+  } else {
     return(l_e_out)
   }
 }
@@ -290,7 +317,7 @@ liabilities_func_simple = function(G, MAF, beta, N=1e5, h_sq=0.5, block_size = 1
     l_g[current_start:current_end] = c(sweep(sweep(G[current_start:current_end,], FUN = '-', STATS=2*MAF, MARGIN = 2), FUN='/',
                                              STATS=sqrt(2*MAF*(1-MAF)), MARGIN = 2)  %*% beta)
 
-  }
+  } # jeg ville også ændre denne funktion til at være noget med %>% og også bruge jeres normaliserings funktion.
 
   l_e = rnorm(N, 0, sqrt(1-h_sq))
 
@@ -303,7 +330,7 @@ liabilities_func_simple = function(G, MAF, beta, N=1e5, h_sq=0.5, block_size = 1
 #' @param M Number of SNPs
 #' @return Vector containing minor allele frequencies
 #' @export
-MAF_func = function(M=1e5){
+MAF_func = function(M=1e5){ # det er måske ikke nødtvendigt med denne funktion..
   out = runif(M, 0.01, 0.49)
   return(out)
 }
@@ -327,15 +354,14 @@ gen_sim = function (filename, h_sq=0.5, fam = TRUE, n_sib = 0, C=1000, K=0.05, N
   MAF = MAF_func(M)
   beta = beta_func(C, h_sq, M)
 
-  if (fam == TRUE){
+  if (fam == TRUE){ #hvorfor spørge om en boolean variable er true eller false ?????? Er det ikke tilstrækkeligt bare at bruge en boolean ?? så if (fam)
     G_l = G_func_fam(filename, beta, MAF, fam, n_sib, N, M, block_size)
     G = G_l$G
     liabil = G_l$liabil
     l_g_e = liabilities_func(G, MAF, beta, n_sib, N, h_sq, block_size)
     order = get_names(c("l_g","l_e"), n_sib)
     out = bind_cols(liabil, l_g_e) %>% relocate(order)
-  }
-  else{
+  } else {
     G = G_func_simple(filename, MAF, b, N, M, block_size)
     out = liabilities_func_simple(G, MAF, beta, N, h_sq, block_size)
   }
@@ -347,7 +373,7 @@ gen_sim = function (filename, h_sq=0.5, fam = TRUE, n_sib = 0, C=1000, K=0.05, N
 
 
   #saving the bigsnp object
-  snp_save(obj.bigsnp)
+  snp_save(obj.bigsnp) # lav en funktion der gemmer noget dummy til jeres FBMs så snart i har lavet dem. ellers risikere i at miste dem, hvis der skulle ske en fejl
 
 }
 

@@ -46,12 +46,17 @@ LTFH <- function(covmat, phenos, N=10000, K = 0.05, s_val = 0, min_run=400, all_
 
   current_liabil = rep(s_val, k)
 
+  # det er muligvis en præference ting, men jeg er ikke så stor fan af at hardcode jeres burn-in på den her måde.
+  # jeg synes egentligt i skulle sætte den som argument i LTFH.
+  # i kunne faktisk også overveje bare at ændre navnet på denne funktion, da den, i al sin simpelhed, bare sampler
+  # fra en trunkeret flerdimensionel normal fordeling. Når i så estimere den genetiske liability osv,
+  # kan i kalde den funktion LTFH
   start_run = 500
   s = 0
   p = 0
 
   while(TRUE) {
-    p = p +1
+    p = p +1 # jeg er ikke lige helt med på formålet med p.
     for (i in 2:start_run) {
       s = s + 1
       for (j in 1:k) {
@@ -63,15 +68,14 @@ LTFH <- function(covmat, phenos, N=10000, K = 0.05, s_val = 0, min_run=400, all_
 
         if (j == 1) {
           current_liabil[j] = rnorm(1, mu, sqrt(sigma))
-        }
-        else {
+        } else { #jeg er ikke sikker på at den læser dette ordentligt, hvis } afslutter if uden else er efter.
           crit <- qnorm(1-K)
           crit_bound = pnorm(crit, mu, sqrt(sigma))
 
           interval_2 = c(0, crit_bound)
           interval_1 = c(crit_bound, 1)
 
-          phen = phenos[j-1]
+          phen = phenos[j-1] # i burde nok lave et tjek for at sikre jer, at denne værdi er en numerisk værdi og ikke en 1x1 matrix
           interval = phen * interval_1 + (1-phen)*interval_2
           U = runif(1,interval[1], interval[2])
           current_liabil[j] = qnorm(U, mu, sqrt(sigma))
@@ -84,9 +88,16 @@ LTFH <- function(covmat, phenos, N=10000, K = 0.05, s_val = 0, min_run=400, all_
       }
     }
 
+    # hvis jeg forstår dette korrekt, så kunne i nok have gjort det lettere for jer selv ved bare at få
+    # alle værdier gemt i liabil, og så bruge jeres start_run værdi til at fjerne det antal fra begyndelsen.
+    # med fx liabil[-(1:start_run),]
+
+
+
     if(s>(start_run+min_run)){
+      print(s)
       end_val = s-start_run
-      if(sd(liabil[1:end_val,1])/sqrt(length(liabil[1:end_val,1])) < 0.1){
+      if(sd(liabil[1:end_val,1])/sqrt(length(liabil[1:end_val,1])) < 0.1){ # fx sæt all(sapply(1:ncol(liabil), function(i) sd(liabil[,i])) / sqrt(end_val) < 0.01)
         if (all_est){
           return(liabil[1:end_val,])
         }
@@ -94,7 +105,16 @@ LTFH <- function(covmat, phenos, N=10000, K = 0.05, s_val = 0, min_run=400, all_
 
       }
     }
+    #i returnere alle indgange, men tjekker kun én. Det skal i passe lidt på med. I ved jo ikke om
+    #nogle af de andre indgange er meget ustabile stadigvæk.
 
   }
+  # post kig: nu er jeg mere med på hvad i laver. Jeg synes sådan set i har fat i den lange end, men jeg synes også, at i virker til at gøre det mere besværligt end det behøver at være.
+  # fx behøver i ikke tjekke om værdierne er efter burn-in, bare hav en burn-in periode, og så fjern dem senere (når i tjekke konvergens og returnere)
+  # I vil kunne lave et while loop på fx  all(sapply(1:ncol(liabil), function(i) sd(liabil[,i])) / sqrt(end_val) < 0.01),
+  # og så bare fylde op i en liste med nye batches. brug her do.call ind i bind_row eller lignende inden i tjekker værdierne. så skal i ikke på forhånd gøre jer nogen tanker om
+  # i ender ud over jeres predefineret dimensioner.
+  # at vokse en liste i et loop er ikke et problem på samme måde som at vokse en vektor eller matrix (da en masse kopiering sker internt i R her, men det sker ikke for lister)
 }
+
 
