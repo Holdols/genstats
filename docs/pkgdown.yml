@@ -1,9 +1,0 @@
-pandoc: 2.11.4
-pkgdown: 2.0.3
-pkgdown_sha: ~
-articles: {}
-last_built: 2022-05-10T19:39Z
-urls:
-  reference: https://holdols.github.io/genstats/reference
-  article: https://holdols.github.io/genstats/articles
-
