@@ -3,4 +3,10 @@ pkgdown: 2.0.3
 pkgdown_sha: ~
 articles: {}
 last_built: 2022-05-10T18:52Z
+reference:
+- title: "Sim"
+  desc: "Sim functions"
+  contents:
+  - has_concept('GenSim')
+
 

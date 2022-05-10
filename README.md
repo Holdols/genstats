@@ -1,2 +1,2 @@
 # genstats
- Analyse genetic data
+This R package is developed as a project for the course Dataproject. 
