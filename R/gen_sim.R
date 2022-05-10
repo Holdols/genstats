@@ -328,7 +328,7 @@ gen_sim = function (filename, h_sq=0.5, fam = TRUE, n_sib = 0, C=1000, K=0.05, N
   beta = beta_func(C, h_sq, M)
 
   if (fam == TRUE){
-    G_l = G_func_fam(filename, beta, MAF, fam, n_sib, N, M, block_size)
+    G_l = G_func_fam(filename, beta, MAF, n_sib, N, M, block_size)
     G = G_l$G
     liabil = G_l$liabil
     l_g_e = liabilities_func(G, MAF, beta, n_sib, N, h_sq, block_size)
@@ -350,7 +350,6 @@ gen_sim = function (filename, h_sq=0.5, fam = TRUE, n_sib = 0, C=1000, K=0.05, N
   snp_save(obj.bigsnp)
 
 }
-
 
 
 

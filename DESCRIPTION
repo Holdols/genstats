@@ -14,5 +14,6 @@ Imports:
     bigsnpr,
     bigstatsr,
     dplyr,
-    ggplot2
+    ggplot2,
+    future.apply
     
