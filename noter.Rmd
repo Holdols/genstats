@@ -1,0 +1,44 @@
+---
+title: "noter"
+author: "Emil M. Pedersen"
+date: '2022-05-10'
+output: html_document
+---
+
+description:
+i mangler at ændre en del ting, fx titlen, description, author info osv.. Denne fil skal ses som en whos-who for pakken, og hvem man skal kontakte, hvis noget er galt, hvad pakken kan bruges til osv.
+
+readme: Husk, at de første man ser på github, er indholdet i jeres readme. Den kan i bruge til at give et godt førstehåndsindtryk til de besøgende. Her kan i også indsætte et link til jeres pkgdown side og lignende.
+
+Dokumentation:
+Jeg tror ikke helt, at jeg er med på hvorfor i bruger @nord på nogle af jeres funktioner. I exporterer dem ikke, men derfor man kan jo stadig godt have brug for dokumentation for dem (og i laver alligevel allerede dokumentationen). I kan godt spille afsted med at lave en mindre detaljeret dokumentation til en intern funktion, men dokumentation skal der bare være.
+
+I skal være opmærksomme på, at i også skal fortælle hvilket type objekt i forventer i jeres funktioner. fx, skal det være en matrix? vektor? tibble?. Lav også gerne nogle tjek på disse ting. Er h2 fx under 0.0 ?
+
+
+
+
+
+```{r}
+#jeg brugte nedenstående til at få alle kombinationer af configs.
+all_configs = expand.grid(lapply(1:4, function(i) c(0,1))) %>% as.matrix()
+colnames(all_configs) = c("child", "p1", "p2", "s1")
+phenos = all_configs[10,]
+
+#across eksempel.
+liabilities = mvtnorm::rmvnorm(n = 1000, mean = rep(0, k), sigma = covmat)
+colnames(liabilities) = c("child_gen", paste0(c("child", "p1", "p2", "s1"), "_full"))
+T_ = qnorm(1-0.05)
+as_tibble(liabilities) %>% mutate(across(.cols = contains("full"),
+                           .fns = ~ .x > T_, 
+                           .names = "{stringr::str_replace(.col, 'full','status')}"))
+                           
+                           
+
+```
+
+
+# R CMD CHECK
+
+I har mulighed for at bygge jeres pakke under build tappen med ét klik. I samme tap har i mulighed for at lave et check. Det check undersøger jeres pakke for en masse almindelige fejl. kort sagt, så skal i køre det tjek, og sørge for at den ikke returnere nogle errors, warnings, og helst heller ingen notes.
+Det er bare at google fejlene som de kommer. Hvis i har nogle fejl i ikke forstår, så skriver i bare.

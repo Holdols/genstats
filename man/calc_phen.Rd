@@ -2,7 +2,7 @@
 % Please edit documentation in R/calculate_pheno_liabil.R
 \name{calc_phen}
 \alias{calc_phen}
-\title{Calculate phentypes from from envirromental and genetic liabilities}
+\title{Calculate phentypes from from environmental and genetic liabilities}
 \usage{
 calc_phen(liabilities, K = 0.05, n_sib = 0)
 }
@@ -17,5 +17,5 @@ calc_phen(liabilities, K = 0.05, n_sib = 0)
 Matrix containing phenotypes for each subject
 }
 \description{
-Calculate phentypes from from envirromental and genetic liabilities
+Calculate phentypes from from environmental and genetic liabilities
 }

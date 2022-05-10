@@ -38,7 +38,8 @@ estimate_conf = function(unique_comb, K=0.5, h2=0.5, n_sib=0){
 #' @export
 estimate_liabilities = function(pheno, K=0.05, n_sib=0, h2=0.5){
 
-  unique_comb = unique(pheno)
+  unique_comb = unique(pheno) # hvad for et objekt er pheno? hvad for nogle søjler osv har den?
+  # måske i kunne nøjes med at lave distinct() på relevante søjler, hvis den er en tibble eller data.frame, for at få alle kombinationerne i pheno
   estimated_liabil = estimate_conf(unique_comb, K, n_sib, h2)
   key = get_names(c("phen"),n_sib)
   full_data = left_join(as_tibble(pheno),as_tibble(estimated_liabil),by=key)

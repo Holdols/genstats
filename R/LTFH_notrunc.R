@@ -57,3 +57,8 @@ LTFH_notrunc <- function(covmat, N=3000, K = 0.05, s_val = 0){
 
   return(list('liabilities'=liabil, 'mu'=mu_vec))
 }
+
+# jeg vil egentligt sige at i bare skal lave én funktion, som laver Gibbs sampling fra en (trunkeret) multivariate normal fordeling. Hvis i ikke angiver nogen øvre og nedre grænse,
+# så er det bare en flerdimensionel normalfordeling med passende middelværdi og kovarians, og ellers er den trunkeret.
+# det vil betyde, at i kan fjerne en af disse funktioner, og i kan bruge LTFH navnet til en funktion, som bruger jeres gibbs sampler. Så er der mere overensstemmelse mellem funktion navn
+# og hvad den gør.
