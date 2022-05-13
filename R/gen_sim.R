@@ -5,7 +5,6 @@
 #' @param probs Probabilities of mutaion
 #' @param beta_cut Causal SNPs
 #' @return Normalized values
-#' @concept GenSim
 #' @noRd
 normalized_prod = function(Gx, beta_cut, probs){
   out = c(sweep(sweep(Gx[,], FUN = '-', STATS=2*probs, MARGIN = 2), FUN='/', STATS=sqrt(2*probs*(1-probs)), MARGIN = 2)  %*% beta_cut)

@@ -1,4 +1,9 @@
 url: https://github.com/Holdols/genstats
 template:
   bootstrap: 5
-
+reference:
+- title: "Generate simulated subjects"
+  desc: Generate simulated subjects
+  contents:
+  - gen_sim
+- title: "LT-FH"
