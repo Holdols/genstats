@@ -18,6 +18,39 @@ calc_distribution = function(sigma){
   }
   return(out)
 }
+
+
+
+
+
+no_trunc_estimate = function(mu, sigma){ return(rnorm(1, mu, sqrt(sigma))) }
+
+
+
+
+
+
+trunc_estimate = function(j, phenos, K=0.05, mu, sigma){
+  if (j == 1) {return(rnorm(1, mu, sqrt(sigma)))
+  }
+  else {
+    if (phenos[j-1] == 'numeric') {phen = phenos[j-1]} else {phen = phenos[j-1][1]}
+
+    crit_bound = pnorm(qnorm(1-K), mu, sqrt(sigma))
+    interval = phen * c(crit_bound, 1) + (1-phen)*c(0, crit_bound)
+
+    U = runif(1,interval[1], interval[2])
+    return(qnorm(U, mu, sqrt(sigma)))
+  }
+}
+
+
+
+
+
+
+
+
 #' Create LTFH estimations for a configuration.
 #'
 #' @param covmat The covariance matrix
@@ -54,19 +87,10 @@ gibbs_sampl <- function(covmat, phenos, K = 0.05, s_val = 0, start_run=500, all_
         mu_mult_ = const_list[[j]]$mu_mult
         mu = mu_mult_ %*% current_liabil[-j] # Udelukker den liability vi er kommet til
 
+        if (K == FALSE) {current_liabil[j] = no_trunc_estimate(mu, sigma)
+        } else {current_liabil[j] = trunc_estimate(j, phenos, K, mu, sigma)}
 
-        if (j == 1) {
-          current_liabil[j] = rnorm(1, mu, sqrt(sigma))
-        }
-        else {
-          if (phenos[j-1] == 'numeric') {phen = phenos[j-1]} else {phen = phenos[j-1][1]}
-          crit_bound = pnorm(qnorm(1-K), mu, sqrt(sigma))
-          interval = phen * c(crit_bound, 1) + (1-phen)*c(0, crit_bound)
 
-          U = runif(1,interval[1], interval[2])
-          current_liabil[j] = qnorm(U, mu, sqrt(sigma))
-        }
-      }
       liabil_list[[length(liabil_list)+1]] = current_liabil
       total_runs = total_runs + 1
     }
@@ -76,6 +100,7 @@ gibbs_sampl <- function(covmat, phenos, K = 0.05, s_val = 0, start_run=500, all_
     return(liabil[-(1:(start_run+1)),])
   }
   return(colMeans(liabil[-(1:(start_run+1)),]))
+  }
 }
 
 

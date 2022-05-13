@@ -6,8 +6,8 @@
 #' @param beta_cut Causal SNPs
 #' @return Normalized values
 #' @noRd
-normalized_prod = function(Gx, beta_cut, probs){
-  out = c(sweep(sweep(Gx[,], FUN = '-', STATS=2*probs, MARGIN = 2), FUN='/', STATS=sqrt(2*probs*(1-probs)), MARGIN = 2)  %*% beta_cut)
+normalized_prod = function(Gx, beta, MAF){
+  out = c(sweep(sweep(Gx[,], FUN = '-', STATS=2*MAF, MARGIN = 2), FUN='/', STATS=sqrt(2*MAF*(1-MAF)), MARGIN = 2)  %*% beta)
   return(out)
 }
 
@@ -37,11 +37,11 @@ get_index = function(i, block_size){
 get_member = function(i, beta, MAF, N=1e5, block_size=1000){
 
   index = get_index(i, block_size)
-  probs = MAF[index$start:index$end]
+  MAF_cut = MAF[index$start:index$end]
   beta_cut = beta[index$start:index$end]
 
-  Gx = matrix(rbinom(block_size*N, 2, probs), ncol=block_size, nrow=N, byrow = T)
-  l_g_x = normalized_prod(Gx, beta_cut, probs)
+  Gx = matrix(rbinom(block_size*N, 2, MAF_cut), ncol=block_size, nrow=N, byrow = T)
+  l_g_x = normalized_prod(Gx, beta_cut, MAF_cut)
 
   return(list('Gx'=Gx, 'l_g_x'=l_g_x))
 }
@@ -129,8 +129,6 @@ G_func_fam = function(filename, beta, MAF, n_sib = 0, N=1e5, M=1e5, block_size=1
                   backingfile = filename)
 
 
-  l_g_p1 = rep(0, M)
-  l_g_p2 = rep(0, M)
 
   iterations = M/block_size
 
@@ -167,13 +165,14 @@ G_func_simple = function(filename, MAF, N=1e5, M=1e5, block_size=1000){
 
 
   iterations = M/block_size
-  future_lapply(1:iterations, function(i){
-    current_start = (i-1) * block_size + 1
-    current_end = current_start + block_size - 1
+  null_catcher = future_lapply(1:iterations, function(i){
+    index = get_index(i, block_size)
 
-    probs = MAF[current_start:current_end]
+    MAF_cut = MAF[current_start:current_end]
 
-    G[,current_start:current_end] = matrix(rbinom(block_size*N, 2, probs), ncol=block_size, nrow=N)
+    G[,current_start:current_end] = matrix(rbinom(block_size*N, 2, MAF_cut), ncol=block_size, nrow=N)
+
+    NULL
 
   }, future.seed = TRUE) %>% do.call('cbind', .)
 
@@ -236,22 +235,22 @@ beta_func = function(C=1000, h_sq=0.5, M=1e5){
 #'
 #' @export
 liabilities_func_fam = function(G, MAF, beta, n_sib = 0, N=1e5, h_sq=0.5, block_size = 1000){
-  l_g_0 = rep(0, N)
-  iterations = N/block_size
 
-  for (i in 1:iterations){
+  l_g_0 = lapply(1:N/block_size, function(i) {
     index = get_index(i, block_size)
-    probs = MAF[index$start:index$end]
-    beta_cut = beta[index$start:index$end]
-    l_g_0[index$start:index$end] = normalized_prod(G[index$start:index$end,], probs, beta_cut)
+    normalized_prod(G[index$start:index$end,],beta, MAF)
+     }) %>% do.call("c", .)
 
-  }
 
-  l_e_0 = rnorm(N, 0, sqrt(1-h_sq))
   l_e_p1 = rnorm(N, 0, sqrt(1-h_sq))
   l_e_p2 = rnorm(N, 0, sqrt(1-h_sq))
 
-  l_e_out = tibble(l_g_0, l_e_0, l_e_p1, l_e_p2)
+
+
+  l_e_out = tibble("l_g_0"  = l_g_0,
+                   "l_0" = child_gen + rnorm(N, 0, sqrt(1-h_sq)),
+                   "p1_full"    = rnorm(N, 0, sqrt(1-h_sq)), # atention!
+                   "p2_full"    = rnorm(N, 0, sqrt(1-h_sq))) # atention!
 
 
   if (n_sib != 0){
@@ -278,23 +277,17 @@ liabilities_func_fam = function(G, MAF, beta, n_sib = 0, N=1e5, h_sq=0.5, block_
 #' @param h_sq heritability
 #' @param block_size the size of each iteration
 #' @return A tibble containing genetic and enviromental liability for each subject
-#'
 #' @export
 liabilities_func_simple = function(G, MAF, beta, N=1e5, h_sq=0.5, block_size = 1000){
-  l_g = rep(0, N)
-  iterations = N/block_size
 
-  for (i in 1:iterations){
-    current_start = (i-1) * block_size + 1
-    current_end = current_start + block_size - 1
-    l_g[current_start:current_end] = c(sweep(sweep(G[current_start:current_end,], FUN = '-', STATS=2*MAF, MARGIN = 2), FUN='/',
-                                             STATS=sqrt(2*MAF*(1-MAF)), MARGIN = 2)  %*% beta)
-
-  }
+  l_g_0 = lapply(1:N/block_size, function(i) {
+    index = get_index(i, block_size)
+    normalized_prod(G[index$start:index$end,],beta, MAF)
+  }) %>% do.call("c", .)
 
   l_e = rnorm(N, 0, sqrt(1-h_sq))
 
-  return(tibble(l_g, l_e))
+  return(tibble(l_g, l_g+l_e))
 }
 
 
@@ -327,7 +320,7 @@ gen_sim = function (filename, h_sq=0.5, fam = TRUE, n_sib = 0, C=1000, K=0.05, N
   MAF = MAF_func(M)
   beta = beta_func(C, h_sq, M)
 
-  if (fam == TRUE){
+  if (fam){
     G_l = G_func_fam(filename, beta, MAF, n_sib, N, M, block_size)
     G = G_l$G
     liabil = G_l$liabil
@@ -350,6 +343,5 @@ gen_sim = function (filename, h_sq=0.5, fam = TRUE, n_sib = 0, C=1000, K=0.05, N
   snp_save(obj.bigsnp)
 
 }
-
 
 
