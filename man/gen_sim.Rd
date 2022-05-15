@@ -6,30 +6,30 @@
 \usage{
 gen_sim(
   filename,
-  h_sq = 0.5,
-  fam = TRUE,
-  n_sib = 0,
-  C = 1000,
-  K = 0.05,
   N = 1e+05,
   M = 1e+05,
-  block_size = 1000
+  n_sib = 0,
+  K = 0.05,
+  h_sq = 0.5,
+  C = 1000,
+  block_size = 1000,
+  fam = TRUE
 )
 }
 \arguments{
 \item{filename}{Filename for fbm}
 
-\item{fam}{Boolean deciding if simulation should include family structure}
-
-\item{C}{Amount of causal SNP's}
-
-\item{K}{The prevalance of trait}
-
 \item{N}{number of subjects}
 
 \item{M}{Number of SNPs}
 
+\item{K}{The prevalance of trait}
+
+\item{C}{Amount of causal SNP's}
+
 \item{block_size}{Size of fbm to be processed}
+
+\item{fam}{Boolean deciding if simulation should include family structure}
 
 \item{h2}{The heritability}
 

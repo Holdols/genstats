@@ -22,14 +22,25 @@ calc_distribution = function(sigma){
 
 
 
-
+#' Returns random value from normal distribution.
+#'
+#' @param mu The mean
+#' @param sigma The variance
+#' @return Value
 no_trunc_estimate = function(mu, sigma){ return(rnorm(1, mu, sqrt(sigma))) }
 
 
 
 
 
-
+#' Returns truncated random value from normal distribution.
+#'
+#' @param j Index for familymember
+#' @param phenos Phenotypes for which estimates of liabilities is wanted
+#' @param K The prevalance of trait
+#' @param mu The mean
+#' @param sigma The variance
+#' @return Value
 trunc_estimate = function(j, phenos, K=0.05, mu, sigma){
   if (j == 1) {return(rnorm(1, mu, sqrt(sigma)))
   }

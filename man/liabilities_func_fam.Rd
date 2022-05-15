@@ -8,8 +8,10 @@ liabilities_func_fam(
   G,
   MAF,
   beta,
+  liab,
   n_sib = 0,
   N = 1e+05,
+  K = 0.05,
   h_sq = 0.5,
   block_size = 1000
 )

@@ -4,12 +4,12 @@
 \alias{beta_func}
 \title{Simulate beta}
 \usage{
-beta_func(C = 1000, h_sq = 0.5, M = 1e+05)
+beta_func(M = 1e+05, h_sq = 0.5, C = 1000)
 }
 \arguments{
-\item{C}{Amount of causal SNPs}
-
 \item{M}{size of the beta vector}
+
+\item{C}{Amount of causal SNPs}
 
 \item{h2}{The heritability}
 }

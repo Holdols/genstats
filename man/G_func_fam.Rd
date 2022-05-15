@@ -8,9 +8,9 @@ G_func_fam(
   filename,
   beta,
   MAF,
-  n_sib = 0,
   N = 1e+05,
   M = 1e+05,
+  n_sib = 0,
   block_size = 1000
 )
 }

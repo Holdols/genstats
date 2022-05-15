@@ -4,7 +4,15 @@
 \alias{liabilities_func_simple}
 \title{Calculate genetic liabilities and simulate enviromental liabilities for subject}
 \usage{
-liabilities_func_simple(G, MAF, beta, N = 1e+05, h_sq = 0.5, block_size = 1000)
+liabilities_func_simple(
+  G,
+  MAF,
+  beta,
+  N = 1e+05,
+  K = 0.05,
+  h_sq = 0.5,
+  block_size = 1000
+)
 }
 \arguments{
 \item{G}{A FBM containing SNP data}
