@@ -21,13 +21,13 @@ G_func_fam(
 
 \item{MAF}{Probabilities of mutaion}
 
-\item{N}{Number of subjects}
+\item{N}{Amount of individuals}
 
-\item{M}{Number of SNPs}
+\item{M}{Amount of SNPs}
 
 \item{block_size}{Size of fbm to be processed}
 
-\item{n_sibs}{Number of siblings}
+\item{n_sibs}{Amount of siblings}
 }
 \value{
 Simulated SNPs for all subjects and family's liabilities

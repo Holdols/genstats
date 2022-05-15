@@ -9,6 +9,8 @@ sim_fam(i, G, beta, MAF, N = 1e+05, n_sib = 0, block_size = 1000)
 \arguments{
 \item{i}{Iteration from for loop}
 
+\item{G}{Empty fbm}
+
 \item{beta}{Causal snps}
 
 \item{MAF}{a vector containing minor allele frequencies}

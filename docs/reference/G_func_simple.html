@@ -6,7 +6,7 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
+    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">genstats</a>
 
@@ -24,7 +24,13 @@
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
-      <ul class="navbar-nav"></ul></div>
+      <ul class="navbar-nav"><li class="nav-item">
+  <a class="nav-link" href="https://github.com/Holdols/genstats" aria-label="Github">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul></div>
 
     
   </div>
@@ -50,13 +56,13 @@
     <dl><dt>filename</dt>
 <dd><p>Filename for fbm</p></dd>
 <dt>MAF</dt>
-<dd><p>Probabilities of mutaion</p></dd>
+<dd><p>A vector containing minor allele frequencies</p></dd>
 <dt>N</dt>
-<dd><p>number of subjects</p></dd>
+<dd><p>Amount of individuals</p></dd>
 <dt>block_size</dt>
 <dd><p>Size of fbm to be processed</p></dd>
-<dt>n_sibs</dt>
-<dd><p>Number of siblings</p></dd>
+<dt>n_sib</dt>
+<dd><p>Amount of siblings</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -68,7 +74,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by First Last.</p>
+  <p></p><p>Developed by Louise Mølgaard Laustsen, Ole Sahlholdt Hansen.</p>
 </div>
 
 <div class="pkgdown-footer-right">

@@ -4,16 +4,16 @@
 \alias{estimate_conf}
 \title{Estimates liabilities for every configuration in data}
 \usage{
-estimate_conf(unique_comb, K = 0.5, h2 = 0.5, n_sib = 0)
+estimate_conf(unique_comb, n_sib = 0, K = 0.5, h2 = 0.5)
 }
 \arguments{
 \item{unique_comb}{Combinations to estimate}
 
+\item{n_sib}{Amount of siblings}
+
 \item{K}{The prevalance of trait}
 
 \item{h2}{The heritability}
-
-\item{n_sib}{Amount of siblings}
 }
 \value{
 Tibble with estimated liabilities

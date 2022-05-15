@@ -64,6 +64,7 @@ get_member = function(i, beta, MAF, N=1e5, block_size=1000){
 #'  Simulate block of snps for whole family
 #'
 #' @param i Iteration from for loop
+#' @param G Empty fbm
 #' @param beta Causal snps
 #' @param MAF a vector containing minor allele frequencies
 #' @param n_sibs Number of siblings
@@ -131,9 +132,9 @@ collapse_data = function(data, n_sib){
 #' @param filename Filename for fbm
 #' @param beta Causal snps
 #' @param MAF Probabilities of mutaion
-#' @param n_sibs Number of siblings
-#' @param N Number of subjects
-#' @param M Number of SNPs
+#' @param n_sibs Amount of siblings
+#' @param N Amount of individuals
+#' @param M Amount of SNPs
 #' @param block_size Size of fbm to be processed
 #' @return Simulated SNPs for all subjects and family's liabilities
 #' @importFrom magrittr "%>%"
@@ -160,9 +161,9 @@ G_func_fam = function(filename, beta, MAF, N=1e5, M=1e5, n_sib = 0, block_size=1
 #'  Simulate SNP for all subjects
 #'
 #' @param filename Filename for fbm
-#' @param MAF Probabilities of mutaion
-#' @param n_sibs Number of siblings
-#' @param N number of subjects
+#' @param MAF A vector containing minor allele frequencies
+#' @param n_sib Amount of siblings
+#' @param N Amount of individuals
 #' @param block_size Size of fbm to be processed
 #' @return Simulated SNPs for all subjects
 #' @importFrom magrittr "%>%"
@@ -192,8 +193,9 @@ G_func_simple = function(filename, MAF, N=1e5, M=1e5, block_size=1000){
 #' Calculate genetic liabilities and simulate enviromental liabilities for subject and family
 #'
 #' @param G A FBM containing SNP data
-#' @param MAF a vector containing minor allele frequencies
-#' @param beta Causal snps
+#' @param beta A vector containing the casual SNPs
+#' @param MAF A vector containing minor allele frequencies
+#' @param liab A tibble containing genetic liabilities for each family member
 #' @param n_sib Amount of siblings
 #' @param N Amount of individuals
 #' @param h_sq heritability
@@ -240,8 +242,8 @@ liabilities_func_fam = function(G, beta, MAF, liab, N=1e5, n_sib = 0, K=0.05, h_
 #' Calculate genetic liabilities and simulate enviromental liabilities for subject
 #'
 #' @param G A FBM containing SNP data
-#' @param MAF a vector containing minor allele frequencies
-#' @param beta Causal snps
+#' @param MAF A vector containing minor allele frequencies
+#' @param beta a vector containing the casual SNPs
 #' @param N Amount of individuals
 #' @param h_sq heritability
 #' @param block_size the size of each iteration

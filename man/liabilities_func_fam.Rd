@@ -19,9 +19,11 @@ liabilities_func_fam(
 \arguments{
 \item{G}{A FBM containing SNP data}
 
-\item{beta}{Causal snps}
+\item{beta}{A vector containing the casual SNPs}
 
-\item{MAF}{a vector containing minor allele frequencies}
+\item{MAF}{A vector containing minor allele frequencies}
+
+\item{liab}{A tibble containing genetic liabilities for each family member}
 
 \item{N}{Amount of individuals}
 

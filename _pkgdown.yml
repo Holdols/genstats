@@ -1,9 +1,33 @@
 url: https://github.com/Holdols/genstats
 template:
   bootstrap: 5
+  bootswatch: sandstone
+
+navbar:
+  structure:
+    right: [github]
+  components:
+    github:
+      icon: fa-github
+      href: https://github.com/Holdols/genstats
+      aria-label: Github
+
 reference:
 - title: "Generate simulated subjects"
-  desc: Generate simulated subjects
+  desc: Functions used to generate a fbm of simulated subjects
   contents:
   - gen_sim
 - title: "LT-FH"
+  desc: Functions used to perform LT-FH on genetic data
+  contents:
+  - get_cov
+  - gibbs_sampl
+  - LTFH
+- title: "Data visulisation"
+  desc: Functions to visualise methods and results
+  contents:
+  - control_plot
+- title: "Controls for distributions sampled from"
+  desc: Functions which can be used to check if result follow the expected
+  contents:
+  - dist_check

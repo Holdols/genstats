@@ -13,7 +13,16 @@
     <loc>https://github.com/Holdols/genstats/LICENSE-text.html</loc>
   </url>
   <url>
+    <loc>https://github.com/Holdols/genstats/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/Holdols/genstats/reference/assign_snp.html</loc>
+  </url>
+  <url>
     <loc>https://github.com/Holdols/genstats/reference/beta_func.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/Holdols/genstats/reference/calc_distribution.html</loc>
   </url>
   <url>
     <loc>https://github.com/Holdols/genstats/reference/calc_full_liabil.html</loc>
@@ -22,10 +31,16 @@
     <loc>https://github.com/Holdols/genstats/reference/calc_phen.html</loc>
   </url>
   <url>
+    <loc>https://github.com/Holdols/genstats/reference/collapse_data.html</loc>
+  </url>
+  <url>
     <loc>https://github.com/Holdols/genstats/reference/control_plot.html</loc>
   </url>
   <url>
     <loc>https://github.com/Holdols/genstats/reference/dist_check.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/Holdols/genstats/reference/estimate_conf.html</loc>
   </url>
   <url>
     <loc>https://github.com/Holdols/genstats/reference/estimate_liabilities.html</loc>
@@ -40,7 +55,16 @@
     <loc>https://github.com/Holdols/genstats/reference/get_cov.html</loc>
   </url>
   <url>
+    <loc>https://github.com/Holdols/genstats/reference/get_index.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/Holdols/genstats/reference/get_member.html</loc>
+  </url>
+  <url>
     <loc>https://github.com/Holdols/genstats/reference/get_names.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/Holdols/genstats/reference/gibbs_sampl.html</loc>
   </url>
   <url>
     <loc>https://github.com/Holdols/genstats/reference/GWAS.html</loc>
@@ -68,6 +92,21 @@
   </url>
   <url>
     <loc>https://github.com/Holdols/genstats/reference/MAF_func.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/Holdols/genstats/reference/normalized_prod.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/Holdols/genstats/reference/no_trunc_estimate.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/Holdols/genstats/reference/pipe.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/Holdols/genstats/reference/sim_fam.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/Holdols/genstats/reference/trunc_estimate.html</loc>
   </url>
   <url>
     <loc>https://github.com/Holdols/genstats/reference/y_func.html</loc>

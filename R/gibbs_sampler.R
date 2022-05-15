@@ -8,7 +8,6 @@
 #' @param sigma The covariance matrix
 #' @return a list containing sigma_bar and mu_mult for each liability
 #' @examples calc_distribution(get_cov(0.5))
-#' @noRd
 calc_distribution = function(sigma){
   out = list()
   for (i in 1:nrow(sigma)){

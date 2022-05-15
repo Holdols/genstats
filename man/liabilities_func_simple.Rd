@@ -17,9 +17,9 @@ liabilities_func_simple(
 \arguments{
 \item{G}{A FBM containing SNP data}
 
-\item{beta}{Causal snps}
+\item{beta}{a vector containing the casual SNPs}
 
-\item{MAF}{a vector containing minor allele frequencies}
+\item{MAF}{A vector containing minor allele frequencies}
 
 \item{N}{Amount of individuals}
 

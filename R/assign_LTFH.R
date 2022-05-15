@@ -3,8 +3,8 @@
 #' Estimates liabilities for every configuration in data
 #'
 #' @param unique_comb Combinations to estimate
-#' @param K The prevalance of trait
 #' @param n_sib Amount of siblings
+#' @param K The prevalance of trait
 #' @param h2 The heritability
 #' @return Tibble with estimated liabilities
 #' @importFrom magrittr "%>%"
@@ -28,8 +28,8 @@ estimate_conf = function(unique_comb, n_sib=0, K=0.5, h2=0.5){
 #' Estimates liabilities for every subject
 #'
 #' @param pheno Phenotypes
-#' @param K The prevalance of trait
 #' @param n_sib Amount of siblings
+#' @param K The prevalance of trait
 #' @param h2 The heritability
 #' @return Estimated liabilities
 #' @importFrom magrittr "%>%"
