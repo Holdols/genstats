@@ -23,6 +23,21 @@ get_index = function(i, block_size){
 }
 
 
+
+#'  Assign snp for the subject
+#'
+#' @param G1 SNPs for parent1
+#' @param G2 SNPs for parent2
+#' @param N Number of subjects
+#' @param block_size Size of fbm to be processed
+#' @return Block of simulated SNPs
+assign_snp = function(G1, G2, N=1e5, block_size=1000){
+  k = matrix(rnorm(block_size*N, 0, 0.0000001), ncol=block_size, nrow=N, byrow = T)
+  G_input = round((G1 + G2)/2 - k)
+  return(G_input)
+}
+
+
 #'  Simulate block of snps for each family member
 #'
 #' @param i Iteration from for loop
@@ -45,20 +60,6 @@ get_member = function(i, beta, MAF, N=1e5, block_size=1000){
 }
 
 
-#'  Assign snp for the subject
-#'
-#' @param G1 SNPs for parent1
-#' @param G2 SNPs for parent2
-#' @param N Number of subjects
-#' @param block_size Size of fbm to be processed
-#' @return Block of simulated SNPs
-assign_snp = function(G1, G2, N=1e5, block_size=1000){
-  k = matrix(rnorm(block_size*N, 0, 0.0000001), ncol=block_size, nrow=N, byrow = T)
-  G_input = round((G1 + G2)/2 - k)
-  return(G_input)
-}
-
-
 
 #'  Simulate block of snps for whole family
 #'
@@ -69,6 +70,7 @@ assign_snp = function(G1, G2, N=1e5, block_size=1000){
 #' @param N Number of subjects
 #' @param block_size Size of fbm to be processed
 #' @return Block of simulated SNPs for subject and family's liabilities
+#' @importFrom magrittr "%>%"
 sim_fam = function(i, G, beta, MAF, N=1e5, n_sib = 0, block_size=1000){
 
   p1 = get_member(i, beta, MAF, N, block_size)
@@ -77,23 +79,49 @@ sim_fam = function(i, G, beta, MAF, N=1e5, n_sib = 0, block_size=1000){
   index = get_index(i, block_size)
   G[,index$start:index$end] = assign_snp(p1$Gx, p2$Gx, N, block_size)
 
-  fam_tibble = tibble('l_g_partial_p1'=p1$l_g_x, 'l_g_partial_p2'=p2$l_g_x)
+  fam_tibble = dplyr::tibble('l_g_partial_p1'=p1$l_g_x, 'l_g_partial_p2'=p2$l_g_x)
 
   if (n_sib >0) {
     s_tibble = lapply(1:n_sib, function(j){
-      Gs = assign_snp(G1, G2, N, block_size)
+      Gs = assign_snp(p1$Gx, p2$Gx, N, block_size)
       probs = MAF[index$start:index$end]
       beta_cut = beta[index$start:index$end]
       normalized_prod(Gs, beta_cut, probs)
       }) %>% do.call("cbind", .)
 
     colnames(s_tibble) = get_names(c("l_g_partial"), id=FALSE, parents = FALSE, n_sib)
-    fam_tibble = bind_cols(fam_tibble, s_tibble)
+    fam_tibble = dplyr::bind_cols(fam_tibble, s_tibble)
   }
 
   return(fam_tibble)
 
 }
+
+
+
+#'  Calculates the sum of colunms in a tibble for each person and value
+#'
+#' @param data Tibble with colunms to sum over,
+#' @param n_sibs Number of siblings
+#' @return Collapsed tibble
+#' @importFrom magrittr "%>%"
+collapse_data = function(data, n_sib){
+  search = get_names("", id=FALSE, n_sib)
+
+  iterations = length(search)
+
+  out = lapply(1:iterations, function(i) {
+    new_col = rowSums(dplyr::select(data, dplyr::contains(search[i])))
+    return(new_col)
+
+  }) %>% dplyr::bind_cols(.)
+
+  colnames(out) = get_names("l_g", id=FALSE, n_sib)
+
+  return(out)
+
+}
+
 
 
 
@@ -108,6 +136,7 @@ sim_fam = function(i, G, beta, MAF, N=1e5, n_sib = 0, block_size=1000){
 #' @param M Number of SNPs
 #' @param block_size Size of fbm to be processed
 #' @return Simulated SNPs for all subjects and family's liabilities
+#' @importFrom magrittr "%>%"
 #' @export
 G_func_fam = function(filename, beta, MAF, N=1e5, M=1e5, n_sib = 0, block_size=1000){
   G = bigstatsr::FBM.code256(nrow = N,
@@ -119,12 +148,13 @@ G_func_fam = function(filename, beta, MAF, N=1e5, M=1e5, n_sib = 0, block_size=1
     fam_tibble = sim_fam(i, G, beta, MAF, N, n_sib, block_size)
     return(fam_tibble)
   },future.seed = TRUE) %>%
-    do.call(bind_cols, .) %>%
+    dplyr::bind_cols(.) %>%
     collapse_data(., n_sib)
 
 
   return(list("G"=G, "liabil"=liabil))
 }
+
 
 
 #'  Simulate SNP for all subjects
@@ -135,6 +165,7 @@ G_func_fam = function(filename, beta, MAF, N=1e5, M=1e5, n_sib = 0, block_size=1
 #' @param N number of subjects
 #' @param block_size Size of fbm to be processed
 #' @return Simulated SNPs for all subjects
+#' @importFrom magrittr "%>%"
 #' @export
 G_func_simple = function(filename, MAF, N=1e5, M=1e5, block_size=1000){
   G = bigstatsr::FBM.code256(nrow = N,
@@ -147,9 +178,9 @@ G_func_simple = function(filename, MAF, N=1e5, M=1e5, block_size=1000){
   null_catcher = future.apply::future_lapply(1:iterations, function(i){
     index = get_index(i, block_size)
 
-    MAF_cut = MAF[current_start:current_end]
+    MAF_cut = MAF[index$start:index$end]
 
-    G[,current_start:current_end] = matrix(rbinom(block_size*N, 2, MAF_cut), ncol=block_size, nrow=N)
+    G[,index$start:index$end] = matrix(rbinom(block_size*N, 2, MAF_cut), ncol=block_size, nrow=N)
 
     NULL
 
@@ -157,47 +188,6 @@ G_func_simple = function(filename, MAF, N=1e5, M=1e5, block_size=1000){
 
   return(G)
 }
-
-
-#'  Calculates the sum of colunms in a tibble for each person and value
-#'
-#' @param data Tibble with colunms to sum over,
-#' @param n_sibs Number of siblings
-#' @return Collapsed tibble
-collapse_data = function(data, n_sib){
-  search = get_names("", id=FALSE, n_sib)
-  expect_names = get_names("l_g", id=FALSE, n_sib)
-
-  iterations = length(search)
-
-  out = lapply(1:iterations, function(i) {
-    new_col = rowSums(select(data, contains(search[i])))
-    return(new_col)
-
-  }) %>% do.call(bind_cols, .)
-
-  colnames(out) = expect_names
-
-  return(out)
-
-}
-
-
-#' Simulate beta
-#'
-#' @param C Amount of causal SNPs
-#' @param h2 The heritability
-#' @param M size of the beta vector
-#' @return A vector of size m containing a value from rnorm(1, 0, sqrt(h_sq/C)) \cr
-#' a C random places.
-#' @export
-beta_func = function(M=1e5, h_sq=0.5, C=1000){
-  beta = rep(0, M)
-  beta[sample(M,C)] = rnorm(C, 0, sqrt(h_sq/C))
-  return (beta)
-}
-
-
 
 #' Calculate genetic liabilities and simulate enviromental liabilities for subject and family
 #'
@@ -209,37 +199,38 @@ beta_func = function(M=1e5, h_sq=0.5, C=1000){
 #' @param h_sq heritability
 #' @param block_size the size of each iteration
 #' @return A tibble containing genetic and enviromental liability for each family member
+#' @importFrom magrittr "%>%"
 #'
 #' @export
 liabilities_func_fam = function(G, beta, MAF, liab, N=1e5, n_sib = 0, K=0.05, h_sq=0.5, block_size = 1000){
-  l_g_0 = lapply(1:N/block_size, function(i) {
+  l_g_0 = lapply(1:(N/block_size), function(i) {
     index = get_index(i, block_size)
     normalized_prod(G[index$start:index$end,],beta, MAF)
      }) %>% do.call("c", .)
 
 
-  l_out = tibble("l_g_0" = l_g_0,
+  l_out = dplyr::tibble("l_g_0" = l_g_0,
                    "l_0"   =  l_g_0 + rnorm(N, 0, sqrt(1-h_sq)),
                    "l_p1"  = liab$l_g_p1 + rnorm(N, 0, sqrt(1-h_sq)),
-                   "l_p2"  = liab$l_g_p2 + rnorm(N, 0, sqrt(1-h_sq)))
+                   "l_p2"  = liab$l_g_p2 + rnorm(N, 0, sqrt(1-h_sq))) %>%
+    dplyr::bind_cols(liab)
 
 
   if (n_sib != 0){
     search = get_names(c("l_g"), id=FALSE, parents = FALSE, n_sib)
-    l_sibs = lapply(1:n_sib, function(i){
-      select(liabil, search[i]) + rnorm(N, 0, sqrt(1-h_sq))
-    }) %>% bind_cols(.) %>%
-      setNames(., get_names(c("l"), id=FALSE, parents = FALSE, n_sib)) %>%
-      bind_cols(l_out)
+    l_out = lapply(1:n_sib, function(i){
+      dplyr::select(liab, search[i]) + rnorm(N, 0, sqrt(1-h_sq))
+    }) %>% dplyr::bind_cols(.) %>%
+      stats::setNames(., get_names(c("l"), id=FALSE, parents = FALSE, n_sib)) %>%
+      dplyr::bind_cols(l_out)
 
   }
   order = get_names(c("l","l_g", "pheno"), n_sib)
   T_ =  qnorm(1-K)
-  l_out %>% mutate(across(.cols != contains("g"),
+  l_out = l_out %>% dplyr::mutate(dplyr::across(.cols = !dplyr::contains("g"),
                           .fns = ~ (.x > T_)-0,
                           .names = "{stringr::str_replace(.col, 'l','pheno')}")) %>%
-    relocate(order)
-
+    dplyr::relocate(order)
 
   return(l_out)
 
@@ -255,18 +246,20 @@ liabilities_func_fam = function(G, beta, MAF, liab, N=1e5, n_sib = 0, K=0.05, h_
 #' @param h_sq heritability
 #' @param block_size the size of each iteration
 #' @return A tibble containing genetic and enviromental liability for each subject
+#' @importFrom magrittr "%>%"
 #' @export
 liabilities_func_simple = function(G, beta, MAF, N=1e5,  K=0.05, h_sq=0.5, block_size = 1000){
 
-  l_g_0 = lapply(1:N/block_size, function(i) {
+  l_g_0 = lapply(1:(N/block_size), function(i) {
     index = get_index(i, block_size)
     normalized_prod(G[index$start:index$end,], beta, MAF)
   }) %>% do.call("c", .)
 
+
   T_ =  qnorm(1-K)
-  l_out = tibble('l_g' = l_g,
-                 'l'   = l_g + rnorm(N, 0, sqrt(1-h_sq))) %>%
-    mutate('pheno' = (l > T_)-0)
+  l_out = dplyr::tibble('l_g_0' = l_g_0,
+                 'l_0'   = l_g_0 + rnorm(N, 0, sqrt(1-h_sq))) %>%
+    dplyr::mutate('pheno_0' = (l_0 > T_)-0)
 
   return(l_out)
 }
@@ -282,6 +275,19 @@ MAF_func = function(M=1e5){
   return(out)
 }
 
+#' Simulate beta
+#'
+#' @param C Amount of causal SNPs
+#' @param h2 The heritability
+#' @param M size of the beta vector
+#' @return A vector of size m containing a value from rnorm(1, 0, sqrt(h_sq/C)) \cr
+#' a C random places.
+#' @export
+beta_func = function(M=1e5, h_sq=0.5, C=1000){
+  beta = rep(0, M)
+  beta[sample(M,C)] = rnorm(C, 0, sqrt(h_sq/C))
+  return (beta)
+}
 
 
 
@@ -307,7 +313,7 @@ gen_sim = function (filename, N=1e5, M=1e5, n_sib = 0, K=0.05, h_sq=0.5, C=1000,
   if (fam){
     G_l = G_func_fam(filename,  beta, MAF, N, M, n_sib, block_size)
     G = G_l$G
-    l_out = liabilities_func_fam(G, beta, MAF, liab, N, n_sib, K, h_sq, block_size)
+    l_out = liabilities_func_fam(G, beta, MAF, G_l$liabil, N, n_sib, K, h_sq, block_size)
 
   }
   else{
@@ -317,13 +323,13 @@ gen_sim = function (filename, N=1e5, M=1e5, n_sib = 0, K=0.05, h_sq=0.5, C=1000,
 
 
   obj.bigsnp = list(genotypes = G, # genotypes, FBM object
-                    map = tibble(snp = 1:ncol(G), beta, MAF), # map, i.e. SNP info
-                    fam = bind_cols(tibble(FID = 1:nrow(G)), l_out)) # fam, i.e. info on individuals
+                    map = dplyr::tibble(snp = 1:ncol(G), beta, MAF), # map, i.e. SNP info
+                    fam = dplyr::bind_cols('FID' = 1:nrow(G), l_out)) # fam, i.e. info on individuals
 
 
   #saving the bigsnp object
   bigsnpr::snp_save(obj.bigsnp)
-
+  print('Succsesfully simulated and saved the data')
 }
 
 

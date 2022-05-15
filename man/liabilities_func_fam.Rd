@@ -6,11 +6,11 @@
 \usage{
 liabilities_func_fam(
   G,
-  MAF,
   beta,
+  MAF,
   liab,
-  n_sib = 0,
   N = 1e+05,
+  n_sib = 0,
   K = 0.05,
   h_sq = 0.5,
   block_size = 1000
@@ -19,13 +19,13 @@ liabilities_func_fam(
 \arguments{
 \item{G}{A FBM containing SNP data}
 
-\item{MAF}{a vector containing minor allele frequencies}
-
 \item{beta}{Causal snps}
 
-\item{n_sib}{Amount of siblings}
+\item{MAF}{a vector containing minor allele frequencies}
 
 \item{N}{Amount of individuals}
+
+\item{n_sib}{Amount of siblings}
 
 \item{h_sq}{heritability}
 
