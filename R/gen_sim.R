@@ -1,4 +1,14 @@
 
+check_filename = function(filename){
+  if (!file.exists(filename + 'RDS') || !file.exists(filename + 'RDS')){
+
+  } else{
+
+  }
+}
+
+
+
 #'  Normalize fbm
 #'
 #' @param Gx Fbm containing snp data
@@ -140,6 +150,18 @@ collapse_data = function(data, n_sib){
 #' @importFrom magrittr "%>%"
 #' @export
 G_func_fam = function(filename, beta, MAF, N=1e5, M=1e5, n_sib = 0, block_size=1000){
+
+  # filename check
+  stopifnot(is_numeric(beta), length(beta) == M)
+  stopifnot(is_numeric(MAF), length(MAF) == M)
+  stopifnot(is.double(N), N > 0, N%%1 == 0)
+  stopifnot(is.double(M), M > 0, M%%1 == 0)
+  stopifnot(is.double(n_sib), n_sib > 0, n_sib%%1 == 0)
+  stopifnot(is.double(K), k < 1 || k > 0)
+  stopifnot(is.double(h2), h2 < 1 || h2 > 0)
+  stopifnot(is.double(block_size), block_size > 0, block_size%%1 == 0)
+
+
   G = bigstatsr::FBM.code256(nrow = N,
                              ncol = M,
                              code = c(0L, 1L, 2L, rep(NA_integer_, 256 - 3)),
@@ -169,6 +191,13 @@ G_func_fam = function(filename, beta, MAF, N=1e5, M=1e5, n_sib = 0, block_size=1
 #' @importFrom magrittr "%>%"
 #' @export
 G_func_simple = function(filename, MAF, N=1e5, M=1e5, block_size=1000){
+
+  stopifnot(is_numeric(MAF), length(MAF) == M)
+  stopifnot(is.double(N), N > 0, N%%1 == 0)
+  stopifnot(is.double(M), M > 0, M%%1 == 0)
+  stopifnot(is.double(block_size), block_size > 0, block_size%%1 == 0)
+
+
   G = bigstatsr::FBM.code256(nrow = N,
                              ncol = M,
                              code = c(0L, 1L, 2L, rep(NA_integer_, 256 - 3)),
@@ -205,6 +234,17 @@ G_func_simple = function(filename, MAF, N=1e5, M=1e5, block_size=1000){
 #'
 #' @export
 liabilities_func_fam = function(G, beta, MAF, liab, N=1e5, n_sib = 0, K=0.05, h_sq=0.5, block_size = 1000){
+
+  stopifnot(is_numeric(beta), length(beta) == M)
+  stopifnot(is_numeric(MAF), length(MAF) == M)
+  stopifnot(is_tibble(liab))
+  stopifnot(is.double(N), N > 0, N%%1 == 0)
+  stopifnot(is.double(M), M > 0, M%%1 == 0)
+  stopifnot(is.double(n_sib), n_sib > 0, n_sib%%1 == 0)
+  stopifnot(is.double(K), k < 1 || k > 0)
+  stopifnot(is.double(h2), h2 < 1 || h2 > 0)
+  stopifnot(is.double(block_size), block_size > 0, block_size%%1 == 0)
+
   l_g_0 = lapply(1:(N/block_size), function(i) {
     index = get_index(i, block_size)
     normalized_prod(G[index$start:index$end,],beta, MAF)
@@ -252,6 +292,14 @@ liabilities_func_fam = function(G, beta, MAF, liab, N=1e5, n_sib = 0, K=0.05, h_
 #' @export
 liabilities_func_simple = function(G, beta, MAF, N=1e5,  K=0.05, h_sq=0.5, block_size = 1000){
 
+  stopifnot(is_numeric(beta), length(beta) == M)
+  stopifnot(is_numeric(MAF), length(MAF) == M)
+  stopifnot(is.double(N), N > 0, N%%1 == 0)
+  stopifnot(is.double(M), M > 0, M%%1 == 0)
+  stopifnot(is.double(K), k < 1 || k > 0)
+  stopifnot(is.double(h2), h2 < 1 || h2 > 0)
+  stopifnot(is.double(block_size), block_size > 0, block_size%%1 == 0)
+
   l_g_0 = lapply(1:(N/block_size), function(i) {
     index = get_index(i, block_size)
     normalized_prod(G[index$start:index$end,], beta, MAF)
@@ -273,6 +321,9 @@ liabilities_func_simple = function(G, beta, MAF, N=1e5,  K=0.05, h_sq=0.5, block
 #' @return Vector containing minor allele frequencies
 #' @export
 MAF_func = function(M=1e5){
+
+  stopifnot(is.double(M), M > 0, M%%1 == 0)
+
   out = runif(M, 0.01, 0.49)
   return(out)
 }
@@ -285,7 +336,13 @@ MAF_func = function(M=1e5){
 #' @return A vector of size m containing a value from rnorm(1, 0, sqrt(h_sq/C)) \cr
 #' a C random places.
 #' @export
-beta_func = function(M=1e5, h_sq=0.5, C=1000){
+beta_func = function(M=1e5, h2=0.5, C=1000){
+
+
+  stopifnot(is.double(M), M > 0, M%%1 == 0)
+  stopifnot(is.double(h2), h2 < 1 || h2 > 0)
+  stopifnot(is.double(C), C > 0, C%%1 == 0)
+
   beta = rep(0, M)
   beta[sample(M,C)] = rnorm(C, 0, sqrt(h_sq/C))
   return (beta)
@@ -309,6 +366,17 @@ beta_func = function(M=1e5, h_sq=0.5, C=1000){
 #' @export
 gen_sim = function (filename, N=1e5, M=1e5, n_sib = 0, K=0.05, h_sq=0.5, C=1000, block_size=1000, fam = TRUE) {
   # Make MAF
+
+  stopifnot(is.double(N), N > 0, N%%1 == 0)
+  stopifnot(is.double(M), M > 0, M%%1 == 0)
+  stopifnot(is.double(n_sib), n_sib > 0, n_sib%%1 == 0)
+  stopifnot(is.double(K), k < 1 || k > 0)
+  stopifnot(is.double(h2), h2 < 1 || h2 > 0)
+  stopifnot(is.double(block_size), block_size > 0, block_size%%1 == 0)
+  stopifnot(is.double(C), C > 0, C%%1 == 0)
+  stopifnot(fam=TRUE || fam=FALSE)
+
+
   MAF = MAF_func(M)
   beta = beta_func(M, h_sq, C)
 

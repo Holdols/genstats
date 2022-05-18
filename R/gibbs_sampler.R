@@ -78,6 +78,16 @@ trunc_estimate = function(j, phenos, K=0.05, mu, sigma){
 #' LTFH(get_cov(0.5, n_sib = 1), c(1, 1, 0, 0))
 #' @export
 gibbs_sampl <- function(covmat, phenos, K = 0.05, s_val = 0, start_run=500, all_est=FALSE){
+
+
+  stopifnot(is_numeric(covmat))
+  stopifnot(is_numeric(phenos))
+  stopifnot(is.double(s_val))
+  stopifnot(is.double(K), k < 1 || k > 0)
+  stopifnot(is.double(start_run), start_run%%1 == 0)
+  stopifnot(all_est=TRUE || all_est=FALSE)
+
+
   k = nrow(covmat)
   const_list = calc_distribution(covmat)
 
