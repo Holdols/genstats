@@ -13,10 +13,10 @@ assign_snp(G1, G2, N = 1e+05, block_size = 1000)
 
 \item{N}{Number of subjects}
 
-\item{block_size}{Size of fbm to be processed}
+\item{block_size}{Size of FBM to be processed}
 }
 \value{
-Block of simulated SNPs
+Matrix of simulated SNPs
 }
 \description{
 Assign snp for the subject

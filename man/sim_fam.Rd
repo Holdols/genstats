@@ -9,7 +9,7 @@ sim_fam(i, G, beta, MAF, N = 1e+05, n_sib = 0, block_size = 1000)
 \arguments{
 \item{i}{Iteration from for loop}
 
-\item{G}{Empty fbm}
+\item{G}{Empty FBM}
 
 \item{beta}{Causal snps}
 
@@ -17,12 +17,12 @@ sim_fam(i, G, beta, MAF, N = 1e+05, n_sib = 0, block_size = 1000)
 
 \item{N}{Number of subjects}
 
-\item{block_size}{Size of fbm to be processed}
+\item{block_size}{Size of FBM to be processed}
 
 \item{n_sibs}{Number of siblings}
 }
 \value{
-Block of simulated SNPs for subject and family's liabilities
+Tibble of simulated SNPs for subject and family's liabilities
 }
 \description{
 Simulate block of snps for whole family

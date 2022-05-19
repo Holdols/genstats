@@ -16,7 +16,7 @@ LTFH(data, n_sib = 0, K = 0.05, h2 = 0.5)
 \item{pheno}{Phenotypes}
 }
 \value{
-Estimated liabilities
+Tibble containing input data and estimated liabilities
 }
 \description{
 Estimates liabilities for every subject

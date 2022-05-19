@@ -7,18 +7,18 @@
 G_func_simple(filename, MAF, N = 1e+05, M = 1e+05, block_size = 1000)
 }
 \arguments{
-\item{filename}{Filename for fbm}
+\item{filename}{Filename for FBM}
 
 \item{MAF}{A vector containing minor allele frequencies}
 
 \item{N}{Amount of individuals}
 
-\item{block_size}{Size of fbm to be processed}
+\item{block_size}{Size of FBM to be processed}
 
 \item{n_sib}{Amount of siblings}
 }
 \value{
-Simulated SNPs for all subjects
+FBM containing simulated SNPs for all subjects
 }
 \description{
 Simulate SNP for all subjects

@@ -12,7 +12,7 @@ get_cov(h2, n_sib = 0)
 \item{n_sib}{Amount of siblings}
 }
 \value{
-Covariance matrix
+Covariance matrix of datatype matrix
 }
 \description{
 Create covariance matrix

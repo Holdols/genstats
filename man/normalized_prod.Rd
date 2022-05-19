@@ -2,20 +2,20 @@
 % Please edit documentation in R/gen_sim.R
 \name{normalized_prod}
 \alias{normalized_prod}
-\title{Normalize fbm}
+\title{Normalize FBM}
 \usage{
 normalized_prod(Gx, beta, MAF)
 }
 \arguments{
-\item{Gx}{Fbm containing snp data}
+\item{Gx}{small matrix containing snp data}
 
 \item{probs}{Probabilities of mutaion}
 
 \item{beta_cut}{Causal SNPs}
 }
 \value{
-Normalized values
+Matrix containing normalized values
 }
 \description{
-Normalize fbm
+Normalize FBM
 }

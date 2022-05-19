@@ -12,7 +12,7 @@ liabilities_func_fam(
   N = 1e+05,
   n_sib = 0,
   K = 0.05,
-  h_sq = 0.5,
+  h2 = 0.5,
   block_size = 1000
 )
 }
@@ -29,9 +29,9 @@ liabilities_func_fam(
 
 \item{n_sib}{Amount of siblings}
 
-\item{h_sq}{heritability}
-
 \item{block_size}{the size of each iteration}
+
+\item{h_sq}{heritability}
 }
 \value{
 A tibble containing genetic and enviromental liability for each family member

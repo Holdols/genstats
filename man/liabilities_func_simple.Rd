@@ -10,7 +10,7 @@ liabilities_func_simple(
   MAF,
   N = 1e+05,
   K = 0.05,
-  h_sq = 0.5,
+  h2 = 0.5,
   block_size = 1000
 )
 }
@@ -23,9 +23,9 @@ liabilities_func_simple(
 
 \item{N}{Amount of individuals}
 
-\item{h_sq}{heritability}
-
 \item{block_size}{the size of each iteration}
+
+\item{h_sq}{heritability}
 }
 \value{
 A tibble containing genetic and enviromental liability for each subject

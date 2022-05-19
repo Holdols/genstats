@@ -2,7 +2,7 @@ Package: genstats
 Title: Analyse genetic data
 Version: 0.0.0.9000
 Authors@R: 
-    c(person("Louise Mølgaard", "Laustsen", , "louisemolgaard99@gmail.com", role = c("aut", "cre"),
+    c(person("Louise Mølgaard", "Laustsen", , "louisemolgaard99@gmail.com", role = c("aut"),
            comment = c(ORCID = "YOUR-ORCID-ID")),
       person("Ole Sahlholdt", "Hansen", , "o.sahlholdt@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID")))

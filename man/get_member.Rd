@@ -15,7 +15,7 @@ get_member(i, beta, MAF, N = 1e+05, block_size = 1000)
 
 \item{N}{Number of subjects}
 
-\item{block_size}{Size of fbm to be processed}
+\item{block_size}{Size of FBM to be processed}
 }
 \value{
 List containing block of simulated snps and genetic liabilities

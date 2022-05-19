@@ -2,18 +2,18 @@
 % Please edit documentation in R/gen_sim.R
 \name{get_index}
 \alias{get_index}
-\title{Find start and and end index of fbm}
+\title{Find start and and end index of FBM}
 \usage{
 get_index(i, block_size)
 }
 \arguments{
-\item{i}{Iteration from for loop}
+\item{i}{Iteration from for-loop}
 
-\item{block_size}{Size of fbm to be processed}
+\item{block_size}{Size of FBM to be processed}
 }
 \value{
 List of start and and end index
 }
 \description{
-Find start and and end index of fbm
+Find start and and end index of FBM
 }

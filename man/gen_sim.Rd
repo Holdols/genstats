@@ -10,14 +10,14 @@ gen_sim(
   M = 1e+05,
   n_sib = 0,
   K = 0.05,
-  h_sq = 0.5,
+  h2 = 0.5,
   C = 1000,
   block_size = 1000,
   fam = TRUE
 )
 }
 \arguments{
-\item{filename}{Filename for fbm}
+\item{filename}{Filename for FBM}
 
 \item{N}{number of subjects}
 
@@ -25,18 +25,18 @@ gen_sim(
 
 \item{K}{The prevalance of trait}
 
+\item{h2}{The heritability}
+
 \item{C}{Amount of causal SNP's}
 
-\item{block_size}{Size of fbm to be processed}
+\item{block_size}{Size of FBM to be processed}
 
 \item{fam}{Boolean deciding if simulation should include family structure}
-
-\item{h2}{The heritability}
 
 \item{n_sibs}{Number of siblings}
 }
 \value{
-bigsnp object containing fbm, information about subject and family for liabilities, and generated SNP info
+Bigsnp object containing FBM, information about subject and family for liabilities, and generated SNP info
 }
 \description{
 Simulate genetic data

@@ -4,14 +4,14 @@
 \alias{beta_func}
 \title{Simulate beta}
 \usage{
-beta_func(M = 1e+05, h_sq = 0.5, C = 1000)
+beta_func(M = 1e+05, h2 = 0.5, C = 1000)
 }
 \arguments{
 \item{M}{size of the beta vector}
 
-\item{C}{Amount of causal SNPs}
-
 \item{h2}{The heritability}
+
+\item{C}{Amount of causal SNPs}
 }
 \value{
 A vector of size m containing a value from rnorm(1, 0, sqrt(h_sq/C)) \cr
