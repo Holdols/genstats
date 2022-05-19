@@ -54,7 +54,7 @@
   M <span class="op">=</span> <span class="fl">1e+05</span>,
   n_sib <span class="op">=</span> <span class="fl">0</span>,
   K <span class="op">=</span> <span class="fl">0.05</span>,
-  h_sq <span class="op">=</span> <span class="fl">0.5</span>,
+  h2 <span class="op">=</span> <span class="fl">0.5</span>,
   C <span class="op">=</span> <span class="fl">1000</span>,
   block_size <span class="op">=</span> <span class="fl">1000</span>,
   fam <span class="op">=</span> <span class="cn">TRUE</span>
@@ -64,27 +64,27 @@
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>filename</dt>
-<dd><p>Filename for fbm</p></dd>
+<dd><p>Filename for FBM</p></dd>
 <dt>N</dt>
 <dd><p>number of subjects</p></dd>
 <dt>M</dt>
 <dd><p>Number of SNPs</p></dd>
 <dt>K</dt>
 <dd><p>The prevalance of trait</p></dd>
+<dt>h2</dt>
+<dd><p>The heritability</p></dd>
 <dt>C</dt>
 <dd><p>Amount of causal SNP's</p></dd>
 <dt>block_size</dt>
-<dd><p>Size of fbm to be processed</p></dd>
+<dd><p>Size of FBM to be processed</p></dd>
 <dt>fam</dt>
 <dd><p>Boolean deciding if simulation should include family structure</p></dd>
-<dt>h2</dt>
-<dd><p>The heritability</p></dd>
 <dt>n_sibs</dt>
 <dd><p>Number of siblings</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>bigsnp object containing fbm, information about subject and family for liabilities, and generated SNP info</p>
+    <p>Bigsnp object containing FBM, information about subject and family for liabilities, and generated SNP info</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
