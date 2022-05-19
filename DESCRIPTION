@@ -2,21 +2,10 @@ Package: genstats
 Title: Analyse genetic data
 Version: 0.0.0.9000
 Authors@R: 
-<<<<<<< HEAD
     c(person("Louise Mølgaard", "Laustsen", , "louisemolgaard99@gmail.com", role = c("aut"),
            comment = c(ORCID = "YOUR-ORCID-ID")),
       person("Ole Sahlholdt", "Hansen", , "o.sahlholdt@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID")))
-=======
-    c(person("Louise Mølgaard", "Laustsen",
-              email = "louisemolgaard99@gmail.com",
-              role = c("aut", "cre"),
-              comment = c(ORCID = "YOUR-ORCID-ID")),
-      person("Ole Sahlholdt", "Hansen",
-             email = "o.sahlholdt@gmail.com",
-             role = c("aut"),
-             comment = c(ORCID = "YOUR-ORCID-ID")))
->>>>>>> cea1b75e88d3d6b0931259b4381c49fba4927763
 Description: This is a package developed to analyse genetic data. The package implements fast simulation of realistic data and methods used to analyse this.
 License: MIT + file LICENSE
 Encoding: UTF-8
