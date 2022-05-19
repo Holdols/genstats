@@ -10,7 +10,7 @@ dist_check(info)
 \item{info}{A rds file made by gen_sim}
 }
 \value{
-qqplot, mean and sample variance for the liability of each family
+Creates a qqplot, mean and sample variance for the liability of each family
 }
 \description{
 Check distribution of liabilities
