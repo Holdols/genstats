@@ -13,7 +13,8 @@ gen_sim(
   h2 = 0.5,
   C = 1000,
   block_size = 1000,
-  fam = TRUE
+  fam = TRUE,
+  parallel_plan = "multisession"
 )
 }
 \arguments{
@@ -32,6 +33,8 @@ gen_sim(
 \item{block_size}{Size of FBM to be processed}
 
 \item{fam}{Boolean deciding if simulation should include family structure}
+
+\item{parallel_plan}{plan for parallelization. See ?future::plan}
 
 \item{n_sibs}{Number of siblings}
 }
