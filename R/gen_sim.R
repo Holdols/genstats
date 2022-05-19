@@ -173,7 +173,7 @@ G_func_fam = function(filename, beta, MAF, N=1e5, M=1e5, n_sib = 0, block_size=1
   stopifnot(is_numeric(MAF), length(MAF) == M)
   stopifnot(is.double(N), N > 0, N%%1 == 0)
   stopifnot(is.double(M), M > 0, M%%1 == 0)
-  stopifnot(is.double(n_sib), n_sib > 0, n_sib%%1 == 0)
+  stopifnot(is.double(n_sib), n_sib >= 0, n_sib%%1 == 0)
   stopifnot(is.double(block_size), block_size > 0, block_size%%1 == 0)
 
 
@@ -246,7 +246,7 @@ liabilities_func_fam = function(G, beta, MAF, liab, N=1e5, n_sib = 0, K=0.05, h2
 
   stopifnot(is_tibble(liab))
   stopifnot(is.double(N), N > 0, N%%1 == 0)
-  stopifnot(is.double(n_sib), n_sib > 0, n_sib%%1 == 0)
+  stopifnot(is.double(n_sib), n_sib >= 0, n_sib%%1 == 0)
   stopifnot(is.double(K), K < 1 || K > 0)
   stopifnot(is.double(h2), h2 < 1 || h2 > 0)
   stopifnot(is.double(block_size), block_size > 0, block_size%%1 == 0)
@@ -372,7 +372,7 @@ gen_sim = function (filename, N=1e5, M=1e5, n_sib = 0, K=0.05, h2=0.5, C=1000, b
 
   stopifnot(is.double(N), N > 0, N%%1 == 0)
   stopifnot(is.double(M), M > 0, M%%1 == 0)
-  stopifnot(is.double(n_sib), n_sib > 0, n_sib%%1 == 0)
+  stopifnot(is.double(n_sib), n_sib >= 0, n_sib%%1 == 0)
   stopifnot(is.double(K), K < 1 || K > 0)
   stopifnot(is.double(h2), h2 < 1 || h2 > 0)
   stopifnot(is.double(block_size), block_size > 0, block_size%%1 == 0)

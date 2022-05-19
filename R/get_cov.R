@@ -8,7 +8,7 @@
 #' @export
 get_cov <- function(h2, n_sib = 0) {
 
-  stopifnot(is.double(n_sib), n_sib > 0, n_sib%%1 == 0)
+  stopifnot(is.double(n_sib), n_sib >= 0, n_sib%%1 == 0)
   stopifnot(is.double(h2), h2 < 1 || h2 > 0)
 
   cov <- matrix(h2/2, 4 + n_sib, 4 + n_sib)

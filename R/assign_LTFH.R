@@ -35,8 +35,8 @@ estimate_conf = function(unique_comb, n_sib=0, K=0.5, h2=0.5){
 #' @importFrom magrittr "%>%"
 #' @export
 LTFH = function(data, n_sib=0, K=0.05, h2=0.5){
-  stopifnot(is_tibble(data))
-  stopifnot(is.double(n_sib), n_sib > 0, input%%1==0)
+  stopifnot(is_tibble(data) || is.data.frame(data))
+  stopifnot(is.double(n_sib), n_sib > 0, n_sib%%1==0)
   stopifnot(is.double(K), k < 1 || k > 0)
   stopifnot(is.double(h2), h2 < 1 || h2 > 0)
 
