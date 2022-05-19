@@ -27,7 +27,7 @@ estimate_conf = function(unique_comb, n_sib=0, K=0.5, h2=0.5){
 
 #' Estimates liabilities for every subject
 #'
-#' @param pheno Phenotypes
+#' @param data Family data
 #' @param n_sib Amount of siblings
 #' @param K The prevalance of trait
 #' @param h2 The heritability
