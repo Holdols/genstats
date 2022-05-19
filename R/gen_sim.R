@@ -365,9 +365,11 @@ beta_func = function(M=1e5, h2=0.5, C=1000){
 #' @param N number of subjects
 #' @param M Number of SNPs
 #' @param block_size Size of FBM to be processed
+#' @param parallel_plan plan for parallelization. See ?future::plan
 #' @return Bigsnp object containing FBM, information about subject and family for liabilities, and generated SNP info
 #' @export
-gen_sim = function (filename, N=1e5, M=1e5, n_sib = 0, K=0.05, h2=0.5, C=1000, block_size=1000, fam = TRUE) {
+gen_sim = function (filename, N=1e5, M=1e5, n_sib = 0, K=0.05, h2=0.5, C=1000, block_size=1000, fam = TRUE,
+                    parallel_plan = "multisession") {
   # Make MAF
 
   stopifnot(is.double(N), N > 0, N%%1 == 0)
@@ -382,6 +384,10 @@ gen_sim = function (filename, N=1e5, M=1e5, n_sib = 0, K=0.05, h2=0.5, C=1000, b
 
   MAF = MAF_func(M)
   beta = beta_func(M, h2, C)
+
+  if (parallel_plan != FALSE){
+    plan(parallel_plan)
+  }
 
   if (fam){
     G_l = G_func_fam(filename,  beta, MAF, N, M, n_sib, block_size)
