@@ -41,7 +41,6 @@ LTFH = function(data, n_sib=0, K=0.05, h2=0.5){
   stopifnot(is.double(h2), h2 < 1 || h2 > 0)
 
 
-
   unique_comb = data %>% dplyr::select(., dplyr::contains('pheno')) %>%
     dplyr::relocate(get_names(c("pheno"), n_sib)) %>%
     unique(.)
