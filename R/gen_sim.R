@@ -374,7 +374,7 @@ gen_sim = function (filename, N=1e5, M=1e5, n_sib = 0, K=0.05, h_sq=0.5, C=1000,
   stopifnot(is.double(h2), h2 < 1 || h2 > 0)
   stopifnot(is.double(block_size), block_size > 0, block_size%%1 == 0)
   stopifnot(is.double(C), C > 0, C%%1 == 0)
-  stopifnot(fam=TRUE || fam=FALSE)
+  stopifnot(fam==TRUE || fam==FALSE)
 
 
   MAF = MAF_func(M)
