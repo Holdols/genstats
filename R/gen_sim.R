@@ -258,9 +258,9 @@ liabilities_func_fam = function(G, beta, MAF, liab, N=1e5, n_sib = 0, K=0.05, h2
 
 
   l_out = dplyr::tibble("l_g_0" = l_g_0,
-                   "l_0"   =  l_g_0 + rnorm(N, 0, sqrt(1-h2)),
-                   "l_p1"  = liab$l_g_p1 + rnorm(N, 0, sqrt(1-h2)),
-                   "l_p2"  = liab$l_g_p2 + rnorm(N, 0, sqrt(1-h2))) %>%
+                   "l_f_0"   =  l_g_0 + rnorm(N, 0, sqrt(1-h2)),
+                   "l_f_p1"  = liab$l_g_p1 + rnorm(N, 0, sqrt(1-h2)),
+                   "l_f_p2"  = liab$l_g_p2 + rnorm(N, 0, sqrt(1-h2))) %>%
     dplyr::bind_cols(liab)
 
 
@@ -269,15 +269,15 @@ liabilities_func_fam = function(G, beta, MAF, liab, N=1e5, n_sib = 0, K=0.05, h2
     l_out = lapply(1:n_sib, function(i){
       dplyr::select(liab, search[i]) + rnorm(N, 0, sqrt(1-h2))
     }) %>% dplyr::bind_cols(.) %>%
-      stats::setNames(., get_names(c("l"), id=FALSE, parents = FALSE, n_sib)) %>%
+      stats::setNames(., get_names(c("l_f"), id=FALSE, parents = FALSE, n_sib)) %>%
       dplyr::bind_cols(l_out)
 
   }
-  order = get_names(c("l","l_g", "pheno"), n_sib)
+  order = get_names(c("l_f","l_g", "pheno"), n_sib)
   T_ =  qnorm(1-K)
   l_out = l_out %>% dplyr::mutate(dplyr::across(.cols = !dplyr::contains("g"),
                           .fns = ~ (.x > T_)-0,
-                          .names = "{stringr::str_replace(.col, 'l','pheno')}")) %>%
+                          .names = "{stringr::str_replace(.col, 'l_f','pheno')}")) %>%
     dplyr::relocate(order)
 
   return(l_out)
@@ -311,8 +311,8 @@ liabilities_func_simple = function(G, beta, MAF, N=1e5,  K=0.05, h2=0.5, block_s
 
   T_ =  qnorm(1-K)
   l_out = dplyr::tibble('l_g_0' = l_g_0,
-                 'l_0'   = l_g_0 + rnorm(N, 0, sqrt(1-h2))) %>%
-    dplyr::mutate('pheno_0' = (l_0 > T_)-0)
+                 'l_f_0'   = l_g_0 + rnorm(N, 0, sqrt(1-h2))) %>%
+    dplyr::mutate('pheno_0' = (l_f_0 > T_)-0)
 
   return(l_out)
 }
