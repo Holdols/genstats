@@ -244,7 +244,7 @@ G_func_simple = function(filename, MAF, N=1e5, M=1e5, block_size=1000){
 #' @export
 liabilities_func_fam = function(G, beta, MAF, liab, N=1e5, n_sib = 0, K=0.05, h2=0.5, block_size = 1000){
 
-  stopifnot(is_tibble(liab))
+  stopifnot(tibble::is_tibble(liab))
   stopifnot(is.double(N), N > 0, N%%1 == 0)
   stopifnot(is.double(n_sib), n_sib >= 0, n_sib%%1 == 0)
   stopifnot(is.double(K), K < 1 || K > 0)
