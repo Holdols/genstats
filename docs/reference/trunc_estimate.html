@@ -21,6 +21,12 @@
       <ul class="navbar-nav me-auto"><li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/GWAS.html">GWAS</a>
+  </div>
+</li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -54,19 +60,21 @@
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>j</dt>
-<dd><p>Index for familymember</p></dd>
+<dd><p>Index for familymember.</p></dd>
 <dt>phenos</dt>
-<dd><p>Phenotypes for which estimates of liabilities is wanted</p></dd>
+<dd><p>A binary vector containing the phenotype for each family member
+of the form c(p_subject, p_parent1, p_parent2, p_sibling1, ... ,p_siblingN)
+where p_familymember is a binary value (1 or 2).</p></dd>
 <dt>K</dt>
-<dd><p>The prevalance of trait</p></dd>
+<dd><p>The prevalance of trait.</p></dd>
 <dt>mu</dt>
-<dd><p>The mean</p></dd>
+<dd><p>The mean.</p></dd>
 <dt>sigma</dt>
-<dd><p>The variance</p></dd>
+<dd><p>The variance.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Value</p>
+    <p>Truncated random value from normal distribution.</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -74,7 +82,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by Louise Mølgaard Laustsen, Ole Sahlholdt Hansen.</p>
+  <p></p><p>Developed by Louise Mølgaard Laustsen, Ole Sahlholdt Hansen, Holdols.</p>
 </div>
 
 <div class="pkgdown-footer-right">

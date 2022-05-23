@@ -16,9 +16,11 @@ knitr::opts_chunk$set(
 # genstats
 
 <!-- badges: start -->
-<!-- badges: end -->
+
 
 The goal of genstats is to ...
+
+<!-- badges: end -->
 
 ## Installation
 
