@@ -7,7 +7,6 @@
 #' @export
 dist_check = function(data){
   l = data$fam %>% dplyr::select(., contains('l_f'))
-  print(l)
   par(mfrow=c(1,ncol(l)))
   for (j in l){
     qqnorm(j)
