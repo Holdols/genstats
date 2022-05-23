@@ -4,10 +4,10 @@
 \alias{dist_check}
 \title{Check distribution of liabilities}
 \usage{
-dist_check(info)
+dist_check(data)
 }
 \arguments{
-\item{info}{A bigsnipr object containing information about fam}
+\item{data}{A bigsnipr object containing information about fam}
 }
 \value{
 Creates a qqplot, mean and sample variance for the liability of each family

@@ -27,7 +27,7 @@ estimate_conf = function(unique_comb, n_sib=0, K=0.5, h2=0.5){
 
 #' Estimates liabilities for every subject
 #'
-#' @param data Family data
+#' @param data List generated from gen_sim
 #' @param n_sib Amount of siblings
 #' @param K The prevalance of trait
 #' @param h2 The heritability
@@ -35,13 +35,14 @@ estimate_conf = function(unique_comb, n_sib=0, K=0.5, h2=0.5){
 #' @importFrom magrittr "%>%"
 #' @export
 LTFH = function(data, n_sib=0, K=0.05, h2=0.5){
-  stopifnot(is_tibble(data) || is.data.frame(data))
+  fam = data$fam
+  stopifnot(is_tibble(fam) || is.data.frame(fam))
   stopifnot(is.double(n_sib), n_sib >= 0, n_sib%%1==0)
   stopifnot(is.double(K), K < 1 || K > 0)
   stopifnot(is.double(h2), h2 < 1 || h2 > 0)
 
 
-  unique_comb = data %>% dplyr::select(., dplyr::contains('pheno')) %>%
+  unique_comb = fam %>% dplyr::select(., dplyr::contains('pheno')) %>%
     dplyr::relocate(get_names(c("pheno"), n_sib)) %>%
     unique(.)
 
@@ -49,7 +50,7 @@ LTFH = function(data, n_sib=0, K=0.05, h2=0.5){
   estimated_liabil = estimate_conf(unique_comb, n_sib, K, h2)
 
 
-  full_data = dplyr::left_join(data, estimated_liabil,
+  full_data = dplyr::left_join(fam, estimated_liabil,
                         by=get_names(c("pheno"),n_sib))
   return(full_data)
 }

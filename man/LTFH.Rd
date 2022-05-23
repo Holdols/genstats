@@ -7,7 +7,7 @@
 LTFH(data, n_sib = 0, K = 0.05, h2 = 0.5)
 }
 \arguments{
-\item{data}{Family data}
+\item{data}{List generated from gen_sim}
 
 \item{n_sib}{Amount of siblings}
 
