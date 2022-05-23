@@ -24,30 +24,30 @@ library(ggplot2)
 Fil skabt ved 'gen_sim('example_genetic_sim_data', N=10000, M=10000, C=1000, n_sib=2)'
 
 ```{r}
-setwd('C:/Users/louis/Documents/Uddannelse/Universitet/4. Semester/Dataprojekt/genstats')
-genetic_data = snp_attach('100ktest.rds')
+#setwd('C:/Users/louis/Documents/Uddannelse/Universitet/4. #Semester/Dataprojekt/genstats')
+#genetic_data = snp_attach('100ktest.rds')
 ```
 
 ```{r}
-G=genetic_data$genotypes
-liabilities = genetic_data$fam
-y = liabilities %>% select('pheno_0') 
+#G=genetic_data$genotypes
+#liabilities = genetic_data$fam
+#y = liabilities %>% select('pheno_0') 
 
 
-gwas_est = GWAS(G=G, y=genetic_data$fam$pheno_0, p=0.05/10000)
+#gwas_est = GWAS(G=G, y=genetic_data$fam$pheno_0, p=0.05/10000)
 
 ```
 
 ```{r}
-plot(genetic_data$map$beta, gwas_est$estim)
+#plot(genetic_data$map$beta, gwas_est$estim)
 ```
 
 
 ```{r}
-tibble('beta'=genetic_data$map$beta, 'estim'=gwas_est$estim, 'causal_est'=gwas_est$causal_estimate) %>%
-  mutate('causal'=(genetic_data$map$beta!=0)-0) %>%  
-  filter(causal==1) %>%
-  ggplot(aes(x=beta, y=estim)) + geom_point(aes(colour=causal_est)) + geom_abline(slope = 1)
+# tibble('beta'=genetic_data$map$beta, 'estim'=gwas_est$estim, 'causal_est'=gwas_est$causal_estimate) %>%
+#   mutate('causal'=(genetic_data$map$beta!=0)-0) %>%  
+#   filter(causal==1) %>%
+#   ggplot(aes(x=beta, y=estim)) + geom_point(aes(colour=causal_est)) + geom_abline(slope = 1)
 ```
 ```{r}
 
@@ -56,7 +56,7 @@ tibble('beta'=genetic_data$map$beta, 'estim'=gwas_est$estim, 'causal_est'=gwas_e
 
 
 
-```{r}
+```{r eval=FALSE, include=FALSE}
 tibble('beta'=genetic_data$map$beta, 'estim'=gwas_est$estim, 'causal_est'=gwas_est$causal_estimate, p_vals =gwas_est$p_vals) %>% 
   mutate('causal'=(genetic_data$map$beta!=0)-0) %>%
   ggplot(aes(x=(1:length(p_vals)), y=-log(p_vals))) + geom_point(aes(colour=causal))
@@ -64,11 +64,11 @@ tibble('beta'=genetic_data$map$beta, 'estim'=gwas_est$estim, 'causal_est'=gwas_e
 
 
 
-```{r}
+```{r eval=FALSE, include=FALSE}
 LTFH_fam = LTFH(genetic_data$fam, n_sib=0)
 ```
 
-```{r}
+```{r eval=FALSE, include=FALSE}
 
 LTFH_est = GWAS(G=G, y=LTFH_fam$l_g_est_0, p=0.05/10000)
 
@@ -77,7 +77,7 @@ tibble('beta'=genetic_data$map$beta, 'estim'=LTFH_est$estim, 'causal_est'=LTFH_e
   ggplot(aes(x=(1:length(p_vals)), y=-log(p_vals))) + geom_point(aes(colour=causal))
 ```
 
-```{r}
+```{r eval=FALSE, include=FALSE}
 tibble('l_estim'=LTFH_fam$l_g_est_0, 'l_g'=LTFH_fam$l_g_0) %>%
   ggplot(aes(x=l_estim, y=l_g)) + geom_point() + geom_abline(slope=1) 
 
@@ -85,7 +85,7 @@ tibble('l_estim'=LTFH_fam$l_g_est_0, 'l_g'=LTFH_fam$l_g_0) %>%
 ```
 
 
-```{r}
+```{r eval=FALSE, include=FALSE}
 tibble('beta'=genetic_data$map$beta, 'estim'=LTFH_est$estim, 'causal_est'=LTFH_est$causal_estimate) %>%
   mutate('causal'=(genetic_data$map$beta!=0)-0) %>%  
   filter(causal==1) %>%

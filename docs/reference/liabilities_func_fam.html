@@ -21,6 +21,12 @@
       <ul class="navbar-nav me-auto"><li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/GWAS.html">GWAS</a>
+  </div>
+</li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -64,25 +70,25 @@
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>G</dt>
-<dd><p>A FBM containing SNP data</p></dd>
+<dd><p>File backed matrix containing SNP data.</p></dd>
 <dt>beta</dt>
-<dd><p>A vector containing the casual SNPs</p></dd>
+<dd><p>A vector containing the casual effect of each SNP.</p></dd>
 <dt>MAF</dt>
-<dd><p>A vector containing minor allele frequencies</p></dd>
+<dd><p>A vector containing minor allele frequencies.</p></dd>
 <dt>liab</dt>
-<dd><p>A tibble containing genetic liabilities for each family member</p></dd>
+<dd><p>A tibble containing genetic liabilities for each subject's family members.</p></dd>
 <dt>N</dt>
-<dd><p>Amount of individuals</p></dd>
+<dd><p>Amount of subjects.</p></dd>
 <dt>n_sib</dt>
-<dd><p>Amount of siblings</p></dd>
+<dd><p>Amount of siblings.</p></dd>
 <dt>block_size</dt>
-<dd><p>the size of each iteration</p></dd>
-<dt>h_sq</dt>
-<dd><p>heritability</p></dd>
+<dd><p>Size of FBM to be processed in each iteration.</p></dd>
+<dt>h_2</dt>
+<dd><p>The heritability of trait.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A tibble containing genetic and enviromental liability for each family member</p>
+    <p>A tibble containing genetic and full liability for each family member.</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -90,7 +96,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by Louise Mølgaard Laustsen, Ole Sahlholdt Hansen.</p>
+  <p></p><p>Developed by Louise Mølgaard Laustsen, Ole Sahlholdt Hansen, Holdols.</p>
 </div>
 
 <div class="pkgdown-footer-right">

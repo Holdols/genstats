@@ -21,6 +21,12 @@
       <ul class="navbar-nav me-auto"><li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/GWAS.html">GWAS</a>
+  </div>
+</li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -61,29 +67,31 @@
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>covmat</dt>
-<dd><p>The covariance matrix</p></dd>
+<dd><p>The covariance matrix.</p></dd>
 <dt>phenos</dt>
 <dd><p>A binary vector containing the phenotype for each family member
-of the form <br> c(p_subject, p_parent1, p_parent2, p_sibling1, ... ,p_siblingN) <br>
-where p_familymember is a binary value (1 or 2) <br></p></dd>
+of the form c(p_subject, p_parent1, p_parent2, p_sibling1, ... ,p_siblingN)
+where p_familymember is a binary value (1 or 2).</p></dd>
 <dt>K</dt>
-<dd><p>The prevalance of trait</p></dd>
+<dd><p>The prevalance of trait. If False no truncation is applied.</p></dd>
 <dt>s_val</dt>
-<dd><p>The starting value of estimates</p></dd>
+<dd><p>The starting value of liabilities.</p></dd>
 <dt>start_run</dt>
-<dd><p>Number of iterations before convergence is expected</p></dd>
+<dd><p>Number of iterations before convergence is expected.</p></dd>
 <dt>all_est</dt>
-<dd><p>If TRUE return the value for each iteration after burn in</p></dd>
+<dd><p>If TRUE return the value for each iteration after burn in, else return mean of values.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A vector containing LTFH estimate of liabilities of the form <br>c(genetic_liability_subject, liability_subject, liability_parent1, <br>liability_parent2, liability_sibling1, ..., liability_siblingN)</p>
+    <p>A vector containing LTFH estimate of liabilities of the form
+c(genetic_liability_subject, liability_subject, liability_parent1,
+liability_parent2, liability_sibling1, ..., liability_siblingN).</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="LTFH.html">LTFH</a></span><span class="op">(</span><span class="fu"><a href="get_cov.html">get_cov</a></span><span class="op">(</span><span class="fl">0.5</span>, n_sib <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in is_tibble(data):</span> could not find function "is_tibble"</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> $ operator is invalid for atomic vectors</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -91,7 +99,7 @@ where p_familymember is a binary value (1 or 2) <br></p></dd>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by Louise Mølgaard Laustsen, Ole Sahlholdt Hansen.</p>
+  <p></p><p>Developed by Louise Mølgaard Laustsen, Ole Sahlholdt Hansen, Holdols.</p>
 </div>
 
 <div class="pkgdown-footer-right">
