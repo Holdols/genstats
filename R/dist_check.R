@@ -1,12 +1,12 @@
 #' Check distribution of liabilities
 #'
-#' @param info A bigsnipr object containing information about fam
+#' @param data A bigsnipr object containing information about fam
 #' @return Creates a qqplot, mean and sample variance for the liability of each family
 #' @examples
 #' dist_check(snp_attach("test.rds"))
 #' @export
-dist_check = function(info){
-  l = info$fam %>% select(., contains('l_f'))
+dist_check = function(data){
+  l = data$fam %>% select(., contains('l_f'))
   print(l)
   par(mfrow=c(1,ncol(l)))
   for (j in l){
