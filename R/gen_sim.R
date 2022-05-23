@@ -398,7 +398,7 @@ gen_sim = function (filename, N=1e5, M=1e5, n_sib = 0, K=0.05, h2=0.5, C=1000, b
     l_out = liabilities_func_simple(G, beta, MAF, N, K, h2, block_size)
   }
 
-  obj.bigsnp = bigsnpr::snp_attach(paste('test', '.rds', sep=''))
+  obj.bigsnp = bigsnpr::snp_attach(paste(filename, '.rds', sep=''))
   obj.bigsnp$genotypes = G # genotypes, FBM object
   obj.bigsnp$map = dplyr::tibble(snp = 1:ncol(G), beta, MAF) # map, i.e. SNP info
   obj.bigsnp$fam = dplyr::bind_cols('FID' = 1:nrow(G), l_out) # fam, i.e. info on individuals
