@@ -169,8 +169,8 @@ collapse_data = function(data, n_sib){
 G_func_fam = function(filename, beta, MAF, N=1e5, M=1e5, n_sib = 0, block_size=1000){
 
   # filename check
-  stopifnot(is_numeric(beta), length(beta) == M)
-  stopifnot(is_numeric(MAF), length(MAF) == M)
+  stopifnot(is.numeric(beta), length(beta) == M)
+  stopifnot(is.numeric(MAF), length(MAF) == M)
   stopifnot(is.double(N), N > 0, N%%1 == 0)
   stopifnot(is.double(M), M > 0, M%%1 == 0)
   stopifnot(is.double(n_sib), n_sib >= 0, n_sib%%1 == 0)
@@ -204,7 +204,7 @@ G_func_fam = function(filename, beta, MAF, N=1e5, M=1e5, n_sib = 0, block_size=1
 #' @export
 G_func_simple = function(filename, MAF, N=1e5, M=1e5, block_size=1000){
 
-  stopifnot(is_numeric(MAF), length(MAF) == M)
+  stopifnot(is.numeric(MAF), length(MAF) == M)
   stopifnot(is.double(N), N > 0, N%%1 == 0)
   stopifnot(is.double(M), M > 0, M%%1 == 0)
   stopifnot(is.double(block_size), block_size > 0, block_size%%1 == 0)

@@ -1,7 +1,7 @@
 #' Check distribution of liabilities
 #'
-#' @param data A bigsnipr object containing information about fam
-#' @return Creates a qqplot, mean and sample variance for the liability of each family
+#' @param data List generated from gen_sim.
+#' @return Creates a qqplot, mean and sample variance for the liability of each family.
 #' @examples
 #' dist_check(snp_attach("test.rds"))
 #' @export

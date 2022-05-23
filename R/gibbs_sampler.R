@@ -1,12 +1,12 @@
-#' Calculates the constants parameters for the conditional distribution belonging to each
+#' @title Calculates the constants parameters for the conditional distribution belonging to each
 #' liabilities of the multivariate gaussian.
 #'
-#' Of the form \cr
+#' @description Of the form \cr
 #' mu_mult = \eqn{\Sigma_{12}\Sigma_{22}^{-1}\mu _2} \cr
 #' sigma_bar = \eqn{\Sigma_{11} - \Sigma_{12}\Sigma_{22}^{-1}\Sigma_{21}} \cr
-#' It is used as a helper function for LTFH
-#' @param sigma The covariance matrix
-#' @return a list containing sigma_bar and mu_mult for each liability
+#' It is used as a helper function for LTFH.
+#' @param sigma The covariance matrix.
+#' @return a list containing sigma_bar and mu_mult for each liability.
 #' @examples calc_distribution(get_cov(0.5))
 calc_distribution = function(sigma){
   out = list()
@@ -23,9 +23,9 @@ calc_distribution = function(sigma){
 
 #' Returns random value from normal distribution.
 #'
-#' @param mu The mean
-#' @param sigma The variance
-#' @return Value
+#' @param mu The mean.
+#' @param sigma The variance.
+#' @return Random value from normal distribution.
 no_trunc_estimate = function(mu, sigma){ return(rnorm(1, mu, sqrt(sigma))) }
 
 
@@ -34,12 +34,14 @@ no_trunc_estimate = function(mu, sigma){ return(rnorm(1, mu, sqrt(sigma))) }
 
 #' Returns truncated random value from normal distribution.
 #'
-#' @param j Index for familymember
-#' @param phenos Phenotypes for which estimates of liabilities is wanted
-#' @param K The prevalance of trait
-#' @param mu The mean
-#' @param sigma The variance
-#' @return Value
+#' @param j Index for familymember.
+#' @param phenos A binary vector containing the phenotype for each family member
+#' of the form c(p_subject, p_parent1, p_parent2, p_sibling1, ... ,p_siblingN)
+#' where p_familymember is a binary value (1 or 2).
+#' @param K The prevalance of trait.
+#' @param mu The mean.
+#' @param sigma The variance.
+#' @return Truncated random value from normal distribution.
 trunc_estimate = function(j, phenos, K=0.05, mu, sigma){
   if (j == 1) {return(rnorm(1, mu, sqrt(sigma)))
   }
@@ -65,23 +67,23 @@ trunc_estimate = function(j, phenos, K=0.05, mu, sigma){
 #'
 #' @param covmat The covariance matrix.
 #' @param phenos A binary vector containing the phenotype for each family member
-#' of the form \cr c(p_subject, p_parent1, p_parent2, p_sibling1, ... ,p_siblingN) \cr
-#' where p_familymember is a binary value (1 or 2) \cr
-#' @param K The prevalance of trait
-#' @param s_val The starting value of estimates
-#' @param start_run Number of iterations before convergence is expected
-#' @param all_est If TRUE return the value for each iteration after burn in
-#' @return A vector containing LTFH estimate of liabilities of the form \cr
-#' c(genetic_liability_subject, liability_subject, liability_parent1, \cr
-#' liability_parent2, liability_sibling1, ..., liability_siblingN)
+#' of the form c(p_subject, p_parent1, p_parent2, p_sibling1, ... ,p_siblingN)
+#' where p_familymember is a binary value (1 or 2).
+#' @param K The prevalance of trait. If False no truncation is applied.
+#' @param s_val The starting value of liabilities.
+#' @param start_run Number of iterations before convergence is expected.
+#' @param all_est If TRUE return the value for each iteration after burn in, else return mean of values.
+#' @return A vector containing LTFH estimate of liabilities of the form
+#' c(genetic_liability_subject, liability_subject, liability_parent1,
+#' liability_parent2, liability_sibling1, ..., liability_siblingN).
 #' @examples
 #' LTFH(get_cov(0.5, n_sib = 1), c(1, 1, 0, 0))
 #' @export
 gibbs_sampl <- function(covmat, phenos, K = 0.05, s_val = 0, start_run=500, all_est=FALSE){
 
 
-  stopifnot(is_numeric(covmat))
-  stopifnot(is_numeric(phenos))
+  stopifnot(is.numeric(covmat))
+  stopifnot(is.numeric(phenos))
   stopifnot(is.double(s_val))
   stopifnot(is.double(K), K < 1 || K > 0)
   stopifnot(is.double(start_run), start_run%%1 == 0)
