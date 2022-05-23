@@ -6,7 +6,7 @@
 #' @export
 control_plot = function(phenos, h2, col="black"){
   covmat = get_cov(h2)
-  estimates = LTFH(covmat, phenos, all_est = TRUE)
+  estimates = gibbs_sampl(covmat, phenos, all_est = TRUE)
   sd = sd(estimates[,1])
   mean = mean(estimates[,1])
 

@@ -7,7 +7,7 @@
 dist_check(info)
 }
 \arguments{
-\item{info}{A rds file made by gen_sim}
+\item{info}{A bigsnipr object containing information about fam}
 }
 \value{
 Creates a qqplot, mean and sample variance for the liability of each family
@@ -16,5 +16,5 @@ Creates a qqplot, mean and sample variance for the liability of each family
 Check distribution of liabilities
 }
 \examples{
-dist_chec(snp_attach("test.rds"))
+dist_check(snp_attach("test.rds"))
 }

@@ -20,3 +20,7 @@ Imports:
     magrittr,
     stats
 URL: https://holdols.github.io/genstats/
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

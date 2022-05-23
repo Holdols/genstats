@@ -12,7 +12,7 @@
 #'  and a binary vector saying if the position is causal or not given p
 #' @export
 GWAS <- function(G, y, ncores = 1, p = 0.05/1000000){
-  lm = big_univLinReg(X = G, y.train = y, ncores = ncores)
+  lm = bigstatsr::big_univLinReg(X = G, y.train = y, ncores = ncores)
   p_vals = predict(lm, log10 = FALSE)
   causal_estimate = ifelse(p_vals <=p, 1, 0)
   return(cbind(lm, p_vals, causal_estimate))
