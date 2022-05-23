@@ -7,18 +7,20 @@
 trunc_estimate(j, phenos, K = 0.05, mu, sigma)
 }
 \arguments{
-\item{j}{Index for familymember}
+\item{j}{Index for familymember.}
 
-\item{phenos}{Phenotypes for which estimates of liabilities is wanted}
+\item{phenos}{A binary vector containing the phenotype for each family member
+of the form c(p_subject, p_parent1, p_parent2, p_sibling1, ... ,p_siblingN)
+where p_familymember is a binary value (1 or 2).}
 
-\item{K}{The prevalance of trait}
+\item{K}{The prevalance of trait.}
 
-\item{mu}{The mean}
+\item{mu}{The mean.}
 
-\item{sigma}{The variance}
+\item{sigma}{The variance.}
 }
 \value{
-Value
+Truncated random value from normal distribution.
 }
 \description{
 Returns truncated random value from normal distribution.

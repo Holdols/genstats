@@ -7,12 +7,12 @@
 no_trunc_estimate(mu, sigma)
 }
 \arguments{
-\item{mu}{The mean}
+\item{mu}{The mean.}
 
-\item{sigma}{The variance}
+\item{sigma}{The variance.}
 }
 \value{
-Value
+Random value from normal distribution.
 }
 \description{
 Returns random value from normal distribution.

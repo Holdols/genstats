@@ -7,10 +7,10 @@
 dist_check(data)
 }
 \arguments{
-\item{data}{A bigsnipr object containing information about fam}
+\item{data}{List generated from gen_sim.}
 }
 \value{
-Creates a qqplot, mean and sample variance for the liability of each family
+Creates a qqplot, mean and sample variance for the liability of each family.
 }
 \description{
 Check distribution of liabilities

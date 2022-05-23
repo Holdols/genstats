@@ -17,21 +17,21 @@ gibbs_sampl(
 \item{covmat}{The covariance matrix.}
 
 \item{phenos}{A binary vector containing the phenotype for each family member
-of the form \cr c(p_subject, p_parent1, p_parent2, p_sibling1, ... ,p_siblingN) \cr
-where p_familymember is a binary value (1 or 2) \cr}
+of the form c(p_subject, p_parent1, p_parent2, p_sibling1, ... ,p_siblingN)
+where p_familymember is a binary value (1 or 2).}
 
-\item{K}{The prevalance of trait}
+\item{K}{The prevalance of trait. If False no truncation is applied.}
 
-\item{s_val}{The starting value of estimates}
+\item{s_val}{The starting value of liabilities.}
 
-\item{start_run}{Number of iterations before convergence is expected}
+\item{start_run}{Number of iterations before convergence is expected.}
 
-\item{all_est}{If TRUE return the value for each iteration after burn in}
+\item{all_est}{If TRUE return the value for each iteration after burn in, else return mean of values.}
 }
 \value{
-A vector containing LTFH estimate of liabilities of the form \cr
-c(genetic_liability_subject, liability_subject, liability_parent1, \cr
-liability_parent2, liability_sibling1, ..., liability_siblingN)
+A vector containing LTFH estimate of liabilities of the form
+c(genetic_liability_subject, liability_subject, liability_parent1,
+liability_parent2, liability_sibling1, ..., liability_siblingN).
 }
 \description{
 Create LTFH estimations for a configuration.

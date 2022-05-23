@@ -4,23 +4,26 @@
 \alias{GWAS}
 \title{Computes casusal SNP's}
 \usage{
-GWAS(G, y, ncores = 1, p = 0.05/1e+06)
+GWAS(G, y, ncores = 1, p)
 }
 \arguments{
-\item{G}{A FBM with SNP data}
+\item{G}{A file backed matrix with SNP data.}
 
 \item{y}{A vector containing targets for each position.}
 
-\item{ncores}{Amount of cores to use}
+\item{ncores}{Amount of cores to use.}
 
-\item{p}{The significance level standard is 0.05 with bonferroni correction}
+\item{p}{The significance level.}
 }
 \value{
-a matrix containing the slopes of each regression, \cr
-the standard errors of each slope \cr
-the t-scores associated with each slope. \cr
-the p-values for each slope \cr
-and a binary vector saying if the position is causal or not given p
+A matrix containing: \cr
+\itemize{
+\item The slopes of each regression \cr
+\item The standard errors of each slope \cr
+\item The t-scores associated with each slope. \cr
+\item The p-values for each slope \cr
+\item And a binary vector saying if the position is causal or not given p
+}
 }
 \description{
 This function is heavily build onto bigstatsr::big_univLinReg. For more documentation check \cr https://privefl.github.io/bigstatsr/reference/big_univLinReg.html

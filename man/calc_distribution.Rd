@@ -8,16 +8,16 @@ liabilities of the multivariate gaussian.}
 calc_distribution(sigma)
 }
 \arguments{
-\item{sigma}{The covariance matrix}
+\item{sigma}{The covariance matrix.}
 }
 \value{
-a list containing sigma_bar and mu_mult for each liability
+a list containing sigma_bar and mu_mult for each liability.
 }
 \description{
 Of the form \cr
 mu_mult = \eqn{\Sigma_{12}\Sigma_{22}^{-1}\mu _2} \cr
 sigma_bar = \eqn{\Sigma_{11} - \Sigma_{12}\Sigma_{22}^{-1}\Sigma_{21}} \cr
-It is used as a helper function for LTFH
+It is used as a helper function for LTFH.
 }
 \examples{
 calc_distribution(get_cov(0.5))
