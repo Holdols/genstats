@@ -278,7 +278,7 @@ liabilities_func_fam = function(G, beta, MAF, liab, N=1e5, n_sib = 0, K=0.05, h2
   l_out = l_out %>% dplyr::mutate(dplyr::across(.cols = !dplyr::contains("g"),
                           .fns = ~ (.x > T_)-0,
                           .names = "{stringr::str_replace(.col, 'l_f','pheno')}")) %>%
-    dplyr::relocate(order)
+    dplyr::relocate(all_of(order))
 
   return(l_out)
 
