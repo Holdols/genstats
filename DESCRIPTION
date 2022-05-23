@@ -17,6 +17,7 @@ Imports:
     dplyr,
     ggplot2,
     future.apply,
+    future,
     magrittr,
     stats
 URL: https://holdols.github.io/genstats/

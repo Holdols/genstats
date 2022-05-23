@@ -386,7 +386,7 @@ gen_sim = function (filename, N=1e5, M=1e5, n_sib = 0, K=0.05, h2=0.5, C=1000, b
   beta = beta_func(M, h2, C)
 
   if (parallel_plan != FALSE){
-    plan(parallel_plan)
+    future::plan(parallel_plan)
   }
 
   if (fam){
