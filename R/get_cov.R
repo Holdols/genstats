@@ -1,8 +1,8 @@
 #' Create covariance matrix
 #'
-#' @param h2 The heritability
-#' @param n_sib Amount of siblings
-#' @return Covariance matrix of datatype matrix
+#' @param h2 The heritability of trait.
+#' @param n_sib Amount of siblings.
+#' @return Covariance matrix of datatype matrix.
 #' @examples
 #' get_cov(0.5, n_sib = 2)
 #' @export

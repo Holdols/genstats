@@ -14,7 +14,7 @@ gibbs_sampl(
 )
 }
 \arguments{
-\item{covmat}{The covariance matrix}
+\item{covmat}{The covariance matrix.}
 
 \item{phenos}{A binary vector containing the phenotype for each family member
 of the form \cr c(p_subject, p_parent1, p_parent2, p_sibling1, ... ,p_siblingN) \cr

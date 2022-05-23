@@ -1,9 +1,9 @@
 #' Adds a postfix to given names for each family member
-#' @param names Names of the the values to add a postfix to e.g. l_g
-#' @param n_sib Amount of siblings
-#' @param id If TRUE add a postfix for the subject
-#' @param parents If TRUE add postfix for parents
-#' @return A vector containing the names for each family member
+#' @param names Names of the the values to add a postfix to e.g. l_g.
+#' @param n_sib Amount of siblings.
+#' @param id If TRUE add a postfix for the subject.
+#' @param parents If TRUE add postfix for parents.
+#' @return A vector containing the names for each family member.
 #' @examples
 #' get_names(c("l_g", "l_e"), n_sib = 2)
 #' @export

@@ -7,16 +7,16 @@
 LTFH(data, n_sib = 0, K = 0.05, h2 = 0.5)
 }
 \arguments{
-\item{data}{List generated from gen_sim}
+\item{data}{List generated from gen_sim.}
 
-\item{n_sib}{Amount of siblings}
+\item{n_sib}{Amount of siblings.}
 
-\item{K}{The prevalance of trait}
+\item{K}{The prevalance of trait.}
 
-\item{h2}{The heritability}
+\item{h2}{The heritability of trait.}
 }
 \value{
-Tibble containing input data and estimated liabilities
+Tibble containing data$fam and estimated liabilities.
 }
 \description{
 Estimates liabilities for every subject

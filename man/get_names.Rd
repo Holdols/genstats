@@ -7,16 +7,16 @@
 get_names(names, n_sib = 0, id = TRUE, parents = TRUE)
 }
 \arguments{
-\item{names}{Names of the the values to add a postfix to e.g. l_g}
+\item{names}{Names of the the values to add a postfix to e.g. l_g.}
 
-\item{n_sib}{Amount of siblings}
+\item{n_sib}{Amount of siblings.}
 
-\item{id}{If TRUE add a postfix for the subject}
+\item{id}{If TRUE add a postfix for the subject.}
 
-\item{parents}{If TRUE add postfix for parents}
+\item{parents}{If TRUE add postfix for parents.}
 }
 \value{
-A vector containing the names for each family member
+A vector containing the names for each family member.
 }
 \description{
 Adds a postfix to given names for each family member

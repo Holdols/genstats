@@ -7,12 +7,12 @@
 get_cov(h2, n_sib = 0)
 }
 \arguments{
-\item{h2}{The heritability}
+\item{h2}{The heritability of trait.}
 
-\item{n_sib}{Amount of siblings}
+\item{n_sib}{Amount of siblings.}
 }
 \value{
-Covariance matrix of datatype matrix
+Covariance matrix of datatype matrix.
 }
 \description{
 Create covariance matrix

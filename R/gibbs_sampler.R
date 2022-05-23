@@ -63,7 +63,7 @@ trunc_estimate = function(j, phenos, K=0.05, mu, sigma){
 
 #' Create LTFH estimations for a configuration.
 #'
-#' @param covmat The covariance matrix
+#' @param covmat The covariance matrix.
 #' @param phenos A binary vector containing the phenotype for each family member
 #' of the form \cr c(p_subject, p_parent1, p_parent2, p_sibling1, ... ,p_siblingN) \cr
 #' where p_familymember is a binary value (1 or 2) \cr

@@ -2,11 +2,11 @@
 
 #' Estimates liabilities for every configuration in data
 #'
-#' @param unique_comb Combinations to estimate
-#' @param n_sib Amount of siblings
-#' @param K The prevalance of trait
-#' @param h2 The heritability
-#' @return Tibble with estimated liabilities
+#' @param unique_comb Configuration of phenotypes to estimate genetic liability for.
+#' @param n_sib Amount of siblings.
+#' @param K The prevalance of trait.
+#' @param h2 The heritability of trait.
+#' @return Tibble with estimated liabilities for each configuration.
 #' @importFrom magrittr "%>%"
 estimate_conf = function(unique_comb, n_sib=0, K=0.5, h2=0.5){
   k = ncol(unique_comb)
@@ -27,11 +27,11 @@ estimate_conf = function(unique_comb, n_sib=0, K=0.5, h2=0.5){
 
 #' Estimates liabilities for every subject
 #'
-#' @param data List generated from gen_sim
-#' @param n_sib Amount of siblings
-#' @param K The prevalance of trait
-#' @param h2 The heritability
-#' @return Tibble containing input data and estimated liabilities
+#' @param data List generated from gen_sim.
+#' @param n_sib Amount of siblings.
+#' @param K The prevalance of trait.
+#' @param h2 The heritability of trait.
+#' @return Tibble containing data$fam and estimated liabilities.
 #' @importFrom magrittr "%>%"
 #' @export
 LTFH = function(data, n_sib=0, K=0.05, h2=0.5){
