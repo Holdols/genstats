@@ -138,15 +138,14 @@ collapse_data = function(data, n_sib){
 
   iterations = length(search)
 
+
   out = lapply(1:iterations, function(i) {
     new_col = rowSums(dplyr::select(data, dplyr::contains(search[i])))
     return(new_col)
-
-  }) %>% dplyr::bind_cols(.)
+  }) %>% do.call('cbind',.)
 
   colnames(out) = get_names("l_g", id=FALSE, n_sib)
-
-  return(out)
+  return(tibble::as_tibble(out))
 
 }
 
@@ -180,7 +179,7 @@ G_func_fam = function(filename, beta, MAF, N=1e5, M=1e5, n_sib = 0, block_size=1
   G = create_fbm(filename, N, M)
 
   liabil = future.apply::future_lapply(1:(M/block_size), function(i){
-    fam_tibble = sim_fam(i, G, beta, MAF, N, n_sib, block_size)
+    fam_tibble = sim_fam(i, G, beta, MAF, N, n_sib, block_size) %>% stats::setNames(paste0(colnames(.),i))
     return(fam_tibble)
   },future.seed = TRUE) %>%
     dplyr::bind_cols(.) %>%
