@@ -7,22 +7,22 @@
 sim_fam(i, G, beta, MAF, N = 1e+05, n_sib = 0, block_size = 1000)
 }
 \arguments{
-\item{i}{Iteration from for loop}
+\item{i}{Iteration from for loop.}
 
-\item{G}{Empty FBM}
+\item{G}{Empty file backed matrix(FBM).}
 
-\item{beta}{Causal snps}
+\item{beta}{A vector containing the casual effect of each SNP.}
 
-\item{MAF}{a vector containing minor allele frequencies}
+\item{MAF}{a vector containing minor allele frequencies.}
 
-\item{N}{Number of subjects}
+\item{N}{Amount of subjects.}
 
-\item{block_size}{Size of FBM to be processed}
+\item{block_size}{Size of FBM to be processed in each iteration.}
 
-\item{n_sibs}{Number of siblings}
+\item{n_sibs}{Amount of siblings.}
 }
 \value{
-Tibble of simulated SNPs for subject and family's liabilities
+Tibble of simulated SNPs for subject and family's liabilities.
 }
 \description{
 Simulate block of snps for whole family

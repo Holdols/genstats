@@ -7,12 +7,12 @@
 get_index(i, block_size)
 }
 \arguments{
-\item{i}{Iteration from for-loop}
+\item{i}{Iteration from for loop.}
 
-\item{block_size}{Size of FBM to be processed}
+\item{block_size}{Size of FBM to be processed in each iteration.}
 }
 \value{
-List of start and and end index
+List of start and and end index.
 }
 \description{
 Find start and and end index of FBM

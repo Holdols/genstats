@@ -7,12 +7,12 @@
 collapse_data(data, n_sib)
 }
 \arguments{
-\item{data}{Tibble with colunms to sum over,}
+\item{data}{Tibble with colunms to sum over.}
 
-\item{n_sibs}{Number of siblings}
+\item{n_sibs}{Amount of siblings.}
 }
 \value{
-Collapsed tibble
+Collapsed tibble.
 }
 \description{
 Calculates the sum of colunms in a tibble for each person and value

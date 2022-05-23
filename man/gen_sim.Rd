@@ -18,28 +18,28 @@ gen_sim(
 )
 }
 \arguments{
-\item{filename}{Filename for FBM}
+\item{filename}{Filename for file backed matrix(FBM) and rds file.}
 
-\item{N}{number of subjects}
+\item{N}{Amount of subjects.}
 
-\item{M}{Number of SNPs}
+\item{M}{Amount of SNPs.}
 
-\item{K}{The prevalance of trait}
+\item{K}{The prevalance of trait.}
 
-\item{h2}{The heritability}
+\item{h2}{The heritability of trait.}
 
-\item{C}{Amount of causal SNP's}
+\item{C}{Amount of causal SNP's.}
 
-\item{block_size}{Size of FBM to be processed}
+\item{block_size}{Size of FBM to be processed in each iteration.}
 
-\item{fam}{Boolean deciding if simulation should include family structure}
+\item{fam}{Boolean deciding if simulation should include a family structure.}
 
-\item{parallel_plan}{plan for parallelization. See ?future::plan}
+\item{parallel_plan}{Plan for parallelization. See ?future::plan.}
 
-\item{n_sibs}{Number of siblings}
+\item{n_sibs}{Amount of siblings.}
 }
 \value{
-Bigsnp object containing FBM, information about subject and family for liabilities, and generated SNP info
+rds file referring to a list containing FBM with genotypes, generated SNP info and information about subject and family for liabilities.
 }
 \description{
 Simulate genetic data

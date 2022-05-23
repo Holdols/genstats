@@ -1,9 +1,9 @@
-#'  Create and save FBM
+#'  Create and save file backed matrix (FBM)
 #'
-#' @param filename Filename for FBM
-#' @param N Amount of individuals
-#' @param M Amount of SNPs
-#' @return A FBM
+#' @param filename Filename for FBM and rds file.
+#' @param N Amount of subjects.
+#' @param M Amount of SNPs.
+#' @return A FBM.
 create_fbm = function(filename, N, M){
   if (file.exists(paste(filename, '.rds', sep=''))){
     obj.bigsnp = bigsnpr::snp_attach(paste(filename, '.rds', sep=''))
@@ -26,12 +26,12 @@ create_fbm = function(filename, N, M){
 
 
 
-#'  Normalize FBM
+#'  Normalize file backed matrix (FBM)
 #'
-#' @param Gx small matrix containing snp data
-#' @param probs Probabilities of mutaion
-#' @param beta_cut Causal SNPs
-#' @return Matrix containing normalized values
+#' @param Gx Subset of FBM containing SNP data.
+#' @param beta A vector containing the casual effect of each SNP.
+#' @param MAF A vector containing minor allele frequencies.
+#' @return A vector containing the genetic liability for Gx.
 normalized_prod = function(Gx, beta, MAF){
   out = c(sweep(sweep(Gx[,], FUN = '-', STATS=2*MAF, MARGIN = 2), FUN='/', STATS=sqrt(2*MAF*(1-MAF)), MARGIN = 2)  %*% beta)
   return(out)
@@ -40,9 +40,9 @@ normalized_prod = function(Gx, beta, MAF){
 
 #'  Find start and and end index of FBM
 #'
-#' @param i Iteration from for-loop
-#' @param block_size Size of FBM to be processed
-#' @return List of start and and end index
+#' @param i Iteration from for loop.
+#' @param block_size Size of FBM to be processed in each iteration.
+#' @return List of start and and end index.
 get_index = function(i, block_size){
   start = (i-1) * block_size + 1
   end = start + block_size - 1
@@ -51,13 +51,13 @@ get_index = function(i, block_size){
 
 
 
-#'  Assign snp for the subject
+#'  Assign SNPs for the subject
 #'
-#' @param G1 SNPs for parent1
-#' @param G2 SNPs for parent2
-#' @param N Number of subjects
-#' @param block_size Size of FBM to be processed
-#' @return Matrix of simulated SNPs
+#' @param G1 SNPs for parent1.
+#' @param G2 SNPs for parent2.
+#' @param N Amount of subjects.
+#' @param block_size Size of FBM to be processed in each iteration.
+#' @return Matrix of simulated SNPs.
 assign_snp = function(G1, G2, N=1e5, block_size=1000){
   k = matrix(rnorm(block_size*N, 0, 0.0000001), ncol=block_size, nrow=N, byrow = T)
   G_input = round((G1 + G2)/2 - k)
@@ -67,11 +67,11 @@ assign_snp = function(G1, G2, N=1e5, block_size=1000){
 
 #'  Simulate block of snps for each family member
 #'
-#' @param i Iteration from for loop
-#' @param beta Causal snps
-#' @param MAF a vector containing minor allele frequencies
-#' @param N Number of subjects
-#' @param block_size Size of FBM to be processed
+#' @param i Iteration from for loop.
+#' @param beta A vector containing the casual effect of each SNP.
+#' @param MAF A vector containing minor allele frequencies.
+#' @param N Amount of subjects.
+#' @param block_size Size of FBM to be processed in each iteration.
 #' @return List containing block of simulated snps and genetic liabilities
 get_member = function(i, beta, MAF, N=1e5, block_size=1000){
 
@@ -90,14 +90,14 @@ get_member = function(i, beta, MAF, N=1e5, block_size=1000){
 
 #'  Simulate block of snps for whole family
 #'
-#' @param i Iteration from for loop
-#' @param G Empty FBM
-#' @param beta Causal snps
-#' @param MAF a vector containing minor allele frequencies
-#' @param n_sibs Number of siblings
-#' @param N Number of subjects
-#' @param block_size Size of FBM to be processed
-#' @return Tibble of simulated SNPs for subject and family's liabilities
+#' @param i Iteration from for loop.
+#' @param G Empty file backed matrix(FBM).
+#' @param beta A vector containing the casual effect of each SNP.
+#' @param MAF a vector containing minor allele frequencies.
+#' @param n_sibs Amount of siblings.
+#' @param N Amount of subjects.
+#' @param block_size Size of FBM to be processed in each iteration.
+#' @return Tibble of simulated SNPs for subject and family's liabilities.
 #' @importFrom magrittr "%>%"
 sim_fam = function(i, G, beta, MAF, N=1e5, n_sib = 0, block_size=1000){
 
@@ -129,9 +129,9 @@ sim_fam = function(i, G, beta, MAF, N=1e5, n_sib = 0, block_size=1000){
 
 #'  Calculates the sum of colunms in a tibble for each person and value
 #'
-#' @param data Tibble with colunms to sum over,
-#' @param n_sibs Number of siblings
-#' @return Collapsed tibble
+#' @param data Tibble with colunms to sum over.
+#' @param n_sibs Amount of siblings.
+#' @return Collapsed tibble.
 #' @importFrom magrittr "%>%"
 collapse_data = function(data, n_sib){
   search = get_names("", id=FALSE, n_sib)
@@ -156,14 +156,14 @@ collapse_data = function(data, n_sib){
 
 #'  Simulate SNP for all subjects and liabilities for family
 #'
-#' @param filename Filename for FBM
-#' @param beta Causal snps
-#' @param MAF Probabilities of mutaion
-#' @param n_sibs Amount of siblings
-#' @param N Amount of individuals
-#' @param M Amount of SNPs
-#' @param block_size Size of FBM to be processed
-#' @return List containing simulated SNPs for all subjects in a FBM and family's liabilities in a tibble
+#' @param filename Filename for file backed matrix(FBM) and rds file.
+#' @param beta A vector containing the casual effect of each SNP.
+#' @param MAF A vector containing minor allele frequencies.
+#' @param n_sibs Amount of siblings.
+#' @param N Amount of subjects.
+#' @param M Amount of SNPs.
+#' @param block_size Size of FBM to be processed in each iteration.
+#' @return List containing simulated SNPs for all subjects in a FBM and family's liabilities in a tibble.
 #' @importFrom magrittr "%>%"
 #' @export
 G_func_fam = function(filename, beta, MAF, N=1e5, M=1e5, n_sib = 0, block_size=1000){
@@ -194,12 +194,12 @@ G_func_fam = function(filename, beta, MAF, N=1e5, M=1e5, n_sib = 0, block_size=1
 
 #'  Simulate SNP for all subjects
 #'
-#' @param filename Filename for FBM
-#' @param MAF A vector containing minor allele frequencies
-#' @param n_sib Amount of siblings
-#' @param N Amount of individuals
-#' @param block_size Size of FBM to be processed
-#' @return FBM containing simulated SNPs for all subjects
+#' @param filename Filename for file backed matrix(FBM) and rds file.
+#' @param MAF A vector containing minor allele frequencies.
+#' @param n_sib Amount of siblings.
+#' @param N Amount of subjects.
+#' @param block_size Size of FBM to be processed in each iteration.
+#' @return FBM containing simulated SNPs for all subjects.
 #' @importFrom magrittr "%>%"
 #' @export
 G_func_simple = function(filename, MAF, N=1e5, M=1e5, block_size=1000){
@@ -230,15 +230,15 @@ G_func_simple = function(filename, MAF, N=1e5, M=1e5, block_size=1000){
 
 #' Calculate genetic liabilities and simulate enviromental liabilities for subject and family
 #'
-#' @param G A FBM containing SNP data
-#' @param beta A vector containing the casual SNPs
-#' @param MAF A vector containing minor allele frequencies
-#' @param liab A tibble containing genetic liabilities for each family member
-#' @param n_sib Amount of siblings
-#' @param N Amount of individuals
-#' @param h_sq heritability
-#' @param block_size the size of each iteration
-#' @return A tibble containing genetic and enviromental liability for each family member
+#' @param G File backed matrix containing SNP data.
+#' @param beta A vector containing the casual effect of each SNP.
+#' @param MAF A vector containing minor allele frequencies.
+#' @param liab A tibble containing genetic liabilities for each subject's family members.
+#' @param n_sib Amount of siblings.
+#' @param N Amount of subjects.
+#' @param h_2 The heritability of trait.
+#' @param block_size Size of FBM to be processed in each iteration.
+#' @return A tibble containing genetic and full liability for each family member.
 #' @importFrom magrittr "%>%"
 #'
 #' @export
@@ -287,13 +287,13 @@ liabilities_func_fam = function(G, beta, MAF, liab, N=1e5, n_sib = 0, K=0.05, h2
 
 #' Calculate genetic liabilities and simulate enviromental liabilities for subject
 #'
-#' @param G A FBM containing SNP data
-#' @param MAF A vector containing minor allele frequencies
-#' @param beta a vector containing the casual SNPs
-#' @param N Amount of individuals
-#' @param h_sq heritability
-#' @param block_size the size of each iteration
-#' @return A tibble containing genetic and enviromental liability for each subject
+#' @param G File backed matrix containing SNP data.
+#' @param MAF A vector containing minor allele frequencies.
+#' @param beta A vector containing the casual effect of each SNP.
+#' @param N Amount of subjects.
+#' @param h2 The heritability of trait.
+#' @param block_size Size of FBM to be processed in each iteration.
+#' @return A tibble containing genetic and full liability for each subject.
 #' @importFrom magrittr "%>%"
 #' @export
 liabilities_func_simple = function(G, beta, MAF, N=1e5,  K=0.05, h2=0.5, block_size = 1000){
@@ -318,10 +318,10 @@ liabilities_func_simple = function(G, beta, MAF, N=1e5,  K=0.05, h2=0.5, block_s
 }
 
 
-#'  Simulate vector containing minor allele frequencies
+#'  Simulate vector containing minor allele frequencies (MAF)
 #'
-#' @param M Number of SNPs
-#' @return Vector containing minor allele frequencies
+#' @param M Amount of SNPs.
+#' @return Vector containing minor allele frequencies (MAF).
 #' @export
 MAF_func = function(M=1e5){
 
@@ -333,11 +333,10 @@ MAF_func = function(M=1e5){
 
 #' Simulate beta
 #'
-#' @param C Amount of causal SNPs
-#' @param h2 The heritability
-#' @param M size of the beta vector
-#' @return A vector of size m containing a value from rnorm(1, 0, sqrt(h_sq/C)) \cr
-#' a C random places.
+#' @param C Amount of causal SNPs.
+#' @param h2 The heritability of trait.
+#' @param M size of the beta vector.
+#' @return A vector of size M containing a value from rnorm(1, 0, sqrt(h2/C)) at C random places.
 #' @export
 beta_func = function(M=1e5, h2=0.5, C=1000){
 
@@ -354,19 +353,19 @@ beta_func = function(M=1e5, h2=0.5, C=1000){
 
 
 
-#'  Simulate genetic data
+#' Simulate genetic data
 #'
-#' @param filename Filename for FBM
-#' @param h2 The heritability
-#' @param fam Boolean deciding if simulation should include family structure
-#' @param n_sibs Number of siblings
-#' @param C Amount of causal SNP's
-#' @param K The prevalance of trait
-#' @param N number of subjects
-#' @param M Number of SNPs
-#' @param block_size Size of FBM to be processed
-#' @param parallel_plan plan for parallelization. See ?future::plan
-#' @return Bigsnp object containing FBM, information about subject and family for liabilities, and generated SNP info
+#' @param filename Filename for file backed matrix(FBM) and rds file.
+#' @param h2 The heritability of trait.
+#' @param fam Boolean deciding if simulation should include a family structure.
+#' @param n_sibs Amount of siblings.
+#' @param C Amount of causal SNP's.
+#' @param K The prevalance of trait.
+#' @param N Amount of subjects.
+#' @param M Amount of SNPs.
+#' @param block_size Size of FBM to be processed in each iteration.
+#' @param parallel_plan Plan for parallelization. See ?future::plan.
+#' @return rds file referring to a list containing FBM with genotypes, generated SNP info and information about subject and family for liabilities.
 #' @export
 gen_sim = function (filename, N=1e5, M=1e5, n_sib = 0, K=0.05, h2=0.5, C=1000, block_size=1000, fam = TRUE,
                     parallel_plan = "multisession") {

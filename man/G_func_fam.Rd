@@ -15,22 +15,22 @@ G_func_fam(
 )
 }
 \arguments{
-\item{filename}{Filename for FBM}
+\item{filename}{Filename for file backed matrix(FBM) and rds file.}
 
-\item{beta}{Causal snps}
+\item{beta}{A vector containing the casual effect of each SNP.}
 
-\item{MAF}{Probabilities of mutaion}
+\item{MAF}{A vector containing minor allele frequencies.}
 
-\item{N}{Amount of individuals}
+\item{N}{Amount of subjects.}
 
-\item{M}{Amount of SNPs}
+\item{M}{Amount of SNPs.}
 
-\item{block_size}{Size of FBM to be processed}
+\item{block_size}{Size of FBM to be processed in each iteration.}
 
-\item{n_sibs}{Amount of siblings}
+\item{n_sibs}{Amount of siblings.}
 }
 \value{
-List containing simulated SNPs for all subjects in a FBM and family's liabilities in a tibble
+List containing simulated SNPs for all subjects in a FBM and family's liabilities in a tibble.
 }
 \description{
 Simulate SNP for all subjects and liabilities for family

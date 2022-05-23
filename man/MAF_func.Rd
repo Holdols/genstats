@@ -2,16 +2,16 @@
 % Please edit documentation in R/gen_sim.R
 \name{MAF_func}
 \alias{MAF_func}
-\title{Simulate vector containing minor allele frequencies}
+\title{Simulate vector containing minor allele frequencies (MAF)}
 \usage{
 MAF_func(M = 1e+05)
 }
 \arguments{
-\item{M}{Number of SNPs}
+\item{M}{Amount of SNPs.}
 }
 \value{
-Vector containing minor allele frequencies
+Vector containing minor allele frequencies (MAF).
 }
 \description{
-Simulate vector containing minor allele frequencies
+Simulate vector containing minor allele frequencies (MAF)
 }

@@ -17,24 +17,24 @@ liabilities_func_fam(
 )
 }
 \arguments{
-\item{G}{A FBM containing SNP data}
+\item{G}{File backed matrix containing SNP data.}
 
-\item{beta}{A vector containing the casual SNPs}
+\item{beta}{A vector containing the casual effect of each SNP.}
 
-\item{MAF}{A vector containing minor allele frequencies}
+\item{MAF}{A vector containing minor allele frequencies.}
 
-\item{liab}{A tibble containing genetic liabilities for each family member}
+\item{liab}{A tibble containing genetic liabilities for each subject's family members.}
 
-\item{N}{Amount of individuals}
+\item{N}{Amount of subjects.}
 
-\item{n_sib}{Amount of siblings}
+\item{n_sib}{Amount of siblings.}
 
-\item{block_size}{the size of each iteration}
+\item{block_size}{Size of FBM to be processed in each iteration.}
 
-\item{h_sq}{heritability}
+\item{h_2}{The heritability of trait.}
 }
 \value{
-A tibble containing genetic and enviromental liability for each family member
+A tibble containing genetic and full liability for each family member.
 }
 \description{
 Calculate genetic liabilities and simulate enviromental liabilities for subject and family

@@ -7,15 +7,15 @@
 get_member(i, beta, MAF, N = 1e+05, block_size = 1000)
 }
 \arguments{
-\item{i}{Iteration from for loop}
+\item{i}{Iteration from for loop.}
 
-\item{beta}{Causal snps}
+\item{beta}{A vector containing the casual effect of each SNP.}
 
-\item{MAF}{a vector containing minor allele frequencies}
+\item{MAF}{A vector containing minor allele frequencies.}
 
-\item{N}{Number of subjects}
+\item{N}{Amount of subjects.}
 
-\item{block_size}{Size of FBM to be processed}
+\item{block_size}{Size of FBM to be processed in each iteration.}
 }
 \value{
 List containing block of simulated snps and genetic liabilities

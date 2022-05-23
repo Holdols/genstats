@@ -2,22 +2,22 @@
 % Please edit documentation in R/gen_sim.R
 \name{assign_snp}
 \alias{assign_snp}
-\title{Assign snp for the subject}
+\title{Assign SNPs for the subject}
 \usage{
 assign_snp(G1, G2, N = 1e+05, block_size = 1000)
 }
 \arguments{
-\item{G1}{SNPs for parent1}
+\item{G1}{SNPs for parent1.}
 
-\item{G2}{SNPs for parent2}
+\item{G2}{SNPs for parent2.}
 
-\item{N}{Number of subjects}
+\item{N}{Amount of subjects.}
 
-\item{block_size}{Size of FBM to be processed}
+\item{block_size}{Size of FBM to be processed in each iteration.}
 }
 \value{
-Matrix of simulated SNPs
+Matrix of simulated SNPs.
 }
 \description{
-Assign snp for the subject
+Assign SNPs for the subject
 }

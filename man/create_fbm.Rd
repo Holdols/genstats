@@ -2,20 +2,20 @@
 % Please edit documentation in R/gen_sim.R
 \name{create_fbm}
 \alias{create_fbm}
-\title{Create and save FBM}
+\title{Create and save file backed matrix (FBM)}
 \usage{
 create_fbm(filename, N, M)
 }
 \arguments{
-\item{filename}{Filename for FBM}
+\item{filename}{Filename for FBM and rds file.}
 
-\item{N}{Amount of individuals}
+\item{N}{Amount of subjects.}
 
-\item{M}{Amount of SNPs}
+\item{M}{Amount of SNPs.}
 }
 \value{
-A FBM
+A FBM.
 }
 \description{
-Create and save FBM
+Create and save file backed matrix (FBM)
 }
