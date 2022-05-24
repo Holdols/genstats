@@ -57,4 +57,25 @@ scatter_plot = function(summary, beta){
   plot
 }
 
+#' Plot the iterations of gibb_sampl
+#'
+#' @param ests output from gibb_sampl
+#' @return plots showing values at each iteration
+#' @export
+plot_gibbs <- function(ests){
+  colnames(ests) = c(c("l_g_0"), get_names("l_f", n_sib = ncol(ests)-4))
+  means <- tibble::as_tibble(ests) %>%
+    tidyr::pivot_longer(cols = everything(), names_to = "pheno") %>%
+    dplyr::group_by(pheno) %>%
+    dpyr::summarise(MN = mean(value), MN_x = length(value)/2, .groups = "keep")
+
+  tibble::as_tibble(ests) %>%
+    dplyr::mutate(iterations = (1:length(l_g_0))) %>%
+    tidyr::pivot_longer(!iterations, names_to = "pheno") %>%
+    ggplot2::ggplot(ggplot2::aes(x = iterations, y = value)) +
+    ggplot2::geom_line(ggplot2::aes(col = "brick")) +
+    ggplot2::geom_hline(data = means, ggplot2::aes(yintercept = MN)) +
+    ggplot2::facet_wrap(~pheno) +
+    ggplot2::geom_label(data = means, ggplot2::aes(x = MN_x, label=round(MN,digits = 3), y=MN -0.1), size = 2.5, vjust = "top")
+}
 
