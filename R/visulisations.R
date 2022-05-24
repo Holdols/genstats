@@ -29,6 +29,7 @@ MSE_prs_plot = function(PRS, data){
 }
 
 
+
 AUC_prs_plot = function(PRS, data){
   pval_thrs = seq(0, 4, by = 0.5)
   lapply(1:length(test), function(i) {
@@ -37,3 +38,23 @@ AUC_prs_plot = function(PRS, data){
     tibble('AUC'=auc, 'Threshold'=pval_thrs, 'fold' = paste0('Fold ', i))
   }) %>% bind_rows %>% ggplot(aes(y=AUC, x=Threshold)) + geom_point() + geom_line()+ xlab('Threshold for p value') + facet_wrap(~fold)
 }
+
+
+manhatten_plot = function(summary, beta, thresholds = FALSE){
+  plot = tibble('p_vals' = summary$p_vals) %>% mutate('causal' = (beta!=0)-0) %>%
+    ggplot(aes(x=(1:length(p_vals)), y=-log10(p_vals))) +
+    geom_point(aes(colour=as.character(causal))) +
+    ylab('-log10(P-value)') + xlab('Chromosome') + labs(color='True casual SNPs')
+  if (any(thresholds != FALSE)){
+    plot = plot + geom_hline(yintercept = -log10(thresholds), linetype='dashed')
+  }
+  plot
+}
+
+scatter_plot = function(summary, beta){
+  plot = tibble('beta'= beta, 'estim'=summary$estim, 'causal_est'=summary$causal_estimate) %>%
+    mutate('causal' = (beta!=0)-0) %>% ggplot(aes(x=beta, y=estim)) + geom_point(aes(colour=as.character(causal_est))) + geom_abline(slope = 1) + labs(color='Estimated to have casual effect') + yab('Estimated effect') + xlab('Actual effect')
+  plot
+}
+
+
