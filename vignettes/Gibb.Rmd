@@ -24,3 +24,28 @@ Now we sample a value $p_{lp}$ uniformly from one of the two intervals given the
 
 ![](Pseudocode.png)
 
+```{r}
+library(genstats)
+library(tidyverse)
+ests = gibbs_sampl(covmat = get_cov(0.5, n_sib = 2), phenos = c(1,1,0,1,0), K = 0.05, start_run = 500, all_est = TRUE)
+colnames(ests) = c(c("l_g_0"), get_names("l_f", n_sib = 2))
+ncol(ests)
+means <- as_tibble(ests) %>% 
+          pivot_longer(cols = everything(), names_to = "pheno") %>% 
+            group_by(pheno) %>% 
+              summarise(MN = mean(value), MN_x = length(value)/2, .groups = "keep")
+
+as_tibble(ests) %>% 
+  mutate(iterations = (1:length(l_g_0))) %>%
+  pivot_longer(!iterations, names_to = "pheno") %>% 
+  ggplot(aes(x = iterations, y = value)) + geom_line(aes(col = "brick")) + geom_hline(data = means, aes(yintercept = MN)) + facet_wrap(~pheno) + geom_label(data = means, aes(x = MN_x, label=round(MN,digits = 3), y=MN -0.1), size = 2.5, vjust = "top")
+```
+
+
+```{r}
+gridExtra::grid.arrange(control_plot(phenos = c(0,0,0), h2 = 0.5, col = "blue"),
+                        control_plot(phenos = c(0,0,1), h2 = 0.5, col = "blue"),
+                        control_plot(phenos = c(1,1,1), h2 = 0.5, col = "red"))
+```
+
+
