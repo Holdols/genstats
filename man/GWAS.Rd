@@ -4,16 +4,18 @@
 \alias{GWAS}
 \title{Computes casusal SNP's}
 \usage{
-GWAS(G, y, ncores = 1, p)
+GWAS(G, y, p, logreg = FALSE, ncores = 1)
 }
 \arguments{
 \item{G}{A file backed matrix with SNP data.}
 
 \item{y}{A vector containing targets for each position.}
 
-\item{ncores}{Amount of cores to use.}
-
 \item{p}{The significance level.}
+
+\item{logreg}{if TRUE do logistic regression, else Linear regression.}
+
+\item{ncores}{Amount of cores to use.}
 }
 \value{
 A matrix containing: \cr
