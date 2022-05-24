@@ -7,9 +7,9 @@
 control_plot(phenos, h2, col = "black")
 }
 \arguments{
-\item{h2}{The heritability}
+\item{h2}{The heritability of trait}
 
-\item{pheno}{matrix containing phenotypes}
+\item{pheno}{Vector containing phenotypes}
 }
 \value{
 Plot of estimated liabilities

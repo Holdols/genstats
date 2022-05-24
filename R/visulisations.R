@@ -79,3 +79,17 @@ plot_gibbs <- function(ests){
     ggplot2::geom_label(data = means, ggplot2::aes(x = MN_x, label=round(MN,digits = 3), y=MN -0.1), size = 2.5, vjust = "top")
 }
 
+#' Create power plot
+#'
+#' @param gwas_summary output from GWAS
+#' @param beta A vector containing the actual casual effect of each SNP.
+#' @return A power plot
+#' @export
+power_plot <- function(gwas_summary, beta){
+  tibble::as_tibble(gwas_df) %>%
+    dplyr::mutate(true_causal = (beta != 0) - 0) %>%
+    dplyr::filter(true_causal == 1) %>%
+    dplyr::arrange(abs(estim)) %>%
+    dplyr::mutate(power = cumsum(causal_estimate)/100) %>%
+    ggplot2::ggplot(ggplot2::aes(x = estim, y = power)) + ggplot2::geom_line()
+}
