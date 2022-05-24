@@ -1,0 +1,26 @@
+---
+title: "Gibbs"
+output: html_document
+date: '2022-05-24'
+---
+
+
+An assumption made by Hujoel et al.(2020) is that the liabilities of subjects and families follow a multivariate normal distribution (See vignette LTFH). With this assumption liabilities of each family member can be estimated if their phenotypes are provided. 
+
+These liabilitites are estimated using Monte Carlo integration. In genstats a Gibb sampler has been implemented, by sampling from a conditional distribution for each liability estimates are obtained iteratively. The obtained phenotypes of family members can be implemented in the model by sampling from a truncated normal distribution.
+To clarify if a family member is a case we know that the liability of the family member is above a threshold T, given a prevalence K. To sample from a a truncated normal distribution we sample a value from one of the two intervals shown below.
+$$
+T = \Phi^{-1}(1-K) \\
+L_p \sim N(\mu_p, \sigma_p) \\
+\Downarrow
+\\
+P(L_p \leq T) = F_{L_p}(T) \\
+\Downarrow
+\\
+\text{if p is case}: P(L_p = l_p) \in [F_{l_p}(T) , 1 ]\\
+\text{else}: P(L_p =l_p) \in [0, F_{l_p}(T)] \\
+$$
+Now we sample a value $p_{lp}$ uniformly from one of the two intervals given the family members case. To get a sample for $l_p$ we set $l_p = F_{L_p}^{-1}(p_{lp})$
+
+![](Pseudocode.png)
+

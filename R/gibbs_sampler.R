@@ -113,16 +113,17 @@ gibbs_sampl <- function(covmat, phenos, K = 0.05, s_val = 0, start_run=500, all_
         } else {current_liabil[j] = trunc_estimate(j, phenos, K, mu, sigma)}
 
 
-      liabil_list[[length(liabil_list)+1]] = current_liabil
-      total_runs = total_runs + 1
+
+      }
+    liabil_list[[length(liabil_list)+1]] = current_liabil
+    total_runs = total_runs + 1
     }
-    liabil = liabil_list %>% do.call('rbind',.)
+  liabil = liabil_list %>% do.call('rbind',.)
   }
   if (all_est){
     return(liabil[-(1:(start_run+1)),])
   }
   return(colMeans(liabil[-(1:(start_run+1)),]))
-  }
 }
 
 
