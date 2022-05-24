@@ -18,3 +18,22 @@ control_plot = function(phenos, h2, col="black"){
     ggplot2::geom_text(aes(x=mean+0.2, label=round(mean,2), y=0), colour=col)
 }
 
+
+MSE_prs_plot = function(PRS, data){
+  pval_thrs = seq(0, 4, by = 0.5)
+  lapply(1:length(test), function(i) {
+    targ = data$fam$pheno_0[as.numeric(row.names(te))]
+    mse = apply(test[[i]], 2 , function(pred,target) mean((pred-target)^2), target = targ)
+    tibble('MSE'=mse, 'Threshold'=pval_thrs, 'fold' = paste0('Fold ', i))
+  }) %>% bind_rows %>% ggplot(aes(y=MSE, x=Threshold)) + geom_point() + geom_line()+ xlab('Threshold for p value') + facet_wrap(~fold)
+}
+
+
+AUC_prs_plot = function(PRS, data){
+  pval_thrs = seq(0, 4, by = 0.5)
+  lapply(1:length(test), function(i) {
+    targ = data$fam$pheno_0[as.numeric(row.names(te))]
+    auc = apply(test[[i]], 2 , AUC, target = targ)
+    tibble('AUC'=auc, 'Threshold'=pval_thrs, 'fold' = paste0('Fold ', i))
+  }) %>% bind_rows %>% ggplot(aes(y=AUC, x=Threshold)) + geom_point() + geom_line()+ xlab('Threshold for p value') + facet_wrap(~fold)
+}
