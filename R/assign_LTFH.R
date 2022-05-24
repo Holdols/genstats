@@ -36,7 +36,7 @@ estimate_conf = function(unique_comb, n_sib=0, K=0.5, h2=0.5){
 #' @export
 LTFH = function(data, n_sib=0, K=0.05, h2=0.5){
   fam = data$fam
-  stopifnot(is_tibble(fam) || is.data.frame(fam))
+  stopifnot(tibble::is_tibble(fam) || is.data.frame(fam))
   stopifnot(is.double(n_sib), n_sib >= 0, n_sib%%1==0)
   stopifnot(is.double(K), K < 1 || K > 0)
   stopifnot(is.double(h2), h2 < 1 || h2 > 0)
