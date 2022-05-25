@@ -19,21 +19,6 @@ control_plot = function(phenos, h2, col="black"){
 }
 
 
-MSE_prs_plot = function(PRS, data){
-  pval_thrs = seq(0, 4, by = 0.5)
-  df = lapply(1:length(PRS), function(i) {
-    targ = data$fam$pheno_0[as.numeric(row.names(PRS[[i]]))]
-    mse = apply(PRS[[i]], 2 , function(pred,target) mean((pred-target)^2), target = targ)
-    tibble('MSE'=mse, 'Threshold'=pval_thrs, 'fold' = paste0('Fold ', i))
-  }) %>% bind_rows
-
-  print(df %>% ggplot(aes(y=MSE, x=Threshold)) + geom_point() + geom_line()+ xlab('Threshold for p value') + facet_wrap(~fold))
-
-  df %>% group_by(Threshold) %>% summarise('mean_MSE'=mean(MSE), 'sd'=sd(MSE)) %>%
-    ggplot(aes(y=mean_MSE, x=Threshold)) + geom_point() + geom_line() + xlab('Threshold for p value') +
-    geom_errorbar(aes(ymin=mean_MSE-sd, ymax=mean_MSE+sd), width=.2, position=position_dodge(0.05))
-}
-
 
 
 prs_plot = function(PRS, data, method='MSE'){
@@ -42,9 +27,10 @@ prs_plot = function(PRS, data, method='MSE'){
   df = lapply(1:length(PRS), function(i) {
     targ = data$fam$pheno_0[as.numeric(row.names(PRS[[i]]))]
 
-    if (method=='AUC') {eval = apply(PRS[[i]], 2 , AUC, target = targ)}
-    ##else if (method='Lin_Reg') {}
-    else {eval = apply(PRS[[i]], 2 , function(pred,target) mean((pred-target)^2), target = targ)}
+    if (method=='AUC') {eval = apply(PRS[[i]], 2, AUC, target = targ)}
+    else if (method=='Lin_Reg') {
+      eval = apply(PRS[[i]], 2, function(pred,target) summary(lm(target~pred))$r.squared,  target = targ)}
+    else {eval = apply(PRS[[i]], 2, function(pred,target) mean((pred-target)^2), target = targ)}
 
     tibble('Eval'=eval, 'Threshold'=pval_thrs, 'fold' = paste0('Fold ', i))
   }) %>% bind_rows
