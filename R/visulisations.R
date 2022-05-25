@@ -93,3 +93,24 @@ power_plot <- function(gwas_summary, beta){
     dplyr::mutate(power = cumsum(causal_estimate)/100) %>%
     ggplot2::ggplot(ggplot2::aes(x = estim, y = power)) + ggplot2::geom_line()
 }
+
+
+LTFH_plot = function(LTFH_est){
+  new_df = LTFH_est %>% mutate('conf' = apply(select(., contains('phen')), 1, paste0, collapse=', '))
+
+  plot = new_df %>% ggplot2::ggplot(ggplot2::aes(x=l_g_est_0, y=l_g_0)) +
+    ggplot2::geom_point(aes(color=conf)) + ggplot2::geom_abline(slope=1)  +
+    guides(color = 'none') + xlab('Estimated liabilities') + ylab('True liabilities')
+
+  min_df = new_df %>% group_by(conf) %>%
+    summarise('min_' = min(l_g_0), 'mean' = mean(l_g_est_0), n = n()) %>%
+    mutate('sequence' = seq(0,1.5, 1.5/(length(conf)-1)))
+
+  plot + geom_text(data=min_df,
+                   aes(x=mean+sequence/5, y=min(min_)+sequence-0.5, label=conf, color=conf),  size = 3) +
+    geom_segment(data=min_df, aes(x=mean+sequence/5-0.09, y=min(min_)+sequence-0.49, xend=mean, yend=min_, color=conf))
+
+}
+
+
+
