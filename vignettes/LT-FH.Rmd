@@ -7,7 +7,16 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-A more sofisticated method of analysing the genetic data and finding the causal SNP's is using LT-FH (liability threshold family history). This methods uses a gibbsampler in order to estimate the genetic liability of each subject based on the family history, i.e. if the subject, it's parent or siblings have the given trait or sickness. Read more about gibb sambling in the vignette. Afterwards a linear regression can be used agian as association metahtos
+A more sofisticated method of analysing the genetic data and finding the causal SNP's is using LT-FH (liability threshold family history). This methods uses a gibbsampler in order to estimate the genetic liability of each subject based on the family history, i.e. if the subject, it's parent or siblings have the given trait or sickness. Using this estimate an updated expected value for the genetic liability can be obtained.
+Below is shown three plots with the posterior mean genetic liabilities compared to the standard normal distribution of the full liability the configuration for the plots is (0,0,0), (0,0,1) and (1,1,1) respectively.
+```{r}
+gridExtra::grid.arrange(control_plot(phenos = c(0,0,0), h2 = 0.5, col = "blue"),
+                        control_plot(phenos = c(0,0,1), h2 = 0.5, col = "purple"),
+                        control_plot(phenos = c(1,1,1), h2 = 0.5, col = "red"), heights = 0.5, name = c("Plots for configuration (0,0,0), (0,0,1), (1,1,1)"))
+```
+
+Read more about the gibb sambling process in the vignette. Afterwards a linear regression can be used again as association metahtos
+
 
 
 

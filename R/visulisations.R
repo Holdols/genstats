@@ -63,14 +63,13 @@ scatter_plot = function(summary, beta){
 #' @return plots showing values at each iteration
 #' @export
 plot_gibbs <- function(ests){
-  colnames(ests) = c(c("l_g_0"), get_names("l_f", n_sib = ncol(ests)-4))
   means <- tibble::as_tibble(ests) %>%
     tidyr::pivot_longer(cols = everything(), names_to = "pheno") %>%
     dplyr::group_by(pheno) %>%
-    dpyr::summarise(MN = mean(value), MN_x = length(value)/2, .groups = "keep")
+    dplyr::summarise(MN = mean(value), MN_x = length(value)/2, .groups = "keep")
 
   tibble::as_tibble(ests) %>%
-    dplyr::mutate(iterations = (1:length(l_g_0))) %>%
+    dplyr::mutate(iterations = (1:length(ests[,1]))) %>%
     tidyr::pivot_longer(!iterations, names_to = "pheno") %>%
     ggplot2::ggplot(ggplot2::aes(x = iterations, y = value)) +
     ggplot2::geom_line(ggplot2::aes(col = "brick")) +
