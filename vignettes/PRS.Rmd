@@ -5,22 +5,71 @@ date: '2022-05-25'
 ---
 
 ```{r}
-gen_sim(filename = "example_data", N = 10000, M = 10000, n_sib = 2, C = 150, block_size = 2000)
+setwd("C:/Users/osahl/Desktop/UNI/Dataprojekt/genstats")
+gen_sim(filename = "example_data", N = 100000, M = 100000, n_sib = 2, C = 1000, block_size = 2000)
+
+gen_sim(filename = "example_data_test", N = 5000, M = 100000, n_sib = 2, C = 1000, block_size = 2000)
 ```
+
 ```{r}
 library(genstats)
 library(bigsnpr)
+library(tidyverse)
 data = snp_attach("example_data.rds")
 est <- genstats::LTFH(data = data, n_sib = 2) %>% 
             select(., contains("est"))
 prs <- PRS_cross(data = data, y01 = est[[1]], cross_folds = 4)
 ```
+
 ```{r}
 AUC_prs_plot(prs, data = data)
 ```
 ```{r}
-MSE_prs_plot(prs, data)
+gwas <- bigstatsr::big_univLinReg(data$genotypes, y.train = est[[1]])
+prss <- snp_PRS(G = data$genotypes, betas.keep =gwas$estim, lpS.keep = -predict(gwas), thr.list = 3)
 ```
+
+```{r}
+library(mfx)
+model <- glm(data$fam$pheno_0 ~ prss, family = binomial(link = "probit"))
+```
+
+```{r}
+setwd("C:/Users/osahl/Desktop/UNI/Dataprojekt/genstats")
+test_set <- snp_attach("example_data_test.rds")
+prss = snp_PRS(G = test_set$genotypes, betas.keep =gwas$estim, lpS.keep = -predict(gwas), thr.list = 3)
+#colnames(snp_PRS_test) = c("prss")
+
+probs <- predict(model, as.data.frame(prss), type = "response")
+preds <- (probs > 0.5)-0
+preds - test_set$fam$pheno_0
+
+
+preds[preds==1]
+test_set$fam$pheno_0[preds==1]
+
+sum(preds == test_set$fam$pheno_0)
+```
+
+
+```{r}
+model <- lm(data$fam$pheno_0 ~ prss)
+
+prss = snp_PRS(G = test_set$genotypes, betas.keep =gwas$estim, lpS.keep = -predict(gwas), thr.list = 3)
+probs <- predict(model, as.data.frame(prss))
+preds <- (probs > 0.5)-0
+#preds - test_set$fam$pheno_0
+
+
+preds[preds==1]
+test_set$fam$pheno_0[preds==1]
+
+sum(preds == test_set$fam$pheno_0)
+```
+
+
+
+
 ```{r}
 df = prs %>% do.call('rbind', .)
 df = df[order(as.numeric(row.names(df))),]
@@ -39,5 +88,18 @@ power_plot(GWAS(G = data$genotypes, y = est[[1]], p = 5e-7), beta = data$map$bet
 
 ```{r}
 power_plot(GWAS(G = data$genotypes, y = data$fam$pheno_0, p = 5e-7), beta = data$map$beta)
+```
+
+
+```{r}
+data_test <- snp_attach("example_data_test")
+prs_test <- bigsnpr::snp_PRS(G = )
+
+model = glm(data$fam$pheno_0 ~ df[,7], family = binomial(link = "probit"))
+res = predict(model, )
+```
+
+```{r}
+bigsnpr::snp_PRS(G = data, betas.keep = )
 ```
 
