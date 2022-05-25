@@ -21,11 +21,16 @@ control_plot = function(phenos, h2, col="black"){
 
 MSE_prs_plot = function(PRS, data){
   pval_thrs = seq(0, 4, by = 0.5)
-  lapply(1:length(PRS), function(i) {
+  df = lapply(1:length(PRS), function(i) {
     targ = data$fam$pheno_0[as.numeric(row.names(PRS[[i]]))]
     mse = apply(PRS[[i]], 2 , function(pred,target) mean((pred-target)^2), target = targ)
     tibble('MSE'=mse, 'Threshold'=pval_thrs, 'fold' = paste0('Fold ', i))
-  }) %>% bind_rows %>% ggplot(aes(y=MSE, x=Threshold)) + geom_point() + geom_line()+ xlab('Threshold for p value') + facet_wrap(~fold)
+  }) %>% bind_rows
+
+  df %>% ggplot(aes(y=MSE, x=Threshold)) + geom_point() + geom_line()+ xlab('Threshold for p value') + facet_wrap(~fold)
+
+  df %>% group_by(Threshold) %>% summary('mean_MSE'=mean(MSE)) %>%
+    ggplot(aes(y=mean_MSE, x=Threshold)) + geom_point() + geom_line()+ xlab('Threshold for p value')
 }
 
 
