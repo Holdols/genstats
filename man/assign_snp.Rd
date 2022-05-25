@@ -19,5 +19,5 @@ assign_snp(G1, G2, N = 1e+05, block_size = 1000)
 Matrix of simulated SNPs.
 }
 \description{
-Assign SNPs for the subject
+Helper function for gen_sim()
 }

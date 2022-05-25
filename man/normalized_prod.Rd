@@ -17,5 +17,5 @@ normalized_prod(Gx, beta, MAF)
 A vector containing the genetic liability for Gx.
 }
 \description{
-Normalize file backed matrix (FBM)
+Helper function for gen_sim()
 }

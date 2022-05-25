@@ -21,5 +21,5 @@ get_member(i, beta, MAF, N = 1e+05, block_size = 1000)
 List containing block of simulated snps and genetic liabilities
 }
 \description{
-Simulate block of snps for each family member
+Helper function for gen_sim()
 }

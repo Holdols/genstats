@@ -13,7 +13,7 @@ dist_check(data)
 Creates a qqplot, mean and sample variance for the liability of each family.
 }
 \description{
-Check distribution of liabilities
+The function calculates the mean and variance of each full liability returned by genstats::gen_sim().
 }
 \examples{
 dist_check(snp_attach("test.rds"))

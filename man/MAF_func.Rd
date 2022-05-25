@@ -13,5 +13,6 @@ MAF_func(M = 1e+05)
 Vector containing minor allele frequencies (MAF).
 }
 \description{
-Simulate vector containing minor allele frequencies (MAF)
+The function simulates minor allele frequencies for each SNP.
+Minor allele frequencies is independent and uniformly distributed on the interval \eqn{[0.01, 0.49]}.
 }

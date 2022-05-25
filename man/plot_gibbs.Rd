@@ -2,16 +2,16 @@
 % Please edit documentation in R/visulisations.R
 \name{plot_gibbs}
 \alias{plot_gibbs}
-\title{Plot the iterations of gibb_sampl}
+\title{Plot the convergence of gibb_sampl}
 \usage{
 plot_gibbs(ests)
 }
 \arguments{
-\item{ests}{output from gibb_sampl}
+\item{ests}{Output from gibb_sampl with all_est=TRUE.}
 }
 \value{
-plots showing values at each iteration
+Plots showing values at each iteration.
 }
 \description{
-Plot the iterations of gibb_sampl
+Plot the convergence of gibb_sampl
 }

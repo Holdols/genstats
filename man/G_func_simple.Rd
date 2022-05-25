@@ -21,5 +21,6 @@ G_func_simple(filename, MAF, N = 1e+05, M = 1e+05, block_size = 1000)
 FBM containing simulated SNPs for all subjects.
 }
 \description{
-Simulate SNP for all subjects
+The function creates a bigsnpr object, saves it in a rds file.
+and fills the file backed matrix generated with geneotypes for each subject.
 }

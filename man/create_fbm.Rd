@@ -17,5 +17,5 @@ create_fbm(filename, N, M)
 A FBM.
 }
 \description{
-Create and save file backed matrix (FBM)
+Helper function for gen_sim()
 }

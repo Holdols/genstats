@@ -25,5 +25,5 @@ sim_fam(i, G, beta, MAF, N = 1e+05, n_sib = 0, block_size = 1000)
 Tibble of simulated SNPs for subject and family's liabilities.
 }
 \description{
-Simulate block of snps for whole family
+Helper function for gen_sim()
 }

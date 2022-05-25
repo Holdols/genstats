@@ -31,5 +31,5 @@ liabilities_func_simple(
 A tibble containing genetic and full liability for each subject.
 }
 \description{
-Calculate genetic liabilities and simulate enviromental liabilities for subject
+Helper function for gen_sim()
 }

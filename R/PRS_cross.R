@@ -1,3 +1,12 @@
+#'  Uses cross validation to train and estimate PRS for each fold
+#'
+#' @param data List generated from gen_sim.
+#' @param y The target vector. Could either be estimated liabilities from LTFH or phenotypes.
+#' @param cross_folds Number of folds in cross validation.
+#' @param LogReg Boolean indicating if logistic regression should be used to estimate the casual effect.
+#' @return List with estimated PRS for each fold.
+#' @importFrom magrittr "%>%"
+#' @export
 PRS_cross <- function(data, y01, cross_folds, LogReg = FALSE){
   folds = list()
   G = data$genotypes

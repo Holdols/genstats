@@ -33,5 +33,9 @@ G_func_fam(
 List containing simulated SNPs for all subjects in a FBM and family's liabilities in a tibble.
 }
 \description{
-Simulate SNP for all subjects and liabilities for family
+The function creates a bigsnpr object, saves it in a rds file.
+and fills the file backed matrix generated with geneotypes for each subject.
+The function also returns the genetic liabilities for the parents of the subject
+since the parents genotypes are not saved. The liabilitiesfor the parents is therefore calculated
+in the same loop as genotype is simulated.
 }

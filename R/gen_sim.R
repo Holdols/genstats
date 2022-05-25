@@ -1,5 +1,6 @@
 #'  Create and save file backed matrix (FBM)
 #'
+#' Helper function for gen_sim()
 #' @param filename Filename for FBM and rds file.
 #' @param N Amount of subjects.
 #' @param M Amount of SNPs.
@@ -26,8 +27,9 @@ create_fbm = function(filename, N, M){
 
 
 
-#'  Normalize file backed matrix (FBM)
+#' Normalize file backed matrix (FBM)
 #'
+#' Helper function for gen_sim()
 #' @param Gx Subset of FBM containing SNP data.
 #' @param beta A vector containing the casual effect of each SNP.
 #' @param MAF A vector containing minor allele frequencies.
@@ -38,8 +40,9 @@ normalized_prod = function(Gx, beta, MAF){
 }
 
 
-#'  Find start and and end index of FBM
+#' Find start and and end index of FBM
 #'
+#' Helper function for gen_sim()
 #' @param i Iteration from for loop.
 #' @param block_size Size of FBM to be processed in each iteration.
 #' @return List of start and and end index.
@@ -51,8 +54,9 @@ get_index = function(i, block_size){
 
 
 
-#'  Assign SNPs for the subject
+#' Assign SNPs for the subject
 #'
+#' Helper function for gen_sim()
 #' @param G1 SNPs for parent1.
 #' @param G2 SNPs for parent2.
 #' @param N Amount of subjects.
@@ -65,8 +69,9 @@ assign_snp = function(G1, G2, N=1e5, block_size=1000){
 }
 
 
-#'  Simulate block of snps for each family member
+#' Simulate block of snps for each family member
 #'
+#' Helper function for gen_sim()
 #' @param i Iteration from for loop.
 #' @param beta A vector containing the casual effect of each SNP.
 #' @param MAF A vector containing minor allele frequencies.
@@ -88,8 +93,9 @@ get_member = function(i, beta, MAF, N=1e5, block_size=1000){
 
 
 
-#'  Simulate block of snps for whole family
+#' Simulate block of snps for whole family
 #'
+#' Helper function for gen_sim()
 #' @param i Iteration from for loop.
 #' @param G Empty file backed matrix(FBM).
 #' @param beta A vector containing the casual effect of each SNP.
@@ -127,8 +133,9 @@ sim_fam = function(i, G, beta, MAF, N=1e5, n_sib = 0, block_size=1000){
 
 
 
-#'  Calculates the sum of colunms in a tibble for each person and value
+#' Calculates the sum of colunms in a tibble for each person and value
 #'
+#' Helper function for gen_sim()
 #' @param data Tibble with colunms to sum over.
 #' @param n_sibs Amount of siblings.
 #' @return Collapsed tibble.
@@ -153,8 +160,13 @@ collapse_data = function(data, n_sib){
 
 
 
-#'  Simulate SNP for all subjects and liabilities for family
+#' Simulate SNP for all subjects and liabilities for family
 #'
+#' The function creates a bigsnpr object, saves it in a rds file.
+#' and fills the file backed matrix generated with geneotypes for each subject.
+#' The function also returns the genetic liabilities for the parents of the subject
+#' since the parents genotypes are not saved. The liabilitiesfor the parents is therefore calculated
+#' in the same loop as genotype is simulated.
 #' @param filename Filename for file backed matrix(FBM) and rds file.
 #' @param beta A vector containing the casual effect of each SNP.
 #' @param MAF A vector containing minor allele frequencies.
@@ -193,6 +205,8 @@ G_func_fam = function(filename, beta, MAF, N=1e5, M=1e5, n_sib = 0, block_size=1
 
 #'  Simulate SNP for all subjects
 #'
+#' The function creates a bigsnpr object, saves it in a rds file.
+#' and fills the file backed matrix generated with geneotypes for each subject.
 #' @param filename Filename for file backed matrix(FBM) and rds file.
 #' @param MAF A vector containing minor allele frequencies.
 #' @param n_sib Amount of siblings.
@@ -229,6 +243,7 @@ G_func_simple = function(filename, MAF, N=1e5, M=1e5, block_size=1000){
 
 #' Calculate genetic liabilities and simulate enviromental liabilities for subject and family
 #'
+#' Helper function for gen_sim()
 #' @param G File backed matrix containing SNP data.
 #' @param beta A vector containing the casual effect of each SNP.
 #' @param MAF A vector containing minor allele frequencies.
@@ -239,8 +254,6 @@ G_func_simple = function(filename, MAF, N=1e5, M=1e5, block_size=1000){
 #' @param block_size Size of FBM to be processed in each iteration.
 #' @return A tibble containing genetic and full liability for each family member.
 #' @importFrom magrittr "%>%"
-#'
-#' @export
 liabilities_func_fam = function(G, beta, MAF, liab, N=1e5, n_sib = 0, K=0.05, h2=0.5, block_size = 1000){
 
   stopifnot(tibble::is_tibble(liab))
@@ -286,6 +299,7 @@ liabilities_func_fam = function(G, beta, MAF, liab, N=1e5, n_sib = 0, K=0.05, h2
 
 #' Calculate genetic liabilities and simulate enviromental liabilities for subject
 #'
+#' Helper function for gen_sim()
 #' @param G File backed matrix containing SNP data.
 #' @param MAF A vector containing minor allele frequencies.
 #' @param beta A vector containing the casual effect of each SNP.
@@ -294,7 +308,6 @@ liabilities_func_fam = function(G, beta, MAF, liab, N=1e5, n_sib = 0, K=0.05, h2
 #' @param block_size Size of FBM to be processed in each iteration.
 #' @return A tibble containing genetic and full liability for each subject.
 #' @importFrom magrittr "%>%"
-#' @export
 liabilities_func_simple = function(G, beta, MAF, N=1e5,  K=0.05, h2=0.5, block_size = 1000){
 
   stopifnot(is.double(N), N > 0, N%%1 == 0)
@@ -317,8 +330,10 @@ liabilities_func_simple = function(G, beta, MAF, N=1e5,  K=0.05, h2=0.5, block_s
 }
 
 
-#'  Simulate vector containing minor allele frequencies (MAF)
+#' Simulate vector containing minor allele frequencies (MAF)
 #'
+#' The function simulates minor allele frequencies for each SNP.
+#' Minor allele frequencies is independent and uniformly distributed on the interval \eqn{[0.01, 0.49]}.
 #' @param M Amount of SNPs.
 #' @return Vector containing minor allele frequencies (MAF).
 #' @export
@@ -332,6 +347,9 @@ MAF_func = function(M=1e5){
 
 #' Simulate beta
 #'
+#' The function simulates the casual effect of each SNP. S
+#' ince there are C causual SNPs the distribution of beta is sampled from is a normal distribution
+#' with zero mean and variance as the heritability divided by casual SNPs.
 #' @param C Amount of causal SNPs.
 #' @param h2 The heritability of trait.
 #' @param M size of the beta vector.
@@ -354,6 +372,11 @@ beta_func = function(M=1e5, h2=0.5, C=1000){
 
 #' Simulate genetic data
 #'
+#' This function is used to simulate genetic data. Using parallelization the function can simulate genotypes,
+#' liabilities both with and without family structure. The function will return a list were all information about
+#' the simulation can be found. This includes which SNP are casual and what their effect is, the genetic and full liabilities
+#' og subjects, parents and siblings and their phenotypes. This object can be used to further develop or test statistical analysis
+#' on genetic data.
 #' @param filename Filename for file backed matrix(FBM) and rds file.
 #' @param h2 The heritability of trait.
 #' @param fam Boolean deciding if simulation should include a family structure.

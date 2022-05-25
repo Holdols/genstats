@@ -15,5 +15,5 @@ get_index(i, block_size)
 List of start and and end index.
 }
 \description{
-Find start and and end index of FBM
+Helper function for gen_sim()
 }

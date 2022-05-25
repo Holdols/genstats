@@ -7,12 +7,12 @@
 control_plot(phenos, h2, col = "black")
 }
 \arguments{
-\item{h2}{The heritability of trait}
+\item{h2}{The heritability of trait.}
 
-\item{pheno}{Vector containing phenotypes}
+\item{pheno}{Vector containing phenotypes.}
 }
 \value{
-Plot of estimated liabilities
+Plot of estimated liabilities.
 }
 \description{
 Plotting estimated liabilities agianst distribution

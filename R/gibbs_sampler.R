@@ -46,7 +46,7 @@ trunc_estimate = function(j, phenos, K=0.05, mu, sigma){
   if (j == 1) {return(rnorm(1, mu, sqrt(sigma)))
   }
   else {
-    if (phenos[j-1] == 'numeric') {phen = phenos[j-1]} else {phen = phenos[j-1][1]}
+    if (class(phenos[j-1]) == 'numeric') {phen = phenos[j-1]} else {phen = phenos[j-1][1]}
 
     crit_bound = pnorm(qnorm(1-K), mu, sqrt(sigma))
     interval = phen * c(crit_bound, 1) + (1-phen)*c(0, crit_bound)

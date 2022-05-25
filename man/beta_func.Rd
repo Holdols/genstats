@@ -17,5 +17,7 @@ beta_func(M = 1e+05, h2 = 0.5, C = 1000)
 A vector of size M containing a value from rnorm(1, 0, sqrt(h2/C)) at C random places.
 }
 \description{
-Simulate beta
+The function simulates the casual effect of each SNP. S
+ince there are C causual SNPs the distribution of beta is sampled from is a normal distribution
+with zero mean and variance as the heritability divided by casual SNPs.
 }

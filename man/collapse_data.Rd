@@ -15,5 +15,5 @@ collapse_data(data, n_sib)
 Collapsed tibble.
 }
 \description{
-Calculates the sum of colunms in a tibble for each person and value
+Helper function for gen_sim()
 }

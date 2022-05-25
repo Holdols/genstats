@@ -37,5 +37,5 @@ liabilities_func_fam(
 A tibble containing genetic and full liability for each family member.
 }
 \description{
-Calculate genetic liabilities and simulate enviromental liabilities for subject and family
+Helper function for gen_sim()
 }
