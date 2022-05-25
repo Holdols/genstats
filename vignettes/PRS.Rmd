@@ -1,0 +1,43 @@
+---
+title: "PRS"
+output: html_document
+date: '2022-05-25'
+---
+
+```{r}
+gen_sim(filename = "example_data", N = 10000, M = 10000, n_sib = 2, C = 150, block_size = 2000)
+```
+```{r}
+library(genstats)
+library(bigsnpr)
+data = snp_attach("example_data.rds")
+est <- genstats::LTFH(data = data, n_sib = 2) %>% 
+            select(., contains("est"))
+prs <- PRS_cross(data = data, y01 = est[[1]], cross_folds = 4)
+```
+```{r}
+AUC_prs_plot(prs, data = data)
+```
+```{r}
+MSE_prs_plot(prs, data)
+```
+```{r}
+df = prs %>% do.call('rbind', .)
+df = df[order(as.numeric(row.names(df))),]
+
+plot(df[,7], data$fam$pheno_0)
+```
+```{r}
+prs <- PRS_cross(data = data, y01 = data$fam$pheno_0, cross_folds = 4)
+AUC_prs_plot(prs, data = data)
+MSE_prs_plot(prs, data)
+```
+```{r}
+power_plot(GWAS(G = data$genotypes, y = est[[1]], p = 5e-7), beta = data$map$beta)
+```
+
+
+```{r}
+power_plot(GWAS(G = data$genotypes, y = data$fam$pheno_0, p = 5e-7), beta = data$map$beta)
+```
+

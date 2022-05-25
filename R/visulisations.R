@@ -21,9 +21,9 @@ control_plot = function(phenos, h2, col="black"){
 
 MSE_prs_plot = function(PRS, data){
   pval_thrs = seq(0, 4, by = 0.5)
-  lapply(1:length(test), function(i) {
-    targ = data$fam$pheno_0[as.numeric(row.names(te))]
-    mse = apply(test[[i]], 2 , function(pred,target) mean((pred-target)^2), target = targ)
+  lapply(1:length(PRS), function(i) {
+    targ = data$fam$pheno_0[as.numeric(row.names(PRS[[i]]))]
+    mse = apply(PRS[[i]], 2 , function(pred,target) mean((pred-target)^2), target = targ)
     tibble('MSE'=mse, 'Threshold'=pval_thrs, 'fold' = paste0('Fold ', i))
   }) %>% bind_rows %>% ggplot(aes(y=MSE, x=Threshold)) + geom_point() + geom_line()+ xlab('Threshold for p value') + facet_wrap(~fold)
 }
@@ -32,9 +32,9 @@ MSE_prs_plot = function(PRS, data){
 
 AUC_prs_plot = function(PRS, data){
   pval_thrs = seq(0, 4, by = 0.5)
-  lapply(1:length(test), function(i) {
-    targ = data$fam$pheno_0[as.numeric(row.names(te))]
-    auc = apply(test[[i]], 2 , AUC, target = targ)
+  lapply(1:length(PRS), function(i) {
+    targ = data$fam$pheno_0[as.numeric(row.names(PRS[[i]]))]
+    auc = apply(PRS[[i]], 2 , AUC, target = targ)
     tibble('AUC'=auc, 'Threshold'=pval_thrs, 'fold' = paste0('Fold ', i))
   }) %>% bind_rows %>% ggplot(aes(y=AUC, x=Threshold)) + geom_point() + geom_line()+ xlab('Threshold for p value') + facet_wrap(~fold)
 }
@@ -85,7 +85,7 @@ plot_gibbs <- function(ests){
 #' @return A power plot
 #' @export
 power_plot <- function(gwas_summary, beta){
-  tibble::as_tibble(gwas_df) %>%
+  tibble::as_tibble(gwas_summary) %>%
     dplyr::mutate(true_causal = (beta != 0) - 0) %>%
     dplyr::filter(true_causal == 1) %>%
     dplyr::arrange(abs(estim)) %>%

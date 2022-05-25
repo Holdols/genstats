@@ -17,8 +17,8 @@ L_p \sim N(\mu_p, \sigma_p) \\
 P(L_p \leq T) = F_{L_p}(T) \\
 \Downarrow
 \\
-\text{if p is case}: P(L_p = l_p) \in [F_{l_p}(T) , 1 ]\\
-\text{else}: P(L_p =l_p) \in [0, F_{l_p}(T)] \\
+\text{if p is case}: p_{l_p} \in [F_{l_p}(T) , 1 ]\\
+\text{else}: p_{l_p} \in [0, F_{l_p}(T)] \\
 $$
 Now we sample a value $p_{lp}$ uniformly from one of the two intervals given the family members case. To get a sample for $l_p$ we set $l_p = F_{L_p}^{-1}(p_{lp})$.
 The pseudocode for the Gibbs Sampler is shown below
