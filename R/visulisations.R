@@ -40,7 +40,7 @@ AUC_prs_plot = function(PRS, data){
 }
 
 
-manhatten_plot = function(summary, beta, thresholds = FALSE){
+manhattan_plot = function(summary, beta, thresholds = FALSE){
   plot = tibble('p_vals' = summary$p_vals) %>% mutate('causal' = (beta!=0)-0) %>%
     ggplot(aes(x=(1:length(p_vals)), y=-log10(p_vals))) +
     geom_point(aes(colour=as.character(causal))) +
