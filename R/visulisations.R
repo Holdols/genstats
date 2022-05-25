@@ -27,21 +27,33 @@ MSE_prs_plot = function(PRS, data){
     tibble('MSE'=mse, 'Threshold'=pval_thrs, 'fold' = paste0('Fold ', i))
   }) %>% bind_rows
 
-  df %>% ggplot(aes(y=MSE, x=Threshold)) + geom_point() + geom_line()+ xlab('Threshold for p value') + facet_wrap(~fold)
+  print(df %>% ggplot(aes(y=MSE, x=Threshold)) + geom_point() + geom_line()+ xlab('Threshold for p value') + facet_wrap(~fold))
 
-  df %>% group_by(Threshold) %>% summary('mean_MSE'=mean(MSE)) %>%
-    ggplot(aes(y=mean_MSE, x=Threshold)) + geom_point() + geom_line()+ xlab('Threshold for p value')
+  df %>% group_by(Threshold) %>% summarise('mean_MSE'=mean(MSE), 'sd'=sd(MSE)) %>%
+    ggplot(aes(y=mean_MSE, x=Threshold)) + geom_point() + geom_line() + xlab('Threshold for p value') +
+    geom_errorbar(aes(ymin=mean_MSE-sd, ymax=mean_MSE+sd), width=.2, position=position_dodge(0.05))
 }
 
 
 
-AUC_prs_plot = function(PRS, data){
+prs_plot = function(PRS, data, method='MSE'){
   pval_thrs = seq(0, 4, by = 0.5)
-  lapply(1:length(PRS), function(i) {
+
+  df = lapply(1:length(PRS), function(i) {
     targ = data$fam$pheno_0[as.numeric(row.names(PRS[[i]]))]
-    auc = apply(PRS[[i]], 2 , AUC, target = targ)
-    tibble('AUC'=auc, 'Threshold'=pval_thrs, 'fold' = paste0('Fold ', i))
-  }) %>% bind_rows %>% ggplot(aes(y=AUC, x=Threshold)) + geom_point() + geom_line()+ xlab('Threshold for p value') + facet_wrap(~fold)
+
+    if (method=='AUC') {eval = apply(PRS[[i]], 2 , AUC, target = targ)}
+    ##else if (method='Lin_Reg') {}
+    else {eval = apply(PRS[[i]], 2 , function(pred,target) mean((pred-target)^2), target = targ)}
+
+    tibble('Eval'=eval, 'Threshold'=pval_thrs, 'fold' = paste0('Fold ', i))
+  }) %>% bind_rows
+
+  print(df %>% ggplot(aes(y=Eval, x=Threshold)) + geom_point() + geom_line()+ xlab('Threshold for p value') + ylab(method) + facet_wrap(~fold))
+
+  df %>% group_by(Threshold) %>% summarise('mean_Eval'=mean(Eval), 'sd'=sd(Eval)) %>%
+    ggplot(aes(y=mean_Eval, x=Threshold)) + geom_point() + geom_line() + xlab('Threshold for p value') + ylab(paste0('Mean ', method)) +
+    geom_errorbar(aes(ymin=mean_Eval-sd, ymax=mean_Eval+sd), width=.2, position=position_dodge(0.05))
 }
 
 
