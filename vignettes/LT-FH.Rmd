@@ -71,34 +71,3 @@ scatter_plot(LTFH_summary, beta)
 
 
 
-
-
-
-
-```{r eval=FALSE, include=FALSE}
-LTFH_plot = function(LTFH_est){
-  
-  LTFH_est  %>% group_by(select(LTFH_est, contains('phen'))) %>% summarise(mean(l_f_p2), .groups ='keep')
-  
-  
-}
-
-
-
-
-
-#
-
-ggplot2::ggplot(ggplot2::aes(x=l_estim, y=l_g)) + ggplot2::geom_point(color=) + ggplot2::geom_abline(slope=1) + geom_label(label=) 
-  
-
-
-```
-
-
-```{r}
-control_plot(phenos, 0.5)
-```
-
-
-
