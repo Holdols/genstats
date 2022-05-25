@@ -44,5 +44,20 @@ It is now possible to perfom GWAS for association analysis or use the genotypes 
 
 ## Simulation with family history
 
-Simulation with family history
+Simulation with family history is very similar to simulating without.
+
+```{r eval=FALSE}
+gen_sim('family_sim_example', N=1000, M=1000, C=50, block_size = 100, n_sib=2)
+family_data = snp_attach('family_sim_example.rds')
+family_data$fam
+```
+We see here that we have a bit more family history, but the same same values each family member as we have for the subject. Again can we check the distrubition of each full liability using the same function as before.
+```{r eval=FALSE}
+dist_check(simple_data)
+```
+Now this data is ready to be analysied using LTFH or used in predictive analysis.
+
+
+
+
 
