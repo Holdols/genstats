@@ -103,8 +103,10 @@ scatter_plot = function(gwas_summary, beta){
     dplyr::mutate('causal' = (beta!=0)-0) %>%
     ggplot2::ggplot(ggplot2::aes(x=beta, y=estim)) +
     ggplot2::geom_point(ggplot2::aes(colour=as.character(causal_est))) +
-    ggplot2::geom_abline(slope = 1) + labs(color='Estimated to have casual effect') +
-    ggplot2::yab('Estimated effect') + xlab('Actual effect')
+    ggplot2::geom_abline(slope = 1) +
+    ggplot2::labs(color='Estimated to have casual effect') +
+    ggplot2::ylab('Estimated effect') +
+    ggplot2::xlab('Actual effect')
 
   plot
 }

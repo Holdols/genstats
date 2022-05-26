@@ -58,7 +58,7 @@ PRS_cross <- function(data, y01, cross_folds, LogReg = FALSE){
 #' @param y The target vector. Could either be estimated liabilities from LTFH or phenotypes.
 #' @param thr Treshold for p-value to be used in calculating PRS.
 #' @param LogReg Boolean indicating if logistic regression should be used to estimate the casual effect.
-#' @return List containing output from GWAS and Linear regression of PRS on phenotype of the subject.
+#' @return List containing output from GWAS and Linear regression of PRS on phenotype of the subject. It
 #' @importFrom magrittr "%>%"
 #' @export
 pred_model = function(train_data, y, thr, LogReg_g = FALSE, LogReg_prs = FALSE){
@@ -70,6 +70,13 @@ pred_model = function(train_data, y, thr, LogReg_g = FALSE, LogReg_prs = FALSE){
 
   if (!LogReg_prs) {model = lm(train_data$fam$pheno_0 ~ prs_)}
   else {model <- glm(train_data$fam$pheno_0 ~ prs_, family = binomial(link = "probit"))}
+
+  print(train_data$fam %>%
+          ggplot2::ggplot(ggplot2::aes(x=fitted.values(model), y=y)) +
+          ggplot2::geom_point(aes(color=as.character(pheno_0))) +
+          ggplot2::xlab('Estimated values') +
+          ggplot2::ylab('Estimated genetic liability or phenotype') +
+          ggplot2::labs(color='Phenotype'))
 
   return(list('gwas'=gwas, 'model_prs'=model))
 }
