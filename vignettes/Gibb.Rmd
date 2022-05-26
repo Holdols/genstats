@@ -1,7 +1,10 @@
 ---
 title: "Gibbs"
-output: html_document
-date: '2022-05-24'
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Gibbs}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 
