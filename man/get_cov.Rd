@@ -15,7 +15,7 @@ get_cov(h2, n_sib = 0)
 Covariance matrix of datatype matrix.
 }
 \description{
-Create covariance matrix
+The function returns the covariance matrix for the multivariate normal distribution of ()
 }
 \examples{
 get_cov(0.5, n_sib = 2)

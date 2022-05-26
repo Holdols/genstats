@@ -1,5 +1,6 @@
 #' Create covariance matrix
 #'
+#' The function returns the covariance matrix for the multivariate normal distribution of ()
 #' @param h2 The heritability of trait.
 #' @param n_sib Amount of siblings.
 #' @return Covariance matrix of datatype matrix.
