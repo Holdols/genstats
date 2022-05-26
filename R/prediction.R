@@ -31,8 +31,7 @@ PRS_cross <- function(data, y01, cross_folds, LogReg = FALSE){
     ind_train <- setdiff(rows_along(G), ind_test)
     if (LogReg == TRUE){
       bigstatsr::big_univLogRegg(G, y.train = y01[ind_train], ind.train = ind_train)
-    }
-    else {
+    } else {
       gwas_train <- bigstatsr::big_univLinReg(G, y.train = y01[ind_train], ind.train = ind_train)
     }
 
@@ -64,7 +63,7 @@ PRS_cross <- function(data, y01, cross_folds, LogReg = FALSE){
 #' @export
 pred_model = function(train_data, y, thr, LogReg_g = FALSE, LogReg_prs = FALSE){
   if (!LogReg_g) {gwas <- bigstatsr::big_univLinReg(train_data$genotypes, y.train = y)}
-  Else {gwas <- bigstatsr::big_univLogReg(train_data$genotypes, y.train = y)}
+  else {gwas <- bigstatsr::big_univLogReg(train_data$genotypes, y.train = y)}
   prs_ <- bigstatsr::snp_PRS(G = train_data$genotypes, betas.keep =gwas$estim, lpS.keep = -predict(gwas), thr.list = thr)
   prs_ = prs_[,1]
 
