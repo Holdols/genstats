@@ -67,6 +67,7 @@ power_plot(LTFH_summary, beta)
 
 
 To illustrate how this would look on real data we have the following pictures:
-![Manhattan plot of LTFH used on 100,000 times 100,000 data][LTFH_manhatten.png)
-![Scatterplot plot of LTFH used on 100,000 times 100,000 data][LTFH_scatterplot.png)
-![Powerplot][LTFH_powerplot.png)
+![Manhattan plot of LTFH used on 100,000 times 100,000 data][LTFH_manhatten.jpg)
+![Scatterplot plot of LTFH used on 100,000 times 100,000 data][LTFH_scatterplot.jpg)
+![Powerplot of LTFH used on 100,000 times 100,000 data][LTFH_powerplot.jpg)
+

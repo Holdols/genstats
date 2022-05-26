@@ -16,7 +16,7 @@ pred_model(train_data, y, thr, LogReg_g = FALSE, LogReg_prs = FALSE)
 \item{LogReg}{Boolean indicating if logistic regression should be used to estimate the casual effect.}
 }
 \value{
-List containing output from GWAS and Linear regression of PRS on phenotype of the subject.
+List containing output from GWAS and Linear regression of PRS on phenotype of the subject. It
 }
 \description{
 The funcion will first use GWAS to find the casual effect of each SNP.

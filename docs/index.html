@@ -41,7 +41,11 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="articles/Gibb.html">Gibbs</a>
     <a class="dropdown-item" href="articles/GWAS.html">GWAS</a>
+    <a class="dropdown-item" href="articles/LT-FH.html">LT-FH</a>
+    <a class="dropdown-item" href="articles/PRS.html">PRS</a>
+    <a class="dropdown-item" href="articles/Simulation.html">Simulation</a>
   </div>
 </li>
       </ul>
@@ -66,9 +70,9 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="genstats">genstats<a class="anchor" aria-label="anchor" href="#genstats"></a>
 </h1></div>
-<!-- badges: start -->
-<p>The goal of genstats is to …</p>
-<!-- badges: end -->
+<!-- badges: start --><!-- badges: end --><p>genstats provide easy access to tools for statistical analysis of genetic data. Genetic data is difficult to come by, but provides a very informative basis for statistical use. We have therefore through some assumptions provided method for simulating genetic data which can be used for both association analysis and predictive statistics. The package provides standard methods for association analysis such as GWAS and LT-FH. Though the structure of simulated data is easy to use in comnination with dplyr and it is therefor easy to implement your own methods.</p>
+<p>The packages uses the method of LT-FH as described by Hujoel, M.L.A., Gazal, S., Loh, PR. et al.. Link to article is found in Biblography.</p>
+<p>The package is developed as a part of our bachelor’s program in data science at Aarhus University.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -78,33 +82,9 @@
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"Holdols/genstats"</span><span class="op">)</span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
-</h2>
-<p>This is a basic example which shows you how to solve a common problem:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://holdols.github.io/genstats/" class="external-link">genstats</a></span><span class="op">)</span>
-<span class="co">## basic example code</span></code></pre></div>
-<p>What is special about using <code>README.Rmd</code> instead of just <code>README.md</code>? You can include R chunks like so:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">cars</span><span class="op">)</span>
-<span class="co">#&gt;      speed           dist       </span>
-<span class="co">#&gt;  Min.   : 4.0   Min.   :  2.00  </span>
-<span class="co">#&gt;  1st Qu.:12.0   1st Qu.: 26.00  </span>
-<span class="co">#&gt;  Median :15.0   Median : 36.00  </span>
-<span class="co">#&gt;  Mean   :15.4   Mean   : 42.98  </span>
-<span class="co">#&gt;  3rd Qu.:19.0   3rd Qu.: 56.00  </span>
-<span class="co">#&gt;  Max.   :25.0   Max.   :120.00</span></code></pre></div>
-<p>You’ll still need to render <code>README.Rmd</code> regularly, to keep <code>README.md</code> up-to-date. <code><a href="https://devtools.r-lib.org/reference/build_rmd.html" class="external-link">devtools::build_readme()</a></code> is handy for this. You could also use GitHub Actions to re-render <code>README.Rmd</code> every time you push. An example workflow can be found here: <a href="https://github.com/r-lib/actions/tree/v1/examples" class="external-link uri">https://github.com/r-lib/actions/tree/v1/examples</a>.</p>
-<p>You can also embed plots, for example:</p>
-<p><img src="reference/figures/README-pressure-1.png" width="100%"></p>
-<p>In that case, don’t forget to commit and push the resulting figure files, so they display on GitHub and CRAN.</p>
-</div>
-<div class="section level2">
 <h2 id="biblography">Biblography<a class="anchor" aria-label="anchor" href="#biblography"></a>
 </h2>
-<ul>
-<li>Hujoel, M.L.A., Gazal, S., Loh, PR. et al. Liability threshold modeling of case–control status and family history of disease increases association power. Nat Genet 52, 541–547 (2020). <a href="https://doi.org/10.1038/s41588-020-0613-6" class="external-link uri">https://doi.org/10.1038/s41588-020-0613-6</a>”</li>
-</ul>
+<ul><li>Hujoel, M.L.A., Gazal, S., Loh, PR. et al. Liability threshold modeling of case–control status and family history of disease increases association power. Nat Genet 52, 541–547 (2020). <a href="https://doi.org/10.1038/s41588-020-0613-6" class="external-link uri">https://doi.org/10.1038/s41588-020-0613-6</a>"</li></ul>
 <p>The package uses functions and methods from both bigsnpr: <a href="https://privefl.github.io/bigsnpr/" class="external-link uri">https://privefl.github.io/bigsnpr/</a> and bigstatsr: <a href="https://privefl.github.io/bigstatsr/index.html" class="external-link uri">https://privefl.github.io/bigstatsr/index.html</a></p>
 </div>
 </div>

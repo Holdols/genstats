@@ -6,6 +6,8 @@
 \usage{
 gen_sim(
   filename,
+  beta = NULL,
+  MAF = NULL,
   N = 1e+05,
   M = 1e+05,
   n_sib = 0,
@@ -19,6 +21,8 @@ gen_sim(
 }
 \arguments{
 \item{filename}{Filename for file backed matrix(FBM) and rds file.}
+
+\item{beta}{Vector containing minor allele frequencies (MAF). If NULL a vector will be simulated}
 
 \item{N}{Amount of subjects.}
 
