@@ -16,16 +16,11 @@ knitr::opts_chunk$set(
 # genstats
 
 <!-- badges: start -->
+
+
+The goal of genstats is to ...
+
 <!-- badges: end -->
-
-
-
-genstats provide easy access to tools for statistical analysis of genetic data. Genetic data is difficult to come by, but provides a very informative basis for statistical use. We have therefore through some assumptions provided method for simulating genetic data which can be used for both association analysis and predictive statistics. The package provides standard methods for association analysis such as GWAS and LT-FH. Though the structure of simulated data is easy to use in comnination with dplyr and it is therefor easy to implement your own methods.
-
-The packages uses the method of LT-FH as described by Hujoel, M.L.A., Gazal, S., Loh, PR. et al.. Link to article is found in Biblography.
-
-The package is developed as a part of our bachelor's program in data science at Aarhus University. 
-
 
 ## Installation
 

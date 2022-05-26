@@ -6,9 +6,9 @@ date: '2022-05-25'
 
 ```{r}
 setwd("~/Uddannelse/Universitet/4. Semester/Dataprojekt/genstats")
-gen_sim(filename = "example_data", N = 10000, M = 10000, n_sib = 2, C = 1000, block_size = 1000)
+gen_sim(filename = "example_data", N = 100000, M = 100000, n_sib = 2, C = 1000, block_size = 500)
 
-gen_sim(filename = "example_data_test", N = 5000, M = 10000, n_sib = 2, C = 1000, block_size = 1000)
+gen_sim(filename = "example_data_test", N = 5000, M = 100000, n_sib = 2, C = 1000, block_size = 500)
 ```
 
 ```{r}

@@ -18,7 +18,8 @@ Imports:
     future.apply,
     future,
     magrittr,
-    stats
+    stats,
+    tidyr
 URL: https://holdols.github.io/genstats/
 Suggests: 
     knitr,
