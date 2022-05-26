@@ -1,6 +1,7 @@
 #' @title Calculates the constants parameters for the conditional distribution belonging to each
 #' liabilities of the multivariate gaussian.
 #'
+#' Helper function for gibb_sampl()
 #' @description Of the form \cr
 #' mu_mult = \eqn{\Sigma_{12}\Sigma_{22}^{-1}\mu _2} \cr
 #' sigma_bar = \eqn{\Sigma_{11} - \Sigma_{12}\Sigma_{22}^{-1}\Sigma_{21}} \cr
@@ -23,6 +24,7 @@ calc_distribution = function(sigma){
 
 #' Returns random value from normal distribution.
 #'
+#' Helper function for gibb_sampl()
 #' @param mu The mean.
 #' @param sigma The variance.
 #' @return Random value from normal distribution.
@@ -34,6 +36,7 @@ no_trunc_estimate = function(mu, sigma){ return(rnorm(1, mu, sqrt(sigma))) }
 
 #' Returns truncated random value from normal distribution.
 #'
+#' Helper function for gibb_sampl()
 #' @param j Index for familymember.
 #' @param phenos A binary vector containing the phenotype for each family member
 #' of the form c(p_subject, p_parent1, p_parent2, p_sibling1, ... ,p_siblingN)
@@ -65,6 +68,10 @@ trunc_estimate = function(j, phenos, K=0.05, mu, sigma){
 
 #' Create LTFH estimations for a configuration.
 #'
+#'
+#' This function estimates the genetic liability for a subject given the configuration of each familiy members phenotype.
+#' The the phenotype is given by either a 0 or 1 indicating if the family member has the trait/sickness.
+#' The function uses Monte Carlo integration to estimate the conditional distribution.
 #' @param covmat The covariance matrix.
 #' @param phenos A binary vector containing the phenotype for each family member
 #' of the form c(p_subject, p_parent1, p_parent2, p_sibling1, ... ,p_siblingN)
