@@ -1,7 +1,10 @@
 ---
 title: "PRS"
-output: html_document
-date: '2022-05-25'
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{GWAS}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 
@@ -12,7 +15,6 @@ library(bigstatsr)
 library(tidyverse)
 
 
-setwd("D:/Data")
 data = snp_attach("example_data.rds")
 
 
