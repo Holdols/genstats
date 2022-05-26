@@ -4,10 +4,22 @@
     <loc>https://github.com/Holdols/genstats/404.html</loc>
   </url>
   <url>
+    <loc>https://github.com/Holdols/genstats/articles/Gibb.html</loc>
+  </url>
+  <url>
     <loc>https://github.com/Holdols/genstats/articles/GWAS.html</loc>
   </url>
   <url>
     <loc>https://github.com/Holdols/genstats/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/Holdols/genstats/articles/LT-FH.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/Holdols/genstats/articles/PRS.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/Holdols/genstats/articles/Simulation.html</loc>
   </url>
   <url>
     <loc>https://github.com/Holdols/genstats/authors.html</loc>
@@ -100,7 +112,13 @@
     <loc>https://github.com/Holdols/genstats/reference/LTFH_notrunc.html</loc>
   </url>
   <url>
+    <loc>https://github.com/Holdols/genstats/reference/LTFH_plot.html</loc>
+  </url>
+  <url>
     <loc>https://github.com/Holdols/genstats/reference/MAF_func.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/Holdols/genstats/reference/manhattan_plot.html</loc>
   </url>
   <url>
     <loc>https://github.com/Holdols/genstats/reference/normalized_prod.html</loc>
@@ -110,6 +128,27 @@
   </url>
   <url>
     <loc>https://github.com/Holdols/genstats/reference/pipe.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/Holdols/genstats/reference/plot_gibbs.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/Holdols/genstats/reference/power_plot.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/Holdols/genstats/reference/prediction.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/Holdols/genstats/reference/pred_model.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/Holdols/genstats/reference/PRS_cross.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/Holdols/genstats/reference/prs_plot.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/Holdols/genstats/reference/scatter_plot.html</loc>
   </url>
   <url>
     <loc>https://github.com/Holdols/genstats/reference/sim_fam.html</loc>

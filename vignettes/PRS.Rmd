@@ -14,7 +14,7 @@ library(bigstatsr)
 library(tidyverse)
 
 
-data = snp_attach("example_data.rds")
+data = snp_attach("genetic_data.rds")
 
 
 
@@ -38,11 +38,11 @@ prs_plot(PRS = prs, data, 'Lin_Reg')
 ```{r}
 
 
-m = pred_model(data, est[[1]], 3, lin_reg=FALSE)
+m = pred_model(data, est[[1]], 3)
 
 
 
-test_set <- snp_attach("example_data_test.rds")
+test_set <- snp_attach("genetic_data_test.rds")
 
 
 
@@ -68,29 +68,9 @@ plot(df[,7], data$fam$pheno_0)
 
 ```{r}
 prs <- PRS_cross(data = data, y01 = data$fam$pheno_0, cross_folds = 4)
-AUC_prs_plot(prs, data = data)
-MSE_prs_plot(prs, data)
-```
-
-```{r}
-power_plot(GWAS(G = data$genotypes, y = est[[1]], p = 5e-7), beta = data$map$beta)
+prs_plot(prs, data = data)
+prs_plot(prs, data, 'AUC')
 ```
 
 
-```{r}
-power_plot(GWAS(G = data$genotypes, y = data$fam$pheno_0, p = 5e-7), beta = data$map$beta)
-```
-
-
-```{r}
-data_test <- snp_attach("example_data_test")
-prs_test <- bigsnpr::snp_PRS(G = )
-
-model = glm(data$fam$pheno_0 ~ df[,7], family = binomial(link = "probit"))
-res = predict(model, )
-```
-
-```{r}
-bigsnpr::snp_PRS(G = data, betas.keep = )
-```
 
