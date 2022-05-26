@@ -49,7 +49,7 @@ PRS_cross <- function(data, y01, cross_folds, LogReg = FALSE){
 
 
 
-#'  Trains model on train data given the target vector.
+#' Trains model on train data given the target vector.
 #'
 #' The funcion will first use GWAS to find the casual effect of each SNP.
 #' It will then calculate the PRS and use a linear or logistic regression to estimate the phenotypes.
