@@ -378,6 +378,8 @@ beta_func = function(M=1e5, h2=0.5, C=1000){
 #' og subjects, parents and siblings and their phenotypes. This object can be used to further develop or test statistical analysis
 #' on genetic data.
 #' @param filename Filename for file backed matrix(FBM) and rds file.
+#' @param beta Vector containing casual effect of each SNP. If NULL a vector will be simulated
+#' @param beta Vector containing minor allele frequencies (MAF). If NULL a vector will be simulated
 #' @param h2 The heritability of trait.
 #' @param fam Boolean deciding if simulation should include a family structure.
 #' @param n_sibs Amount of siblings.
@@ -389,7 +391,7 @@ beta_func = function(M=1e5, h2=0.5, C=1000){
 #' @param parallel_plan Plan for parallelization. See ?future::plan.
 #' @return rds file referring to a list containing FBM with genotypes, generated SNP info and information about subject and family for liabilities.
 #' @export
-gen_sim = function (filename, N=1e5, M=1e5, n_sib = 0, K=0.05, h2=0.5, C=1000, block_size=1000, fam = TRUE,
+gen_sim = function (filename, beta=NULL, MAF= NULL, N=1e5, M=1e5, n_sib = 0, K=0.05, h2=0.5, C=1000, block_size=1000, fam = TRUE,
                     parallel_plan = "multisession") {
   # Make MAF
 
@@ -403,8 +405,8 @@ gen_sim = function (filename, N=1e5, M=1e5, n_sib = 0, K=0.05, h2=0.5, C=1000, b
   stopifnot(fam==TRUE || fam==FALSE)
 
 
-  MAF = MAF_func(M)
-  beta = beta_func(M, h2, C)
+  if (MAF == NULL ) {MAF = MAF_func(M)}
+  if (beta == NULL) {beta = beta_func(M, h2, C)}
 
   if (parallel_plan != FALSE){
     future::plan(parallel_plan)
