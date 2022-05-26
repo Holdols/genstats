@@ -405,8 +405,8 @@ gen_sim = function (filename, beta=NULL, MAF= NULL, N=1e5, M=1e5, n_sib = 0, K=0
   stopifnot(fam==TRUE || fam==FALSE)
 
 
-  if (MAF == NULL ) {MAF = MAF_func(M)}
-  if (beta == NULL) {beta = beta_func(M, h2, C)}
+  if (is.null(MAF)) {MAF = MAF_func(M)}
+  if (is.null(beta)) {beta = beta_func(M, h2, C)}
 
   if (parallel_plan != FALSE){
     future::plan(parallel_plan)
