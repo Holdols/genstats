@@ -15,7 +15,8 @@ get_cov(h2, n_sib = 0)
 Covariance matrix of datatype matrix.
 }
 \description{
-The function returns the covariance matrix for the multivariate normal distribution of ()
+The function returns the covariance matrix for the multivariate normal distribution of
+lg_subject, l_subject, l_parent1, l_parent2, l_sibling1, ... ,l_siblingN.
 }
 \examples{
 get_cov(0.5, n_sib = 2)

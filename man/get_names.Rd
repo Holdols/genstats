@@ -19,7 +19,9 @@ get_names(names, n_sib = 0, id = TRUE, parents = TRUE)
 A vector containing the names for each family member.
 }
 \description{
-Adds a postfix to given names for each family member
+This function serves as a help for the user to generate the wished columns names.
+The function works well in combination with dplyr using the argument contains in select.
+There is no requirements for input other than it's a string.
 }
 \examples{
 get_names(c("l_g", "l_e"), n_sib = 2)
