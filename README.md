@@ -42,3 +42,5 @@ devtools::install_github("Holdols/genstats")
 The package uses functions and methods from both bigsnpr:
 <https://privefl.github.io/bigsnpr/> and bigstatsr:
 <https://privefl.github.io/bigstatsr/index.html>
+
+Please visit those site for more information about how data is stored
