@@ -1,4 +1,8 @@
 #' Adds a postfix to given names for each family member
+#'
+#' This function serves as a help for the user to generate the wished columns names.
+#' The function works well in combination with dplyr using the argument contains in select.
+#' There is no requirements for input other than it's a string.
 #' @param names Names of the the values to add a postfix to e.g. l_g.
 #' @param n_sib Amount of siblings.
 #' @param id If TRUE add a postfix for the subject.

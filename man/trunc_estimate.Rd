@@ -23,5 +23,5 @@ where p_familymember is a binary value (1 or 2).}
 Truncated random value from normal distribution.
 }
 \description{
-Returns truncated random value from normal distribution.
+Helper function for gibb_sampl()
 }

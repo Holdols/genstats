@@ -15,5 +15,5 @@ no_trunc_estimate(mu, sigma)
 Random value from normal distribution.
 }
 \description{
-Returns random value from normal distribution.
+Helper function for gibb_sampl()
 }

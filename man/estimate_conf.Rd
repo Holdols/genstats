@@ -19,5 +19,5 @@ estimate_conf(unique_comb, n_sib = 0, K = 0.5, h2 = 0.5)
 Tibble with estimated liabilities for each configuration.
 }
 \description{
-Estimates liabilities for every configuration in data
+Helper function for LTFH()
 }

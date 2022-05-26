@@ -3,7 +3,9 @@
 \name{calc_distribution}
 \alias{calc_distribution}
 \title{Calculates the constants parameters for the conditional distribution belonging to each
-liabilities of the multivariate gaussian.}
+liabilities of the multivariate gaussian.
+
+Helper function for gibb_sampl()}
 \usage{
 calc_distribution(sigma)
 }
