@@ -2,6 +2,7 @@
 
 #' Estimates liabilities for every configuration in data
 #'
+#' Helper function for LTFH()
 #' @param unique_comb Configuration of phenotypes to estimate genetic liability for.
 #' @param n_sib Amount of siblings.
 #' @param K The prevalance of trait.
@@ -27,6 +28,9 @@ estimate_conf = function(unique_comb, n_sib=0, K=0.5, h2=0.5){
 
 #' Estimates liabilities for every subject
 #'
+#' This function takes the output from gen_sim and uses the phenotypes to estimate the genetic liability for each subject.
+#' The function estimated the liability for each configuration of phenotypes and joins these values on the existing dataframe.
+#' Subjects having the same configuration will therefore have the same estimated genetic liability.
 #' @param data List generated from gen_sim.
 #' @param n_sib Amount of siblings.
 #' @param K The prevalance of trait.
