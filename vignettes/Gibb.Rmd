@@ -84,6 +84,8 @@ $$
 Using the multivariate normal vi can easily calculate the conditional distribution for each variable. To illustrate that the simulated data has this distrubution we will calculate the covariance matrix of non truncated data using a heriability of 0.5 and one sibling.
 
 ```{r}
+library(genstats)
+
 covariance = get_cov(0.5, n_sib = 1)
 estimated = gibbs_sampl(covariance, phenos=c(1,0,1,0), K=FALSE, all_est = TRUE)
 round(cov(estimated), digits = 2)
