@@ -6,12 +6,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="genstats">
-<title>Simulation • genstats</title>
+<title>Simulating data • genstats</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Simulation">
+<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Simulating data">
 <meta property="og:description" content="genstats">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -71,7 +71,7 @@
 
 <div class="row">
   <main id="main"><div class="page-header">
-      <img src="" class="logo" alt=""><h1>Simulation</h1>
+      <img src="" class="logo" alt=""><h1>Simulating data</h1>
             
       
       
@@ -81,8 +81,51 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://holdols.github.io/genstats/" class="external-link">genstats</a></span><span class="op">)</span></code></pre></div>
-  </main>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://holdols.github.io/genstats" class="external-link">genstats</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://privefl.github.io/bigsnpr/" class="external-link">bigsnpr</a></span><span class="op">)</span>
+<span class="co">#&gt; Warning: package 'bigsnpr' was built under R version 4.0.5</span>
+<span class="co">#&gt; Loading required package: bigstatsr</span>
+<span class="co">#&gt; Warning: package 'bigstatsr' was built under R version 4.0.5</span></code></pre></div>
+<div class="section level2">
+<h2 id="simulation-without-family-history">Simulation without family history<a class="anchor" aria-label="anchor" href="#simulation-without-family-history"></a>
+</h2>
+<p>The package offers different methods of simulating data. Fist we are going to show how to simply get out the genotypes of N subjects and the genetic and ful liabilities. We are here using a small scale test, but we recomend that if the data should be used for actual statistc analysis that at least <span class="math inline">\(10,000\times10,000\)</span> datapoints are simulated.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/gen_sim.html">gen_sim</a></span><span class="op">(</span><span class="st">'simple_sim_example'</span>, N<span class="op">=</span><span class="fl">1000</span>, M<span class="op">=</span><span class="fl">1000</span>, C<span class="op">=</span><span class="fl">50</span>, block_size <span class="op">=</span> <span class="fl">100</span>, fam<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<p>Now there will exist a rds file in the working directoy with the data, which we will load.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">simple_data</span> <span class="op">=</span> <span class="fu"><a href="https://privefl.github.io/bigsnpr/reference/snp_attach.html" class="external-link">snp_attach</a></span><span class="op">(</span><span class="st">'simple_sim_example.rds'</span><span class="op">)</span>
+<span class="va">simple_data</span></code></pre></div>
+<p>Looking at the data we see that the file contains a list. We can here find the genotypes (G), liabilities (fam) and information for each SNP (map).</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">simple_data</span><span class="op">$</span><span class="va">G</span><span class="op">[</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span>,<span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">]</span>
+<span class="va">simple_data</span><span class="op">$</span><span class="va">fam</span>
+<span class="va">simple_data</span><span class="op">$</span><span class="va">map</span></code></pre></div>
+<p>Using the function dist_check() we can see if the distribution of the full liabilities is as expected, which is standard normal. We are here using af small testset and only expect the the mean and variance to be approximately 0 and 1.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/dist_check.html">dist_check</a></span><span class="op">(</span><span class="va">simple_data</span><span class="op">)</span></code></pre></div>
+<p>We can see that the mean and variance is correct and that the qqplot resembles a normal distribution. It is now possible to perfom GWAS for association analysis or use the genotypes for prediction.</p>
+</div>
+<div class="section level2">
+<h2 id="simulation-with-family-history">Simulation with family history<a class="anchor" aria-label="anchor" href="#simulation-with-family-history"></a>
+</h2>
+<p>Simulation with family history is very similar to simulating without.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/gen_sim.html">gen_sim</a></span><span class="op">(</span><span class="st">'family_sim_example'</span>, N<span class="op">=</span><span class="fl">1000</span>, M<span class="op">=</span><span class="fl">1000</span>, C<span class="op">=</span><span class="fl">50</span>, block_size <span class="op">=</span> <span class="fl">100</span>, n_sib<span class="op">=</span><span class="fl">2</span><span class="op">)</span>
+<span class="va">family_data</span> <span class="op">=</span> <span class="fu"><a href="https://privefl.github.io/bigsnpr/reference/snp_attach.html" class="external-link">snp_attach</a></span><span class="op">(</span><span class="st">'family_sim_example.rds'</span><span class="op">)</span>
+<span class="va">family_data</span><span class="op">$</span><span class="va">fam</span></code></pre></div>
+<p>We see here that we have a bit more family history, but the same same values each family member as we have for the subject. Again can we check the distrubition of each full liability using the same function as before.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/dist_check.html">dist_check</a></span><span class="op">(</span><span class="va">simple_data</span><span class="op">)</span></code></pre></div>
+<p>Now this data is ready to be analysied using LTFH or used in predictive analysis.</p>
+<div class="section level3">
+<h3 id="note-on-parrellelisation-block-size-and-memory-use-">Note on parrellelisation, block size and memory use.<a class="anchor" aria-label="anchor" href="#note-on-parrellelisation-block-size-and-memory-use-"></a>
+</h3>
+<p>The functions for the simualation have optimized with parallelization and do this with all available cores as a standard. Depending on the computer running the simulation, the block size and amount of RAM this will take up a lot of memory of the computer, if a user specified amount of cores is preffered, this can be specified by running options(mc.cores = core_amount) where core_amount is the amount of cores available to R. Furthermore depending on the specified block size R will need to allocate quite a bit of memory, this can create an error on some computers depending on the RAM, it could be relevant to check <a href="https://www.rdocumentation.org/packages/utils/versions/3.6.2/topics/memory.size" class="external-link uri">https://www.rdocumentation.org/packages/utils/versions/3.6.2/topics/memory.size</a>. If this doesn’t fix the error, decreasing the block size and/or amount of cores is recommended.</p>
+</div>
+</div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 

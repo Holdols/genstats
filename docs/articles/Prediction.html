@@ -81,7 +81,163 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://holdols.github.io/genstats/" class="external-link">genstats</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://holdols.github.io/genstats" class="external-link">genstats</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://privefl.github.io/bigsnpr/" class="external-link">bigsnpr</a></span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">## Warning: package 'bigsnpr' was built under R version 4.0.5</span></code></pre>
+<pre><code><span class="co">## Loading required package: bigstatsr</span></code></pre>
+<pre><code><span class="co">## Warning: package 'bigstatsr' was built under R version 4.0.5</span></code></pre>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://privefl.github.io/bigstatsr/" class="external-link">bigstatsr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">## Warning: package 'tidyverse' was built under R version 4.0.5</span></code></pre>
+<pre><code><span class="co">## -- <span style="font-weight: bold;">Attaching packages</span> --------------------------------------- tidyverse 1.3.1 --</span></code></pre>
+<pre><code><span class="co">## <span style="color: #00BB00;">v</span> <span style="color: #0000BB;">ggplot2</span> 3.3.6     <span style="color: #00BB00;">v</span> <span style="color: #0000BB;">purrr  </span> 0.3.4</span>
+<span class="co">## <span style="color: #00BB00;">v</span> <span style="color: #0000BB;">tibble </span> 3.1.6     <span style="color: #00BB00;">v</span> <span style="color: #0000BB;">dplyr  </span> 1.0.8</span>
+<span class="co">## <span style="color: #00BB00;">v</span> <span style="color: #0000BB;">tidyr  </span> 1.2.0     <span style="color: #00BB00;">v</span> <span style="color: #0000BB;">stringr</span> 1.4.0</span>
+<span class="co">## <span style="color: #00BB00;">v</span> <span style="color: #0000BB;">readr  </span> 2.1.2     <span style="color: #00BB00;">v</span> <span style="color: #0000BB;">forcats</span> 0.5.1</span></code></pre>
+<pre><code><span class="co">## Warning: package 'tibble' was built under R version 4.0.5</span></code></pre>
+<pre><code><span class="co">## Warning: package 'tidyr' was built under R version 4.0.5</span></code></pre>
+<pre><code><span class="co">## Warning: package 'readr' was built under R version 4.0.5</span></code></pre>
+<pre><code><span class="co">## Warning: package 'dplyr' was built under R version 4.0.5</span></code></pre>
+<pre><code><span class="co">## Warning: package 'forcats' was built under R version 4.0.5</span></code></pre>
+<pre><code><span class="co">## -- <span style="font-weight: bold;">Conflicts</span> ------------------------------------------ tidyverse_conflicts() --</span>
+<span class="co">## <span style="color: #BB0000;">x</span> <span style="color: #0000BB;">dplyr</span>::<span style="color: #00BB00;">filter()</span> masks <span style="color: #0000BB;">stats</span>::filter()</span>
+<span class="co">## <span style="color: #BB0000;">x</span> <span style="color: #0000BB;">dplyr</span>::<span style="color: #00BB00;">lag()</span>    masks <span style="color: #0000BB;">stats</span>::lag()</span></code></pre>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">data</span> <span class="op">=</span> <span class="fu"><a href="https://privefl.github.io/bigsnpr/reference/snp_attach.html" class="external-link">snp_attach</a></span><span class="op">(</span><span class="st">"genetic_data.rds"</span><span class="op">)</span>
+
+
+
+<span class="va">est</span> <span class="op">&lt;-</span> <span class="fu">genstats</span><span class="fu">::</span><span class="fu"><a href="../reference/LTFH.html">LTFH</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data</span>, n_sib <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+            <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">.</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">contains</a></span><span class="op">(</span><span class="st">"est"</span><span class="op">)</span><span class="op">)</span>
+
+<span class="va">prs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PRS_cross.html">PRS_cross</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data</span>, y01 <span class="op">=</span> <span class="va">est</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, cross_folds <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
+
+
+<span class="fu"><a href="../reference/prs_plot.html">prs_plot</a></span><span class="op">(</span>PRS <span class="op">=</span> <span class="va">prs</span>, <span class="va">data</span>, <span class="st">'AUC'</span><span class="op">)</span></code></pre></div>
+<p><img src="Prediction_files/figure-html/unnamed-chunk-1-1.png" width="700"><img src="Prediction_files/figure-html/unnamed-chunk-1-2.png" width="700"></p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/prs_plot.html">prs_plot</a></span><span class="op">(</span>PRS <span class="op">=</span> <span class="va">prs</span>, <span class="va">data</span>, <span class="st">'MSE'</span><span class="op">)</span></code></pre></div>
+<p><img src="Prediction_files/figure-html/unnamed-chunk-1-3.png" width="700"><img src="Prediction_files/figure-html/unnamed-chunk-1-4.png" width="700"></p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/prs_plot.html">prs_plot</a></span><span class="op">(</span>PRS <span class="op">=</span> <span class="va">prs</span>, <span class="va">data</span>, <span class="st">'Lin_Reg'</span><span class="op">)</span></code></pre></div>
+<p><img src="Prediction_files/figure-html/unnamed-chunk-1-5.png" width="700"><img src="Prediction_files/figure-html/unnamed-chunk-1-6.png" width="700"></p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">m</span> <span class="op">=</span> <span class="fu"><a href="../reference/pred_model.html">pred_model</a></span><span class="op">(</span><span class="va">data</span>, <span class="va">est</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="fl">3</span><span class="op">)</span></code></pre></div>
+<p><img src="Prediction_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">test_set</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://privefl.github.io/bigsnpr/reference/snp_attach.html" class="external-link">snp_attach</a></span><span class="op">(</span><span class="st">"genetic_data_test.rds"</span><span class="op">)</span>
+
+
+
+<span class="va">pred</span> <span class="op">=</span> <span class="fu"><a href="../reference/prediction.html">prediction</a></span><span class="op">(</span><span class="va">test_set</span>, <span class="va">m</span>, <span class="fl">3</span><span class="op">)</span>
+<span class="va">preds</span> <span class="op">=</span> <span class="op">(</span><span class="va">pred</span> <span class="op">&gt;</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">-</span><span class="fl">0</span>
+
+
+<span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="st">'predictive positive'</span> <span class="op">=</span> <span class="va">preds</span><span class="op">[</span><span class="va">preds</span><span class="op">==</span><span class="fl">1</span><span class="op">]</span>, <span class="st">'True value'</span><span class="op">=</span><span class="va">test_set</span><span class="op">$</span><span class="va">fam</span><span class="op">$</span><span class="va">pheno_0</span><span class="op">[</span><span class="va">preds</span><span class="op">==</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">##      predictive positive True value</span>
+<span class="co">## 92                     1          0</span>
+<span class="co">## 161                    1          0</span>
+<span class="co">## 170                    1          0</span>
+<span class="co">## 219                    1          0</span>
+<span class="co">## 223                    1          0</span>
+<span class="co">## 269                    1          0</span>
+<span class="co">## 276                    1          0</span>
+<span class="co">## 280                    1          0</span>
+<span class="co">## 287                    1          0</span>
+<span class="co">## 318                    1          0</span>
+<span class="co">## 375                    1          0</span>
+<span class="co">## 470                    1          0</span>
+<span class="co">## 494                    1          0</span>
+<span class="co">## 560                    1          0</span>
+<span class="co">## 574                    1          1</span>
+<span class="co">## 591                    1          0</span>
+<span class="co">## 607                    1          0</span>
+<span class="co">## 624                    1          0</span>
+<span class="co">## 641                    1          0</span>
+<span class="co">## 758                    1          0</span>
+<span class="co">## 772                    1          0</span>
+<span class="co">## 793                    1          0</span>
+<span class="co">## 802                    1          0</span>
+<span class="co">## 840                    1          0</span>
+<span class="co">## 844                    1          0</span>
+<span class="co">## 859                    1          0</span>
+<span class="co">## 881                    1          1</span>
+<span class="co">## 885                    1          0</span>
+<span class="co">## 926                    1          0</span>
+<span class="co">## 947                    1          0</span>
+<span class="co">## 985                    1          0</span>
+<span class="co">## 996                    1          0</span>
+<span class="co">## 1002                   1          0</span>
+<span class="co">## 1115                   1          0</span>
+<span class="co">## 1123                   1          0</span>
+<span class="co">## 1139                   1          0</span>
+<span class="co">## 1148                   1          0</span>
+<span class="co">## 1167                   1          0</span>
+<span class="co">## 1218                   1          0</span>
+<span class="co">## 1225                   1          0</span>
+<span class="co">## 1316                   1          0</span>
+<span class="co">## 1327                   1          0</span>
+<span class="co">## 1344                   1          0</span>
+<span class="co">## 1346                   1          0</span>
+<span class="co">## 1349                   1          1</span>
+<span class="co">## 1355                   1          0</span>
+<span class="co">## 1438                   1          0</span>
+<span class="co">## 1520                   1          0</span>
+<span class="co">## 1522                   1          0</span>
+<span class="co">## 1563                   1          0</span>
+<span class="co">## 1618                   1          0</span>
+<span class="co">## 1639                   1          0</span>
+<span class="co">## 1658                   1          0</span>
+<span class="co">## 1677                   1          0</span>
+<span class="co">## 1703                   1          0</span>
+<span class="co">## 1730                   1          0</span>
+<span class="co">## 1765                   1          0</span>
+<span class="co">## 1781                   1          0</span>
+<span class="co">## 1783                   1          0</span>
+<span class="co">## 1787                   1          0</span>
+<span class="co">## 1926                   1          0</span>
+<span class="co">## 1947                   1          0</span>
+<span class="co">## 1963                   1          0</span>
+<span class="co">## 1973                   1          0</span>
+<span class="co">## 1987                   1          0</span>
+<span class="co">## 1992                   1          0</span>
+<span class="co">## 2064                   1          0</span>
+<span class="co">## 2176                   1          0</span>
+<span class="co">## 2269                   1          0</span>
+<span class="co">## 2275                   1          0</span>
+<span class="co">## 2313                   1          0</span>
+<span class="co">## 2321                   1          0</span>
+<span class="co">## 2346                   1          0</span>
+<span class="co">## 2454                   1          0</span>
+<span class="co">## 2455                   1          0</span></code></pre>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">test_set</span><span class="op">$</span><span class="va">fam</span><span class="op">$</span><span class="va">pheno_0</span><span class="op">[</span><span class="va">test_set</span><span class="op">$</span><span class="va">fam</span><span class="op">$</span><span class="va">pheno_0</span><span class="op">==</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">## [1] 110</span></code></pre>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">preds</span> <span class="op">==</span> <span class="va">test_set</span><span class="op">$</span><span class="va">fam</span><span class="op">$</span><span class="va">pheno_0</span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">## [1] 2321</span></code></pre>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span> <span class="op">=</span> <span class="va">prs</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="st">'rbind'</span>, <span class="va">.</span><span class="op">)</span>
+<span class="va">df</span> <span class="op">=</span> <span class="va">df</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/row.names.html" class="external-link">row.names</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,<span class="op">]</span>
+
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">df</span><span class="op">[</span>,<span class="fl">7</span><span class="op">]</span>, <span class="va">data</span><span class="op">$</span><span class="va">fam</span><span class="op">$</span><span class="va">pheno_0</span><span class="op">)</span></code></pre></div>
+<p><img src="Prediction_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">prs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PRS_cross.html">PRS_cross</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data</span>, y01 <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">fam</span><span class="op">$</span><span class="va">pheno_0</span>, cross_folds <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">## Warning: 'y.train' is composed of only two different levels.</span>
+
+<span class="co">## Warning: 'y.train' is composed of only two different levels.</span>
+
+<span class="co">## Warning: 'y.train' is composed of only two different levels.</span>
+
+<span class="co">## Warning: 'y.train' is composed of only two different levels.</span></code></pre>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/prs_plot.html">prs_plot</a></span><span class="op">(</span><span class="va">prs</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span></code></pre></div>
+<p><img src="Prediction_files/figure-html/unnamed-chunk-4-1.png" width="700"><img src="Prediction_files/figure-html/unnamed-chunk-4-2.png" width="700"></p>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/prs_plot.html">prs_plot</a></span><span class="op">(</span><span class="va">prs</span>, <span class="va">data</span>, <span class="st">'AUC'</span><span class="op">)</span></code></pre></div>
+<p><img src="Prediction_files/figure-html/unnamed-chunk-4-3.png" width="700"><img src="Prediction_files/figure-html/unnamed-chunk-4-4.png" width="700"></p>
   </main>
 </div>
 
