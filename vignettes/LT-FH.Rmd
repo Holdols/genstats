@@ -47,7 +47,7 @@ Using the estimates of genetic liabilities can instead of the phenotypes af the 
 
 ## Using LTFH
 
-In the following tutorial a file is used which have been generated using the method described in gen_sim. First we load the data. We have here simulated $1e^5\times1e^3$ datapoints using two siblings. In the following alls SNPs has a casual effect. This data is only used to show case the method and illustrate how the package can be used. If the methods should be used to actual statistical analysis we recomend simulating $1e^5\times1e^5$ datapoints with about 500-1000 casual SNPs. For practical reasons we have not been apple to show case the analysis. We have included pictures to illustrate the results on $1e^5\times1e^5$ data.
+In the following tutorial a file is used which have been generated using the method described in gen_sim. First we load the data. We have here simulated $1e^3\times1e^3$ datapoints using two siblings. In the following 100 SNPs has a casual effect. This data is only used to show case the method and illustrate how the package can be used. If the methods should be used to actual statistical analysis we recomend simulating $1e^5\times1e^5$ datapoints with about 500-1000 casual SNPs. For practical reasons we have not been apple to show case the analysis. We have included pictures to illustrate the results on $1e^5\times1e^5$ data.
 
 ```{r}
 # The rds file containing simulated data is loaded
