@@ -20,7 +20,7 @@ Imports:
     magrittr,
     stats,
     tidyr
-URL: https://holdols.github.io/genstats/
+URL: https://holdols.github.io/genstats
 Suggests: 
     knitr,
     rmarkdown
