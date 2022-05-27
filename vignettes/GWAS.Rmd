@@ -72,7 +72,7 @@ power_plot(gwas_summary, beta)
 ```
 
 ![Manhattan plot of GWAS used on 100,000 times 100,000 data][GWAS_manhatten.jpg)
-![Scatterplot plot of GWAS used on 100,000 times 100,000 data][GWAS_scatterplot.jpg)
-![Powerplot of GWAS used on 100,000 times 100,000 data][GWAS_powerplot.jpg)
+![Scatterplot plot of GWAS used on 100,000 times 100,000 data][GWAS_scatter.jpg)
+![Powerplot of GWAS used on 100,000 times 100,000 data][GWAS_power.jpg)
 
 
