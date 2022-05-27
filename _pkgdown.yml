@@ -3,15 +3,6 @@ template:
   bootstrap: 5
   bootswatch: sandstone
 
-navbar:
-  structure:
-    right: [github]
-  components:
-    github:
-      icon: fa-github
-      href: https://github.com/Holdols/genstats
-      aria-label: Github
-
 reference:
 - title: "Generate simulated subjects"
   desc: Functions used to generate a fbm of simulated subjects
