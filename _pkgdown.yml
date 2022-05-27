@@ -3,6 +3,27 @@ template:
   bootstrap: 5
   bootswatch: sandstone
 
+
+navbar:
+  title: "genstats"
+  left:
+    - text: "Reference"
+      href: reference/index.html
+    - text: "Articles"
+      menu:
+      - text: "Simulating data"
+        href: articles/Simulation.html
+      - text: "GWAS"
+        href: articles/GWAS.html
+      - text: "LT-FH"
+        href: articles/LT-FH.html
+      - text: "Gibbs sampler"
+        href: articles/Gibbs-sampler.html
+      - text: "Prediction"
+        href: articles/Prediction.html
+    - icon: fa-github fa
+      href: https://github.com/Holdols/genstats
+
 reference:
 - title: "Generate simulated subjects"
   desc: Functions used to generate a fbm of simulated subjects
