@@ -1,13 +1,4 @@
----
-title: "PRS"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{PRS}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
----
-
-```{r}
+## -----------------------------------------------------------------------------
 library(genstats)
 library(bigsnpr)
 library(bigstatsr)
@@ -28,14 +19,8 @@ prs_plot(PRS = prs, data, 'AUC')
 prs_plot(PRS = prs, data, 'MSE')
 prs_plot(PRS = prs, data, 'Lin_Reg')
 
-```
 
-
-
-
-
-
-```{r}
+## -----------------------------------------------------------------------------
 
 
 m = pred_model(data, est[[1]], 3)
@@ -55,22 +40,15 @@ cbind('predictive positive' = preds[preds==1], 'True value'=test_set$fam$pheno_0
 
 sum(test_set$fam$pheno_0[test_set$fam$pheno_0==1])
 sum(preds == test_set$fam$pheno_0)
-```
 
-
-
-```{r}
+## -----------------------------------------------------------------------------
 df = prs %>% do.call('rbind', .)
 df = df[order(as.numeric(row.names(df))),]
 
 plot(df[,7], data$fam$pheno_0)
-```
 
-```{r}
+## -----------------------------------------------------------------------------
 prs <- PRS_cross(data = data, y01 = data$fam$pheno_0, cross_folds = 4)
 prs_plot(prs, data = data)
 prs_plot(prs, data, 'AUC')
-```
-
-
 

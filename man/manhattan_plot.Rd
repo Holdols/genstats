@@ -15,5 +15,5 @@ manhattan_plot(gwas_summary, beta, thresholds = FALSE)
 A manhattan plot.
 }
 \description{
-Creates a manhattan plot
+This function returns a manhattan plot that vizualises the which
 }

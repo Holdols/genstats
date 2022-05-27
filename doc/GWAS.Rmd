@@ -49,7 +49,7 @@ Know we estimate the casual effect of each SNP
 
 ```{r}
 gwas_summary = GWAS(G=G, y=y[[1]], p=0.05/100000, logreg = FALSE, ncores=3)
-head(gwas_summary)
+gwas_summary
 ```
 
 We are using bonferronni correction, ans since we have $100,000$ indiviuals we will use $p=\frac{0.05}{100000}$.

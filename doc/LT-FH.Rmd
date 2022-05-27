@@ -44,21 +44,23 @@ beta = genetic_data$map$beta
 
 ```
 
-We know run LT-FH and as we can see we get the estimates for each subjects genetic liabilities as a new column.
-
+We know run LT-FH and as we can see get estimates for each subjects genetic liabilities.
 ```{r}
 LTFH_est = LTFH(genetic_data, n_sib = 2)
 head(LTFH_est)
 ```
-
-The estimated genetic liabilities can now be used as wanted. We are here using them as the target vector in a linear regression in order to estimate the causual effect of each SNP.
+We can know try to estimate the causual effect using the estimated genetic liabilities as our target vector.
 
 ```{r}
-LTFH_summary = GWAS(G=G, y=LTFH_est$l_g_0, p=5e-7, logreg = FALSE, ncores=3)
+LTFH_summary = GWAS(G=G, y=LTFH_est$l_g_0, p=0.05/100000, logreg = FALSE, ncores=3)
 head(LTFH_summary)
 ```
 
-In the above table we se the result of the association analysis, where we can se which SNP's is estimated as casual. We are here using bonferronni correction to lower the amont of false positive causal SNP. And since we have $100,000$ indiviuals we will use $p=\frac{0.05}{100000}=5e-7$.
+We are using bonferronni correction, ans since we have $100,000$ indiviuals we will use $p=\frac{0.05}{100000}$.
+
+```{r}
+manhattan_plot(LTFH_summary, beta, c(0.05/1000, 0.05))
+```
 
 
 ```{r}

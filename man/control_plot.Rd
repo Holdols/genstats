@@ -15,5 +15,5 @@ control_plot(phenos, h2, col = "black")
 Plot of estimated liabilities.
 }
 \description{
-Plotting estimated liabilities agianst distribution
+A recreation of figure 1. b in Hujoel et al. (2020)
 }
