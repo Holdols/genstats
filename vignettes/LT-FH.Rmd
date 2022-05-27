@@ -7,6 +7,13 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
 We use the following packages in this vignette.
 
 ```{r message=FALSE, warning=FALSE}
@@ -47,31 +54,34 @@ beta = genetic_data$map$beta
 We know run LT-FH and as we can see we get the estimates for each subjects genetic liabilities as a new column.
 
 ```{r}
-LTFH_est = LTFH(genetic_data, n_sib = 2)
+LTFH_est = LTFH(data = genetic_data, n_sib = 2)
 head(LTFH_est)
 ```
 
 The estimated genetic liabilities can now be used as wanted. We are here using them as the target vector in a linear regression in order to estimate the causual effect of each SNP.
 
 ```{r}
-LTFH_summary = GWAS(G=G, y=LTFH_est$l_g_0, p=5e-7, logreg = FALSE, ncores=3)
+LTFH_summary = GWAS(G = G, y = LTFH_est$l_g_0, p = 5e-5, logreg = FALSE, ncores = 3)
 head(LTFH_summary)
 ```
 
-In the above table we se the result of the association analysis, where we can se which SNP's is estimated as casual. We are here using bonferronni correction to lower the amont of false positive causal SNP. And since we have $100,000$ indiviuals we will use $p=\frac{0.05}{100000}=5e-7$.
+In the above table we se the result of the association analysis, where we can se which SNP's is estimated as casual. We are here using bonferronni correction to lower the amont of false positive causal SNP. And since we have $1e^3$ indiviuals we will use $p=\frac{0.05}{1000}=5e^{-5}$. We can se the result of our
 
 
-```{r}
-scatter_plot(LTFH_summary, beta)
+## Outcome for realistic data
+We will below give the results of the association analysis on a data set with $1e^5\times1e^5$ datapoint. The process of getting these result is the same as shown above we have here of course used a p-value of $p=\frac{0.05}{100000}=5e^{-7}$. The first plot shown below is a manhattan plot. The plot illustrates how well the analysis is to differentiate between casual and non causual snp. Two horisontal lines have been drawn illustrating the tresholds for the p-value. We can se that choosing to use the conservative method of bonferronni correction we describe the data better. Comparing this to the result og GWAS without using estimated liabilities we se that LTFH clearly performs better.   
+
+
+```{r eval=FALSE}
+manhattan_plot(gwas_summary = LTFH_summary, beta = beta, treshold = c(5e-7, 0.05))
 ```
 
-```{r}
-power_plot(LTFH_summary, beta)
+![Manhattan plot of LTFH used on 100,000 times 100,000 data](LTFH_manhatten.jpg)
+
+This can also be illustrated using scatterplot. Here we see that we are very good at finding estimates af very extreme effects, thpugh it is much more difficult to for the association analysis around the middle. Agian this method very much out performs normal GWAS. 
+
+```{r eval=FALSE}
+scatter_plot(gwas_summary = LTFH_summary, beta = beta)
 ```
 
-
-To illustrate how this would look on real data we have the following pictures:
-![Manhattan plot of LTFH used on 100,000 times 100,000 data][LTFH_manhatten.jpg)
-![Scatterplot plot of LTFH used on 100,000 times 100,000 data][LTFH_scatter.jpg)
-![Powerplot of LTFH used on 100,000 times 100,000 data][LTFH_power.jpg)
-
+![Scatterplot plot of LTFH used on 100,000 times 100,000 data](LTFH_scatter.jpg)

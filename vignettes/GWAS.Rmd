@@ -54,9 +54,6 @@ head(gwas_summary)
 
 We are using bonferronni correction, ans since we have $100,000$ indiviuals we will use $p=\frac{0.05}{100000}$.
 
-```{r}
-manhattan_plot(gwas_summary, beta, c(0.05/100000, 0.05))
-```
 
 
 ```{r}

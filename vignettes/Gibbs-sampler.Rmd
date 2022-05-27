@@ -1,11 +1,18 @@
 ---
-title: "Gibbs"
+title: "Gibbs-sampler"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Gibbs}
+  %\VignetteIndexEntry{Gibbs-sampler}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
 
 
 An assumption made by Hujoel et al.(2020) is that the liabilities of subjects and families follow a multivariate normal distribution (See vignette LTFH). With this assumption liabilities of each family member can be estimated if their phenotypes are provided. 

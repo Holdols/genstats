@@ -134,16 +134,13 @@ Y \sim \mathcal{N}(X\beta,\Sigma)
 <span class="co">#&gt; 6  0.0082572308 0.001584368  5.2116869 1.875017e-07               1</span></code></pre></div>
 <p>We are using bonferronni correction, ans since we have <span class="math inline">\(100,000\)</span> indiviuals we will use <span class="math inline">\(p=\frac{0.05}{100000}\)</span>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/manhattan_plot.html">manhattan_plot</a></span><span class="op">(</span><span class="va">gwas_summary</span>, <span class="va">beta</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.05</span><span class="op">/</span><span class="fl">100000</span>, <span class="fl">0.05</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p><img src="GWAS_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/scatter_plot.html">scatter_plot</a></span><span class="op">(</span><span class="va">gwas_summary</span>, <span class="va">beta</span><span class="op">)</span></code></pre></div>
-<p><img src="GWAS_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
+<p><img src="GWAS_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
 <p>We see that we catches the most extreme cases. Looking at a powerplot this makes a lot of sense</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/power_plot.html">power_plot</a></span><span class="op">(</span><span class="va">gwas_summary</span>, <span class="va">beta</span><span class="op">)</span></code></pre></div>
-<p><img src="GWAS_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
-<p>[Manhattan plot of GWAS used on 100,000 times 100,000 data][GWAS_manhatten.jpg) [Scatterplot plot of GWAS used on 100,000 times 100,000 data][GWAS_scatterplot.jpg) [Powerplot of GWAS used on 100,000 times 100,000 data][GWAS_powerplot.jpg)</p>
+<p><img src="GWAS_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
+<p>[Manhattan plot of GWAS used on 100,000 times 100,000 data][GWAS_manhatten.jpg) [Scatterplot plot of GWAS used on 100,000 times 100,000 data][GWAS_scatter.jpg) [Powerplot of GWAS used on 100,000 times 100,000 data][GWAS_power.jpg)</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
