@@ -1,5 +1,7 @@
 #'  Plotting estimated liabilities agianst distribution
 #'
+#' A recreation of figure 1. b in Hujoel et al. (2020)
+#'
 #' @param pheno Vector containing phenotypes.
 #' @param h2 The heritability of trait.
 #' @return Plot of estimated liabilities.
@@ -69,6 +71,8 @@ prs_plot = function(PRS, data, method='MSE'){
 
 
 #' Creates a manhattan plot
+#'
+#' This function returns a manhattan plot that vizualises the which
 #'
 #' @param gwas_summary Output from GWAS.
 #' @param beta A vector containing the actual casual effect of each SNP.
