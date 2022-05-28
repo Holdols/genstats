@@ -64,18 +64,18 @@ PRS_cross <- function(data, y01, cross_folds, LogReg = FALSE){
 #' @export
 pred_model = function(train_data, y, thr, ncores = 1, LogReg = FALSE){
   if (!LogReg) {gwas <- bigstatsr::big_univLinReg(train_data$genotypes, y.train = y, ncores = ncores)}
-  else {gwas <- bigstatsr::big_univLogReg(train_data$genotypes, y.train = y, ncores = ncores)}
+  else {gwas <- bigstatsr::big_univLogReg(train_data$genotypes, y01.train = y, ncores = ncores)}
   prs_ <- bigsnpr::snp_PRS(G = train_data$genotypes, betas.keep =gwas$estim, lpS.keep = -predict(gwas), thr.list = thr)
   prs_ = prs_[,1]
 
   print(train_data$fam %>%
-          ggplot2::ggplot(ggplot2::aes(x=fitted.values(prs_), y=y)) +
+          ggplot2::ggplot(ggplot2::aes(x=prs_, y=y)) +
           ggplot2::geom_point(aes(color=as.character(pheno_0))) +
           ggplot2::xlab('PRS') +
           ggplot2::ylab('Estimated genetic liability or phenotype') +
           ggplot2::labs(color='Phenotype'))
 
-  return(gwas_train)
+  return(gwas)
 }
 
 
@@ -91,6 +91,6 @@ pred_model = function(train_data, y, thr, ncores = 1, LogReg = FALSE){
 #' @export
 prediction = function(test_data, gwas, thr) {
   prs_ = bigsnpr::snp_PRS(G = test_data$genotypes, betas.keep = gwas$estim, lpS.keep = -predict(gwas), thr.list = thr)
-  probs <- predict(model_prs, data.frame('prs_' = prs_[,1]), type = "response")
-  return(probs)
+  colnames(prs_) = 'PRS'
+  return(prs_)
 }
