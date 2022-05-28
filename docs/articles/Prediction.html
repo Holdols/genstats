@@ -236,7 +236,6 @@ regression, since we are using LT-FH estimates as our target vector.</p>
 <span class="co">## 141                    1          0</span>
 <span class="co">## 143                    1          0</span>
 <span class="co">## 144                    1          0</span>
-<span class="co">## 146                    1          0</span>
 <span class="co">## 148                    1          0</span>
 <span class="co">## 150                    1          0</span>
 <span class="co">## 151                    1          0</span>
@@ -548,7 +547,6 @@ regression, since we are using LT-FH estimates as our target vector.</p>
 <span class="co">## 784                    1          0</span>
 <span class="co">## 785                    1          0</span>
 <span class="co">## 786                    1          0</span>
-<span class="co">## 787                    1          0</span>
 <span class="co">## 788                    1          0</span>
 <span class="co">## 789                    1          0</span>
 <span class="co">## 791                    1          0</span>
@@ -621,7 +619,6 @@ regression, since we are using LT-FH estimates as our target vector.</p>
 <span class="co">## 906                    1          1</span>
 <span class="co">## 907                    1          0</span>
 <span class="co">## 908                    1          0</span>
-<span class="co">## 910                    1          0</span>
 <span class="co">## 911                    1          0</span>
 <span class="co">## 912                    1          0</span>
 <span class="co">## 917                    1          0</span>
@@ -933,7 +930,6 @@ regression, since we are using LT-FH estimates as our target vector.</p>
 <span class="co">## 1502                   1          0</span>
 <span class="co">## 1503                   1          0</span>
 <span class="co">## 1504                   1          0</span>
-<span class="co">## 1505                   1          0</span>
 <span class="co">## 1506                   1          0</span>
 <span class="co">## 1508                   1          0</span>
 <span class="co">## 1509                   1          0</span>
@@ -1207,7 +1203,6 @@ regression, since we are using LT-FH estimates as our target vector.</p>
 <span class="co">## 2012                   1          1</span>
 <span class="co">## 2014                   1          0</span>
 <span class="co">## 2017                   1          0</span>
-<span class="co">## 2018                   1          0</span>
 <span class="co">## 2020                   1          0</span>
 <span class="co">## 2021                   1          0</span>
 <span class="co">## 2022                   1          0</span>
@@ -1299,7 +1294,6 @@ regression, since we are using LT-FH estimates as our target vector.</p>
 <span class="co">## 2207                   1          0</span>
 <span class="co">## 2212                   1          0</span>
 <span class="co">## 2214                   1          0</span>
-<span class="co">## 2215                   1          0</span>
 <span class="co">## 2219                   1          0</span>
 <span class="co">## 2220                   1          0</span>
 <span class="co">## 2221                   1          0</span>
@@ -1309,7 +1303,6 @@ regression, since we are using LT-FH estimates as our target vector.</p>
 <span class="co">## 2225                   1          0</span>
 <span class="co">## 2230                   1          0</span>
 <span class="co">## 2232                   1          0</span>
-<span class="co">## 2235                   1          0</span>
 <span class="co">## 2239                   1          0</span>
 <span class="co">## 2240                   1          0</span>
 <span class="co">## 2242                   1          0</span>
@@ -1334,7 +1327,6 @@ regression, since we are using LT-FH estimates as our target vector.</p>
 <span class="co">## 2267                   1          1</span>
 <span class="co">## 2268                   1          0</span>
 <span class="co">## 2269                   1          0</span>
-<span class="co">## 2271                   1          1</span>
 <span class="co">## 2273                   1          0</span>
 <span class="co">## 2274                   1          0</span>
 <span class="co">## 2275                   1          0</span>
@@ -1444,11 +1436,18 @@ regression, since we are using LT-FH estimates as our target vector.</p>
 <pre><code><span class="co">## [1] 110</span></code></pre>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">preds</span> <span class="op">==</span> <span class="va">test_set</span><span class="op">$</span><span class="va">fam</span><span class="op">$</span><span class="va">pheno_0</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## [1] 1216</span></code></pre>
+<pre><code><span class="co">## [1] 1222</span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="documentation">documentation<a class="anchor" aria-label="anchor" href="#documentation"></a>
 </h2>
+<p>We will in this section explain the process behind the above
+result</p>
+</div>
+<div class="section level2">
+<h2 id="logistic-regression-compared-to-using-lt-fh-estimates">Logistic regression compared to using LT-FH estimates<a class="anchor" aria-label="anchor" href="#logistic-regression-compared-to-using-lt-fh-estimates"></a>
+</h2>
+<p>We have</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
