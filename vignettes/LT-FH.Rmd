@@ -26,7 +26,7 @@ library(tidyverse)
 
 A more sofisticated method of analysing the genetic data and finding the causal SNP's is using LT-FH (liability threshold family history). This methods uses a gibbs sampler in order to estimate the genetic liability of each subject based on the family history, i.e. if the subject, it's parent or siblings have the given trait or sickness. Using this estimate an updated expected value for the genetic liability can be obtained.
 
-LTFH is based on a sampling using Monte Carlo integration. More on the on this can be found in the vignette for gibb sampling.
+LTFH is based on a sampling using Monte Carlo integration. More information about the process can be found her 'vignette("Gibbs-smapler")'.
 Below is shown three plots with the estimated posterior mean genetic liabilities compared to the standard normal distribution of the genetic liability. The plots shows the outcome of running the gibbs samber for the configurations (0,0,0), (0,0,1) and (1,1,1) respectively.
 
 ```{r}

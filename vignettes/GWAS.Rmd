@@ -66,7 +66,7 @@ manhattan_plot(gwas_summary, beta, treshold = c(5e-7, 0.05))
 ```
 
 ```{r, echo = FALSE}
-knitr::include_graphics("GWAS_manhattan.jpg")
+knitr::include_graphics("gwas_manhattan.jpg")
 ```
 
 This can also be illustrated using scatterplot. Here we see that we are good at finding estimates with very extreme effects, though it is much more difficult to for the association analysis around the middle. 
@@ -75,7 +75,7 @@ This can also be illustrated using scatterplot. Here we see that we are good at 
 scatter_plot(gwas_summary, beta)
 ```
 ```{r, echo = FALSE}
-knitr::include_graphics("GWAS_scatter.jpg")
+knitr::include_graphics("gwas_scatter.jpg")
 ```
 
 
@@ -86,7 +86,7 @@ power_plot(gwas_summary, beta)
 ```
 
 ```{r echo = FALSE}
-knitr::include_graphics("GWAS_power.jpg")
+knitr::include_graphics("gwas_power.jpg")
 ```
 
 

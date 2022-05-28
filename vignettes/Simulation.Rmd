@@ -68,6 +68,7 @@ head(family_data$fam)
 
 
 We see here that we have a bit more family history, but the same same values each family member as we have for the subject. Again can we check the distrubition of each full liability using the same function as before.
+
 ```{r}
 dist_check(family_data)
 ```
@@ -76,6 +77,6 @@ Now that a larger dataset have been simulated the mean and variance is a lot clo
 Now this data is ready to be analysied using LTFH or used in predictive analysis.
 
 ### Note on parrellelisation, block size and memory use.
-The functions for the simualation have been optimized with parallelization and do this with all available cores as a standard. Depending on the computer running the simulation, the block size and amount of RAM this will take up a lot of memory of the computer, if a user specified amount of cores is preffered, this can be specified by running options(mc.cores = core_amount) where core_amount is the amount of cores available to R. Furthermore depending on the specified block size R will need to allocate quite a bit of memory, this can create an error on some computers depending on the RAM, it could be relevant to check https://www.rdocumentation.org/packages/utils/versions/3.6.2/topics/memory.size. If this doesn't fix the error, decreasing the block size and/or amount of cores is recommended.
+The functions for the simualation have been optimized with parallelization and do this with all available cores as a standard. Depending on the computer running the simulation, the size of the simulation, the block size and amount of RAM this will take up a lot of memory of the computer. If a user specified amount of cores is preffered, this can be specified by running options(mc.cores = core_amount) where core_amount is the amount of cores available to R. Furthermore depending on the specified block size R will need to allocate quite a bit of memory, this can create an error on some computers depending on the RAM, it could be relevant to check https://www.rdocumentation.org/packages/utils/versions/3.6.2/topics/memory.size. If this doesn't fix the error, decreasing the block size and/or amount of cores is recommended.
 
 
