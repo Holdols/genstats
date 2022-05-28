@@ -30,7 +30,7 @@ PRS_cross <- function(data, y01, cross_folds, LogReg = FALSE){
     ind_test <- folds[[i]]
     ind_train <- setdiff(rows_along(G), ind_test)
     if (LogReg == TRUE){
-      bigstatsr::big_univLogReg(G, y.train = y01[ind_train], ind.train = ind_train)
+      gwas_train <- bigstatsr::big_univLogReg(G, y01.train = y01[ind_train], ind.train = ind_train)
     } else {
       gwas_train <- bigstatsr::big_univLinReg(G, y.train = y01[ind_train], ind.train = ind_train)
     }
