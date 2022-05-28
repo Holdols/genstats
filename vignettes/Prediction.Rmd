@@ -106,7 +106,13 @@ sum(preds == test_set$fam$pheno_0)
 
 ## documentation
 
+We will in this section explain the process behind the above result
 
 
+
+
+## Logistic regression compared to using LT-FH estimates
+
+We have
 
 
