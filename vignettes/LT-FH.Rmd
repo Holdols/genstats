@@ -84,7 +84,10 @@ We will below give the results of the association analysis on a data set with $1
 manhattan_plot(gwas_summary = LTFH_summary, beta = beta, treshold = c(5e-7, 0.05))
 ```
 
-![](LTFH_manhattan.jpg)
+```{r, echo = FALSE}
+knitr::include_graphics("LTFH_scatter.jpg")
+```
+
 
 This can also be illustrated using scatterplot. Here we see that we are very good at finding estimates af very extreme effects, thpugh it is much more difficult to for the association analysis around the middle. Agian this method very much out performs normal GWAS. 
 
@@ -92,5 +95,8 @@ This can also be illustrated using scatterplot. Here we see that we are very goo
 scatter_plot(gwas_summary = LTFH_summary, beta = beta)
 ```
 
-![](LTFH_scatter.jpg)
+```{r, echo = FALSE}
+  knitr::include_graphics("LTFH_scatter.jpg")
+```
+
 
