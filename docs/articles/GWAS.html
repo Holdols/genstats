@@ -126,36 +126,15 @@ we are only using the trait of the subject.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://holdols.github.io/genstats" class="external-link">genstats</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://privefl.github.io/bigsnpr/" class="external-link">bigsnpr</a></span><span class="op">)</span>
-<span class="co">#&gt; Warning: package 'bigsnpr' was built under R version 4.0.5</span>
-<span class="co">#&gt; Loading required package: bigstatsr</span>
-<span class="co">#&gt; Warning: package 'bigstatsr' was built under R version 4.0.5</span>
-<span class="co">#&gt; Registered S3 methods overwritten by 'tibble':</span>
-<span class="co">#&gt;   method     from  </span>
-<span class="co">#&gt;   format.tbl pillar</span>
-<span class="co">#&gt;   print.tbl  pillar</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Attaching package: 'bigsnpr'</span>
-<span class="co">#&gt; The following object is masked from 'package:genstats':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     snp_attach</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Attaching package: 'dplyr'</span>
-<span class="co">#&gt; The following objects are masked from 'package:stats':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     filter, lag</span>
-<span class="co">#&gt; The following objects are masked from 'package:base':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     intersect, setdiff, setequal, union</span>
-
-<span class="va">genetic_data</span> <span class="op">=</span> <span class="fu"><a href="../reference/snp_attach.html">snp_attach</a></span><span class="op">(</span><span class="st">'genetic_data.rds'</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">genetic_data</span> <span class="op">=</span> <span class="fu"><a href="../reference/snp_attach.html">snp_attach</a></span><span class="op">(</span><span class="st">'genetic_data.rds'</span><span class="op">)</span>
 <span class="va">G</span><span class="op">=</span><span class="va">genetic_data</span><span class="op">$</span><span class="va">genotypes</span>
 <span class="va">y</span> <span class="op">=</span>  <span class="va">genetic_data</span><span class="op">$</span><span class="va">fam</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="st">'pheno_0'</span><span class="op">)</span> 
 <span class="va">beta</span> <span class="op">=</span> <span class="va">genetic_data</span><span class="op">$</span><span class="va">map</span><span class="op">$</span><span class="va">beta</span></code></pre></div>
-<p>Know we estimate the casual effect of each SNP</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<p>Now we estimate the casual effect of each SNP</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gwas_summary</span> <span class="op">=</span> <span class="fu"><a href="../reference/GWAS.html">GWAS</a></span><span class="op">(</span>G<span class="op">=</span><span class="va">G</span>, y<span class="op">=</span><span class="va">y</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, p<span class="op">=</span><span class="fl">0.05</span><span class="op">/</span><span class="fl">100000</span>, logreg <span class="op">=</span> <span class="cn">FALSE</span>, ncores<span class="op">=</span><span class="fl">3</span><span class="op">)</span>
-<span class="co">#&gt; Warning: 'y.train' is composed of only two different levels.</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">gwas_summary</span><span class="op">)</span>
 <span class="co">#&gt;          estim     std.err      score     p_vals causal_estimate</span>
 <span class="co">#&gt; 1 -0.005987535 0.004443138 -1.3475914 0.17782039               0</span>
@@ -164,16 +143,60 @@ we are only using the trait of the subject.</p>
 <span class="co">#&gt; 4 -0.002721957 0.004071671 -0.6685111 0.50382286               0</span>
 <span class="co">#&gt; 5 -0.003998108 0.003511870 -1.1384556 0.25495758               0</span>
 <span class="co">#&gt; 6  0.005265846 0.008903985  0.5914033 0.55426363               0</span></code></pre></div>
-<p>We are using bonferronni correction, ans since we have <span class="math inline">\(100,000\)</span> indiviuals we will use <span class="math inline">\(p=\frac{0.05}{100000}\)</span>.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/scatter_plot.html">scatter_plot</a></span><span class="op">(</span><span class="va">gwas_summary</span>, <span class="va">beta</span><span class="op">)</span></code></pre></div>
-<p><img src="GWAS_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
-<p>We see that we catches the most extreme cases. Looking at a powerplot
-this makes a lot of sense</p>
+<p>We are using bonferronni correction, and since we have <span class="math inline">\(100,000\)</span> indiviuals we will use <span class="math inline">\(p=\frac{0.05}{100000}\)</span>.</p>
+</div>
+<div class="section level2">
+<h2 id="perfomance">Perfomance<a class="anchor" aria-label="anchor" href="#perfomance"></a>
+</h2>
+<p>To illustrate the perfomance of GWAS The first plot shown below is a
+manhattan plot. The plot illustrates how well the analysis is to
+differentiate between casual and non causual snp. Two horisontal lines
+have been drawn illustrating the tresholds for the p-value.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/manhattan_plot.html">manhattan_plot</a></span><span class="op">(</span><span class="va">gwas_summary</span>, <span class="va">beta</span>, treshold <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5e-7</span>, <span class="fl">0.05</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p><img src="gwas_manhattan.jpg"><!-- --></p>
+<p>This can also be illustrated using scatterplot. Here we see that we
+are good at finding estimates with very extreme effects, though it is
+much more difficult to for the association analysis around the
+middle.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/scatter_plot.html">scatter_plot</a></span><span class="op">(</span><span class="va">gwas_summary</span>, <span class="va">beta</span><span class="op">)</span></code></pre></div>
+<p><img src="gwas_scatter.jpg"><!-- --></p>
+<p>We see that we catches the most extreme cases. Looking at a powerplot
+we see that we do not have the power to catch the less extreme
+cases.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/power_plot.html">power_plot</a></span><span class="op">(</span><span class="va">gwas_summary</span>, <span class="va">beta</span><span class="op">)</span> </code></pre></div>
+<p><img src="gwas_power.jpg"><!-- --></p>
+</div>
+<div class="section level2">
+<h2 id="logistic-regression">Logistic regression<a class="anchor" aria-label="anchor" href="#logistic-regression"></a>
+</h2>
+<p>Since our target variable is binary it would seem reasonable to run
+logistic regression instead of linear.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gwaslog_summary</span> <span class="op">=</span> <span class="fu"><a href="../reference/GWAS.html">GWAS</a></span><span class="op">(</span>G<span class="op">=</span><span class="va">G</span>, y<span class="op">=</span><span class="va">y</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, p<span class="op">=</span><span class="fl">0.05</span><span class="op">/</span><span class="fl">100000</span>, logreg <span class="op">=</span> <span class="cn">TRUE</span>, ncores<span class="op">=</span><span class="fl">3</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">gwas_summary</span><span class="op">)</span>
+<span class="co">#&gt;          estim     std.err      score     p_vals causal_estimate</span>
+<span class="co">#&gt; 1 -0.005987535 0.004443138 -1.3475914 0.17782039               0</span>
+<span class="co">#&gt; 2 -0.006664683 0.003534050 -1.8858483 0.05934436               0</span>
+<span class="co">#&gt; 3 -0.009804117 0.007506549 -1.3060750 0.19155709               0</span>
+<span class="co">#&gt; 4 -0.002721957 0.004071671 -0.6685111 0.50382286               0</span>
+<span class="co">#&gt; 5 -0.003998108 0.003511870 -1.1384556 0.25495758               0</span>
+<span class="co">#&gt; 6  0.005265846 0.008903985  0.5914033 0.55426363               0</span></code></pre></div>
+<p>To check the perfomance we use the same method as above.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/manhattan_plot.html">manhattan_plot</a></span><span class="op">(</span><span class="va">gwaslog_summary</span>, <span class="va">beta</span>, thresholds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5e-7</span>, <span class="fl">0.05</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p><img src="GWASlog_manhattan.jpg"><!-- --></p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/scatter_plot.html">scatter_plot</a></span><span class="op">(</span><span class="va">gwaslog_summary</span>, <span class="va">beta</span><span class="op">)</span></code></pre></div>
+<p><img src="GWASlog_scatter.jpg"><!-- --></p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/power_plot.html">power_plot</a></span><span class="op">(</span><span class="va">gwas_summary</span>, <span class="va">beta</span><span class="op">)</span></code></pre></div>
-<p><img src="GWAS_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
-<p>[][GWAS_manhattan.jpg) [][GWAS_scatter.jpg) [][GWAS_power.jpg)</p>
+<p><img src="GWASlog_power.jpg"><!-- --> According to the scatter plot
+it would seem logistic regression is better at estimating the effect
+size of each casual SNP, from the power plot however it the logistic
+regression seems weaker.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

@@ -146,12 +146,12 @@ subjects genetic liabilities as a new column.</p>
 <span class="co">#&gt; 5  0.3278623        0  0.4358816  0.9360237        0  0.70031543  1.14029948</span>
 <span class="co">#&gt; 6 -0.6010279        0 -0.4068985 -0.5806311        0  0.09545961  0.90836585</span>
 <span class="co">#&gt;   pheno_s4  l_g_est_0</span>
-<span class="co">#&gt; 1        0 -0.1292299</span>
-<span class="co">#&gt; 2        0  0.3041010</span>
-<span class="co">#&gt; 3        0 -0.1292299</span>
-<span class="co">#&gt; 4        0 -0.1292299</span>
-<span class="co">#&gt; 5        0  0.3266706</span>
-<span class="co">#&gt; 6        0 -0.1292299</span></code></pre></div>
+<span class="co">#&gt; 1        0 -0.1637374</span>
+<span class="co">#&gt; 2        0  0.3096763</span>
+<span class="co">#&gt; 3        0 -0.1637374</span>
+<span class="co">#&gt; 4        0 -0.1637374</span>
+<span class="co">#&gt; 5        0  0.3344517</span>
+<span class="co">#&gt; 6        0 -0.1637374</span></code></pre></div>
 <p>The estimated genetic liabilities can now be used as wanted. We are
 here using them as the target vector in a linear regression in order to
 estimate the causal effect of each SNP.</p>
@@ -184,19 +184,11 @@ analysis is to differentiate between casual and non causual snp. Two
 horisontal lines have been drawn illustrating the tresholds for the
 p-value. We can se that choosing to use the conservative method of
 bonferronni correction we describe the data better. Comparing this to
-the result og GWAS without using estimated liabilities we se that LTFH
-clearly performs better. This performance improvement is however, with
-the simulated data, expected since we know for a fact that the right
-assumptions about the data is made. If real world data is used it is no
-more a certainty that the assumptions will hold and we would expect LTFH
-to perform worse than what is shown here, therefore it could be relevant
-to update the covariance matrix to suit real world data beta. E. g. by
-adding some kind of correlation between parent’s and child’s
-enviromental liability. In spite of this Hujoel et al.(2020) show that
-LTFH outperforms the standard GWAS with real world data as well.</p>
+the result of GWAS without using estimated liabilities we se that LTFH
+clearly performs better.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/manhattan_plot.html">manhattan_plot</a></span><span class="op">(</span>gwas_summary <span class="op">=</span> <span class="va">LTFH_summary</span>, beta <span class="op">=</span> <span class="va">beta</span>, treshold <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5e-7</span>, <span class="fl">0.05</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p><img src="LTFH_scatter.jpg"><!-- --></p>
+<p><img src="LTFH_manhattan.jpg"><!-- --></p>
 <p>This can also be illustrated using scatterplot. Here we see that we
 are very good at finding estimates af very extreme effects, though it is
 much more difficult to for the association analysis around the middle.
@@ -210,6 +202,19 @@ our test to do so!</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/power_plot.html">power_plot</a></span><span class="op">(</span>gwas_summary <span class="op">=</span> <span class="va">LTFH_summary</span>, beta <span class="op">=</span> <span class="va">beta</span><span class="op">)</span></code></pre></div>
 <p><img src="LTFH_power.jpg"><!-- --></p>
+<div class="section level3">
+<h3 id="note-on-lt-fh-on-real-world-data">Note on LT-FH on real world data<a class="anchor" aria-label="anchor" href="#note-on-lt-fh-on-real-world-data"></a>
+</h3>
+<p>This performance improvement is, with the simulated data, expected
+since we know for a fact that the right assumptions about the data is
+made. If real world data is used it is no more a certainty that the
+assumptions will hold and we would expect LTFH to perform worse than
+what is shown here, therefore it could be relevant to update the
+covariance matrix to suit real world data beta. E. g. by adding some
+kind of correlation between parent’s and child’s enviromental liability.
+In spite of this Hujoel et al.(2020) show that LTFH outperforms the
+standard GWAS with real world data as well.</p>
+</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
