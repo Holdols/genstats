@@ -33,6 +33,7 @@ $$
 Now we sample a value $p_{lp}$ uniformly from one of the two intervals given the family members case. To get a sample for $l_p$ we set $l_p = F_{L_p}^{-1}(p_{lp})$.
 
 Using Monte Carlo integration we find the conditional distribution of each liability. Using the assumption at liabilities follow a normal distribtion where $l_g\sim\mathcal{N}(0,h^2)$, $l_e\sim\mathcal{N}(0,1-h^2)$ and $l_{full} = l_g+l_e \sim\mathcal{N}(0,1)$ we can write the following mean and covariance matrix for the variables. We are here not using any siblings, but they can be added as wished.
+
 $$
 \mu =
 \begin{pmatrix}
@@ -41,7 +42,6 @@ $$
 0 \\
 0
 \end{pmatrix}, \quad
-
 \Sigma = 
 \begin{pmatrix}
 1-h^{2} & 0 & 0 & 0 \\
@@ -50,7 +50,9 @@ $$
 0 & \frac{h^{2}}{2} & 0 & 1
 \end{pmatrix}
 $$
+
 Where
+
 $$
 \begin{pmatrix}
 l_{c} \\
@@ -60,7 +62,9 @@ l_{p_{2}}
 \end{pmatrix} \sim \mathcal{N}\left(\mu,\Sigma
 \right)
 $$
+
 This we can transform into
+
 $$
 \overline{\mu} =
 \begin{pmatrix}
@@ -76,9 +80,9 @@ h^{2} & 1 & \frac{h^{2}}{2} & \frac{h^{2}}{2} \\
 \frac{h^{2}}{2} & \frac{h^{2}}{2} & 1 & 0 \\
 \frac{h^{2}}{2} & \frac{h^{2}}{2} & 0 & 1
 \end{pmatrix}
-
 $$
 Where
+
 $$
 \begin{pmatrix}
 l_{g} \\
@@ -113,17 +117,9 @@ colnames(ests) = c("Genetic Liability subject",
                    "Liability parent2, CONTROL",
                    "Liability sibling1, CASE",
                    "Liability sibling2, CONTROL")
-# means <- as_tibble(ests) %>%
-#           pivot_longer(cols = everything(), names_to = "pheno") %>%
-#             group_by(pheno) %>%
-#               summarise(MN = mean(value), MN_x = length(value)/2, .groups = "keep")
-# 
-# as_tibble(ests) %>%
-#   mutate(iterations = (1:length(l_g_0))) %>%
-#   pivot_longer(!iterations, names_to = "pheno") %>%
-#   ggplot(aes(x = iterations, y = value)) + geom_line(aes(col = "brick")) + geom_hline(data = means, aes(yintercept = MN)) + facet_wrap(~pheno) + geom_label(data = means, aes(x = MN_x, label=round(MN,digits = 3), y=MN -0.1), size = 2.5, vjust = "top")
 plot_gibbs(ests)
 ```
+
 The plots shows that all the the liabilities are converged with a starting value of 0. And also it seems that the Gibbs sampler converges incredibly fast. The Gibbs sampler is therefore performing as we would expect.
 
 The standard values for the genstats::gibbs_sampl is a starting value at 0 and a burn in of 500.
