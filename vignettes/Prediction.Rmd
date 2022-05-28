@@ -49,8 +49,8 @@ prs_plot(PRS = prs, train_set, 'AUC')
 ```
 
 ```{r, echo = FALSE}
-knitr::include_graphics("m1-auc.jpg")
-knitr::include_graphics("m2-auc.jpg")
+knitr::include_graphics("m1_auc.jpg")
+knitr::include_graphics("m2_auc.jpg")
 ```
 
 
@@ -60,8 +60,8 @@ prs_plot(PRS = prs, train_set, 'MSE')
 
 
 ```{r, echo = FALSE}
-knitr::include_graphics("m1-mse.jpg")
-knitr::include_graphics("m2-mse.jpg")
+knitr::include_graphics("m1_mse.jpg")
+knitr::include_graphics("m2_mse.jpg")
 ```
 
 
@@ -71,8 +71,8 @@ prs_plot(PRS = prs, train_set, 'R2')
 
 
 ```{r, echo = FALSE}
-knitr::include_graphics("m1-r2.jpg")
-knitr::include_graphics("m2-r2.jpg")
+knitr::include_graphics("m1_r2.jpg")
+knitr::include_graphics("m2_r2.jpg")
 ```
 
 
