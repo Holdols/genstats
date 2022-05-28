@@ -29,7 +29,7 @@ Where $Y$ denotes the actual traits of the subjects. $Y$ will be 1 if the subjec
 
 ## GWAS using logistic regression
 
-By default the function GWAS() will use a linear regression. The concept of $Y$ as a binary variable open the door for other models. A simple one is the logistic regression which uses the logit function as its activation function to transform the linearregression into a probability curve. This model is also implemented in out GWAs function and can be accessed by setting 'logreg = TRUE'. Though as we wil show the difference in result between logistic and liner regression is minimal.
+By default the function GWAS() will use a linear regression. The concept of $Y$ as a binary variable open the door for other models. A simple one is the logistic regression which uses the logit function as its activation function to transform the linearregression into a probability curve. This model is also implemented in our GWAs function and can be accessed by setting 'logreg = TRUE'.
 
 ## Using GWAS
 
@@ -121,5 +121,5 @@ power_plot(gwas_summary, beta)
 ```{r, echo = FALSE}
 knitr::include_graphics("GWASlog_power.jpg")
 ```
-According to the scatter plot it would seem logistic regression is better at estimating the effect size of each casual SNP, from the power plot however it the logistic regression seems weaker.  
+According to the scatter plot it would seem logistic regression is better at estimating the effect size of each casual SNP, from the power plot however the logistic regression seem weaker.  
 

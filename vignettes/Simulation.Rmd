@@ -61,9 +61,9 @@ Simulation with family history is very similar to simulating without.
 ```{r eval=FALSE}
 gen_sim('genetic_data', N=10000, M=10000, C=100, block_size = 1000, n_sib=2)
 ```
-```{r}
+```{r message=FALSE}
 family_data = snp_attach('genetic_data.rds')
-family_data$fam
+head(family_data$fam)
 ```
 
 
