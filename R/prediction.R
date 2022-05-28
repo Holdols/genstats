@@ -58,12 +58,13 @@ PRS_cross <- function(data, y01, cross_folds, LogReg = FALSE){
 #' @param y The target vector. Could either be estimated liabilities from LTFH or phenotypes.
 #' @param thr Treshold for p-value to be used in calculating PRS.
 #' @param LogReg Boolean indicating if logistic regression should be used to estimate the casual effect.
+#' @param ncores Amount of cores to be used
 #' @return List containing output from GWAS and Linear regression of PRS on phenotype of the subject. It
 #' @importFrom magrittr "%>%"
 #' @export
-pred_model = function(train_data, y, thr, LogReg_g = FALSE, LogReg_prs = FALSE){
-  if (!LogReg_g) {gwas <- bigstatsr::big_univLinReg(train_data$genotypes, y.train = y)}
-  else {gwas <- bigstatsr::big_univLogReg(train_data$genotypes, y.train = y)}
+pred_model = function(train_data, y, thr, ncores = 1, LogReg_g = FALSE, LogReg_prs = FALSE){
+  if (!LogReg_g) {gwas <- bigstatsr::big_univLinReg(train_data$genotypes, y.train = y, ncores = ncores)}
+  else {gwas <- bigstatsr::big_univLogReg(train_data$genotypes, y.train = y, ncores = ncores)}
   prs_ <- bigsnpr::snp_PRS(G = train_data$genotypes, betas.keep =gwas$estim, lpS.keep = -predict(gwas), thr.list = thr)
   prs_ = prs_[,1]
 
