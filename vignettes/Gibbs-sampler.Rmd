@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 ```
 
 
-An assumption made by Hujoel et al.(2020) is that the liabilities of subjects and families follow a multivariate normal distribution `vignette("LT-FH")`. With this assumption liabilities of each family member can be estimated if their phenotypes are provided. 
+An assumption made by Hujoel et al.(2020) is that the liabilities of subjects and families follow a multivariate normal distribution. With this assumption liabilities of each family member can be estimated if their phenotypes are provided. 
 
 These liabilitites are estimated using Monte Carlo integration. In genstats a Gibb sampler has been implemented, by sampling from a conditional distribution for each liability estimates are obtained iteratively. The obtained phenotypes of family members can be implemented in the model by sampling from a truncated normal distribution.
 To clarify if a family member is a case we know that the liability of the family member is above a threshold T, given a prevalence K. To sample from a a truncated normal distribution we sample a value from one of the two intervals shown below.
