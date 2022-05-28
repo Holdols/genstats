@@ -121,7 +121,7 @@ have not been apple to show case the analysis. We have included pictures
 to illustrate the results on <span class="math inline">\(1e^5\times1e^5\)</span> data.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># The rds file containing simulated data is loaded</span>
-<span class="va">genetic_data</span> <span class="op">=</span> <span class="fu"><a href="https://privefl.github.io/bigsnpr/reference/snp_attach.html" class="external-link">snp_attach</a></span><span class="op">(</span><span class="st">'genetic_data.rds'</span><span class="op">)</span>
+<span class="va">genetic_data</span> <span class="op">=</span> <span class="fu"><a href="../reference/snp_attach.html">snp_attach</a></span><span class="op">(</span><span class="st">'genetic_data.rds'</span><span class="op">)</span>
 
 <span class="co"># We save the genotypes and beta for later use</span>
 <span class="va">G</span> <span class="op">=</span> <span class="va">genetic_data</span><span class="op">$</span><span class="va">genotypes</span>
@@ -146,15 +146,15 @@ subjects genetic liabilities as a new column.</p>
 <span class="co">#&gt; 5  0.3278623        0  0.4358816  0.9360237        0  0.70031543  1.14029948</span>
 <span class="co">#&gt; 6 -0.6010279        0 -0.4068985 -0.5806311        0  0.09545961  0.90836585</span>
 <span class="co">#&gt;   pheno_s4  l_g_est_0</span>
-<span class="co">#&gt; 1        0 -0.1371848</span>
-<span class="co">#&gt; 2        0  0.3015333</span>
-<span class="co">#&gt; 3        0 -0.1371848</span>
-<span class="co">#&gt; 4        0 -0.1371848</span>
-<span class="co">#&gt; 5        0  0.3342522</span>
-<span class="co">#&gt; 6        0 -0.1371848</span></code></pre></div>
+<span class="co">#&gt; 1        0 -0.1292299</span>
+<span class="co">#&gt; 2        0  0.3041010</span>
+<span class="co">#&gt; 3        0 -0.1292299</span>
+<span class="co">#&gt; 4        0 -0.1292299</span>
+<span class="co">#&gt; 5        0  0.3266706</span>
+<span class="co">#&gt; 6        0 -0.1292299</span></code></pre></div>
 <p>The estimated genetic liabilities can now be used as wanted. We are
 here using them as the target vector in a linear regression in order to
-estimate the causual effect of each SNP.</p>
+estimate the causal effect of each SNP.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">LTFH_summary</span> <span class="op">=</span> <span class="fu"><a href="../reference/GWAS.html">GWAS</a></span><span class="op">(</span>G <span class="op">=</span> <span class="va">G</span>, y <span class="op">=</span> <span class="va">LTFH_est</span><span class="op">$</span><span class="va">l_g_0</span>, p <span class="op">=</span> <span class="fl">5e-5</span>, logreg <span class="op">=</span> <span class="cn">FALSE</span>, ncores <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">LTFH_summary</span><span class="op">)</span>
@@ -178,14 +178,22 @@ the result of our</p>
 <p>We will below give the results of the association analysis on a data
 set with <span class="math inline">\(1e^5\times1e^5\)</span> datapoint.
 The process of getting these result is the same as shown above we have
-here of course used a p-value of <span class="math inline">\(p=\frac{0.05}{100000}=5e^{-7}\)</span>. The first
+here used a p-value with bonferroni correction <span class="math inline">\(p=\frac{0.05}{100000}=5e^{-7}\)</span>. The first
 plot shown below is a manhattan plot. The plot illustrates how well the
 analysis is to differentiate between casual and non causual snp. Two
 horisontal lines have been drawn illustrating the tresholds for the
 p-value. We can se that choosing to use the conservative method of
 bonferronni correction we describe the data better. Comparing this to
 the result og GWAS without using estimated liabilities we se that LTFH
-clearly performs better.</p>
+clearly performs better. This performance improvement is however, with
+the simulated data, expected since we know for a fact that the right
+assumptions about the data is made. If real world data is used it is no
+more a certainty that the assumptions will hold and we would expect LTFH
+to perform worse than what is shown here, therefore it could be relevant
+to update the covariance matrix to suit real world data beta. E. g. by
+adding some kind of correlation between parent’s and child’s
+enviromental liability. In spite of this Hujoel et al.(2020) show that
+LTFH outperforms the standard GWAS with real world data as well.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/manhattan_plot.html">manhattan_plot</a></span><span class="op">(</span>gwas_summary <span class="op">=</span> <span class="va">LTFH_summary</span>, beta <span class="op">=</span> <span class="va">beta</span>, treshold <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5e-7</span>, <span class="fl">0.05</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="LTFH_scatter.jpg"><!-- --></p>
@@ -196,11 +204,12 @@ Agian this method very much out performs normal vignette(“GWAS”).</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/scatter_plot.html">scatter_plot</a></span><span class="op">(</span>gwas_summary <span class="op">=</span> <span class="va">LTFH_summary</span>, beta <span class="op">=</span> <span class="va">beta</span><span class="op">)</span></code></pre></div>
 <p><img src="LTFH_scatter.jpg"><!-- --></p>
-<p>At last we include a plower plot to show case why we are not able to
+<p>At last we include a power plot to show case why we are not able to
 estimate the smaller causal effects. We simply do not have the power in
 our test to do so!</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/power_plot.html">power_plot</a></span><span class="op">(</span>gwas_summary <span class="op">=</span> <span class="va">LTFH_summary</span>, beta <span class="op">=</span> <span class="va">beta</span><span class="op">)</span></code></pre></div>
+<p><img src="LTFH_power.jpg"><!-- --></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

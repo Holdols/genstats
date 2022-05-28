@@ -133,6 +133,11 @@ we are only using the trait of the subject.</p>
 <span class="co">#&gt;   method     from  </span>
 <span class="co">#&gt;   format.tbl pillar</span>
 <span class="co">#&gt;   print.tbl  pillar</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Attaching package: 'bigsnpr'</span>
+<span class="co">#&gt; The following object is masked from 'package:genstats':</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     snp_attach</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Attaching package: 'dplyr'</span>
@@ -143,7 +148,7 @@ we are only using the trait of the subject.</p>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;     intersect, setdiff, setequal, union</span>
 
-<span class="va">genetic_data</span> <span class="op">=</span> <span class="fu"><a href="https://privefl.github.io/bigsnpr/reference/snp_attach.html" class="external-link">snp_attach</a></span><span class="op">(</span><span class="st">'genetic_data.rds'</span><span class="op">)</span>
+<span class="va">genetic_data</span> <span class="op">=</span> <span class="fu"><a href="../reference/snp_attach.html">snp_attach</a></span><span class="op">(</span><span class="st">'genetic_data.rds'</span><span class="op">)</span>
 <span class="va">G</span><span class="op">=</span><span class="va">genetic_data</span><span class="op">$</span><span class="va">genotypes</span>
 <span class="va">y</span> <span class="op">=</span>  <span class="va">genetic_data</span><span class="op">$</span><span class="va">fam</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="st">'pheno_0'</span><span class="op">)</span> 
 <span class="va">beta</span> <span class="op">=</span> <span class="va">genetic_data</span><span class="op">$</span><span class="va">map</span><span class="op">$</span><span class="va">beta</span></code></pre></div>
