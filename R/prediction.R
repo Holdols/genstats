@@ -62,24 +62,20 @@ PRS_cross <- function(data, y01, cross_folds, LogReg = FALSE){
 #' @return List containing output from GWAS and Linear regression of PRS on phenotype of the subject. It
 #' @importFrom magrittr "%>%"
 #' @export
-pred_model = function(train_data, y, thr, ncores = 1, LogReg_g = FALSE, LogReg_prs = FALSE){
-  if (!LogReg_g) {gwas <- bigstatsr::big_univLinReg(train_data$genotypes, y.train = y, ncores = ncores)}
+pred_model = function(train_data, y, thr, ncores = 1, LogReg = FALSE){
+  if (!LogReg) {gwas <- bigstatsr::big_univLinReg(train_data$genotypes, y.train = y, ncores = ncores)}
   else {gwas <- bigstatsr::big_univLogReg(train_data$genotypes, y.train = y, ncores = ncores)}
   prs_ <- bigsnpr::snp_PRS(G = train_data$genotypes, betas.keep =gwas$estim, lpS.keep = -predict(gwas), thr.list = thr)
   prs_ = prs_[,1]
 
-
-  if (!LogReg_prs) {model = lm(train_data$fam$pheno_0 ~ prs_)}
-  else {model <- glm(train_data$fam$pheno_0 ~ prs_, family = binomial(link = "probit"))}
-
   print(train_data$fam %>%
-          ggplot2::ggplot(ggplot2::aes(x=fitted.values(model), y=y)) +
+          ggplot2::ggplot(ggplot2::aes(x=fitted.values(prs_), y=y)) +
           ggplot2::geom_point(aes(color=as.character(pheno_0))) +
-          ggplot2::xlab('Estimated values') +
+          ggplot2::xlab('PRS') +
           ggplot2::ylab('Estimated genetic liability or phenotype') +
           ggplot2::labs(color='Phenotype'))
 
-  return(list('gwas'=gwas, 'model_prs'=model))
+  return(gwas_train)
 }
 
 
@@ -93,10 +89,7 @@ pred_model = function(train_data, y, thr, ncores = 1, LogReg_g = FALSE, LogReg_p
 #' @return Vector of estimated probabilities.
 #' @importFrom magrittr "%>%"
 #' @export
-prediction = function(test_data, model, thr) {
-  gwas = model$gwas
-  model_prs = model$model_prs
-
+prediction = function(test_data, gwas, thr) {
   prs_ = bigsnpr::snp_PRS(G = test_data$genotypes, betas.keep = gwas$estim, lpS.keep = -predict(gwas), thr.list = thr)
   probs <- predict(model_prs, data.frame('prs_' = prs_[,1]), type = "response")
   return(probs)
