@@ -43,8 +43,8 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/Simulation.html">Simulating data</a>
     <a class="dropdown-item" href="../articles/GWAS.html">GWAS</a>
-    <a class="dropdown-item" href="../articles/LT-FH.html">LT-FH</a>
     <a class="dropdown-item" href="../articles/Gibbs-sampler.html">Gibbs sampler</a>
+    <a class="dropdown-item" href="../articles/LT-FH.html">LT-FH</a>
     <a class="dropdown-item" href="../articles/Prediction.html">Prediction</a>
   </div>
 </li>
@@ -171,12 +171,12 @@ sibling.</p>
 <span class="va">covariance</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_cov.html">get_cov</a></span><span class="op">(</span><span class="fl">0.5</span>, n_sib <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
 <span class="va">estimated</span> <span class="op">=</span> <span class="fu"><a href="../reference/gibbs_sampl.html">gibbs_sampl</a></span><span class="op">(</span><span class="va">covariance</span>, phenos<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span><span class="op">)</span>, K<span class="op">=</span><span class="cn">FALSE</span>, all_est <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cov</a></span><span class="op">(</span><span class="va">estimated</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
-<span class="co">#&gt;      [,1] [,2]  [,3]  [,4] [,5]</span>
-<span class="co">#&gt; [1,] 0.50 0.50  0.25  0.25 0.25</span>
-<span class="co">#&gt; [2,] 0.50 1.02  0.25  0.25 0.25</span>
-<span class="co">#&gt; [3,] 0.25 0.25  1.01 -0.01 0.24</span>
-<span class="co">#&gt; [4,] 0.25 0.25 -0.01  1.00 0.26</span>
-<span class="co">#&gt; [5,] 0.25 0.25  0.24  0.26 1.00</span></code></pre></div>
+<span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5]</span>
+<span class="co">#&gt; [1,] 0.50 0.51 0.26 0.26 0.25</span>
+<span class="co">#&gt; [2,] 0.51 1.02 0.27 0.25 0.25</span>
+<span class="co">#&gt; [3,] 0.26 0.27 1.01 0.01 0.24</span>
+<span class="co">#&gt; [4,] 0.26 0.25 0.01 1.01 0.26</span>
+<span class="co">#&gt; [5,] 0.25 0.25 0.24 0.26 1.00</span></code></pre></div>
 <p>The pseudocode for the Gibbs Sampler is shown below <img src="Pseudocode.png"></p>
 <p>This code is within a while loop that break when standard error of
 the mean is under 0.1 to ensure convergence. With this constraint, we’ve

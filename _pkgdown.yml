@@ -36,6 +36,7 @@ reference:
 
 - title: "GWAS"
   desc: Functions used to perform GWAS on genetic data
+  contents:
   - GWAS
 - title: "LT-FH"
   desc: Functions used to perform LT-FH on genetic data
