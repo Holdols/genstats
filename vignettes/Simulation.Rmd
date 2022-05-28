@@ -15,10 +15,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r}
+```{r message=FALSE}
 library(genstats)
 library(bigsnpr)
 ```
+
 
 
 ## Simulation without family history
@@ -29,25 +30,27 @@ The package offers different methods of simulating data. Fist we are going to sh
 gen_sim('simple_sim_example', N=1000, M=1000, C=50, block_size = 100, fam=FALSE)
 ```
 
-Now there will exist a rds file in the working directoy with the data, which we will load.
-```{r eval=FALSE}
+Now there will exist a rds file in the working directory with the data, which we will load.
+```{r}
 simple_data = snp_attach('simple_sim_example.rds')
 simple_data
 ```
 
 Looking at the data we see that the file contains a list. We can here find the genotypes (G), liabilities (fam) and information for each SNP (map).
-```{r eval=FALSE}
-simple_data$G[(1:5),(1:5)]
+```{r}
+simple_data$genotypes[1:5,1:5]
 simple_data$fam
 simple_data$map
 ```
 
-Using the function dist_check() we can see if the distribution of the full liabilities is as expected, which is standard normal. We are here using af small testset and only expect the the mean and variance to be approximately 0 and 1.
-```{r eval=FALSE}
+Here the effect of a each causal snip is of the distribution $\mathcal{N}\left( 0, \frac{h^2}{c}\right)}$ and the each minor allele is of the distribution $unif(0.01, 0.49)$.
+Using the function dist_check() we can see if the distribution of the full liabilities is as expected, which is standard normal. We are here using af small test set and we cannot expect the the mean and variance to be close to 0 and 1.
+```{r}
 dist_check(simple_data)
 ```
 
-We can see that the mean and variance is correct and that the qqplot resembles a normal distribution. 
+
+We can see that the mean and variance differ a lot from 0 and 1, as stated this a a very small dataset but with a larger simulation the distribution will come a lot closer to the expected values, the qqplot however resembles a normal distribution. 
 It is now possible to perfom GWAS for association analysis or use the genotypes for prediction.
 
 
@@ -56,17 +59,22 @@ It is now possible to perfom GWAS for association analysis or use the genotypes 
 Simulation with family history is very similar to simulating without.
 
 ```{r eval=FALSE}
-gen_sim('family_sim_example', N=1000, M=1000, C=50, block_size = 100, n_sib=2)
-family_data = snp_attach('family_sim_example.rds')
+gen_sim('genetic_data', N=10000, M=10000, C=100, block_size = 1000, n_sib=2)
+```
+```{r}
+family_data = snp_attach('genetic_data.rds')
 family_data$fam
 ```
+
+
 We see here that we have a bit more family history, but the same same values each family member as we have for the subject. Again can we check the distrubition of each full liability using the same function as before.
-```{r eval=FALSE}
-dist_check(simple_data)
+```{r}
+dist_check(family_data)
 ```
+Now that a larger dataset have been simulated the mean and variance is a lot closer to the expected values of the liabilities and the qqplots for each liability clearly resembles a normal distribution. 
 Now this data is ready to be analysied using LTFH or used in predictive analysis.
 
 ### Note on parrellelisation, block size and memory use.
-The functions for the simualation have optimized with parallelization and do this with all available cores as a standard. Depending on the computer running the simulation, the block size and amount of RAM this will take up a lot of memory of the computer, if a user specified amount of cores is preffered, this can be specified by running options(mc.cores = core_amount) where core_amount is the amount of cores available to R. Furthermore depending on the specified block size R will need to allocate quite a bit of memory, this can create an error on some computers depending on the RAM, it could be relevant to check https://www.rdocumentation.org/packages/utils/versions/3.6.2/topics/memory.size. If this doesn't fix the error, decreasing the block size and/or amount of cores is recommended.
+The functions for the simualation have been optimized with parallelization and do this with all available cores as a standard. Depending on the computer running the simulation, the block size and amount of RAM this will take up a lot of memory of the computer, if a user specified amount of cores is preffered, this can be specified by running options(mc.cores = core_amount) where core_amount is the amount of cores available to R. Furthermore depending on the specified block size R will need to allocate quite a bit of memory, this can create an error on some computers depending on the RAM, it could be relevant to check https://www.rdocumentation.org/packages/utils/versions/3.6.2/topics/memory.size. If this doesn't fix the error, decreasing the block size and/or amount of cores is recommended.
 
 
