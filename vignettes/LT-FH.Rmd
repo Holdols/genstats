@@ -86,7 +86,7 @@ manhattan_plot(gwas_summary = LTFH_summary, beta = beta, treshold = c(5e-7, 0.05
 
 ![](LTFH_manhattan.jpg)
 
-This can also be illustrated using scatterplot. Here we see that we are very good at finding estimates af very extreme effects, thpugh it is much more difficult to for the association analysis around the middle. Agian this method very much out performs normal GWAS. 
+This can also be illustrated using scatterplot. Here we see that we are very good at finding estimates af very extreme effects, though it is much more difficult to for the association analysis around the middle. Agian this method very much out performs normal GWAS. 
 
 ```{r eval=FALSE}
 scatter_plot(gwas_summary = LTFH_summary, beta = beta)
@@ -94,3 +94,8 @@ scatter_plot(gwas_summary = LTFH_summary, beta = beta)
 
 ![](LTFH_scatter.jpg)
 
+At last we include a plower plot to show case why we are not able to estimate the smaller causal effects. We simply do not have the power in our test to do so! 
+
+```{r eval=FALSE}
+power_plot(gwas_summary = LTFH_summary, beta = beta)
+```
