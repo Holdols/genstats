@@ -7,48 +7,94 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+We are in this vignette showing the possibilities of using the result of association analysis in order to predict occurence of the trait by looking at genetic data. We are in this analysis only looking at genetic data, which normally would not be case. In predicting the prevelance of trait/sickness many other factors will have to be taken into account. This could be sex, age, BMI or other potential confounding variables. We are though going to show that it is possible to create a stronger model through the use of genetic data if there of course is a strong enough heritability. We are therefor going to use the method on $1e^5\times1e^3$ data with 500 casual SNPs. This is not realistic data, but i will show the potential of the meathod.
 
-```{r}
+We use the following packages in this vignette.
+
+```{r message=FALSE, warning=FALSE}
 library(genstats)
 library(bigsnpr)
-library(bigstatsr)
 library(tidyverse)
-
-
-data = snp_attach("genetic_data.rds")
-
-
-
-est <- genstats::LTFH(data = data, n_sib = 2) %>% 
-            select(., contains("est"))
-
-prs <- PRS_cross(data = data, y01 = est[[1]], cross_folds = 4)
-
-
-prs_plot(PRS = prs, data, 'AUC')
-prs_plot(PRS = prs, data, 'MSE')
-prs_plot(PRS = prs, data, 'Lin_Reg')
-
 ```
 
 
+## Introduction to PRS 
 
-
-
-
+In prediction we use a trainings set and a test set. We are in the following section going to show a method which uses LT-FH estimates as its target vectors.
 ```{r}
-
-
-m = pred_model(data, est[[1]], 3)
-
-
-
+# Loading our train and test set
+train_set = snp_attach("genetic_data.rds")
 test_set <- snp_attach("genetic_data_test.rds")
 
+# We save the genotypes and target vector
+G = train_set$genotypes
+est <- LTFH(data = train_set, n_sib = 2) %>% select(., contains("est"))
+y_ltfh = est[[1]]
+
+```
+
+Using prs we want to find which threshold for the p-value describes the data best. We are therefore using cross validation. The following function outputs PRS estimates for the validation set for each fold in the training data.
+
+```{r}
+prs <- PRS_cross(data = train_set, y01 = y_ltfh, cross_folds = 4)
+```
+
+We use these scores to evaluate the threshold. 
 
 
-pred = prediction(test_set, m, 3)
-preds = (pred > 0.5)-0
+The following plot has been evaluated on $1e^5\times1e^3$ data.
+
+```{r eval=FALSE}
+prs_plot(PRS = prs, train_set, 'AUC')
+```
+
+```{r, echo = FALSE}
+knitr::include_graphics("m1-auc.jpg")
+knitr::include_graphics("m2-auc.jpg")
+```
+
+
+```{r eval=FALSE}
+prs_plot(PRS = prs, train_set, 'MSE')
+```
+
+
+```{r, echo = FALSE}
+knitr::include_graphics("m1-mse.jpg")
+knitr::include_graphics("m2-mse.jpg")
+```
+
+
+```{r eval=FALSE}
+prs_plot(PRS = prs, train_set, 'R2')
+```
+
+
+```{r, echo = FALSE}
+knitr::include_graphics("m1-r2.jpg")
+knitr::include_graphics("m2-r2.jpg")
+```
+
+
+Looking at the above plot we find that the optimal threshold for the p-value is around 3
+
+
+
+## Prediction using PRS
+Using this we can create our model. We are only using a linear regression, since we are using LT-FH estimates as our target vector.
+```{r}
+ltfh_model = pred_model(train_data = train_set, y = y_ltfh, thr = 3, LogReg_g = FALSE, LogReg_prs = FALSE)
+```
+
+And creating our predictions
+```{r}
+pred = prediction(test_data = test_set, model = ltfh_model, thr = 3)
+```
+
+The outcome 
+```{r}
+
+preds = (pred > 0.23)-0
 
 
 cbind('predictive positive' = preds[preds==1], 'True value'=test_set$fam$pheno_0[preds==1])
@@ -58,17 +104,9 @@ sum(test_set$fam$pheno_0[test_set$fam$pheno_0==1])
 sum(preds == test_set$fam$pheno_0)
 ```
 
+## documentation
 
 
-```{r}
-df = prs %>% do.call('rbind', .)
-df = df[order(as.numeric(row.names(df))),]
 
-plot(df[,7], data$fam$pheno_0)
-```
 
-```{r}
-prs <- PRS_cross(data = data, y01 = data$fam$pheno_0, cross_folds = 4)
-prs_plot(prs, data = data)
-prs_plot(prs, data, 'AUC')
-```
+
