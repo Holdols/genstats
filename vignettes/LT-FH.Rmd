@@ -89,7 +89,7 @@ scatter_plot(gwas_summary = LTFH_summary, beta = beta)
 ```
 
 ```{r, echo = FALSE}
-  knitr::include_graphics("LTFH_scatter.jpg")
+knitr::include_graphics("LTFH_scatter.jpg")
 ```
 
 

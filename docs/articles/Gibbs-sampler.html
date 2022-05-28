@@ -80,8 +80,19 @@
 
     
     
-<p>An assumption made by Hujoel et al.(2020) is that the liabilities of subjects and families follow a multivariate normal distribution (See vignette LTFH). With this assumption liabilities of each family member can be estimated if their phenotypes are provided.</p>
-<p>These liabilitites are estimated using Monte Carlo integration. In genstats a Gibb sampler has been implemented, by sampling from a conditional distribution for each liability estimates are obtained iteratively. The obtained phenotypes of family members can be implemented in the model by sampling from a truncated normal distribution. To clarify if a family member is a case we know that the liability of the family member is above a threshold T, given a prevalence K. To sample from a a truncated normal distribution we sample a value from one of the two intervals shown below. <span class="math display">\[
+<p>An assumption made by Hujoel et al.(2020) is that the liabilities of
+subjects and families follow a multivariate normal distribution (See
+vignette LTFH). With this assumption liabilities of each family member
+can be estimated if their phenotypes are provided.</p>
+<p>These liabilitites are estimated using Monte Carlo integration. In
+genstats a Gibb sampler has been implemented, by sampling from a
+conditional distribution for each liability estimates are obtained
+iteratively. The obtained phenotypes of family members can be
+implemented in the model by sampling from a truncated normal
+distribution. To clarify if a family member is a case we know that the
+liability of the family member is above a threshold T, given a
+prevalence K. To sample from a a truncated normal distribution we sample
+a value from one of the two intervals shown below. <span class="math display">\[
 T = \Phi^{-1}(1-K) \\
 L_p \sim N(\mu_p, \sigma_p) \\
 \Downarrow
@@ -91,8 +102,14 @@ P(L_p \leq T) = F_{L_p}(T) \\
 \\
 \text{if p is case}: p_{l_p} \in [F_{l_p}(T) , 1 ]\\
 \text{else}: p_{l_p} \in [0, F_{l_p}(T)] \\
-\]</span> Now we sample a value <span class="math inline">\(p_{lp}\)</span> uniformly from one of the two intervals given the family members case. To get a sample for <span class="math inline">\(l_p\)</span> we set <span class="math inline">\(l_p = F_{L_p}^{-1}(p_{lp})\)</span>.</p>
-Using Monte Carlo integration we find the conditional distribution of each liability. Using the assumption at liabilities follow a normal distribtion where <span class="math inline">\(l_g\sim\mathcal{N}(0,h^2)\)</span>, <span class="math inline">\(l_e\sim\mathcal{N}(0,1-h^2)\)</span> and <span class="math inline">\(l_{full} = l_g+l_e \sim\mathcal{N}(0,1)\)</span> we can write the following mean and covariance matrix for the variables. We are here not using any siblings, but they can be added as wished. $$ =
+\]</span> Now we sample a value <span class="math inline">\(p_{lp}\)</span> uniformly from one of the two
+intervals given the family members case. To get a sample for <span class="math inline">\(l_p\)</span> we set <span class="math inline">\(l_p = F_{L_p}^{-1}(p_{lp})\)</span>.</p>
+Using Monte Carlo integration we find the conditional distribution of
+each liability. Using the assumption at liabilities follow a normal
+distribtion where <span class="math inline">\(l_g\sim\mathcal{N}(0,h^2)\)</span>, <span class="math inline">\(l_e\sim\mathcal{N}(0,1-h^2)\)</span> and <span class="math inline">\(l_{full} = l_g+l_e \sim\mathcal{N}(0,1)\)</span>
+we can write the following mean and covariance matrix for the variables.
+We are here not using any siblings, but they can be added as wished. $$
+=
 <span class="math display">\[\begin{pmatrix}
 0 \\
 0 \\
@@ -118,14 +135,14 @@ l_{p_{2}}
 \end{pmatrix}\]</span>
 (, ) <span class="math display">\[
 This we can transform into
-\]</span>  =
+\]</span> =
 <span class="math display">\[\begin{pmatrix}
 0 \\
 0 \\
 0 \\
 0
 \end{pmatrix}\]</span>
-,   =
+, =
 <span class="math display">\[\begin{pmatrix}
 h^{2} &amp; h^{2} &amp; \frac{h^{2}}{2} &amp; \frac{h^{2}}{2} \\
 h^{2} &amp; 1 &amp; \frac{h^{2}}{2} &amp; \frac{h^{2}}{2} \\
@@ -141,21 +158,32 @@ l_{g}+l_e \\
 l_{p_{1}} \\
 l_{p_{2}}
 \end{pmatrix}\]</span>
-<p>(, ) $$ Using the multivariate normal vi can easily calculate the conditional distribution for each variable. To illustrate that the simulated data has this distrubution we will calculate the covariance matrix of non truncated data using a heriability of 0.5 and one sibling.</p>
+<p>(, ) $$ Using the multivariate normal vi can easily calculate the
+conditional distribution for each variable. To illustrate that the
+simulated data has this distrubution we will calculate the covariance
+matrix of non truncated data using a heriability of 0.5 and one
+sibling.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://holdols.github.io/genstats" class="external-link">genstats</a></span><span class="op">)</span>
 
 <span class="va">covariance</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_cov.html">get_cov</a></span><span class="op">(</span><span class="fl">0.5</span>, n_sib <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
 <span class="va">estimated</span> <span class="op">=</span> <span class="fu"><a href="../reference/gibbs_sampl.html">gibbs_sampl</a></span><span class="op">(</span><span class="va">covariance</span>, phenos<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span><span class="op">)</span>, K<span class="op">=</span><span class="cn">FALSE</span>, all_est <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cov</a></span><span class="op">(</span><span class="va">estimated</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
-<span class="co">#&gt;      [,1] [,2]  [,3]  [,4] [,5]</span>
-<span class="co">#&gt; [1,] 0.48 0.48  0.24  0.24 0.26</span>
-<span class="co">#&gt; [2,] 0.48 0.97  0.23  0.24 0.25</span>
-<span class="co">#&gt; [3,] 0.24 0.23  1.00 -0.01 0.26</span>
-<span class="co">#&gt; [4,] 0.24 0.24 -0.01  1.01 0.25</span>
-<span class="co">#&gt; [5,] 0.26 0.25  0.26  0.25 1.00</span></code></pre></div>
-<p>The pseudocode for the Gibbs Sampler is shown below <img src="../../../../4.%20Semester/Dataprojekt/genstats/articles/Pseudocode.png"></p>
-<p>This code is within a while loop that break when standard error of the mean is under 0.1 to ensure convergence. With this constraint, we’ve tried to ensure convergence, convergence can be shown with by plotting the values for each iteration. For the plot below the configuration is (1,1,0,1,0), where 1 refers to CASE and 0 is control, and each number refers to the phenotype of a family member of the form <span class="math inline">\((phenotype_{subject}, phenotype_{parent1}, phenotype_{parent2}, phenotype_{sibling1}, ...,phenotype_{siblingN})\)</span>.</p>
+<span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5]</span>
+<span class="co">#&gt; [1,] 0.51 0.51 0.25 0.26 0.26</span>
+<span class="co">#&gt; [2,] 0.51 1.01 0.25 0.26 0.26</span>
+<span class="co">#&gt; [3,] 0.25 0.25 0.99 0.01 0.25</span>
+<span class="co">#&gt; [4,] 0.26 0.26 0.01 1.02 0.27</span>
+<span class="co">#&gt; [5,] 0.26 0.26 0.25 0.27 1.01</span></code></pre></div>
+<p>The pseudocode for the Gibbs Sampler is shown below <img src="Pseudocode.png"></p>
+<p>This code is within a while loop that break when standard error of
+the mean is under 0.1 to ensure convergence. With this constraint, we’ve
+tried to ensure convergence, convergence can be shown with by plotting
+the values for each iteration. For the plot below the configuration is
+(1,1,0,1,0), where 1 refers to CASE and 0 is control, and each number
+refers to the phenotype of a family member of the form <span class="math inline">\((phenotype_{subject}, phenotype_{parent1},
+phenotype_{parent2}, phenotype_{sibling1},
+...,phenotype_{siblingN})\)</span>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ests</span> <span class="op">=</span> <span class="fu"><a href="../reference/gibbs_sampl.html">gibbs_sampl</a></span><span class="op">(</span>covmat <span class="op">=</span> <span class="fu"><a href="../reference/get_cov.html">get_cov</a></span><span class="op">(</span><span class="fl">0.5</span>, n_sib <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>, phenos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span><span class="op">)</span>, K <span class="op">=</span> <span class="fl">0.05</span>, start_run <span class="op">=</span> <span class="fl">500</span>, all_est <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">ests</span><span class="op">)</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Genetic Liability subject"</span>,
@@ -173,9 +201,18 @@ l_{p_{2}}
 <span class="co">#   mutate(iterations = (1:length(l_g_0))) %&gt;%</span>
 <span class="co">#   pivot_longer(!iterations, names_to = "pheno") %&gt;%</span>
 <span class="co">#   ggplot(aes(x = iterations, y = value)) + geom_line(aes(col = "brick")) + geom_hline(data = means, aes(yintercept = MN)) + facet_wrap(~pheno) + geom_label(data = means, aes(x = MN_x, label=round(MN,digits = 3), y=MN -0.1), size = 2.5, vjust = "top")</span>
-<span class="fu"><a href="../reference/plot_gibbs.html">plot_gibbs</a></span><span class="op">(</span><span class="va">ests</span><span class="op">)</span></code></pre></div>
-<p><img src="Gibbs-sampler_files/figure-html/unnamed-chunk-3-1.png" width="700"> The plots shows that all the the liabilities are converged with a starting value of 0. And also it seems that the Gibbs sampler converges incredibly fast. The Gibbs sampler is therefore performing as we would expect.</p>
-<p>The standard values for the genstats::gibbs_sampl is a starting value at 0 and a burn in of 500.</p>
+<span class="fu"><a href="../reference/plot_gibbs.html">plot_gibbs</a></span><span class="op">(</span><span class="va">ests</span><span class="op">)</span>
+<span class="co">#&gt; Registered S3 methods overwritten by 'tibble':</span>
+<span class="co">#&gt;   method     from  </span>
+<span class="co">#&gt;   format.tbl pillar</span>
+<span class="co">#&gt;   print.tbl  pillar</span></code></pre></div>
+<p><img src="Gibbs-sampler_files/figure-html/unnamed-chunk-3-1.png" width="700">
+The plots shows that all the the liabilities are converged with a
+starting value of 0. And also it seems that the Gibbs sampler converges
+incredibly fast. The Gibbs sampler is therefore performing as we would
+expect.</p>
+<p>The standard values for the genstats::gibbs_sampl is a starting value
+at 0 and a burn in of 500.</p>
   </main>
 </div>
 
