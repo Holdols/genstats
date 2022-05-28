@@ -69,9 +69,9 @@ We see that we catches the most extreme cases. Looking at a powerplot this makes
 power_plot(gwas_summary, beta)
 ```
 
-![Manhattan plot of GWAS used on 100,000 times 100,000 data][GWAS_manhatten.jpg)
-![Scatterplot plot of GWAS used on 100,000 times 100,000 data][GWAS_scatter.jpg)
-![Powerplot of GWAS used on 100,000 times 100,000 data][GWAS_power.jpg)
+![][GWAS_manhattan.jpg)
+![][GWAS_scatter.jpg)
+![][GWAS_power.jpg)
 
 
 

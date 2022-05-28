@@ -148,13 +148,13 @@ l_{p_{2}}
 <span class="va">covariance</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_cov.html">get_cov</a></span><span class="op">(</span><span class="fl">0.5</span>, n_sib <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
 <span class="va">estimated</span> <span class="op">=</span> <span class="fu"><a href="../reference/gibbs_sampl.html">gibbs_sampl</a></span><span class="op">(</span><span class="va">covariance</span>, phenos<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span><span class="op">)</span>, K<span class="op">=</span><span class="cn">FALSE</span>, all_est <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cov</a></span><span class="op">(</span><span class="va">estimated</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
-<span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5]</span>
-<span class="co">#&gt; [1,] 0.49 0.49 0.25 0.24 0.24</span>
-<span class="co">#&gt; [2,] 0.49 1.00 0.25 0.24 0.24</span>
-<span class="co">#&gt; [3,] 0.25 0.25 0.98 0.00 0.25</span>
-<span class="co">#&gt; [4,] 0.24 0.24 0.00 1.00 0.23</span>
-<span class="co">#&gt; [5,] 0.24 0.24 0.25 0.23 0.99</span></code></pre></div>
-<p>The pseudocode for the Gibbs Sampler is shown below <img src="Pseudocode.png"></p>
+<span class="co">#&gt;      [,1] [,2]  [,3]  [,4] [,5]</span>
+<span class="co">#&gt; [1,] 0.48 0.48  0.24  0.24 0.26</span>
+<span class="co">#&gt; [2,] 0.48 0.97  0.23  0.24 0.25</span>
+<span class="co">#&gt; [3,] 0.24 0.23  1.00 -0.01 0.26</span>
+<span class="co">#&gt; [4,] 0.24 0.24 -0.01  1.01 0.25</span>
+<span class="co">#&gt; [5,] 0.26 0.25  0.26  0.25 1.00</span></code></pre></div>
+<p>The pseudocode for the Gibbs Sampler is shown below <img src="../../../../4.%20Semester/Dataprojekt/genstats/articles/Pseudocode.png"></p>
 <p>This code is within a while loop that break when standard error of the mean is under 0.1 to ensure convergence. With this constraint, we’ve tried to ensure convergence, convergence can be shown with by plotting the values for each iteration. For the plot below the configuration is (1,1,0,1,0), where 1 refers to CASE and 0 is control, and each number refers to the phenotype of a family member of the form <span class="math inline">\((phenotype_{subject}, phenotype_{parent1}, phenotype_{parent2}, phenotype_{sibling1}, ...,phenotype_{siblingN})\)</span>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ests</span> <span class="op">=</span> <span class="fu"><a href="../reference/gibbs_sampl.html">gibbs_sampl</a></span><span class="op">(</span>covmat <span class="op">=</span> <span class="fu"><a href="../reference/get_cov.html">get_cov</a></span><span class="op">(</span><span class="fl">0.5</span>, n_sib <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>, phenos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span><span class="op">)</span>, K <span class="op">=</span> <span class="fl">0.05</span>, start_run <span class="op">=</span> <span class="fl">500</span>, all_est <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>

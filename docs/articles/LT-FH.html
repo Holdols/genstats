@@ -96,7 +96,7 @@
 <div class="section level2">
 <h2 id="using-ltfh">Using LTFH<a class="anchor" aria-label="anchor" href="#using-ltfh"></a>
 </h2>
-<p>In the following tutorial a file is used which have been generated using the method described in gen_sim. First we load the data. We have here simulated <span class="math inline">\(1e^5\times1e^3\)</span> datapoints using two siblings. In the following alls SNPs has a casual effect. This data is only used to show case the method and illustrate how the package can be used. If the methods should be used to actual statistical analysis we recomend simulating <span class="math inline">\(1e^5\times1e^5\)</span> datapoints with about 500-1000 casual SNPs. For practical reasons we have not been apple to show case the analysis. We have included pictures to illustrate the results on <span class="math inline">\(1e^5\times1e^5\)</span> data.</p>
+<p>In the following tutorial a file is used which have been generated using the method described in gen_sim. First we load the data. We have here simulated <span class="math inline">\(1e^3\times1e^3\)</span> datapoints using two siblings. In the following 100 SNPs has a casual effect. This data is only used to show case the method and illustrate how the package can be used. If the methods should be used to actual statistical analysis we recomend simulating <span class="math inline">\(1e^5\times1e^5\)</span> datapoints with about 500-1000 casual SNPs. For practical reasons we have not been apple to show case the analysis. We have included pictures to illustrate the results on <span class="math inline">\(1e^5\times1e^5\)</span> data.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># The rds file containing simulated data is loaded</span>
 <span class="va">genetic_data</span> <span class="op">=</span> <span class="fu"><a href="https://privefl.github.io/bigsnpr/reference/snp_attach.html" class="external-link">snp_attach</a></span><span class="op">(</span><span class="st">'genetic_data.rds'</span><span class="op">)</span>
@@ -123,12 +123,12 @@
 <span class="co">#&gt; 5  0.3278623        0  0.4358816  0.9360237        0  0.70031543  1.14029948</span>
 <span class="co">#&gt; 6 -0.6010279        0 -0.4068985 -0.5806311        0  0.09545961  0.90836585</span>
 <span class="co">#&gt;   pheno_s4  l_g_est_0</span>
-<span class="co">#&gt; 1        0 -0.1486659</span>
-<span class="co">#&gt; 2        0  0.3203150</span>
-<span class="co">#&gt; 3        0 -0.1486659</span>
-<span class="co">#&gt; 4        0 -0.1486659</span>
-<span class="co">#&gt; 5        0  0.3161821</span>
-<span class="co">#&gt; 6        0 -0.1486659</span></code></pre></div>
+<span class="co">#&gt; 1        0 -0.1400657</span>
+<span class="co">#&gt; 2        0  0.3009778</span>
+<span class="co">#&gt; 3        0 -0.1400657</span>
+<span class="co">#&gt; 4        0 -0.1400657</span>
+<span class="co">#&gt; 5        0  0.3208762</span>
+<span class="co">#&gt; 6        0 -0.1400657</span></code></pre></div>
 <p>The estimated genetic liabilities can now be used as wanted. We are here using them as the target vector in a linear regression in order to estimate the causual effect of each SNP.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">LTFH_summary</span> <span class="op">=</span> <span class="fu"><a href="../reference/GWAS.html">GWAS</a></span><span class="op">(</span>G <span class="op">=</span> <span class="va">G</span>, y <span class="op">=</span> <span class="va">LTFH_est</span><span class="op">$</span><span class="va">l_g_0</span>, p <span class="op">=</span> <span class="fl">5e-5</span>, logreg <span class="op">=</span> <span class="cn">FALSE</span>, ncores <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
@@ -148,15 +148,11 @@
 <p>We will below give the results of the association analysis on a data set with <span class="math inline">\(1e^5\times1e^5\)</span> datapoint. The process of getting these result is the same as shown above we have here of course used a p-value of <span class="math inline">\(p=\frac{0.05}{100000}=5e^{-7}\)</span>. The first plot shown below is a manhattan plot. The plot illustrates how well the analysis is to differentiate between casual and non causual snp. Two horisontal lines have been drawn illustrating the tresholds for the p-value. We can se that choosing to use the conservative method of bonferronni correction we describe the data better. Comparing this to the result og GWAS without using estimated liabilities we se that LTFH clearly performs better.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/manhattan_plot.html">manhattan_plot</a></span><span class="op">(</span>gwas_summary <span class="op">=</span> <span class="va">LTFH_summary</span>, beta <span class="op">=</span> <span class="va">beta</span>, treshold <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5e-7</span>, <span class="fl">0.05</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<div class="figure">
-<img src="LTFH_manhatten.jpg" alt=""><p class="caption">Manhattan plot of LTFH used on 100,000 times 100,000 data</p>
-</div>
+<p><img src="../../../../4.%20Semester/Dataprojekt/genstats/articles/LTFH_manhattan.jpg"></p>
 <p>This can also be illustrated using scatterplot. Here we see that we are very good at finding estimates af very extreme effects, thpugh it is much more difficult to for the association analysis around the middle. Agian this method very much out performs normal GWAS.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/scatter_plot.html">scatter_plot</a></span><span class="op">(</span>gwas_summary <span class="op">=</span> <span class="va">LTFH_summary</span>, beta <span class="op">=</span> <span class="va">beta</span><span class="op">)</span></code></pre></div>
-<div class="figure">
-<img src="LTFH_scatter.jpg" alt=""><p class="caption">Scatterplot plot of LTFH used on 100,000 times 100,000 data</p>
-</div>
+<p><img src="../../../../4.%20Semester/Dataprojekt/genstats/articles/LTFH_scatter.jpg"></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
