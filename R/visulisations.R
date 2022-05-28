@@ -136,7 +136,8 @@ plot_gibbs <- function(ests){
     ggplot2::geom_line(ggplot2::aes(col = "brick")) +
     ggplot2::geom_hline(data = means, ggplot2::aes(yintercept = MN)) +
     ggplot2::facet_wrap(~pheno) +
-    ggplot2::geom_label(data = means, ggplot2::aes(x = MN_x, label=round(MN,digits = 3), y=MN -0.1), size = 2.5, vjust = "top")
+    ggplot2::geom_label(data = means, ggplot2::aes(x = MN_x, label=round(MN,digits = 3), y=MN -0.1), size = 2.5, vjust = "top") +
+    ggplot2::theme(legend.position="none")
 }
 
 #' Creates a power plot
