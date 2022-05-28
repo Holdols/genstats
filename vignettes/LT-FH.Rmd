@@ -70,8 +70,7 @@ In the above table we se the result of the association analysis, where we can se
 
 
 ## Outcome for realistic data
-We will below give the results of the association analysis on a data set with $1e^5\times1e^5$ datapoint. The process of getting these result is the same as shown above we have here used a p-value with bonferroni correction $p=\frac{0.05}{100000}=5e^{-7}$. The first plot shown below is a manhattan plot. The plot illustrates how well the analysis is to differentiate between casual and non causual snp. Two horisontal lines have been drawn illustrating the tresholds for the p-value. We can se that choosing to use the conservative method of bonferronni correction we describe the data better. Comparing this to the result og GWAS without using estimated liabilities we se that LTFH clearly performs better.
-This performance improvement is however, with the simulated data, expected since we know for a fact that the right assumptions about the data is made. If real world data is used it is no more a certainty that the assumptions will hold and we would expect LTFH to perform worse than what is shown here, therefore it could be relevant to update the covariance matrix to suit real world data beta. E. g. by adding some kind of correlation between parent's and child's enviromental liability. In spite of this Hujoel et al.(2020) show that LTFH outperforms the standard GWAS with real world data as well.
+We will below give the results of the association analysis on a data set with $1e^5\times1e^5$ datapoint. The process of getting these result is the same as shown above we have here used a p-value with bonferroni correction $p=\frac{0.05}{100000}=5e^{-7}$. The first plot shown below is a manhattan plot. The plot illustrates how well the analysis is to differentiate between casual and non causual snp. Two horisontal lines have been drawn illustrating the tresholds for the p-value. We can se that choosing to use the conservative method of bonferronni correction we describe the data better. Comparing this to the result of GWAS without using estimated liabilities we se that LTFH clearly performs better.
 
 
 ```{r eval=FALSE}
@@ -79,7 +78,7 @@ manhattan_plot(gwas_summary = LTFH_summary, beta = beta, treshold = c(5e-7, 0.05
 ```
 
 ```{r, echo = FALSE}
-knitr::include_graphics("LTFH_scatter.jpg")
+knitr::include_graphics("LTFH_manhattan.jpg")
 ```
 
 
@@ -102,3 +101,8 @@ power_plot(gwas_summary = LTFH_summary, beta = beta)
 ```{r, echo = FALSE}
 knitr::include_graphics("LTFH_power.jpg")
 ```
+
+### Note on LT-FH on real world data
+
+This performance improvement is, with the simulated data, expected since we know for a fact that the right assumptions about the data is made. If real world data is used it is no more a certainty that the assumptions will hold and we would expect LTFH to perform worse than what is shown here, therefore it could be relevant to update the covariance matrix to suit real world data beta. E. g. by adding some kind of correlation between parent's and child's enviromental liability. In spite of this Hujoel et al.(2020) show that LTFH outperforms the standard GWAS with real world data as well.
+
