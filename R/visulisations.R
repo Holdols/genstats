@@ -176,7 +176,7 @@ LTFH_plot = function(LTFH_est){
 
   min_df = new_df %>% group_by(conf) %>%
     summarise('min_' = min(l_g_0), 'mean' = mean(l_g_est_0), n = n()) %>%
-    mutate('sequence' = seq(0,1.5, 1.5/(length(conf)-1)))
+    mutate('sequence' = seq(0,5, 5/(length(conf)-1)))
 
   plot + geom_text(data=min_df,
                    ggplot2::aes(x=mean+sequence/5, y=min(min_)+sequence-0.5, label=conf, color=conf),  size = 3) +
@@ -186,3 +186,78 @@ LTFH_plot = function(LTFH_est){
 
 
 
+
+#' Creates evaluation plot for decision boundary
+#'
+#'The function creates one plot for each given bound. It shows the confusion matrix for mean of each bound.
+#'The function can be used to find which boundary for PRS best describes the data.
+#' @param train_data List generated from gen_sim.
+#' @param y The target vector. Could either be estimated liabilities from LTFH or phenotypes.
+#' @param cross_folds Number of folds in cross validation.
+#' @param bounds Decision boundaries to plot outcome for.
+#' @param thr Treshold for p-value to be used in calculating PRS.
+#' @param ncores Amount of cores to be used.
+#' @param LogReg Boolean indicating if logistic regression should be used to estimate the casual effect.
+#' @return List containing output from GWAS and Linear regression of PRS on phenotype of the subject. It
+#' @importFrom magrittr "%>%"
+#' @export
+decision_cross <- function(train_data, y, cross_folds, bounds, thr, ncores = 1, LogReg = FALSE){
+  folds = list()
+  G = train_data$genotypes
+  target = train_data$fam$pheno_0
+  indexes <- rows_along(G)
+  test_size = length(indexes)%/%cross_folds
+
+  for (i in 1:cross_folds){
+    folds[[i]] <- sort(sample(indexes, test_size))
+    indexes <- setdiff(indexes, folds[[i]])
+  }
+
+  out = list()
+  N = nrow(G)
+  for (i in 1:cross_folds){
+
+    ind_test <- folds[[i]]
+    ind_train <- setdiff(rows_along(G), ind_test)
+    if (LogReg == TRUE){
+      gwas_train <- bigstatsr::big_univLogReg(G, y01.train = y[ind_train], ind.train = ind_train, ncores = ncores)
+    } else {
+      gwas_train <- bigstatsr::big_univLinReg(G, y.train = y[ind_train], ind.train = ind_train, ncores = ncores)
+    }
+
+    pval <- -predict(gwas_train)
+    prs <- bigsnpr::snp_PRS(G, betas.keep = gwas_train$estim,
+                            ind.test = ind_test,
+                            lpS.keep = pval,
+                            thr.list = thr)
+
+
+
+    true = target[ind_test]
+    temp = list()
+
+    out[[i]] = lapply(1:length(bounds), function(j) {
+      pred = (prs>bounds[j])-0
+
+      n = c(sum(pred == 1 & true == 1), sum(pred == 1 & true ==0), sum(pred == 0 & true == 1), sum(pred == 0 & true ==0))
+
+
+      confusion_matrix = tibble('Predicted'=c(1,1,0,0), 'Actual'=c(0,1,0,1), n)
+
+
+      info = tibble(bound = bounds[j], fold = paste0('fold ', i))
+      bind_cols(confusion_matrix, info)
+    }) %>% bind_rows(.)
+  }
+
+
+
+  temp = out %>% bind_rows(.) %>% group_by(bound, Predicted, Actual) %>% summarise('mean_n'=mean(n))
+
+  plt = temp %>% bind_rows(.) %>% ggplot(mapping = aes(x = Predicted, y = Actual)) +
+    geom_tile(aes(fill = mean_n), show.legend = FALSE) +
+    geom_text(aes(label = sprintf("%1.0f", mean_n)), vjust = 1) +
+    scale_fill_gradient(high = "firebrick", low = 'dodgerblue3', trans='pseudo_log') + facet_wrap(~bound)
+
+  print(plt)
+}

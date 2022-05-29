@@ -4,16 +4,17 @@
 #' The function uses GWAS to estimate the casual SNP and uses these the find the PRS. The out will be a list containing matrices with a column for each threshold.
 #' The interpretation of this treshold is that a given effect of a SNP will not be included if the -log10 transformation of the p-value is is smaller than the threshold.
 #' Fx. a value of 3 will correspond to the p value being smaller than 0.001.
-#' @param data List generated from gen_sim.
+#' @param train_data List generated from gen_sim.
 #' @param y The target vector. Could either be estimated liabilities from LTFH or phenotypes.
 #' @param cross_folds Number of folds in cross validation.
+#' @param ncores Amount of cores to be used.
 #' @param LogReg Boolean indicating if logistic regression should be used to estimate the casual effect.
 #' @return List with estimated PRS for each fold.
 #' @importFrom magrittr "%>%"
 #' @export
-PRS_cross <- function(data, y01, cross_folds, LogReg = FALSE){
+PRS_cross <- function(train_data, y, cross_folds, ncores = 1, LogReg = FALSE){
   folds = list()
-  G = data$genotypes
+  G = train_data$genotypes
   indexes <- rows_along(G)
   test_size = length(indexes)%/%cross_folds
 
@@ -30,9 +31,9 @@ PRS_cross <- function(data, y01, cross_folds, LogReg = FALSE){
     ind_test <- folds[[i]]
     ind_train <- setdiff(rows_along(G), ind_test)
     if (LogReg == TRUE){
-      gwas_train <- bigstatsr::big_univLogReg(G, y01.train = y01[ind_train], ind.train = ind_train)
+      gwas_train <- bigstatsr::big_univLogReg(G, y01.train = y[ind_train], ind.train = ind_train, ncores = ncores)
     } else {
-      gwas_train <- bigstatsr::big_univLinReg(G, y.train = y01[ind_train], ind.train = ind_train)
+      gwas_train <- bigstatsr::big_univLinReg(G, y.train = y[ind_train], ind.train = ind_train, ncores = ncores)
     }
 
     pval <- -predict(gwas_train)
@@ -58,7 +59,7 @@ PRS_cross <- function(data, y01, cross_folds, LogReg = FALSE){
 #' @param y The target vector. Could either be estimated liabilities from LTFH or phenotypes.
 #' @param thr Treshold for p-value to be used in calculating PRS.
 #' @param LogReg Boolean indicating if logistic regression should be used to estimate the casual effect.
-#' @param ncores Amount of cores to be used
+#' @param ncores Amount of cores to be used.
 #' @return List containing output from GWAS and Linear regression of PRS on phenotype of the subject. It
 #' @importFrom magrittr "%>%"
 #' @export
