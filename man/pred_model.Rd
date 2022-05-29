@@ -4,7 +4,7 @@
 \alias{pred_model}
 \title{Trains model on train data given the target vector.}
 \usage{
-pred_model(train_data, y, thr, LogReg_g = FALSE, LogReg_prs = FALSE)
+pred_model(train_data, y, thr, ncores = 1, LogReg = FALSE)
 }
 \arguments{
 \item{train_data}{List generated from gen_sim.}
@@ -12,6 +12,8 @@ pred_model(train_data, y, thr, LogReg_g = FALSE, LogReg_prs = FALSE)
 \item{y}{The target vector. Could either be estimated liabilities from LTFH or phenotypes.}
 
 \item{thr}{Treshold for p-value to be used in calculating PRS.}
+
+\item{ncores}{Amount of cores to be used.}
 
 \item{LogReg}{Boolean indicating if logistic regression should be used to estimate the casual effect.}
 }

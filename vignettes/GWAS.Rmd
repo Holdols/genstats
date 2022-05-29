@@ -59,10 +59,10 @@ We are using bonferronni correction, and since we have $100,000$ indiviuals we w
 ## Perfomance
 
 To illustrate the perfomance of GWAS 
-The first plot shown below is a manhattan plot. The plot illustrates how well the analysis is to differentiate between casual and non causual snp. Two horisontal lines have been drawn illustrating the tresholds for the p-value.
+The first plot shown below is a manhattan plot. The plot illustrates how well the analysis is to differentiate between casual and non causual snp. Two horisontal lines have been drawn illustrating the thresholds for the p-value.
 
 ```{r echo=T, results='hide'}
-manhattan_plot(gwas_summary, beta, treshold = c(5e-7, 0.05))
+manhattan_plot(gwas_summary, beta, thresholds = c(5e-7, 0.05))
 ```
 
 ```{r, echo = FALSE}

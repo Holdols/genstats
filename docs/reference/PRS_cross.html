@@ -67,19 +67,21 @@ Fx. a value of 3 will correspond to the p value being smaller than 0.001.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">PRS_cross</span><span class="op">(</span><span class="va">data</span>, <span class="va">y01</span>, <span class="va">cross_folds</span>, LogReg <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">PRS_cross</span><span class="op">(</span><span class="va">train_data</span>, <span class="va">y</span>, <span class="va">cross_folds</span>, ncores <span class="op">=</span> <span class="fl">1</span>, LogReg <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>data</dt>
+    <dl><dt>train_data</dt>
 <dd><p>List generated from gen_sim.</p></dd>
-<dt>cross_folds</dt>
-<dd><p>Number of folds in cross validation.</p></dd>
-<dt>LogReg</dt>
-<dd><p>Boolean indicating if logistic regression should be used to estimate the casual effect.</p></dd>
 <dt>y</dt>
 <dd><p>The target vector. Could either be estimated liabilities from LTFH or phenotypes.</p></dd>
+<dt>cross_folds</dt>
+<dd><p>Number of folds in cross validation.</p></dd>
+<dt>ncores</dt>
+<dd><p>Amount of cores to be used.</p></dd>
+<dt>LogReg</dt>
+<dd><p>Boolean indicating if logistic regression should be used to estimate the casual effect.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>

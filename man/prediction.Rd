@@ -4,14 +4,14 @@
 \alias{prediction}
 \title{Predicts the probability of having the given trait}
 \usage{
-prediction(test_data, model, thr)
+prediction(test_data, gwas, thr)
 }
 \arguments{
 \item{test_data}{List generated from gen_sim.}
 
-\item{model}{Output from pred_model().}
-
 \item{thr}{Treshold for p-value to be used in calculating PRS.}
+
+\item{model}{Output from pred_model().}
 }
 \value{
 Vector of estimated probabilities.

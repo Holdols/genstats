@@ -4,16 +4,18 @@
 \alias{PRS_cross}
 \title{Uses cross validation to train and estimate PRS for each fold}
 \usage{
-PRS_cross(data, y01, cross_folds, LogReg = FALSE)
+PRS_cross(train_data, y, cross_folds, ncores = 1, LogReg = FALSE)
 }
 \arguments{
-\item{data}{List generated from gen_sim.}
+\item{train_data}{List generated from gen_sim.}
+
+\item{y}{The target vector. Could either be estimated liabilities from LTFH or phenotypes.}
 
 \item{cross_folds}{Number of folds in cross validation.}
 
-\item{LogReg}{Boolean indicating if logistic regression should be used to estimate the casual effect.}
+\item{ncores}{Amount of cores to be used.}
 
-\item{y}{The target vector. Could either be estimated liabilities from LTFH or phenotypes.}
+\item{LogReg}{Boolean indicating if logistic regression should be used to estimate the casual effect.}
 }
 \value{
 List with estimated PRS for each fold.

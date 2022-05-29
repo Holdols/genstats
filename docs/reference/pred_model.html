@@ -64,7 +64,7 @@ The final output is list containing the model from GWAS and the regression. This
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">pred_model</span><span class="op">(</span><span class="va">train_data</span>, <span class="va">y</span>, <span class="va">thr</span>, LogReg_g <span class="op">=</span> <span class="cn">FALSE</span>, LogReg_prs <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">pred_model</span><span class="op">(</span><span class="va">train_data</span>, <span class="va">y</span>, <span class="va">thr</span>, ncores <span class="op">=</span> <span class="fl">1</span>, LogReg <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -75,6 +75,8 @@ The final output is list containing the model from GWAS and the regression. This
 <dd><p>The target vector. Could either be estimated liabilities from LTFH or phenotypes.</p></dd>
 <dt>thr</dt>
 <dd><p>Treshold for p-value to be used in calculating PRS.</p></dd>
+<dt>ncores</dt>
+<dd><p>Amount of cores to be used.</p></dd>
 <dt>LogReg</dt>
 <dd><p>Boolean indicating if logistic regression should be used to estimate the casual effect.</p></dd>
 </dl></div>

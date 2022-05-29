@@ -224,9 +224,10 @@ we are only using the trait of the subject.</p>
 <p>To illustrate the perfomance of GWAS The first plot shown below is a
 manhattan plot. The plot illustrates how well the analysis is to
 differentiate between casual and non causual snp. Two horisontal lines
-have been drawn illustrating the tresholds for the p-value.</p>
+have been drawn illustrating the thresholds for the p-value.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/manhattan_plot.html">manhattan_plot</a></span><span class="op">(</span><span class="va">gwas_summary</span>, <span class="va">beta</span>, treshold <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5e-7</span>, <span class="fl">0.05</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/manhattan_plot.html">manhattan_plot</a></span><span class="op">(</span><span class="va">gwas_summary</span>, <span class="va">beta</span>, thresholds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5e-7</span>, <span class="fl">0.05</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p><img src="GWAS_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 <p><img src="gwas_manhattan.jpg"><!-- --></p>
 <p>This can also be illustrated using scatterplot. Here we see that we
 are good at finding estimates with very extreme effects, though it is
@@ -234,12 +235,13 @@ much more difficult to for the association analysis around the
 middle.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/scatter_plot.html">scatter_plot</a></span><span class="op">(</span><span class="va">gwas_summary</span>, <span class="va">beta</span><span class="op">)</span></code></pre></div>
-<p><img src="gwas_scatter.jpg"><!-- --></p>
+<p><img src="GWAS_files/figure-html/unnamed-chunk-7-1.png" width="700"><img src="gwas_scatter.jpg"><!-- --></p>
 <p>We see that we catches the most extreme cases. Looking at a powerplot
 we see that we do not have the power to catch the less extreme
 cases.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/power_plot.html">power_plot</a></span><span class="op">(</span><span class="va">gwas_summary</span>, <span class="va">beta</span><span class="op">)</span> </code></pre></div>
+<p><img src="GWAS_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
 <p><img src="gwas_power.jpg"><!-- --></p>
 </div>
 <div class="section level2">
@@ -345,12 +347,13 @@ logistic regression instead of linear.</p>
 <p>To check the perfomance we use the same method as above.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/manhattan_plot.html">manhattan_plot</a></span><span class="op">(</span><span class="va">gwaslog_summary</span>, <span class="va">beta</span>, thresholds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5e-7</span>, <span class="fl">0.05</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p><img src="GWASlog_manhattan.jpg"><!-- --></p>
+<p><img src="GWAS_files/figure-html/unnamed-chunk-12-1.png" width="700"><img src="GWASlog_manhattan.jpg"><!-- --></p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/scatter_plot.html">scatter_plot</a></span><span class="op">(</span><span class="va">gwaslog_summary</span>, <span class="va">beta</span><span class="op">)</span></code></pre></div>
-<p><img src="GWASlog_scatter.jpg"><!-- --></p>
+<p><img src="GWAS_files/figure-html/unnamed-chunk-14-1.png" width="700"><img src="GWASlog_scatter.jpg"><!-- --></p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/power_plot.html">power_plot</a></span><span class="op">(</span><span class="va">gwas_summary</span>, <span class="va">beta</span><span class="op">)</span></code></pre></div>
+<p><img src="GWAS_files/figure-html/unnamed-chunk-16-1.png" width="700"></p>
 <p><img src="GWASlog_power.jpg"><!-- --> According to the scatter plot
 it would seem logistic regression is better at estimating the effect
 size of each casual SNP, from the power plot however the logistic

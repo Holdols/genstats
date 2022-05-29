@@ -4,10 +4,12 @@
 \alias{LTFH_plot}
 \title{Plots estimated liabilities agianst true liabilities}
 \usage{
-LTFH_plot(LTFH_est)
+LTFH_plot(LTFH_est, gaps = 1)
 }
 \arguments{
 \item{LTFH_est}{Output from LTFH.}
+
+\item{gaps}{Varaible for distance between labels}
 }
 \value{
 Plot of estimated liabilities agianst true liabilities.
