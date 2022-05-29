@@ -149,7 +149,8 @@ We have in the above used LT-FH estimaes in our prediction. We have done this as
 Using the same method as above we can see that the correlation between the genetic liability and PRS found with linear regression using phenotypes is much lower.
 
 
-```{r, echo = FALSE, fig.show='hold',fig.align='center'}
+
+```{r, echo = FALSE, fig.show='hold',fig.align='center', fig.cap = "LT-FH vs GWAS}
 knitr::include_graphics(c("prs_true_train_01lin.jpg", "prs_true_test_01lin.jpg"))
 ```
 
