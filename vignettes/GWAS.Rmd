@@ -50,8 +50,8 @@ beta = genetic_data$map$beta
 Now we estimate the casual effect of each SNP
 
 ```{r warning = FALSE}
-gwas_summary = GWAS(G=G, y=y[[1]], p=0.05/100000, logreg = FALSE, ncores=3)
-head(gwas_summary)
+gwas_summary = GWAS(G=G, y=y[[1]], p=0.05/100000, logreg = FALSE, ncores=future::availableCores()%/%2)
+knitr::kable(gwas_summary[1:10,], digits = 2, align = "c")
 ```
 
 We are using bonferronni correction, and since we have $100,000$ indiviuals we will use $p=\frac{0.05}{100000}$.
@@ -95,7 +95,7 @@ Since our target variable is binary it would seem reasonable to run logistic reg
 
 ```{r warning = FALSE, message=FALSE}
 gwaslog_summary = GWAS(G=G, y=y[[1]], p=0.05/100000, logreg = TRUE, ncores=3)
-head(gwas_summary)
+knitr::kable(gwaslog_summary[1:10,], digits = 2, align = "c")
 ```
 
 
@@ -121,5 +121,5 @@ power_plot(gwas_summary, beta)
 ```{r, echo = FALSE}
 knitr::include_graphics("GWASlog_power.jpg")
 ```
-According to the scatter plot it would seem logistic regression is better at estimating the effect size of each casual SNP, from the power plot however the logistic regression seem weaker.  
+According to the scatter plot it would seem logistic regression is better at estimating the effect size of each casual SNP, from the power plot however the logistic regression seem weaker. But both of these methods are outperformed by LT-FH(`vignette("LT-FH`).  
 
