@@ -60,7 +60,7 @@ LTFH_est[1:10,] %>% select(contains(c("0", "pheno"))) %>%
 knitr::kable(., digits = 2, align = "c")
 ```
 
-How the estimated expected genetic liability match the actual values of l_g_0 can be show by plotting estimated vs true. the plot below is done only with subject and parent to get a more clear plot.
+How the estimated expected genetic liability match the actual values of l_g_0 can be show by plotting estimated vs true. The plot below is done only with subject and parent to get a more clear plot.
 ```{r}
 genetic_data_nosib = genetic_data
 
