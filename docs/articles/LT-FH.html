@@ -94,10 +94,10 @@ this estimate an updated expected value for the genetic liability can be
 obtained.</p>
 <p>LTFH is based on a sampling using Monte Carlo integration. More
 information about the process can be found her
-‘vignette(“Gibbs-smapler”)’. Below is shown three plots with the
-estimated posterior mean genetic liabilities compared to the standard
-normal distribution of the genetic liability. The plots shows the
-outcome of running the gibbs samber for the configurations (0,0,0),
+<code><a href="../articles/Gibbs-sampler.html">vignette("Gibbs-sampler")</a></code>. Below is shown three plots with
+the estimated posterior mean genetic liabilities compared to the
+standard normal distribution of the genetic liability. The plots shows
+the outcome of running the gibbs samber for the configurations (0,0,0),
 (0,0,1) and (1,1,1) respectively.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="fu"><a href="../reference/control_plot.html">control_plot</a></span><span class="op">(</span>phenos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, h2 <span class="op">=</span> <span class="fl">0.5</span>, col <span class="op">=</span> <span class="st">"royalblue"</span><span class="op">)</span>,
@@ -147,12 +147,12 @@ subjects genetic liabilities as a new column.</p>
 <span class="co">#&gt; 5  0.3278623        0  0.4358816  0.9360237        0  0.70031543  1.14029948</span>
 <span class="co">#&gt; 6 -0.6010279        0 -0.4068985 -0.5806311        0  0.09545961  0.90836585</span>
 <span class="co">#&gt;   pheno_s4  l_g_est_0</span>
-<span class="co">#&gt; 1        0 -0.1316024</span>
-<span class="co">#&gt; 2        0  0.3044518</span>
-<span class="co">#&gt; 3        0 -0.1316024</span>
-<span class="co">#&gt; 4        0 -0.1316024</span>
-<span class="co">#&gt; 5        0  0.3279182</span>
-<span class="co">#&gt; 6        0 -0.1316024</span></code></pre></div>
+<span class="co">#&gt; 1        0 -0.1418854</span>
+<span class="co">#&gt; 2        0  0.3220934</span>
+<span class="co">#&gt; 3        0 -0.1418854</span>
+<span class="co">#&gt; 4        0 -0.1418854</span>
+<span class="co">#&gt; 5        0  0.3166337</span>
+<span class="co">#&gt; 6        0 -0.1418854</span></code></pre></div>
 <p>The estimated genetic liabilities can now be used as wanted. We are
 here using them as the target vector in a linear regression in order to
 estimate the causal effect of each SNP.</p>

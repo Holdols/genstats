@@ -92,14 +92,14 @@ l_{p_{2}}
 \end{pmatrix} \sim \mathcal{N}\left(\overline{\mu},\overline{\Sigma}
 \right)
 $$
-Using the multivariate normal vi can easily calculate the conditional distribution for each variable. To illustrate that the simulated data has this distrubution we will calculate the covariance matrix of non truncated data using a heriability of 0.5 and one sibling.
+Using the multivariate normal the conditional distribution for each variable can easily be calculated. To illustrate that the simulated data has this distrubution we will calculate the covariance matrix of non truncated data using a heriability of 0.5 and one sibling.
 
 ```{r}
 library(genstats)
 
 covariance = get_cov(0.5, n_sib = 1)
 estimated = gibbs_sampl(covariance, phenos=c(1,0,1,0), K=FALSE, all_est = TRUE)
-round(cov(estimated), digits = 2)
+knitr::kable(cov(estimated), digits = 2, caption = "Covariance Matrix")
 ```
 
 
@@ -107,7 +107,7 @@ The pseudocode for the Gibbs Sampler is shown below
 ![](Pseudocode.png)
 
 This code is within a while loop that break when standard error of the mean is under 0.1 to ensure convergence.
-With this constraint, we've tried to ensure convergence, convergence can be shown with by plotting the values for each iteration.
+With this constraint, we've tried to ensure convergence. Convergence can be shown by plotting the values for each iteration.
 For the plot below the configuration is (1,1,0,1,0), where 1 refers to CASE and 0 is control, and each number refers to the phenotype of a family member of the form $(phenotype_{subject}, phenotype_{parent1}, phenotype_{parent2}, phenotype_{sibling1}, ...,phenotype_{siblingN})$.
 ```{r}
 ests = gibbs_sampl(covmat = get_cov(0.5, n_sib = 2), phenos = c(1,1,0,1,0), K = 0.05, start_run = 500, all_est = TRUE)
