@@ -76,11 +76,18 @@ knitr::include_graphics("m2_r2.jpg")
 
 
 Looking at the above plot we find that the optimal threshold for the p-value is around 3.
-Next we would like to know for which value of PRS as a desicion boundary we could expect the best result. We not considering how may false negatives we experience. It is much more important that the amount of false positives is very low. Like GWAS or LT-FH would we prefer a much more conservative prediction. We are using cross validation again with the following output for a $^5\times1e^3$ matrix.
+Next we would like to know for which value of PRS as a desicion boundary we could expect the best result. We not considering how may false negatives we experience. It is much more important that the amount of false positives is very low. Like GWAS or LT-FH would we prefer a much more conservative prediction. We are using cross validation again with the following output for the $^5\times1e^3$ matrix.
+
+```{r eval=FALSE}
+decision_cross(train_set, y_ltfh, cross_folds = 4, bounds=seq(0.2, 0.3, 0.01), thr = 3)
+```
 
 
+```{r, echo = FALSE}
+knitr::include_graphics("decision.jpg")
+```
 
-We are now ready to create a prediction.
+We will choose a boundary around 0.25. We are now ready to create a prediction.
 
 
 
@@ -103,10 +110,20 @@ pred = prediction(test_data = test_set, gwas = ltfh_model, thr = 3)
 We know use the value we found for the decision boundery and we have the following result.
 
 ```{r eval=TRUE}
-preds = (pred > 0.8)
-k = tibble('Pred' = preds[,1], 'True'= test_set$fam$pheno_0)
-table(k$Pred, k$True)
+preds = (pred > 0.25)-0
+confusion_matrix = as_tibble(table('Predicted' = preds[,1], 'Actual'= test_set$fam$pheno_0))
+
+confusion_matrix %>% 
+  ggplot(aes(x = Predicted, y = Actual)) +
+  geom_tile(aes(fill = n), show.legend = FALSE) +
+  geom_text(aes(label = sprintf("%1.0f", n)), vjust = 1) +
+  scale_fill_gradient(high = "firebrick", low = 'dodgerblue3', trans='pseudo_log')
 ```
+
+```{r, echo = FALSE}
+knitr::include_graphics("result_decision.jpg")
+```
+
 
 ## documentation
 

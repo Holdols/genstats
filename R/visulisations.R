@@ -253,7 +253,7 @@ decision_cross <- function(train_data, y, cross_folds, bounds, thr, ncores = 1, 
 
 
 
-  temp = out %>% bind_rows(.) %>% group_by(bound, Predicted, Actual) %>% summarise('mean_n'=mean(n))
+  temp = out %>% bind_rows(.) %>% group_by(bound, Predicted, Actual) %>% summarise('mean_n'=mean(n), .groups='keep')
 
   plt = temp %>% bind_rows(.) %>% ggplot(mapping = aes(x = Predicted, y = Actual)) +
     geom_tile(aes(fill = mean_n), show.legend = FALSE) +
