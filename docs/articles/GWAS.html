@@ -227,20 +227,20 @@ differentiate between casual and non causual snp. Two horisontal lines
 have been drawn illustrating the thresholds for the p-value.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/manhattan_plot.html">manhattan_plot</a></span><span class="op">(</span><span class="va">gwas_summary</span>, <span class="va">beta</span>, thresholds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5e-7</span>, <span class="fl">0.05</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p><img src="gwas_manhattan.jpg"><!-- --></p>
+<p><img src="GWAS_manhattan.jpg"><!-- --></p>
 <p>This can also be illustrated using scatterplot. Here we see that we
 are good at finding estimates with very extreme effects, though it is
 much more difficult to for the association analysis around the
 middle.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/scatter_plot.html">scatter_plot</a></span><span class="op">(</span><span class="va">gwas_summary</span>, <span class="va">beta</span><span class="op">)</span></code></pre></div>
-<p><img src="gwas_scatter.jpg"><!-- --></p>
+<p><img src="GWAS_scatter.jpg"><!-- --></p>
 <p>We see that we catches the most extreme cases. Looking at a powerplot
 we see that we do not have the power to catch the less extreme
 cases.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/power_plot.html">power_plot</a></span><span class="op">(</span><span class="va">gwas_summary</span>, <span class="va">beta</span><span class="op">)</span> </code></pre></div>
-<p><img src="gwas_power.jpg"><!-- --></p>
+<p><img src="GWAS_power.jpg"><!-- --></p>
 </div>
 <div class="section level2">
 <h2 id="logistic-regression">Logistic regression<a class="anchor" aria-label="anchor" href="#logistic-regression"></a>
