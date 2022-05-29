@@ -61,7 +61,7 @@ We are using bonferronni correction, and since we have $100,000$ indiviuals we w
 To illustrate the perfomance of GWAS 
 The first plot shown below is a manhattan plot. The plot illustrates how well the analysis is to differentiate between casual and non causual snp. Two horisontal lines have been drawn illustrating the tresholds for the p-value.
 
-```{r eval = FALSE}
+```{r echo=T, results='hide'}
 manhattan_plot(gwas_summary, beta, treshold = c(5e-7, 0.05))
 ```
 
@@ -71,7 +71,7 @@ knitr::include_graphics("gwas_manhattan.jpg")
 
 This can also be illustrated using scatterplot. Here we see that we are good at finding estimates with very extreme effects, though it is much more difficult to for the association analysis around the middle. 
 
-```{r eval = FALSE}
+```{r echo=T, results='hide'}
 scatter_plot(gwas_summary, beta)
 ```
 ```{r, echo = FALSE}
@@ -81,7 +81,7 @@ knitr::include_graphics("gwas_scatter.jpg")
 
 We see that we catches the most extreme cases. Looking at a powerplot we see that we do not have the power to catch the less extreme cases.
 
-```{r eval=FALSE}
+```{r echo=T, results='hide'}
 power_plot(gwas_summary, beta) 
 ```
 
@@ -100,21 +100,21 @@ knitr::kable(gwaslog_summary[1:10,], digits = 2, align = "c")
 
 
 To check the perfomance we use the same method as above.
-```{r eval = FALSE}
+```{r echo=T, results='hide'}
 manhattan_plot(gwaslog_summary, beta, thresholds = c(5e-7, 0.05))
 ```
 ```{r, echo = FALSE}
 knitr::include_graphics("GWASlog_manhattan.jpg")
 ```
 
-```{r eval = FALSE}
+```{r echo=T, results='hide'}
 scatter_plot(gwaslog_summary, beta)
 ```
 ```{r, echo = FALSE}
 knitr::include_graphics("GWASlog_scatter.jpg")
 ```
 
-```{r eval=FALSE}
+```{r echo=T, results='hide'}
 power_plot(gwas_summary, beta)
 ```
 
