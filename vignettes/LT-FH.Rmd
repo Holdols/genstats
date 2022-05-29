@@ -96,7 +96,7 @@ knitr::include_graphics("LTFH_manhattan.jpg")
 ```
 
 
-This can also be illustrated using scatterplot. Here we see that we are very good at finding estimates af very extreme effects, though it is much more difficult to for the association analysis around the middle. Agian this method very much out performs normal 'vignette("GWAS")'. 
+This can also be illustrated using scatterplot. Here we see that we are very good at finding estimates af very extreme effects, though it is much more difficult to for the association analysis around the middle. Again this method very much out performs normal `vignette("GWAS")`. 
 
 ```{r echo=T, results='hide'}
 scatter_plot(gwas_summary = LTFH_summary, beta = beta)
