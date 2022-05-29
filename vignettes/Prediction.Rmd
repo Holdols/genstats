@@ -150,7 +150,7 @@ Using the same method as above we can see that the correlation between the genet
 
 
 
-```{r, echo = FALSE, fig.show='hold',fig.align='center', fig.cap = "LT-FH vs GWAS"}
+```{r, echo = FALSE, fig.show='hold',fig.align='center'}
 knitr::include_graphics(c("prs_true_train_01lin.jpg", "prs_true_test_01lin.jpg"))
 ```
 
