@@ -150,8 +150,8 @@ Using the same method as above we can see that the correlation between the genet
 
 
 ```{r, echo = FALSE}
-knitr::include_graphics("prs_true_train_lin01.jpg")
-knitr::include_graphics("prs_true_test_lin01.jpg")
+knitr::include_graphics("prs_true_train_01lin.jpg")
+knitr::include_graphics("prs_true_test_01lin.jpg")
 ```
 
 ```{r, echo = FALSE}
