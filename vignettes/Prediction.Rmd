@@ -78,63 +78,7 @@ knitr::include_graphics("m2_r2.jpg")
 Looking at the above plot we find that the optimal threshold for the p-value is around 3.
 Next we would like to know for which value of PRS as a desicion boundary we could expect the best result. We not considering how may false negatives we experience. It is much more important that the amount of false positives is very low. Like GWAS or LT-FH would we prefer a much more conservative prediction. We are using cross validation again with the following output for a $^5\times1e^3$ matrix.
 
-```{r}
-#decision_cross <- function(train_data, y01, cross_folds, bounds, thr, LogReg = FALSE){
-  train_data = snp_attach("genetic_data.rds")
-  est <- LTFH(data = train_set, n_sib = 2) %>% select(., contains("est"))
-  y_01 = est[[1]]
-  thr=3
-  cross_folds = 4
-  bounds = seq(0,1,0.5)
-  LogReg = FALSE  
-```
-  
-  
-```{r}
-  folds = list()
-  G = train_data$genotypes
-  target = train_data$fam$pheno_0
-  indexes <- rows_along(G)
-  test_size = length(indexes)%/%cross_folds
 
-  for (i in 1:cross_folds){
-    folds[[i]] <- sort(sample(indexes, test_size))
-    indexes <- setdiff(indexes, folds[[i]])
-  }
-
-  out = list()
-  N = nrow(G)
-  for (i in 1:cross_folds){
-    
-    ind_test <- folds[[i]]
-    ind_train <- setdiff(rows_along(G), ind_test)
-    if (LogReg == TRUE){
-      gwas_train <- bigstatsr::big_univLogReg(G, y01.train = y01[ind_train], ind.train = ind_train)
-    } else {
-      gwas_train <- bigstatsr::big_univLinReg(G, y.train = y01[ind_train], ind.train = ind_train)
-    }
-
-    pval <- -predict(gwas_train)
-    prs <- bigsnpr::snp_PRS(G, betas.keep = gwas_train$estim,
-                            ind.test = ind_test,
-                            lpS.keep = pval,
-                            thr.list = thr)
-    
-    
-    
-    true = target[ind_train]
-    temp = list()
-    for (b in bounds){
-      k = prs>b
-      #print(k)
-      
-    }
-    
-    
-  }
- # return(out)
-#}
-```
 
 We are now ready to create a prediction.
 
