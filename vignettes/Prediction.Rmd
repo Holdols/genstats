@@ -43,7 +43,7 @@ We use these scores to evaluate the threshold.
 
 The following plot has been evaluated on $1e^5\times1e^3$ data.
 
-```{r echo=T, results='hide'}
+```{r echo=T, results='hide', fig.show='hide'}
 prs_plot(PRS = prs, train_set, 'AUC')
 ```
 
@@ -53,7 +53,7 @@ knitr::include_graphics("m2_auc.jpg")
 ```
 
 
-```{r echo=T, results='hide'}
+```{r echo=T, results='hide', fig.show='hide'}
 prs_plot(PRS = prs, train_set, 'MSE')
 ```
 
@@ -64,7 +64,7 @@ knitr::include_graphics("m2_mse.jpg")
 ```
 
 
-```{r echo=T, results='hide'}
+```{r echo=T, results='hide', fig.show='hide'}
 prs_plot(PRS = prs, train_set, 'R2')
 ```
 
@@ -78,7 +78,7 @@ knitr::include_graphics("m2_r2.jpg")
 Looking at the above plot we find that the optimal threshold for the p-value is around 3.
 Next we would like to know for which value of PRS as a desicion boundary we could expect the best result. We not considering how may false negatives we experience. It is much more important that the amount of false positives is very low. Like GWAS or LT-FH would we prefer a much more conservative prediction. We are using cross validation again with the following output for the $^5\times1e^3$ matrix.
 
-```{r echo=T, results='hide'}
+```{r echo=T, results='hide', fig.show='hide'}
 decision_cross(train_data = train_set, y = y_ltfh, cross_folds = 4, bounds=seq(0.2, 0.3, 0.01), thr = 3)
 ```
 
@@ -93,7 +93,7 @@ We will choose a boundary around 0.25. We are now ready to create a prediction.
 
 ## Prediction using PRS
 Using this we can create our model. We are only using a linear regression, since we are using LT-FH estimates as our target vector.
-```{r echo=T, results='hide'}
+```{r echo=T, results='hide', fig.show='hide'}
 ltfh_model = pred_model(train_data = train_set, y = y_ltfh, thr = 3, LogReg = FALSE)
 ```
 
@@ -109,7 +109,7 @@ pred = prediction(test_data = test_set, gwas = ltfh_model, thr = 3)
 
 We know use the value we found for the decision boundery and we have the following result.
 
-```{r echo=T, results='hide'}
+```{r echo=T, results='hide', fig.show='hide'}
 preds = (pred > 0.25)-0
 confusion_matrix = as_tibble(table('Predicted' = preds[,1], 'Actual'= test_set$fam$pheno_0))
 
