@@ -1,10 +1,7 @@
 url: https://github.com/Holdols/genstats
 template:
-  package: preferably
   bootstrap: 5
   bootswatch: sandstone
-
-
 navbar:
   title: "genstats"
   left:
