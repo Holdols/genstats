@@ -82,9 +82,7 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://holdols.github.io/genstats" class="external-link">genstats</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://privefl.github.io/bigsnpr/" class="external-link">bigsnpr</a></span><span class="op">)</span>
-<span class="co">#&gt; Warning: package 'bigsnpr' was built under R version 4.0.5</span>
-<span class="co">#&gt; Warning: package 'bigstatsr' was built under R version 4.0.5</span></code></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://privefl.github.io/bigsnpr/" class="external-link">bigsnpr</a></span><span class="op">)</span></code></pre></div>
 <div class="section level2">
 <h2 id="simulation-without-family-history">Simulation without family history<a class="anchor" aria-label="anchor" href="#simulation-without-family-history"></a>
 </h2>
@@ -106,8 +104,26 @@ data, which we will load.</p>
 find the genotypes (G), information for each SNP (map) and liabilities
 (fam).</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">simple_data</span><span class="op">$</span><span class="va">genotypes</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span></code></pre></div>
-<table class="table"><tbody>
+<code class="sourceCode R"><span class="va">d1</span> <span class="op">=</span> <span class="va">simple_data</span><span class="op">$</span><span class="va">genotypes</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>
+<span class="va">d2</span> <span class="op">=</span> <span class="va">simple_data</span><span class="op">$</span><span class="va">map</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="op">]</span>
+<span class="va">d3</span> <span class="op">=</span> <span class="va">simple_data</span><span class="op">$</span><span class="va">fam</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="op">]</span>
+
+<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kables</a></span><span class="op">(</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">d1</span>, col.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span>, caption <span class="op">=</span> <span class="st">'Genotypes'</span><span class="op">)</span>, 
+       <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">d2</span>, align <span class="op">=</span> <span class="st">"c"</span>, digits <span class="op">=</span> <span class="fl">3</span>, caption <span class="op">=</span> <span class="st">'Map'</span><span class="op">)</span>, 
+       <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">d3</span>, align <span class="op">=</span> <span class="st">"c"</span>, digits <span class="op">=</span> <span class="fl">2</span>, caption <span class="op">=</span> <span class="st">'Fam'</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<table class="table kable_wrapper"><tbody><tr>
+<td>
+<table class="table">
+<caption>Genotypes</caption>
+<thead><tr class="header">
+<th align="right">1</th>
+<th align="right">2</th>
+<th align="right">3</th>
+<th align="right">4</th>
+<th align="right">5</th>
+</tr></thead>
+<tbody>
 <tr class="odd">
 <td align="right">1</td>
 <td align="right">1</td>
@@ -143,10 +159,47 @@ find the genotypes (G), information for each SNP (map) and liabilities
 <td align="right">0</td>
 <td align="right">0</td>
 </tr>
-</tbody></table>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">simple_data</span><span class="op">$</span><span class="va">map</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="op">]</span>, align <span class="op">=</span> <span class="st">"c"</span>, digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></code></pre></div>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
 <table class="table">
+<caption>Map</caption>
 <thead><tr class="header">
 <th align="center">snp</th>
 <th align="center">beta</th>
@@ -205,9 +258,10 @@ find the genotypes (G), information for each SNP (map) and liabilities
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">simple_data</span><span class="op">$</span><span class="va">fam</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="op">]</span>, align <span class="op">=</span> <span class="st">"c"</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
+</td>
+<td>
 <table class="table">
+<caption>Fam</caption>
 <thead><tr class="header">
 <th align="center">FID</th>
 <th align="center">l_g_0</th>
@@ -277,6 +331,12 @@ find the genotypes (G), information for each SNP (map) and liabilities
 </tr>
 </tbody>
 </table>
+</td>
+</tr></tbody></table>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#knitr::kable(simple_data$map[1:10,], align = "c", digits = 3)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#knitr::kable(simple_data$fam[1:10,], align = "c", digits = 2)</span></code></pre></div>
 <p>Here the effect of a each causal snip is of the distribution <span class="math inline">\(\mathcal{N}\left( 0, \frac{h^2}{c}\right)\)</span>
 and the each minor allele is of the distribution <span class="math inline">\(unif(0.01, 0.49)\)</span>. Using the function
 dist_check() we can see if the distribution of the full liabilities is
@@ -534,9 +594,10 @@ is a lot closer to the expected values of the liabilities and the
 qqplots for each liability clearly resembles a normal distribution. Now
 this data is ready to be analysied using LTFH or used in predictive
 analysis.</p>
-<div class="section level3">
-<h3 id="note-on-parrellelisation-block-size-and-memory-use-">Note on parrellelisation, block size and memory use.<a class="anchor" aria-label="anchor" href="#note-on-parrellelisation-block-size-and-memory-use-"></a>
-</h3>
+</div>
+<div class="section level2">
+<h2 id="note-on-parrellelisation-block-size-and-memory-use-">Note on parrellelisation, block size and memory use.<a class="anchor" aria-label="anchor" href="#note-on-parrellelisation-block-size-and-memory-use-"></a>
+</h2>
 <p>The functions for the simualation have been optimized with
 parallelization and do this with all available cores as a standard.
 Depending on the computer running the simulation, the size of the
@@ -549,7 +610,6 @@ allocate quite a bit of memory, this can create an error on some
 computers depending on the RAM, it could be relevant to check <a href="https://www.rdocumentation.org/packages/utils/versions/3.6.2/topics/memory.size" class="external-link uri">https://www.rdocumentation.org/packages/utils/versions/3.6.2/topics/memory.size</a>.
 If this doesn’t fix the error, decreasing the block size and/or amount
 of cores is recommended.</p>
-</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

@@ -26,7 +26,7 @@ assumptions provided method for simulating genetic data which can be
 used for both association analysis and predictive statistics. The
 package provides standard methods for association analysis such as GWAS
 and LT-FH. Though the structure of simulated data is easy to use in
-comnination with dplyr and it is therefor easy to implement your own
+combination with dplyr and it is therefor easy to implement your own
 methods.
 
 Examples and details about each method can be found in the articles.

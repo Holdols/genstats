@@ -159,7 +159,7 @@ subjects genetic liabilities as a new column.</p>
 <td align="center">-0.34</td>
 <td align="center">-0.71</td>
 <td align="center">0</td>
-<td align="center">-0.12</td>
+<td align="center">-0.16</td>
 <td align="center">0</td>
 <td align="center">0</td>
 <td align="center">0</td>
@@ -169,7 +169,7 @@ subjects genetic liabilities as a new column.</p>
 <td align="center">1.43</td>
 <td align="center">0.49</td>
 <td align="center">0</td>
-<td align="center">0.32</td>
+<td align="center">0.29</td>
 <td align="center">0</td>
 <td align="center">0</td>
 <td align="center">1</td>
@@ -179,7 +179,7 @@ subjects genetic liabilities as a new column.</p>
 <td align="center">-1.08</td>
 <td align="center">-0.34</td>
 <td align="center">0</td>
-<td align="center">-0.12</td>
+<td align="center">-0.16</td>
 <td align="center">0</td>
 <td align="center">0</td>
 <td align="center">0</td>
@@ -189,7 +189,7 @@ subjects genetic liabilities as a new column.</p>
 <td align="center">1.27</td>
 <td align="center">0.58</td>
 <td align="center">0</td>
-<td align="center">-0.12</td>
+<td align="center">-0.16</td>
 <td align="center">0</td>
 <td align="center">0</td>
 <td align="center">0</td>
@@ -199,7 +199,7 @@ subjects genetic liabilities as a new column.</p>
 <td align="center">0.31</td>
 <td align="center">1.01</td>
 <td align="center">0</td>
-<td align="center">0.33</td>
+<td align="center">0.35</td>
 <td align="center">1</td>
 <td align="center">0</td>
 <td align="center">0</td>
@@ -209,7 +209,7 @@ subjects genetic liabilities as a new column.</p>
 <td align="center">-0.51</td>
 <td align="center">0.13</td>
 <td align="center">0</td>
-<td align="center">-0.12</td>
+<td align="center">-0.16</td>
 <td align="center">0</td>
 <td align="center">0</td>
 <td align="center">0</td>
@@ -219,7 +219,7 @@ subjects genetic liabilities as a new column.</p>
 <td align="center">0.32</td>
 <td align="center">0.10</td>
 <td align="center">0</td>
-<td align="center">-0.12</td>
+<td align="center">-0.16</td>
 <td align="center">0</td>
 <td align="center">0</td>
 <td align="center">0</td>
@@ -229,7 +229,7 @@ subjects genetic liabilities as a new column.</p>
 <td align="center">0.58</td>
 <td align="center">0.77</td>
 <td align="center">0</td>
-<td align="center">0.84</td>
+<td align="center">0.86</td>
 <td align="center">1</td>
 <td align="center">0</td>
 <td align="center">1</td>
@@ -239,7 +239,7 @@ subjects genetic liabilities as a new column.</p>
 <td align="center">0.23</td>
 <td align="center">-0.26</td>
 <td align="center">0</td>
-<td align="center">-0.12</td>
+<td align="center">-0.16</td>
 <td align="center">0</td>
 <td align="center">0</td>
 <td align="center">0</td>
@@ -249,7 +249,7 @@ subjects genetic liabilities as a new column.</p>
 <td align="center">-1.47</td>
 <td align="center">-0.98</td>
 <td align="center">0</td>
-<td align="center">-0.12</td>
+<td align="center">-0.16</td>
 <td align="center">0</td>
 <td align="center">0</td>
 <td align="center">0</td>
@@ -258,7 +258,7 @@ subjects genetic liabilities as a new column.</p>
 </tbody>
 </table>
 <p>How the estimated expected genetic liability match the actual values
-of l_g_0 can be show by plotting estimated vs true. the plot below is
+of l_g_0 can be show by plotting estimated vs true. The plot below is
 done only with subject and parent to get a more clear plot.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">genetic_data_nosib</span> <span class="op">=</span> <span class="va">genetic_data</span>
@@ -268,8 +268,8 @@ done only with subject and parent to get a more clear plot.</p>
 <span class="va">LTFH_est0</span> <span class="op">=</span> <span class="fu"><a href="../reference/LTFH.html">LTFH</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">genetic_data_nosib</span>, n_sib <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
   
 <span class="fu"><a href="../reference/LTFH_plot.html">LTFH_plot</a></span><span class="op">(</span><span class="va">LTFH_est0</span><span class="op">)</span></code></pre></div>
-<p><img src="LT-FH_files/figure-html/unnamed-chunk-6-1.png" width="700">
-This looks great! It seems that the y=x line runs through the mean of
+<p><img src="LT-FH_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
+<p>This looks great! It seems that the y=x line runs through the mean of
 each configuration.</p>
 <p>The estimated genetic liabilities can now be used as wanted. We are
 here using them as the target vector in a linear regression in order to
@@ -387,7 +387,8 @@ clearly performs better.</p>
 <p>This can also be illustrated using scatterplot. Here we see that we
 are very good at finding estimates af very extreme effects, though it is
 much more difficult to for the association analysis around the middle.
-Agian this method very much out performs normal ‘vignette(“GWAS”)’.</p>
+Again this method very much out performs normal
+<code><a href="../articles/GWAS.html">vignette("GWAS")</a></code>.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/scatter_plot.html">scatter_plot</a></span><span class="op">(</span>gwas_summary <span class="op">=</span> <span class="va">LTFH_summary</span>, beta <span class="op">=</span> <span class="va">beta</span><span class="op">)</span></code></pre></div>
 <p><img src="LT-FH_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
