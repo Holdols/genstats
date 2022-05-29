@@ -70,6 +70,7 @@ LTFH_est0 = LTFH(data = genetic_data_nosib, n_sib = 0)
   
 LTFH_plot(LTFH_est0)
 ```
+
 This looks great! It seems that the y=x line runs through the mean of each configuration.
 
 The estimated genetic liabilities can now be used as wanted. We are here using them as the target vector in a linear regression in order to estimate the causal effect of each SNP see `vignette("GWAS")`.
