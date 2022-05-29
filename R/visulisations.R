@@ -162,10 +162,11 @@ power_plot <- function(gwas_summary, beta){
 #' Plots estimated liabilities agianst true liabilities
 #'
 #' @param LTFH_est Output from LTFH.
+#' @param gaps Varaible for distance between labels
 #' @return Plot of estimated liabilities agianst true liabilities.
 #' @importFrom magrittr "%>%"
 #' @export
-LTFH_plot = function(LTFH_est){
+LTFH_plot = function(LTFH_est, gaps=1){
   new_df = LTFH_est %>% mutate('conf' = apply(dplyr::select(., contains('phen')), 1, paste0, collapse=', '))
 
   plot = new_df %>%
@@ -176,7 +177,7 @@ LTFH_plot = function(LTFH_est){
 
   min_df = new_df %>% group_by(conf) %>%
     summarise('min_' = min(l_g_0), 'mean' = mean(l_g_est_0), n = n()) %>%
-    mutate('sequence' = seq(0,5, 5/(length(conf)-1)))
+    mutate('sequence' = seq(0,gaps, gaps/(length(conf)-1)))
 
   plot + geom_text(data=min_df,
                    ggplot2::aes(x=mean+sequence/5, y=min(min_)+sequence-0.5, label=conf, color=conf),  size = 3) +
@@ -242,7 +243,7 @@ decision_cross <- function(train_data, y, cross_folds, bounds, thr, ncores = 1, 
       n = c(sum(pred == 1 & true == 1), sum(pred == 1 & true ==0), sum(pred == 0 & true == 1), sum(pred == 0 & true ==0))
 
 
-      confusion_matrix = tibble('Predicted'=c(1,1,0,0), 'Actual'=c(0,1,0,1), n)
+      confusion_matrix = tibble('Predicted'=as.character(c(1,1,0,0)), 'Actual'=as.character(c(1,0,1,0)), n)
 
 
       info = tibble(bound = bounds[j], fold = paste0('fold ', i))
