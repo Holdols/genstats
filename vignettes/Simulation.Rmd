@@ -36,15 +36,22 @@ class(simple_data)
 Looking at the data we see that the file contains a list. We can here find the genotypes (G), information for each SNP (map) and liabilities (fam).
 
 ```{r}
-knitr::kable(simple_data$genotypes[1:5,1:5])
+d1 = simple_data$genotypes[1:10,1:5]
+d2 = simple_data$map[1:10,]
+d3 = simple_data$fam[1:10,]
+
+knitr::kables(
+  list(knitr::kable(d1, col.names = c(1,2,3,4,5), caption = 'Genotypes'), 
+       knitr::kable(d2, align = "c", digits = 3, caption = 'Map'), 
+       knitr::kable(d3, align = "c", digits = 2, caption = 'Fam')))
 ```
 
 ```{r}
-knitr::kable(simple_data$map[1:10,], align = "c", digits = 3)
+#knitr::kable(simple_data$map[1:10,], align = "c", digits = 3)
 ```
 
 ```{r}
-knitr::kable(simple_data$fam[1:10,], align = "c", digits = 2)
+#knitr::kable(simple_data$fam[1:10,], align = "c", digits = 2)
 ```
 
 
