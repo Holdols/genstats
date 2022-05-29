@@ -29,7 +29,7 @@ and LT-FH. Though the structure of simulated data is easy to use in
 comnination with dplyr and it is therefor easy to implement your own
 methods.
 
-Examples and details about each method is descriped in the articles.
+Examples and details about each method can be found in the articles.
 
 
 The packages uses the method of LT-FH as described by Hujoel, M.L.A.,
