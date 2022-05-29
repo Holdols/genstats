@@ -133,15 +133,89 @@ we are only using the trait of the subject.</p>
 <span class="va">beta</span> <span class="op">=</span> <span class="va">genetic_data</span><span class="op">$</span><span class="va">map</span><span class="op">$</span><span class="va">beta</span></code></pre></div>
 <p>Now we estimate the casual effect of each SNP</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">gwas_summary</span> <span class="op">=</span> <span class="fu"><a href="../reference/GWAS.html">GWAS</a></span><span class="op">(</span>G<span class="op">=</span><span class="va">G</span>, y<span class="op">=</span><span class="va">y</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, p<span class="op">=</span><span class="fl">0.05</span><span class="op">/</span><span class="fl">100000</span>, logreg <span class="op">=</span> <span class="cn">FALSE</span>, ncores<span class="op">=</span><span class="fl">3</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">gwas_summary</span><span class="op">)</span>
-<span class="co">#&gt;          estim     std.err      score     p_vals causal_estimate</span>
-<span class="co">#&gt; 1 -0.005987535 0.004443138 -1.3475914 0.17782039               0</span>
-<span class="co">#&gt; 2 -0.006664683 0.003534050 -1.8858483 0.05934436               0</span>
-<span class="co">#&gt; 3 -0.009804117 0.007506549 -1.3060750 0.19155709               0</span>
-<span class="co">#&gt; 4 -0.002721957 0.004071671 -0.6685111 0.50382286               0</span>
-<span class="co">#&gt; 5 -0.003998108 0.003511870 -1.1384556 0.25495758               0</span>
-<span class="co">#&gt; 6  0.005265846 0.008903985  0.5914033 0.55426363               0</span></code></pre></div>
+<code class="sourceCode R"><span class="va">gwas_summary</span> <span class="op">=</span> <span class="fu"><a href="../reference/GWAS.html">GWAS</a></span><span class="op">(</span>G<span class="op">=</span><span class="va">G</span>, y<span class="op">=</span><span class="va">y</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, p<span class="op">=</span><span class="fl">0.05</span><span class="op">/</span><span class="fl">100000</span>, logreg <span class="op">=</span> <span class="cn">FALSE</span>, ncores<span class="op">=</span><span class="fu">future</span><span class="fu">::</span><span class="fu"><a href="https://future.futureverse.org/reference/re-exports.html" class="external-link">availableCores</a></span><span class="op">(</span><span class="op">)</span><span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%/%</a></span><span class="fl">2</span><span class="op">)</span>
+<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">gwas_summary</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="op">]</span>, digits <span class="op">=</span> <span class="fl">2</span>, align <span class="op">=</span> <span class="st">"c"</span><span class="op">)</span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="center">estim</th>
+<th align="center">std.err</th>
+<th align="center">score</th>
+<th align="center">p_vals</th>
+<th align="center">causal_estimate</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center">-0.01</td>
+<td align="center">0.00</td>
+<td align="center">-1.35</td>
+<td align="center">0.18</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">-0.01</td>
+<td align="center">0.00</td>
+<td align="center">-1.89</td>
+<td align="center">0.06</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">-0.01</td>
+<td align="center">0.01</td>
+<td align="center">-1.31</td>
+<td align="center">0.19</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">0.00</td>
+<td align="center">0.00</td>
+<td align="center">-0.67</td>
+<td align="center">0.50</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">0.00</td>
+<td align="center">0.00</td>
+<td align="center">-1.14</td>
+<td align="center">0.25</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">0.01</td>
+<td align="center">0.01</td>
+<td align="center">0.59</td>
+<td align="center">0.55</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">0.00</td>
+<td align="center">0.00</td>
+<td align="center">0.88</td>
+<td align="center">0.38</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">0.00</td>
+<td align="center">0.00</td>
+<td align="center">-0.25</td>
+<td align="center">0.80</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">0.01</td>
+<td align="center">0.00</td>
+<td align="center">1.55</td>
+<td align="center">0.12</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">0.00</td>
+<td align="center">0.00</td>
+<td align="center">-0.03</td>
+<td align="center">0.97</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
 <p>We are using bonferronni correction, and since we have <span class="math inline">\(100,000\)</span> indiviuals we will use <span class="math inline">\(p=\frac{0.05}{100000}\)</span>.</p>
 </div>
 <div class="section level2">
@@ -175,14 +249,99 @@ cases.</p>
 logistic regression instead of linear.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gwaslog_summary</span> <span class="op">=</span> <span class="fu"><a href="../reference/GWAS.html">GWAS</a></span><span class="op">(</span>G<span class="op">=</span><span class="va">G</span>, y<span class="op">=</span><span class="va">y</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, p<span class="op">=</span><span class="fl">0.05</span><span class="op">/</span><span class="fl">100000</span>, logreg <span class="op">=</span> <span class="cn">TRUE</span>, ncores<span class="op">=</span><span class="fl">3</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">gwas_summary</span><span class="op">)</span>
-<span class="co">#&gt;          estim     std.err      score     p_vals causal_estimate</span>
-<span class="co">#&gt; 1 -0.005987535 0.004443138 -1.3475914 0.17782039               0</span>
-<span class="co">#&gt; 2 -0.006664683 0.003534050 -1.8858483 0.05934436               0</span>
-<span class="co">#&gt; 3 -0.009804117 0.007506549 -1.3060750 0.19155709               0</span>
-<span class="co">#&gt; 4 -0.002721957 0.004071671 -0.6685111 0.50382286               0</span>
-<span class="co">#&gt; 5 -0.003998108 0.003511870 -1.1384556 0.25495758               0</span>
-<span class="co">#&gt; 6  0.005265846 0.008903985  0.5914033 0.55426363               0</span></code></pre></div>
+<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">gwaslog_summary</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="op">]</span>, digits <span class="op">=</span> <span class="fl">2</span>, align <span class="op">=</span> <span class="st">"c"</span><span class="op">)</span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="center">estim</th>
+<th align="center">std.err</th>
+<th align="center">niter</th>
+<th align="center">score</th>
+<th align="center">p_vals</th>
+<th align="center">causal_estimate</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center">-0.14</td>
+<td align="center">0.10</td>
+<td align="center">4</td>
+<td align="center">-1.35</td>
+<td align="center">0.18</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">-0.15</td>
+<td align="center">0.08</td>
+<td align="center">4</td>
+<td align="center">-1.88</td>
+<td align="center">0.06</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">-0.24</td>
+<td align="center">0.18</td>
+<td align="center">5</td>
+<td align="center">-1.30</td>
+<td align="center">0.19</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">-0.06</td>
+<td align="center">0.09</td>
+<td align="center">4</td>
+<td align="center">-0.67</td>
+<td align="center">0.50</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">-0.09</td>
+<td align="center">0.08</td>
+<td align="center">4</td>
+<td align="center">-1.14</td>
+<td align="center">0.25</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">0.11</td>
+<td align="center">0.19</td>
+<td align="center">4</td>
+<td align="center">0.59</td>
+<td align="center">0.55</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">0.07</td>
+<td align="center">0.08</td>
+<td align="center">4</td>
+<td align="center">0.88</td>
+<td align="center">0.38</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">-0.02</td>
+<td align="center">0.10</td>
+<td align="center">4</td>
+<td align="center">-0.25</td>
+<td align="center">0.80</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">0.12</td>
+<td align="center">0.08</td>
+<td align="center">4</td>
+<td align="center">1.55</td>
+<td align="center">0.12</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">0.00</td>
+<td align="center">0.09</td>
+<td align="center">3</td>
+<td align="center">-0.03</td>
+<td align="center">0.97</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
 <p>To check the perfomance we use the same method as above.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/manhattan_plot.html">manhattan_plot</a></span><span class="op">(</span><span class="va">gwaslog_summary</span>, <span class="va">beta</span>, thresholds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5e-7</span>, <span class="fl">0.05</span><span class="op">)</span><span class="op">)</span></code></pre></div>
@@ -195,7 +354,8 @@ logistic regression instead of linear.</p>
 <p><img src="GWASlog_power.jpg"><!-- --> According to the scatter plot
 it would seem logistic regression is better at estimating the effect
 size of each casual SNP, from the power plot however the logistic
-regression seem weaker.</p>
+regression seem weaker. But both of these methods are outperformed by
+LT-FH(<code>vignette("LT-FH</code>).</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

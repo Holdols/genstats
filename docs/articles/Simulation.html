@@ -103,8 +103,8 @@ data, which we will load.</p>
 <span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">simple_data</span><span class="op">)</span>
 <span class="co">#&gt; [1] "list"</span></code></pre></div>
 <p>Looking at the data we see that the file contains a list. We can here
-find the genotypes (G), liabilities (fam) and information for each SNP
-(map).</p>
+find the genotypes (G), information for each SNP (map) and liabilities
+(fam).</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">simple_data</span><span class="op">$</span><span class="va">genotypes</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span></code></pre></div>
 <table class="table"><tbody>
@@ -206,7 +206,7 @@ find the genotypes (G), liabilities (fam) and information for each SNP
 </tbody>
 </table>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">simple_data</span><span class="op">$</span><span class="va">fam</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="op">]</span>, align <span class="op">=</span> <span class="st">"c"</span>, digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">simple_data</span><span class="op">$</span><span class="va">fam</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="op">]</span>, align <span class="op">=</span> <span class="st">"c"</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="center">FID</th>
@@ -217,62 +217,62 @@ find the genotypes (G), liabilities (fam) and information for each SNP
 <tbody>
 <tr class="odd">
 <td align="center">1</td>
-<td align="center">-0.360</td>
-<td align="center">-0.070</td>
+<td align="center">-0.36</td>
+<td align="center">-0.07</td>
 <td align="center">0</td>
 </tr>
 <tr class="even">
 <td align="center">2</td>
-<td align="center">1.222</td>
-<td align="center">0.827</td>
+<td align="center">1.22</td>
+<td align="center">0.83</td>
 <td align="center">0</td>
 </tr>
 <tr class="odd">
 <td align="center">3</td>
-<td align="center">-0.008</td>
-<td align="center">-0.366</td>
+<td align="center">-0.01</td>
+<td align="center">-0.37</td>
 <td align="center">0</td>
 </tr>
 <tr class="even">
 <td align="center">4</td>
-<td align="center">0.308</td>
-<td align="center">1.378</td>
+<td align="center">0.31</td>
+<td align="center">1.38</td>
 <td align="center">0</td>
 </tr>
 <tr class="odd">
 <td align="center">5</td>
-<td align="center">0.087</td>
-<td align="center">-1.275</td>
+<td align="center">0.09</td>
+<td align="center">-1.28</td>
 <td align="center">0</td>
 </tr>
 <tr class="even">
 <td align="center">6</td>
-<td align="center">-0.072</td>
-<td align="center">0.256</td>
+<td align="center">-0.07</td>
+<td align="center">0.26</td>
 <td align="center">0</td>
 </tr>
 <tr class="odd">
 <td align="center">7</td>
-<td align="center">-1.605</td>
-<td align="center">-2.565</td>
+<td align="center">-1.61</td>
+<td align="center">-2.57</td>
 <td align="center">0</td>
 </tr>
 <tr class="even">
 <td align="center">8</td>
-<td align="center">-1.317</td>
-<td align="center">-1.354</td>
+<td align="center">-1.32</td>
+<td align="center">-1.35</td>
 <td align="center">0</td>
 </tr>
 <tr class="odd">
 <td align="center">9</td>
-<td align="center">-1.231</td>
-<td align="center">-1.084</td>
+<td align="center">-1.23</td>
+<td align="center">-1.08</td>
 <td align="center">0</td>
 </tr>
 <tr class="even">
 <td align="center">10</td>
-<td align="center">-2.003</td>
-<td align="center">-2.614</td>
+<td align="center">-2.00</td>
+<td align="center">-2.61</td>
 <td align="center">0</td>
 </tr>
 </tbody>
@@ -303,34 +303,221 @@ without.</p>
 <code class="sourceCode R"><span class="fu"><a href="../reference/gen_sim.html">gen_sim</a></span><span class="op">(</span><span class="st">'genetic_data'</span>, N<span class="op">=</span><span class="fl">10000</span>, M<span class="op">=</span><span class="fl">10000</span>, C<span class="op">=</span><span class="fl">100</span>, block_size <span class="op">=</span> <span class="fl">1000</span>, n_sib<span class="op">=</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">family_data</span> <span class="op">=</span> <span class="fu"><a href="../reference/snp_attach.html">snp_attach</a></span><span class="op">(</span><span class="st">'genetic_data.rds'</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">family_data</span><span class="op">$</span><span class="va">fam</span><span class="op">)</span>
-<span class="co">#&gt;   FID      l_f_0      l_g_0 pheno_0      l_f_p1     l_g_p1 pheno_p1      l_f_p2</span>
-<span class="co">#&gt; 1   1 -0.3384807 -0.7064320       0  0.86542968 -0.4871935        0  0.10331741</span>
-<span class="co">#&gt; 2   2  1.4324619  0.4944826       0  0.77872081  1.1045429        0  0.60545412</span>
-<span class="co">#&gt; 3   3 -1.0801217 -0.3403101       0 -0.09001458  1.0320972        0 -0.22832639</span>
-<span class="co">#&gt; 4   4  1.2669931  0.5825709       0 -1.24249284 -0.3447710        0  0.86003095</span>
-<span class="co">#&gt; 5   5  0.3125711  1.0115020       0  1.74724276  1.3767706        1  0.87617390</span>
-<span class="co">#&gt; 6   6 -0.5124047  0.1266217       0 -0.42144219 -0.1451376        0 -0.02902428</span>
-<span class="co">#&gt;       l_g_p2 pheno_p2     l_f_s3     l_g_s3 pheno_s3      l_f_s4      l_g_s4</span>
-<span class="co">#&gt; 1  0.2801320        0  0.5112359  0.2131810        0 -1.50060122 -0.11247134</span>
-<span class="co">#&gt; 2  0.4630299        0  2.0563382  1.3112339        1  1.35933840  1.00005536</span>
-<span class="co">#&gt; 3 -0.7587923        0 -0.1088843 -0.1558196        0 -0.72531820 -0.79113094</span>
-<span class="co">#&gt; 4  1.2059687        0  1.5115114  0.4552358        0  0.45513811  0.08464925</span>
-<span class="co">#&gt; 5  0.3278623        0  0.4358816  0.9360237        0  0.70031543  1.14029948</span>
-<span class="co">#&gt; 6 -0.6010279        0 -0.4068985 -0.5806311        0  0.09545961  0.90836585</span>
-<span class="co">#&gt;   pheno_s4</span>
-<span class="co">#&gt; 1        0</span>
-<span class="co">#&gt; 2        0</span>
-<span class="co">#&gt; 3        0</span>
-<span class="co">#&gt; 4        0</span>
-<span class="co">#&gt; 5        0</span>
-<span class="co">#&gt; 6        0</span></code></pre></div>
-<p>We see here that we have a bit more family history, but the same same
-values each family member as we have for the subject. Again can we check
-the distrubition of each full liability using the same function as
-before.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/dist_check.html">dist_check</a></span><span class="op">(</span><span class="va">family_data</span><span class="op">)</span></code></pre></div>
+<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">family_data</span><span class="op">$</span><span class="va">fam</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="fl">2</span><span class="op">:</span><span class="fl">16</span><span class="op">]</span>, align <span class="op">=</span> <span class="st">"c"</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
+<table style="width:100%;" class="table">
+<colgroup>
+<col width="5%">
+<col width="5%">
+<col width="7%">
+<col width="6%">
+<col width="6%">
+<col width="7%">
+<col width="6%">
+<col width="6%">
+<col width="7%">
+<col width="6%">
+<col width="6%">
+<col width="7%">
+<col width="6%">
+<col width="6%">
+<col width="7%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">l_f_0</th>
+<th align="center">l_g_0</th>
+<th align="center">pheno_0</th>
+<th align="center">l_f_p1</th>
+<th align="center">l_g_p1</th>
+<th align="center">pheno_p1</th>
+<th align="center">l_f_p2</th>
+<th align="center">l_g_p2</th>
+<th align="center">pheno_p2</th>
+<th align="center">l_f_s3</th>
+<th align="center">l_g_s3</th>
+<th align="center">pheno_s3</th>
+<th align="center">l_f_s4</th>
+<th align="center">l_g_s4</th>
+<th align="center">pheno_s4</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center">-0.34</td>
+<td align="center">-0.71</td>
+<td align="center">0</td>
+<td align="center">0.87</td>
+<td align="center">-0.49</td>
+<td align="center">0</td>
+<td align="center">0.10</td>
+<td align="center">0.28</td>
+<td align="center">0</td>
+<td align="center">0.51</td>
+<td align="center">0.21</td>
+<td align="center">0</td>
+<td align="center">-1.50</td>
+<td align="center">-0.11</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">1.43</td>
+<td align="center">0.49</td>
+<td align="center">0</td>
+<td align="center">0.78</td>
+<td align="center">1.10</td>
+<td align="center">0</td>
+<td align="center">0.61</td>
+<td align="center">0.46</td>
+<td align="center">0</td>
+<td align="center">2.06</td>
+<td align="center">1.31</td>
+<td align="center">1</td>
+<td align="center">1.36</td>
+<td align="center">1.00</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">-1.08</td>
+<td align="center">-0.34</td>
+<td align="center">0</td>
+<td align="center">-0.09</td>
+<td align="center">1.03</td>
+<td align="center">0</td>
+<td align="center">-0.23</td>
+<td align="center">-0.76</td>
+<td align="center">0</td>
+<td align="center">-0.11</td>
+<td align="center">-0.16</td>
+<td align="center">0</td>
+<td align="center">-0.73</td>
+<td align="center">-0.79</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">1.27</td>
+<td align="center">0.58</td>
+<td align="center">0</td>
+<td align="center">-1.24</td>
+<td align="center">-0.34</td>
+<td align="center">0</td>
+<td align="center">0.86</td>
+<td align="center">1.21</td>
+<td align="center">0</td>
+<td align="center">1.51</td>
+<td align="center">0.46</td>
+<td align="center">0</td>
+<td align="center">0.46</td>
+<td align="center">0.08</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">0.31</td>
+<td align="center">1.01</td>
+<td align="center">0</td>
+<td align="center">1.75</td>
+<td align="center">1.38</td>
+<td align="center">1</td>
+<td align="center">0.88</td>
+<td align="center">0.33</td>
+<td align="center">0</td>
+<td align="center">0.44</td>
+<td align="center">0.94</td>
+<td align="center">0</td>
+<td align="center">0.70</td>
+<td align="center">1.14</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">-0.51</td>
+<td align="center">0.13</td>
+<td align="center">0</td>
+<td align="center">-0.42</td>
+<td align="center">-0.15</td>
+<td align="center">0</td>
+<td align="center">-0.03</td>
+<td align="center">-0.60</td>
+<td align="center">0</td>
+<td align="center">-0.41</td>
+<td align="center">-0.58</td>
+<td align="center">0</td>
+<td align="center">0.10</td>
+<td align="center">0.91</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">0.32</td>
+<td align="center">0.10</td>
+<td align="center">0</td>
+<td align="center">0.21</td>
+<td align="center">-0.17</td>
+<td align="center">0</td>
+<td align="center">0.64</td>
+<td align="center">-0.18</td>
+<td align="center">0</td>
+<td align="center">-1.17</td>
+<td align="center">-0.39</td>
+<td align="center">0</td>
+<td align="center">-0.13</td>
+<td align="center">0.27</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">0.58</td>
+<td align="center">0.77</td>
+<td align="center">0</td>
+<td align="center">2.17</td>
+<td align="center">2.78</td>
+<td align="center">1</td>
+<td align="center">0.27</td>
+<td align="center">0.83</td>
+<td align="center">0</td>
+<td align="center">1.76</td>
+<td align="center">2.33</td>
+<td align="center">1</td>
+<td align="center">2.31</td>
+<td align="center">1.23</td>
+<td align="center">1</td>
+</tr>
+<tr class="odd">
+<td align="center">0.23</td>
+<td align="center">-0.26</td>
+<td align="center">0</td>
+<td align="center">0.52</td>
+<td align="center">0.66</td>
+<td align="center">0</td>
+<td align="center">-1.55</td>
+<td align="center">-1.73</td>
+<td align="center">0</td>
+<td align="center">-1.04</td>
+<td align="center">-0.34</td>
+<td align="center">0</td>
+<td align="center">-1.29</td>
+<td align="center">-0.96</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">-1.47</td>
+<td align="center">-0.98</td>
+<td align="center">0</td>
+<td align="center">0.11</td>
+<td align="center">-0.06</td>
+<td align="center">0</td>
+<td align="center">-1.33</td>
+<td align="center">-0.44</td>
+<td align="center">0</td>
+<td align="center">-0.53</td>
+<td align="center">-0.54</td>
+<td align="center">0</td>
+<td align="center">0.65</td>
+<td align="center">0.18</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+<pre><code>
+We see here that we have a bit more family history, but the same same values each family member as we have for the subject. Again can we check the distrubition of each full liability using the same function as before.
+
+
+```r
+dist_check(family_data)</code></pre>
 <p><img src="Simulation_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
 <pre><code><span class="co">#&gt;     mean_l0 variance_l0 </span>
 <span class="co">#&gt; 0.007328894 0.944272064 </span>

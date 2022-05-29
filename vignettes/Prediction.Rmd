@@ -36,7 +36,7 @@ y_ltfh = est[[1]]
 Using PRS we want to find which threshold for the p-value describes the data best. We are therefore using cross validation. The following function outputs PRS estimates for the validation set for each fold in the training data.
 
 ```{r}
-prs <- PRS_cross(data = train_set, y01 = y_ltfh, cross_folds = 4)
+prs <- PRS_cross(train_data = train_set, y = y_ltfh, cross_folds = 4)
 ```
 
 We use these scores to evaluate the threshold. 
@@ -109,7 +109,7 @@ pred = prediction(test_data = test_set, gwas = ltfh_model, thr = 3)
 
 We know use the value we found for the decision boundery and we have the following result.
 
-```{r eval=TRUE}
+```{r eval=FALSE}
 preds = (pred > 0.25)-0
 confusion_matrix = as_tibble(table('Predicted' = preds[,1], 'Actual'= test_set$fam$pheno_0))
 
@@ -150,8 +150,8 @@ Using the same method as above we can see that the correlation between the genet
 
 
 ```{r, echo = FALSE}
-knitr::include_graphics("prs_true_train_lin01.jpg")
-knitr::include_graphics("prs_true_test_lin01.jpg")
+knitr::include_graphics("prs_true_train_01lin.jpg")
+knitr::include_graphics("prs_true_test_01lin.jpg")
 ```
 
 ```{r, echo = FALSE}
