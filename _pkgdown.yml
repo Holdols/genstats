@@ -15,10 +15,10 @@ navbar:
         href: articles/Simulation.html
       - text: "GWAS"
         href: articles/GWAS.html
-      - text: "LT-FH"
-        href: articles/LT-FH.html
       - text: "Gibbs sampler"
         href: articles/Gibbs-sampler.html
+      - text: "LT-FH"
+        href: articles/LT-FH.html
       - text: "Prediction"
         href: articles/Prediction.html
     - icon: fa-github fa
@@ -29,17 +29,45 @@ reference:
   desc: Functions used to generate a fbm of simulated subjects
   contents:
   - gen_sim
+  - G_func_fam
+  - G_func_simple
+  - MAF_func
+  - beta_func
+
+- title: "GWAS"
+  desc: Functions used to perform GWAS on genetic data
+  contents:
+  - GWAS
 - title: "LT-FH"
   desc: Functions used to perform LT-FH on genetic data
   contents:
   - get_cov
   - gibbs_sampl
   - LTFH
+- title: "PRS"
+  desc: Functions used to perform compute and use polygenic risk score
+  contents:
+  - PRS_cross
+  - pred_model
+  - prediction
+
 - title: "Data visulisation"
   desc: Functions to visualise methods and results
   contents:
   - control_plot
+  - LTFH_plot
+  - plot_gibbs
+  - scatter_plot
+  - manhattan_plot
+  - power_plot
+  - prs_plot
 - title: "Controls for distributions sampled from"
   desc: Functions which can be used to check if result follow the expected
   contents:
   - dist_check
+
+- title: "Helper Functions"
+  desc: Functions to ease the use of genstats
+  contents:
+  - get_names
+  - snp_attach

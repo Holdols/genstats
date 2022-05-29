@@ -26,7 +26,7 @@ library(tidyverse)
 
 A more sofisticated method of analysing the genetic data and finding the causal SNP's is using LT-FH (liability threshold family history). This methods uses a gibbs sampler in order to estimate the genetic liability of each subject based on the family history, i.e. if the subject, it's parent or siblings have the given trait or sickness. Using this estimate an updated expected value for the genetic liability can be obtained.
 
-LTFH is based on a sampling using Monte Carlo integration. More on the on this can be found in the vignette for gibb sampling.
+LTFH is based on a sampling using Monte Carlo integration. More information about the process can be found her `vignette("Gibbs-sampler")`.
 Below is shown three plots with the estimated posterior mean genetic liabilities compared to the standard normal distribution of the genetic liability. The plots shows the outcome of running the gibbs samber for the configurations (0,0,0), (0,0,1) and (1,1,1) respectively.
 
 ```{r}
@@ -40,7 +40,7 @@ Using the estimates of genetic liabilities can instead of the phenotypes af the 
 
 ## Using LTFH
 
-In the following tutorial a file is used which have been generated using the method described in vignette("gen_sim"). First we load the data. We have here simulated $1e^3\times1e^3$ datapoints using two siblings. In the following 100 SNPs has a casual effect. This data is only used to show case the method and illustrate how the package can be used. If the methods should be used to actual statistical analysis we recomend simulating $1e^5\times1e^5$ datapoints with about 500-1000 casual SNPs. For practical reasons we have not been apple to show case the analysis. We have included pictures to illustrate the results on $1e^5\times1e^5$ data.
+In the following tutorial a file is used which have been generated using the method described in 'vignette("Simulation")'. First we load the data. We have here simulated $1e^3\times1e^3$ datapoints using two siblings. In the following 100 SNPs has a casual effect. This data is only used to show case the method and illustrate how the package can be used. If the methods should be used to actual statistical analysis we recomend simulating $1e^5\times1e^5$ datapoints with about 500-1000 casual SNPs. For practical reasons we have not been apple to show case the analysis. We have included pictures to illustrate the results on $1e^5\times1e^5$ data.
 
 ```{r}
 # The rds file containing simulated data is loaded
@@ -82,7 +82,7 @@ knitr::include_graphics("LTFH_manhattan.jpg")
 ```
 
 
-This can also be illustrated using scatterplot. Here we see that we are very good at finding estimates af very extreme effects, though it is much more difficult to for the association analysis around the middle. Agian this method very much out performs normal vignette("GWAS"). 
+This can also be illustrated using scatterplot. Here we see that we are very good at finding estimates af very extreme effects, though it is much more difficult to for the association analysis around the middle. Agian this method very much out performs normal 'vignette("GWAS")'. 
 
 ```{r eval=FALSE}
 scatter_plot(gwas_summary = LTFH_summary, beta = beta)

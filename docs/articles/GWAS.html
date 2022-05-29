@@ -43,8 +43,8 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/Simulation.html">Simulating data</a>
     <a class="dropdown-item" href="../articles/GWAS.html">GWAS</a>
-    <a class="dropdown-item" href="../articles/LT-FH.html">LT-FH</a>
     <a class="dropdown-item" href="../articles/Gibbs-sampler.html">Gibbs sampler</a>
+    <a class="dropdown-item" href="../articles/LT-FH.html">LT-FH</a>
     <a class="dropdown-item" href="../articles/Prediction.html">Prediction</a>
   </div>
 </li>
@@ -111,9 +111,8 @@ concept of <span class="math inline">\(Y\)</span> as a binary variable
 open the door for other models. A simple one is the logistic regression
 which uses the logit function as its activation function to transform
 the linearregression into a probability curve. This model is also
-implemented in out GWAs function and can be accessed by setting ‘logreg
-= TRUE’. Though as we wil show the difference in result between logistic
-and liner regression is minimal.</p>
+implemented in our GWAs function and can be accessed by setting ‘logreg
+= TRUE’.</p>
 </div>
 <div class="section level2">
 <h2 id="using-gwas">Using GWAS<a class="anchor" aria-label="anchor" href="#using-gwas"></a>
@@ -195,8 +194,8 @@ logistic regression instead of linear.</p>
 <code class="sourceCode R"><span class="fu"><a href="../reference/power_plot.html">power_plot</a></span><span class="op">(</span><span class="va">gwas_summary</span>, <span class="va">beta</span><span class="op">)</span></code></pre></div>
 <p><img src="GWASlog_power.jpg"><!-- --> According to the scatter plot
 it would seem logistic regression is better at estimating the effect
-size of each casual SNP, from the power plot however it the logistic
-regression seems weaker.</p>
+size of each casual SNP, from the power plot however the logistic
+regression seem weaker.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

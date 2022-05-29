@@ -26,8 +26,8 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/Simulation.html">Simulating data</a>
     <a class="dropdown-item" href="../articles/GWAS.html">GWAS</a>
-    <a class="dropdown-item" href="../articles/LT-FH.html">LT-FH</a>
     <a class="dropdown-item" href="../articles/Gibbs-sampler.html">Gibbs sampler</a>
+    <a class="dropdown-item" href="../articles/LT-FH.html">LT-FH</a>
     <a class="dropdown-item" href="../articles/Prediction.html">Prediction</a>
   </div>
 </li>
@@ -66,6 +66,42 @@
           <code><a href="gen_sim.html">gen_sim()</a></code> 
         </dt>
         <dd>Simulate genetic data</dd>
+      </dl><dl><dt>
+          
+          <code><a href="G_func_fam.html">G_func_fam()</a></code> 
+        </dt>
+        <dd>Simulate SNP for all subjects and liabilities for family</dd>
+      </dl><dl><dt>
+          
+          <code><a href="G_func_simple.html">G_func_simple()</a></code> 
+        </dt>
+        <dd>Simulate SNP for all subjects</dd>
+      </dl><dl><dt>
+          
+          <code><a href="MAF_func.html">MAF_func()</a></code> 
+        </dt>
+        <dd>Simulate vector containing minor allele frequencies (MAF)</dd>
+      </dl><dl><dt>
+          
+          <code><a href="beta_func.html">beta_func()</a></code> 
+        </dt>
+        <dd>Simulate beta</dd>
+      </dl></div><div class="section level2">
+      <h2 id="gwas">GWAS<a class="anchor" aria-label="anchor" href="#gwas"></a></h2>
+      
+      <p class="section-desc"></p><p>Functions used to perform GWAS on genetic data</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="GWAS.html">GWAS()</a></code> 
+        </dt>
+        <dd>Computes casusal SNP's</dd>
       </dl></div><div class="section level2">
       <h2 id="lt-fh">LT-FH<a class="anchor" aria-label="anchor" href="#lt-fh"></a></h2>
       
@@ -93,6 +129,32 @@
         </dt>
         <dd>Estimates liabilities for every subject</dd>
       </dl></div><div class="section level2">
+      <h2 id="prs">PRS<a class="anchor" aria-label="anchor" href="#prs"></a></h2>
+      
+      <p class="section-desc"></p><p>Functions used to perform compute and use polygenic risk score</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="PRS_cross.html">PRS_cross()</a></code> 
+        </dt>
+        <dd>Uses cross validation to train and estimate PRS for each fold</dd>
+      </dl><dl><dt>
+          
+          <code><a href="pred_model.html">pred_model()</a></code> 
+        </dt>
+        <dd>Trains model on train data given the target vector.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="prediction.html">prediction()</a></code> 
+        </dt>
+        <dd>Predicts the probability of having the given trait</dd>
+      </dl></div><div class="section level2">
       <h2 id="data-visulisation">Data visulisation<a class="anchor" aria-label="anchor" href="#data-visulisation"></a></h2>
       
       <p class="section-desc"></p><p>Functions to visualise methods and results</p>
@@ -108,6 +170,36 @@
           <code><a href="control_plot.html">control_plot()</a></code> 
         </dt>
         <dd>Plotting estimated liabilities agianst distribution</dd>
+      </dl><dl><dt>
+          
+          <code><a href="LTFH_plot.html">LTFH_plot()</a></code> 
+        </dt>
+        <dd>Plots estimated liabilities agianst true liabilities</dd>
+      </dl><dl><dt>
+          
+          <code><a href="plot_gibbs.html">plot_gibbs()</a></code> 
+        </dt>
+        <dd>Plot the convergence of gibb_sampl</dd>
+      </dl><dl><dt>
+          
+          <code><a href="scatter_plot.html">scatter_plot()</a></code> 
+        </dt>
+        <dd>Plots true causal effects agianst estimated effects</dd>
+      </dl><dl><dt>
+          
+          <code><a href="manhattan_plot.html">manhattan_plot()</a></code> 
+        </dt>
+        <dd>Creates a manhattan plot</dd>
+      </dl><dl><dt>
+          
+          <code><a href="power_plot.html">power_plot()</a></code> 
+        </dt>
+        <dd>Creates a power plot</dd>
+      </dl><dl><dt>
+          
+          <code><a href="prs_plot.html">prs_plot()</a></code> 
+        </dt>
+        <dd>Creates evaluation plot for MSE, AUC or r squared</dd>
       </dl></div><div class="section level2">
       <h2 id="controls-for-distributions-sampled-from">Controls for distributions sampled from<a class="anchor" aria-label="anchor" href="#controls-for-distributions-sampled-from"></a></h2>
       
@@ -124,6 +216,27 @@
           <code><a href="dist_check.html">dist_check()</a></code> 
         </dt>
         <dd>Check distribution of liabilities</dd>
+      </dl></div><div class="section level2">
+      <h2 id="helper-functions">Helper Functions<a class="anchor" aria-label="anchor" href="#helper-functions"></a></h2>
+      
+      <p class="section-desc"></p><p>Functions to ease the use of genstats</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="get_names.html">get_names()</a></code> 
+        </dt>
+        <dd>Adds a postfix to given names for each family member</dd>
+      </dl><dl><dt>
+          
+          <code><a href="snp_attach.html">snp_attach()</a></code> 
+        </dt>
+        <dd>Attach rds_file</dd>
       </dl></div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
