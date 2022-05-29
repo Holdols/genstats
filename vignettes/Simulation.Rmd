@@ -7,14 +7,14 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r results='hide', warning=FALSE, message=FALSE}
+```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
 ```
 
-```{r message=FALSE}
+```{r results='hide', warning=FALSE, message=FALSE}
 library(genstats)
 library(bigsnpr)
 ```
