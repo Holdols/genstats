@@ -243,22 +243,23 @@ decision_cross <- function(train_data, y, cross_folds, bounds, thr, ncores = 1, 
       n = c(sum(pred == 1 & true == 1), sum(pred == 1 & true ==0), sum(pred == 0 & true == 1), sum(pred == 0 & true ==0))
 
 
-      confusion_matrix = tibble('Predicted'=as.character(c(1,1,0,0)), 'Actual'=as.character(c(1,0,1,0)), n)
+      confusion_matrix = tibble::tibble('Predicted'=as.character(c(1,1,0,0)), 'Actual'=as.character(c(1,0,1,0)), n)
 
 
-      info = tibble(bound = bounds[j], fold = paste0('fold ', i))
-      bind_cols(confusion_matrix, info)
-    }) %>% bind_rows(.)
+      info = tibble::tibble(bound = bounds[j], fold = paste0('fold ', i))
+      dplyr::bind_cols(confusion_matrix, info)
+    }) %>% dplyr::bind_rows(.)
   }
 
 
 
-  temp = out %>% bind_rows(.) %>% group_by(bound, Predicted, Actual) %>% summarise('mean_n'=mean(n), .groups='keep')
+  temp = out %>% dplyr::bind_rows(.) %>% dplyr::group_by(bound, Predicted, Actual) %>% dplyr::summarise('mean_n'=mean(n), .groups='keep')
 
-  plt = temp %>% bind_rows(.) %>% ggplot(mapping = aes(x = Predicted, y = Actual)) +
-    geom_tile(aes(fill = mean_n), show.legend = FALSE) +
-    geom_text(aes(label = sprintf("%1.0f", mean_n)), vjust = 1) +
-    scale_fill_gradient(high = "firebrick", low = 'dodgerblue3', trans='pseudo_log') + facet_wrap(~bound)
+  plt = temp %>% dplyr::bind_rows(.) %>% ggplot2::ggplot(mapping = ggplot2::aes(x = Predicted, y = Actual)) +
+    ggplot2::geom_tile(ggplot2::aes(fill = mean_n), show.legend = FALSE) +
+    ggplot2::geom_text(ggplot2::aes(label = sprintf("%1.0f", mean_n)), vjust = 1) +
+    ggplot2::scale_fill_gradient(high = "firebrick", low = 'dodgerblue3', trans='pseudo_log') +
+    ggplot2::facet_wrap(~bound)
 
   print(plt)
 }
