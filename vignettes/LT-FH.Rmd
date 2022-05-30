@@ -87,7 +87,7 @@ In the above table we see the result of the association analysis, where we can s
 We will below give the results of the association analysis on a data set with $1e^5\times1e^5$ datapoint. The process of getting these result is the same as shown above we have here used a p-value with bonferroni correction $p=\frac{0.05}{100000}=5e^{-7}$. The first plot shown below is a manhattan plot. The plot illustrates how well the analysis is to differentiate between casual and non causual snp. Two horisontal lines have been drawn illustrating the tresholds for the p-value. We can se that choosing to use the conservative method of bonferronni correction we describe the data better. Comparing this to the result of GWAS without using estimated liabilities we se that LTFH clearly performs better.
 
 
-```{r echo=T, results='hide'}
+```{r echo=T, results='hide', , fig.show='hide'}
 manhattan_plot(gwas_summary = LTFH_summary, beta = beta, thresholds = c(5e-7, 0.05))
 ```
 
@@ -98,7 +98,7 @@ knitr::include_graphics("LTFH_manhattan.jpg")
 
 This can also be illustrated using scatterplot. Here we see that we are very good at finding estimates af very extreme effects, though it is much more difficult to for the association analysis around the middle. Again this method very much out performs normal `vignette("GWAS")`. 
 
-```{r echo=T, results='hide'}
+```{r echo=T, results='hide', , fig.show='hide'}
 scatter_plot(gwas_summary = LTFH_summary, beta = beta)
 ```
 
@@ -109,9 +109,10 @@ knitr::include_graphics("LTFH_scatter.jpg")
 
 At last we include a power plot to show case why we are not able to estimate the smaller causal effects. We simply do not have the power in our test to do so! 
 
-```{r echo=T, results='hide'}
+```{r echo=T, results='hide', fig.show='hide'}
 power_plot(gwas_summary = LTFH_summary, beta = beta)
 ```
+
 ```{r, echo = FALSE}
 knitr::include_graphics("LTFH_power.jpg")
 ```
