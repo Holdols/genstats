@@ -9,6 +9,7 @@
 #' @return A matrix containing: \cr
 #'  - The slopes of each regression \cr
 #'  - The standard errors of each slope \cr
+#'  - If logreg = T: the number of iterations for each slope. If NA, it means that the algorithm didn't converge, and glm was used instead.
 #'  - The t-scores associated with each slope. \cr
 #'  - The p-values for each slope \cr
 #'  - And a binary vector saying if the position is causal or not given p

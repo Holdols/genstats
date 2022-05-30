@@ -22,6 +22,7 @@ A matrix containing: \cr
 \itemize{
 \item The slopes of each regression \cr
 \item The standard errors of each slope \cr
+\item If logreg = T: the number of iterations for each slope. If NA, it means that the algorithm didn't converge, and glm was used instead.
 \item The t-scores associated with each slope. \cr
 \item The p-values for each slope \cr
 \item And a binary vector saying if the position is causal or not given p
