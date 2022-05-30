@@ -81,9 +81,9 @@
     
     
 <p>We are in this vignette showing the possibilities of using the result
-of association analysis in order to predict occurence of the trait by
+of association analysis in order to predict occurrence of the trait by
 looking at genetic data. We are in this analysis only looking at genetic
-data, which normally would not be case. In predicting the prevelance of
+data, which normally would not be case. In predicting the prevalence of
 trait/sickness many other factors will have to be taken into account.
 This could be sex, age, BMI or other potential confounding variables. We
 are though going to show that it is possible to create a stronger model
@@ -101,7 +101,7 @@ illustrate how found the results we show.</p>
 <div class="section level2">
 <h2 id="introduction-to-prs">Introduction to PRS<a class="anchor" aria-label="anchor" href="#introduction-to-prs"></a>
 </h2>
-<p>In prediction we use a trainings set and a test set. We are in the
+<p>In prediction we use a training set and a test set. We are in the
 following section going to show a method which uses LT-FH estimates as
 its target vectors.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -132,7 +132,7 @@ the training data.</p>
 <p><img src="m1_r2.jpg"><!-- --><img src="m2_r2.jpg"><!-- --></p>
 <p>Looking at the above plot we find that the optimal threshold for the
 p-value is around 3. Next we would like to know for which value of PRS
-as a desicion boundary we could expect the best result. We not
+as a decision boundary we could expect the best result. We not
 considering how may false negatives we experience. It is much more
 important that the amount of false positives is very low. Like GWAS or
 LT-FH would we prefer a much more conservative prediction. We are using
@@ -154,7 +154,7 @@ regression, since we are using LT-FH estimates as our target vector.</p>
 <p>And creating our predictions</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pred</span> <span class="op">=</span> <span class="fu"><a href="../reference/prediction.html">prediction</a></span><span class="op">(</span>test_data <span class="op">=</span> <span class="va">test_set</span>, gwas <span class="op">=</span> <span class="va">ltfh_model</span>, thr <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></code></pre></div>
-<p>We know use the value we found for the decision boundery and we have
+<p>We know use the value we found for the decision boundary and we have
 the following result.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">preds</span> <span class="op">=</span> <span class="op">(</span><span class="va">pred</span> <span class="op">&gt;</span> <span class="fl">0.25</span><span class="op">)</span><span class="op">-</span><span class="fl">0</span>
@@ -172,22 +172,22 @@ the following result.</p>
 </h2>
 <p>We will in this section explain the process behind the above result.
 We can only expect to be able to predict the genetic liability. If a
-subject has a very low genetic liability, but high envirromental
+subject has a very low genetic liability, but high environmental
 liability we can of course not catch this with PRS. We are therefore
-going to plot the PRS agianst the genetic liablity.</p>
+going to plot the PRS against the genetic liability.</p>
 <p><img src="prs_true_train.jpg"><!-- --></p>
 <p>We can see from the above plot that these two values are very
 correlated. It is therefore reasonable to add PRS as a controlling
 variable when prediction studies is performed. We can also plot the PRS
 of the test set.</p>
 <p><img src="prs_true_test.jpg"><!-- --></p>
-<p>As excpected boundary between cases and non cases is a bit less
-clear, but we still se a very high correlation.</p>
+<p>As expected boundary between cases and non cases is a bit less clear,
+but we still see a very high correlation.</p>
 </div>
 <div class="section level2">
 <h2 id="using-phenotypes-instead-of-lt-fh-estimates">USing phenotypes instead of LT-FH estimates<a class="anchor" aria-label="anchor" href="#using-phenotypes-instead-of-lt-fh-estimates"></a>
 </h2>
-<p>We have in the above used LT-FH estimaes in our prediction. We have
+<p>We have in the above used LT-FH estimates in our prediction. We have
 done this as we believe this is a superior method with higher power and
 more accuracy. One argument for this is that we trough PRS cant expect
 to predict the cases, but we can predict who has a high genetic

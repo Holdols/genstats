@@ -71,20 +71,25 @@
 </h1></div>
 <!-- badges: start -->
 <!-- badges: end -->
-<p>genstats provide easy access to tools for statistical analysis of genetic data. Genetic data is difficult to come by, but provides a very informative basis for statistical use. We have therefore through some assumptions provided method for simulating genetic data which can be used for both association analysis and predictive statistics. The package provides standard methods for association analysis such as GWAS and LT-FH. Though the structure of simulated data is easy to use in combination with dplyr and it is therefor easy to implement your own methods.</p>
+<p>genstats provide easy access to tools for statistical analysis of genetic data. Genetic data is difficult to come by, but provides a very informative basis for statistical anaysis. We have therefore through some assumptions provided method for simulating genetic data which can be used for both association analysis and predictive statistics. The package provides standard methods for association analysis such as GWAS and LT-FH. Moreover have we provided a method which can be used to predict, based on the subjects genotypes. Furthermore the structure of simulated data is easy to use in combination with dplyr and it is therefor easy to implement your own methods. This also means that the functions are very dependent on column names. It is therefore important if this package is used with data not simulated by genstats, that the columns match the following standard.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">genstats</span><span class="fu">::</span><span class="fu"><a href="reference/get_names.html">get_names</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'l'</span>, <span class="st">'l_g'</span>, <span class="st">'pheno'</span><span class="op">)</span>, n_sib <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+<span class="co">#&gt;  [1] "l_0"      "l_g_0"    "pheno_0"  "l_p1"     "l_g_p1"   "pheno_p1"</span>
+<span class="co">#&gt;  [7] "l_p2"     "l_g_p2"   "pheno_p2" "l_s3"     "l_g_s3"   "pheno_s3"</span></code></pre></div>
+<p>With the amount of siblings being variable from 1 to what the computer can handle.</p>
 <p>Examples and details about each method can be found in the articles.</p>
-<p>The packages uses the method of LT-FH as described by Hujoel, M.L.A., Gazal, S., Loh, PR. et al.. Link to article is found in Biblography.</p>
+<p>The packages uses the method of LT-FH as described by Hujoel, M.L.A., Gazal, S., Loh, PR. et al.. Link to article is found in Bibliography.</p>
 <p>The package is developed as a part of our bachelor’s program in data science at Aarhus University.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <p>You can install the development version of genstats from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"Holdols/genstats"</span><span class="op">)</span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="biblography">Biblography<a class="anchor" aria-label="anchor" href="#biblography"></a>
+<h2 id="bibliography">Bibliography<a class="anchor" aria-label="anchor" href="#bibliography"></a>
 </h2>
 <ul>
 <li>Hujoel, M.L.A., Gazal, S., Loh, PR. et al. Liability threshold modeling of case–control status and family history of disease increases association power. Nat Genet 52, 541–547 (2020). <a href="https://doi.org/10.1038/s41588-020-0613-6" class="external-link uri">https://doi.org/10.1038/s41588-020-0613-6</a>”</li>

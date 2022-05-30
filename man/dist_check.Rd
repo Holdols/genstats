@@ -19,5 +19,5 @@ The function therefore also returns the qqplot of each full liability. The purpo
 certainty that the simulated data are correct.
 }
 \examples{
-dist_check(snp_attach("test.rds"))
+dist_check(snp_attach("genetic_data.rds"))
 }
