@@ -52,7 +52,7 @@ Here the effect of a each causal snip is of the distribution $\mathcal{N}\left( 
 dist_check(simple_data)
 ```
 
-We can see that the mean and variance differ a lot from 0 and 1, as stated this a a very small data set but with a larger simulation the distribution will come a lot closer to the expected values, the qqplot however resembles a normal distribution. It is now possible to perform GWAS for association analysis or use the genotypes for prediction.
+We can see that the mean and variance differ a lot from 0 and 1, as stated this a a very small data set but with a larger simulation the distribution will come a lot closer to the expected values, the qqplot however resembles a normal distribution. It is now possible to perform GWAS for association analysis `vignette("GWAS")` or use the genotypes for prediction ``vignette("Prediction")`.
 
 ## Simulation with family history
 
@@ -74,7 +74,7 @@ We see here that we have a bit more family history, but the same same values eac
 dist_check(family_data)
 ```
 
-Now that a larger data set have been simulated the mean and variance is a lot closer to the expected values of the liabilities and the qqplots for each liability clearly resembles a normal distribution. Now this data is ready to be analysed using LTFH or used in predictive analysis.
+Now that a larger data set have been simulated the mean and variance is a lot closer to the expected values of the liabilities and the qqplots for each liability clearly resembles a normal distribution. Now this data is ready to be analysed using LTFH `vignette("LT-FH")` or used in predictive analysis `vignette("Prediction")`.
 
 ## Note on parrellelisation, block size and memory use.
 
