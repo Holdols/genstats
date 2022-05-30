@@ -46,12 +46,6 @@
     <loc>https://github.com/Holdols/genstats/reference/calc_distribution.html</loc>
   </url>
   <url>
-    <loc>https://github.com/Holdols/genstats/reference/calc_full_liabil.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/Holdols/genstats/reference/calc_phen.html</loc>
-  </url>
-  <url>
     <loc>https://github.com/Holdols/genstats/reference/collapse_data.html</loc>
   </url>
   <url>
@@ -70,13 +64,7 @@
     <loc>https://github.com/Holdols/genstats/reference/estimate_conf.html</loc>
   </url>
   <url>
-    <loc>https://github.com/Holdols/genstats/reference/estimate_liabilities.html</loc>
-  </url>
-  <url>
     <loc>https://github.com/Holdols/genstats/reference/gen_sim.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/Holdols/genstats/reference/get_all_data.html</loc>
   </url>
   <url>
     <loc>https://github.com/Holdols/genstats/reference/get_cov.html</loc>
@@ -113,9 +101,6 @@
   </url>
   <url>
     <loc>https://github.com/Holdols/genstats/reference/LTFH.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/Holdols/genstats/reference/LTFH_notrunc.html</loc>
   </url>
   <url>
     <loc>https://github.com/Holdols/genstats/reference/LTFH_plot.html</loc>
@@ -164,8 +149,5 @@
   </url>
   <url>
     <loc>https://github.com/Holdols/genstats/reference/trunc_estimate.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/Holdols/genstats/reference/y_func.html</loc>
   </url>
 </urlset>
