@@ -45,6 +45,7 @@
     <a class="dropdown-item" href="../articles/GWAS.html">GWAS</a>
     <a class="dropdown-item" href="../articles/Gibbs-sampler.html">Gibbs sampler</a>
     <a class="dropdown-item" href="../articles/LT-FH.html">LT-FH</a>
+    <a class="dropdown-item" href="../articles/Comparison.html">Comparison between GWAS and LT-FH</a>
     <a class="dropdown-item" href="../articles/Prediction.html">Prediction</a>
   </div>
 </li>
@@ -80,31 +81,16 @@
 
     
     
-<p>We are in this vignette showing the possibilities of using the result
-of association analysis in order to predict occurrence of the trait by
-looking at genetic data. We are in this analysis only looking at genetic
-data, which normally would not be case. In predicting the prevalence of
-trait/sickness many other factors will have to be taken into account.
-This could be sex, age, BMI or other potential confounding variables. We
-are though going to show that it is possible to create a stronger model
-through the use of genetic data if there of course is a strong enough
-heritability. We are therefore going to illustrate the method on <span class="math inline">\(10^5\times10^3\)</span> data with 500 casual SNPs
-with two siblings. This is not realistic, but i will show the potential
-of the method. Since <span class="math inline">\(10^5\times10^3\)</span>
-data is quite big the following code will be run on <span class="math inline">\(10^4\times10^4\)</span> data and will serve to
-illustrate how found the results we show.</p>
+<p>We are in this vignette showing the possibilities of using the result of association analysis in order to predict occurrence of the trait by looking at genetic data. We are in this analysis only looking at genetic data, which normally would not be case. In predicting the prevalence of trait/sickness many other factors will have to be taken into account. This could be sex, age, BMI or other potential confounding variables. We are though going to show that it is possible to create a stronger model through the use of genetic data if there of course is a strong enough heritability. We are therefore going to illustrate the method on <span class="math inline">\(10^5\times10^3\)</span> data with 500 casual SNPs with two siblings. This is not realistic, but i will show the potential of the method. Since <span class="math inline">\(10^5\times10^3\)</span> data is quite big the following code will be run on <span class="math inline">\(10^4\times10^4\)</span> data and will serve to illustrate how found the results we show.</p>
 <p>We use the following packages in this vignette.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://holdols.github.io/genstats" class="external-link">genstats</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://privefl.github.io/bigsnpr/" class="external-link">bigsnpr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></code></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></code></pre></div>
 <div class="section level2">
 <h2 id="introduction-to-prs">Introduction to PRS<a class="anchor" aria-label="anchor" href="#introduction-to-prs"></a>
 </h2>
-<p>In prediction we use a training set and a test set. We are in the
-following section going to show a method which uses LT-FH estimates as
-its target vectors. For more information about this association method
-see <code><a href="../articles/LT-FH.html">vignette("LT-FH")</a></code>) .</p>
+<p>In prediction we use a training set and a test set. We are in the following section going to show a method which uses LT-FH estimates as its target vectors. For more information about this association method see <code><a href="../articles/LT-FH.html">vignette("LT-FH")</a></code>) .</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Loading our train and test set</span>
 <span class="va">train_set</span> <span class="op">=</span> <span class="fu"><a href="../reference/snp_attach.html">snp_attach</a></span><span class="op">(</span><span class="st">"genetic_data.rds"</span><span class="op">)</span>
@@ -114,51 +100,42 @@ see <code><a href="../articles/LT-FH.html">vignette("LT-FH")</a></code>) .</p>
 <span class="va">G</span> <span class="op">=</span> <span class="va">train_set</span><span class="op">$</span><span class="va">genotypes</span>
 <span class="va">est</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/LTFH.html">LTFH</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">train_set</span>, n_sib <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">.</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">contains</a></span><span class="op">(</span><span class="st">"est"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">y_ltfh</span> <span class="op">=</span> <span class="va">est</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></code></pre></div>
-<p>Using PRS we want to find which threshold for the p-value describes
-the data best. We are therefore using cross validation. The following
-function outputs PRS estimates for the validation set for each fold in
-the training data.</p>
+<p>Using PRS we want to find which threshold for the p-value describes the data best. We are therefore using cross validation. The following function outputs PRS estimates for the validation set for each fold in the training data.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">prs</span> <span class="op">=</span> <span class="fu"><a href="../reference/PRS_cross.html">PRS_cross</a></span><span class="op">(</span>train_data <span class="op">=</span> <span class="va">train_set</span>, y <span class="op">=</span> <span class="va">y_ltfh</span>, cross_folds <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></code></pre></div>
 <p>We use these scores to evaluate the threshold.</p>
 <p>The following plot has been evaluated on <span class="math inline">\(10^5\times10^3\)</span> data.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/prs_plot.html">prs_plot</a></span><span class="op">(</span>PRS <span class="op">=</span> <span class="va">prs</span>, <span class="va">train_set</span>, <span class="st">'AUC'</span><span class="op">)</span></code></pre></div>
-<p><img src="m1_auc.jpg"><!-- --><img src="m2_auc.jpg"><!-- --></p>
+<code class="sourceCode R"><span class="va">prs_auc</span> <span class="op">=</span> <span class="fu"><a href="../reference/prs_plot.html">prs_plot</a></span><span class="op">(</span>PRS <span class="op">=</span> <span class="va">prs</span>, <span class="va">train_set</span>, <span class="st">'AUC'</span><span class="op">)</span>
+<span class="va">eval_prs_auc</span> <span class="op">=</span> <span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="va">prs_auc</span><span class="op">$</span><span class="va">fold</span>, <span class="va">prs_auc</span><span class="op">$</span><span class="va">mean</span>, ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
+<p><img src="../../../../4.%20Semester/Dataprojekt/genstats/articles/eval_prs_auc.jpg"><!-- --></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/prs_plot.html">prs_plot</a></span><span class="op">(</span>PRS <span class="op">=</span> <span class="va">prs</span>, <span class="va">train_set</span>, <span class="st">'MSE'</span><span class="op">)</span></code></pre></div>
-<p><img src="m1_mse.jpg"><!-- --><img src="m2_mse.jpg"><!-- --></p>
+<code class="sourceCode R"><span class="va">prs_mse</span> <span class="op">=</span> <span class="fu"><a href="../reference/prs_plot.html">prs_plot</a></span><span class="op">(</span>PRS <span class="op">=</span> <span class="va">prs</span>, <span class="va">train_set</span>, <span class="st">'MSE'</span><span class="op">)</span>
+<span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="va">prs_mse</span><span class="op">$</span><span class="va">fold</span>, <span class="va">prs_mse</span><span class="op">$</span><span class="va">mean</span>, ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
+<p><img src="../../../../4.%20Semester/Dataprojekt/genstats/articles/eval_prs_mse.jpg"><!-- --></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/prs_plot.html">prs_plot</a></span><span class="op">(</span>PRS <span class="op">=</span> <span class="va">prs</span>, <span class="va">train_set</span>, <span class="st">'R2'</span><span class="op">)</span></code></pre></div>
-<p><img src="m1_r2.jpg"><!-- --><img src="m2_r2.jpg"><!-- --></p>
-<p>Looking at the above plot we find that the optimal threshold for the
-p-value is around 3. Next we would like to know for which value of PRS
-as a decision boundary we could expect the best result. We not
-considering how may false negatives we experience. It is much more
-important that the amount of false positives is very low. Like GWAS or
-LT-FH would we prefer a much more conservative prediction. We are using
-cross validation again with the following output for the <span class="math inline">\(10^5\times10^3\)</span> matrix.</p>
+<code class="sourceCode R"><span class="va">prs_r2</span> <span class="op">=</span> <span class="fu"><a href="../reference/prs_plot.html">prs_plot</a></span><span class="op">(</span>PRS <span class="op">=</span> <span class="va">prs</span>, <span class="va">train_set</span>, <span class="st">'R2'</span><span class="op">)</span>
+<span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="va">prs_r2</span><span class="op">$</span><span class="va">fold</span>, <span class="va">prs_r2</span><span class="op">$</span><span class="va">mean</span>, ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
+<p><img src="../../../../4.%20Semester/Dataprojekt/genstats/articles/eval_prs_r2.jpg"><!-- --></p>
+<p>Looking at the above plot we find that the optimal threshold for the p-value is around 3. Next we would like to know for which value of PRS as a decision boundary we could expect the best result. We not considering how may false negatives we experience. It is much more important that the amount of false positives is very low. Like GWAS or LT-FH would we prefer a much more conservative prediction. We are using cross validation again with the following output for the <span class="math inline">\(10^5\times10^3\)</span> matrix.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/decision_cross.html">decision_cross</a></span><span class="op">(</span>train_data <span class="op">=</span> <span class="va">train_set</span>, y <span class="op">=</span> <span class="va">y_ltfh</span>, cross_folds <span class="op">=</span> <span class="fl">4</span>, bounds<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="fl">0.01</span><span class="op">)</span>, thr <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></code></pre></div>
-<p><img src="decision.jpg"><!-- --></p>
-<p>We will choose a boundary around 0.25. We are now ready to create a
-prediction.</p>
+<p><img src="../../../../4.%20Semester/Dataprojekt/genstats/articles/decision.jpg"><!-- --></p>
+<p>We will choose a boundary around 0.25. We are now ready to create a prediction.</p>
 </div>
 <div class="section level2">
 <h2 id="prediction-using-prs">Prediction using PRS<a class="anchor" aria-label="anchor" href="#prediction-using-prs"></a>
 </h2>
-<p>Using this we can create our model. We are only using a linear
-regression, since we are using LT-FH estimates as our target vector.</p>
+<p>Using this we can create our model. We are only using a linear regression, since we are using LT-FH estimates as our target vector.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ltfh_model</span> <span class="op">=</span> <span class="fu"><a href="../reference/pred_model.html">pred_model</a></span><span class="op">(</span>train_data <span class="op">=</span> <span class="va">train_set</span>, y <span class="op">=</span> <span class="va">y_ltfh</span>, thr <span class="op">=</span> <span class="fl">3</span>, LogReg <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
-<p><img src="prs_est_train.jpg"><!-- --></p>
+<p><img src="../../../../4.%20Semester/Dataprojekt/genstats/articles/prs_est_train.jpg"><!-- --></p>
 <p>And creating our predictions</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pred</span> <span class="op">=</span> <span class="fu"><a href="../reference/prediction.html">prediction</a></span><span class="op">(</span>test_data <span class="op">=</span> <span class="va">test_set</span>, gwas <span class="op">=</span> <span class="va">ltfh_model</span>, thr <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></code></pre></div>
-<p>We know use the value we found for the decision boundary and we have
-the following result.</p>
+<p>We know use the value we found for the decision boundary and we have the following result.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">preds</span> <span class="op">=</span> <span class="op">(</span><span class="va">pred</span> <span class="op">&gt;</span> <span class="fl">0.25</span><span class="op">)</span><span class="op">-</span><span class="fl">0</span>
+<code class="sourceCode R"><span class="va">preds</span> <span class="op">=</span> <span class="op">(</span><span class="va">pred</span> <span class="op">&gt;</span> <span class="fl">0.28</span><span class="op">)</span><span class="op">-</span><span class="fl">0</span>
 <span class="va">confusion_matrix</span> <span class="op">=</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="st">'Predicted'</span> <span class="op">=</span> <span class="va">preds</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>, <span class="st">'Actual'</span><span class="op">=</span> <span class="va">test_set</span><span class="op">$</span><span class="va">fam</span><span class="op">$</span><span class="va">pheno_0</span><span class="op">)</span><span class="op">)</span>
 
 <span class="va">confusion_matrix</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
@@ -166,39 +143,23 @@ the following result.</p>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html" class="external-link">geom_tile</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">n</span><span class="op">)</span>, show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"%1.0f"</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span>, vjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_gradient.html" class="external-link">scale_fill_gradient</a></span><span class="op">(</span>high <span class="op">=</span> <span class="st">"firebrick"</span>, low <span class="op">=</span> <span class="st">'dodgerblue3'</span>, trans<span class="op">=</span><span class="st">'pseudo_log'</span><span class="op">)</span></code></pre></div>
-<p><img src="result_decision.jpg"><!-- --></p>
+<p><img src="../../../../4.%20Semester/Dataprojekt/genstats/articles/result_decision.jpg"><!-- --></p>
 </div>
 <div class="section level2">
 <h2 id="documentation">Documentation<a class="anchor" aria-label="anchor" href="#documentation"></a>
 </h2>
-<p>We will in this section explain the process behind the above result.
-We can only expect to be able to predict the genetic liability. If a
-subject has a very low genetic liability, but high environmental
-liability we can of course not catch this with PRS. We are therefore
-going to plot the PRS against the genetic liability.</p>
-<p><img src="prs_true_train.jpg"><!-- --></p>
-<p>We can see from the above plot that these two values are very
-correlated. It is therefore reasonable to add PRS as a controlling
-variable when prediction studies is performed. We can also plot the PRS
-of the test set.</p>
-<p><img src="prs_true_test.jpg"><!-- --></p>
-<p>As expected boundary between cases and non cases is a bit less clear,
-but we still see a very high correlation.</p>
+<p>We will in this section explain the process behind the above result. We can only expect to be able to predict the genetic liability. If a subject has a very low genetic liability, but high environmental liability we can of course not catch this with PRS. We are therefore going to plot the PRS against the genetic liability.</p>
+<p><img src="../../../../4.%20Semester/Dataprojekt/genstats/articles/prs_true_train.jpg"><!-- --></p>
+<p>We can see from the above plot that these two values are very correlated. It is therefore reasonable to add PRS as a controlling variable when prediction studies is performed. We can also plot the PRS of the test set.</p>
+<p><img src="../../../../4.%20Semester/Dataprojekt/genstats/articles/prs_true_test.jpg"><!-- --></p>
+<p>As expected boundary between cases and non cases is a bit less clear, but we still see a very high correlation.</p>
 </div>
 <div class="section level2">
 <h2 id="using-phenotypes-instead-of-lt-fh-estimates">USing phenotypes instead of LT-FH estimates<a class="anchor" aria-label="anchor" href="#using-phenotypes-instead-of-lt-fh-estimates"></a>
 </h2>
-<p>We have in the above used LT-FH estimates in our prediction. We have
-done this as we believe this is a superior method with higher power and
-more accuracy. One argument for this is that we trough PRS cant expect
-to predict the cases, but we can predict who has a high genetic
-liability.</p>
-<p>Using the same method as above we can see that the correlation
-between the genetic liability and PRS found with linear regression or
-logistic regression using phenotypes is much lower. For more information
-about the association analysis with pheno types see
-<code><a href="../articles/GWAS.html">vignette("GWAS")</a></code>.</p>
-<p><img src="prs_pheno.jpg"><!-- --></p>
+<p>We have in the above used LT-FH estimates in our prediction. We have done this as we believe this is a superior method with higher power and more accuracy. One argument for this is that we trough PRS cant expect to predict the cases, but we can predict who has a high genetic liability.</p>
+<p>Using the same method as above we can see that the correlation between the genetic liability and PRS found with linear regression or logistic regression using phenotypes is much lower. For more information about the association analysis with pheno types see <code><a href="../articles/GWAS.html">vignette("GWAS")</a></code>.</p>
+<p><img src="../../../../4.%20Semester/Dataprojekt/genstats/articles/prs_pheno.jpg"><!-- --></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

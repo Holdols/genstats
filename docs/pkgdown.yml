@@ -1,13 +1,14 @@
-pandoc: 2.17.1.1
+pandoc: 2.11.4
 pkgdown: 2.0.3
 pkgdown_sha: ~
 articles:
+  Comparison: Comparison.html
   Gibbs-sampler: Gibbs-sampler.html
   GWAS: GWAS.html
   LT-FH: LT-FH.html
   Prediction: Prediction.html
   Simulation: Simulation.html
-last_built: 2022-05-30T11:34Z
+last_built: 2022-05-30T22:43Z
 urls:
   reference: https://github.com/Holdols/genstats/reference
   article: https://github.com/Holdols/genstats/articles

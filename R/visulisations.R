@@ -41,31 +41,31 @@ prs_plot = function(PRS, data, method='MSE'){
   df = lapply(1:length(PRS), function(i) {
     targ = data$fam$pheno_0[as.numeric(row.names(PRS[[i]]))]
 
-    if (method=='AUC') {eval = apply(PRS[[i]], 2, AUC, target = targ)}
+    if (method=='AUC') {eval = apply(PRS[[i]], 2, bigstatsr::AUC, target = targ)}
     else if (method=='R2') {
       eval = apply(PRS[[i]], 2, function(pred,target) summary(lm(target~pred))$r.squared,  target = targ)}
     else {eval = apply(PRS[[i]], 2, function(pred,target) mean((pred-target)^2), target = targ)}
 
-    tibble('Eval'=eval, 'Threshold'=pval_thrs, 'fold' = paste0('Fold ', i))
-  }) %>% bind_rows
+    tibble::tibble('Eval'=eval, 'Threshold'=pval_thrs, 'fold' = paste0('Fold ', i))
+  }) %>% dplyr::bind_rows(.)
 
   plt1 = df %>%
-      ggplot(ggplot2::aes(y=Eval, x=Threshold)) +
-      ggplot2::geom_point() +
-      ggplot2::geom_line()+
-      ggplot2::xlab('Threshold for p value') +
-      ggplot2::ylab(method) +
-      ggplot2::facet_wrap(~fold)
+    ggplot2::ggplot(ggplot2::aes(y=Eval, x=Threshold)) +
+    ggplot2::geom_point() +
+    ggplot2::geom_line()+
+    ggplot2::xlab('Threshold for p value') +
+    ggplot2::ylab(method) +
+    ggplot2::facet_wrap(~fold)
 
   plt2 = df %>%
-      dplyr::group_by(Threshold) %>%
-      dplyr::summarise('mean_Eval'=mean(Eval), 'sd'=sd(Eval)) %>%
-      ggplot2::ggplot(ggplot2::aes(y=mean_Eval, x=Threshold)) +
-      ggplot2::geom_point() +
-      ggplot2::geom_line() +
-      ggplot2::xlab('Threshold for p value') +
-      ggplot2::ylab(paste0('Mean ', method)) +
-      ggplot2::geom_errorbar(ggplot2::aes(ymin=mean_Eval-sd, ymax=mean_Eval+sd), width=.2, position=position_dodge(0.05))
+    dplyr::group_by(Threshold) %>%
+    dplyr::summarise('mean_Eval'=mean(Eval), 'sd'=sd(Eval)) %>%
+    ggplot2::ggplot(ggplot2::aes(y=mean_Eval, x=Threshold)) +
+    ggplot2::geom_point() +
+    ggplot2::geom_line() +
+    ggplot2::xlab('Threshold for p value') +
+    ggplot2::ylab(paste0('Mean ', method)) +
+    ggplot2::geom_errorbar(ggplot2::aes(ymin=mean_Eval-sd, ymax=mean_Eval+sd), width=.2, position=ggplot2::position_dodge(0.05))
 
   return(list('fold'=plt1, 'mean'=plt2))
 }
