@@ -15,7 +15,7 @@
 PRS_cross <- function(train_data, y, cross_folds, ncores = 1, LogReg = FALSE){
   folds = list()
   G = train_data$genotypes
-  indexes <- rows_along(G)
+  indexes <- bigstatsr::rows_along(G)
   test_size = length(indexes)%/%cross_folds
 
   for (i in 1:cross_folds){
@@ -29,7 +29,7 @@ PRS_cross <- function(train_data, y, cross_folds, ncores = 1, LogReg = FALSE){
 
 
     ind_test <- folds[[i]]
-    ind_train <- setdiff(rows_along(G), ind_test)
+    ind_train <- setdiff(bigstatsr::rows_along(G), ind_test)
     if (LogReg == TRUE){
       gwas_train <- bigstatsr::big_univLogReg(G, y01.train = y[ind_train], ind.train = ind_train, ncores = ncores)
     } else {

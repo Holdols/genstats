@@ -94,7 +94,7 @@ knitr::include_graphics("GWAS_power.jpg")
 Since our target variable is binary it would seem reasonable to run logistic regression instead of linear. The plots have been run on the same dataset as above.
 
 ```{r warning = FALSE, message=FALSE}
-gwaslog_summary = GWAS(G=G, y=y[[1]], p=0.05e-7, logreg = TRUE, ncores=3)
+gwaslog_summary = GWAS(G=G, y=y[[1]], p=5e-6, logreg = TRUE, ncores=3)
 knitr::kable(gwaslog_summary[1:10,], digits = 2, align = "c")
 ```
 
