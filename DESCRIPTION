@@ -1,6 +1,6 @@
 Package: genstats
 Title: Analyse genetic data
-Version: 0.0.0.9000
+Version: 1.0.0
 Authors@R: 
     c(person("Louise Mølgaard", "Laustsen", , "louisemolgaard99@gmail.com", role = c("aut")),
       person("Ole Sahlholdt", "Hansen", , "o.sahlholdt@gmail.com", role = c("aut")),
@@ -19,7 +19,8 @@ Imports:
     future,
     magrittr,
     stats,
-    tidyr
+    tidyr,
+    tibble
 URL: https://holdols.github.io/genstats
 Suggests: 
     knitr,
