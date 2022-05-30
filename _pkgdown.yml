@@ -42,7 +42,7 @@ reference:
   - get_cov
   - gibbs_sampl
   - LTFH
-- title: "PRS"
+- title: "Prediction"
   desc: Functions used to perform compute and use polygenic risk score
   contents:
   - PRS_cross
@@ -52,13 +52,17 @@ reference:
 - title: "Data visulisation"
   desc: Functions to visualise methods and results
   contents:
-  - control_plot
-  - LTFH_plot
-  - plot_gibbs
-  - scatter_plot
-  - manhattan_plot
-  - power_plot
-  - prs_plot
+  - subtitle: GWAS
+    - scatter_plot
+    - manhattan_plot
+    - power_plot
+  - subtitle: LT-FH
+    - control_plot
+    - LTFH_plot
+    - plot_gibbs
+  - subtitle: Prediction
+    - prs_plot
+    - decision_cross
 - title: "Controls for distributions sampled from"
   desc: Functions which can be used to check if result follow the expected
   contents:
