@@ -152,7 +152,7 @@ power_plot <- function(gwas_summary, beta){
     dplyr::mutate(true_causal = (beta != 0) - 0) %>%
     dplyr::filter(true_causal == 1) %>%
     dplyr::arrange(abs(estim)) %>%
-    dplyr::mutate(power = cumsum(causal_estimate)/cumsum(true_causal)) %>%
+    dplyr::mutate(power = cumsum(causal_estimate)/sum(true_causal)) %>%
     ggplot2::ggplot(ggplot2::aes(x = estim, y = power)) + ggplot2::geom_line()
 }
 

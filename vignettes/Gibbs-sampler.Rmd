@@ -113,12 +113,14 @@ knitr::kable(cov(estimated), digits = 2, caption = "Covariance Matrix")
 The pseudo code for the Gibbs Sampler is shown below
 ![](Pseudocode.png)
 
+Where $F^{-1}_{l_j^{(i)}}(1-k)$ is the CDF of $\mathcal{N}\left(\mu_{j}^{(i)}, \sigma_{j}^{(i)}\right)$
 This code is within a while loop that break when standard error of the mean is under 0.1 to ensure convergence.
 With this constraint, we've tried to ensure convergence. Convergence can be shown by plotting the values for each iteration.
 For the plot below the configuration is (1,1,0,1,0), where 1 refers to CASE and 0 is control, and each number refers to the phenotype of a family member of the following form.
 $$
-(\text{phenotype}_{subject}, \text{phenotype}_{parent1}, \text{phenotype}_{parent2}, \text{phenotype}_{sibling1}, ...,\text{phenotype}_{siblingN})
+(z_{subject}, z_{parent1}, z_{parent2}, z_{sibling1}, ...,z_{siblingN})
 $$
+Where $z \in {0,1}$ denotes the phenotype
 
 ```{r}
 ests = gibbs_sampl(covmat = get_cov(0.5, n_sib = 2), phenos = c(1,1,0,1,0), K = 0.05, start_run = 500, all_est = TRUE)
