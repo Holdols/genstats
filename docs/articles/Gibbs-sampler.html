@@ -174,39 +174,39 @@ non truncated data using a heritability of 0.5 and one sibling.</p>
 <caption>Covariance Matrix</caption>
 <tbody>
 <tr class="odd">
-<td align="right">0.50</td>
-<td align="right">0.50</td>
+<td align="right">0.51</td>
+<td align="right">0.51</td>
+<td align="right">0.26</td>
+<td align="right">0.24</td>
 <td align="right">0.25</td>
-<td align="right">0.24</td>
-<td align="right">0.24</td>
 </tr>
 <tr class="even">
-<td align="right">0.50</td>
+<td align="right">0.51</td>
 <td align="right">1.00</td>
+<td align="right">0.27</td>
+<td align="right">0.24</td>
 <td align="right">0.25</td>
-<td align="right">0.24</td>
-<td align="right">0.24</td>
 </tr>
 <tr class="odd">
-<td align="right">0.25</td>
-<td align="right">0.25</td>
-<td align="right">1.01</td>
-<td align="right">-0.01</td>
 <td align="right">0.26</td>
+<td align="right">0.27</td>
+<td align="right">1.01</td>
+<td align="right">0.00</td>
+<td align="right">0.25</td>
 </tr>
 <tr class="even">
 <td align="right">0.24</td>
 <td align="right">0.24</td>
-<td align="right">-0.01</td>
-<td align="right">0.98</td>
-<td align="right">0.23</td>
+<td align="right">0.00</td>
+<td align="right">1.00</td>
+<td align="right">0.24</td>
 </tr>
 <tr class="odd">
+<td align="right">0.25</td>
+<td align="right">0.25</td>
+<td align="right">0.25</td>
 <td align="right">0.24</td>
-<td align="right">0.24</td>
-<td align="right">0.26</td>
-<td align="right">0.23</td>
-<td align="right">0.99</td>
+<td align="right">1.01</td>
 </tr>
 </tbody>
 </table>
@@ -216,11 +216,11 @@ the mean is under 0.1 to ensure convergence. With this constraint, we’ve
 tried to ensure convergence. Convergence can be shown by plotting the
 values for each iteration. For the plot below the configuration is
 (1,1,0,1,0), where 1 refers to CASE and 0 is control, and each number
-refers to the phenotype of a family member of the form <span class="math display">\[
+refers to the phenotype of a family member of the following form. <span class="math display">\[
 (\text{phenotype}_{subject}, \text{phenotype}_{parent1},
 \text{phenotype}_{parent2}, \text{phenotype}_{sibling1},
 ...,\text{phenotype}_{siblingN})
-\]</span>.</p>
+\]</span></p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ests</span> <span class="op">=</span> <span class="fu"><a href="../reference/gibbs_sampl.html">gibbs_sampl</a></span><span class="op">(</span>covmat <span class="op">=</span> <span class="fu"><a href="../reference/get_cov.html">get_cov</a></span><span class="op">(</span><span class="fl">0.5</span>, n_sib <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>, phenos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span><span class="op">)</span>, K <span class="op">=</span> <span class="fl">0.05</span>, start_run <span class="op">=</span> <span class="fl">500</span>, all_est <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">ests</span><span class="op">)</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Genetic Liability subject"</span>,
@@ -239,8 +239,10 @@ refers to the phenotype of a family member of the form <span class="math display
 starting value of 0. And also it seems that the Gibbs sampler converges
 incredibly fast. The Gibbs sampler is therefore performing as we would
 expect.</p>
-<p>The standard values for the genstats::gibbs_sampl is a starting value
-at 0 and a burn in of 500.</p>
+<p>The standard values for the <code><a href="../reference/gibbs_sampl.html">?gibbs_sampl</a></code> is a starting
+value at 0 and a burn in of 500. The method is used in
+<code>?LT-FH</code>, see <code><a href="../articles/LT-FH.html">vignette("LT-FH")</a></code> for further
+information.</p>
   </main>
 </div>
 

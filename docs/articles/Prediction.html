@@ -103,7 +103,8 @@ illustrate how found the results we show.</p>
 </h2>
 <p>In prediction we use a training set and a test set. We are in the
 following section going to show a method which uses LT-FH estimates as
-its target vectors.</p>
+its target vectors. For more information about this association method
+see <code><a href="../articles/LT-FH.html">vignette("LT-FH")</a></code>) .</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Loading our train and test set</span>
 <span class="va">train_set</span> <span class="op">=</span> <span class="fu"><a href="../reference/snp_attach.html">snp_attach</a></span><span class="op">(</span><span class="st">"genetic_data.rds"</span><span class="op">)</span>
@@ -194,7 +195,9 @@ to predict the cases, but we can predict who has a high genetic
 liability.</p>
 <p>Using the same method as above we can see that the correlation
 between the genetic liability and PRS found with linear regression or
-logistic regression using phenotypes is much lower.</p>
+logistic regression using phenotypes is much lower. For more information
+about the association analysis with pheno types see
+<code><a href="../articles/GWAS.html">vignette("GWAS")</a></code>.</p>
 <p><img src="prs_pheno.jpg"><!-- --></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
