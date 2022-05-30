@@ -28,9 +28,9 @@ data_ltfh = LTFH(data = data, n_sib = 2, K = 0.05, h2 = 0.5)
 ```
 
 ```{r}
-gwas_summary <- GWAS(G = data$genotypes, y = data$fam$pheno_0, p = 5e-7, ncores = 3)
-gwaslog_summary <- GWAS(G = data$genotypes, y = data$fam$pheno_0, logreg = TRUE, p = 5e-7, ncores = 3)
-gwas_LTFH <- GWAS(G = data$genotypes, y = data_ltfh$l_g_est_0, p = 5e-7, ncores = 3)
+gwas_summary = GWAS(G = data$genotypes, y = data$fam$pheno_0, p = 5e-7, ncores = 3)
+gwaslog_summary = GWAS(G = data$genotypes, y = data$fam$pheno_0, logreg = TRUE, p = 5e-7, ncores = 3)
+gwas_LTFH = GWAS(G = data$genotypes, y = data_ltfh$l_g_est_0, p = 5e-7, ncores = 3)
 ```
 
 
@@ -75,6 +75,7 @@ sapply(X = estimate, function(pred,target) mean((pred-target)^2), target = data$
 
 ### Power plot
 ```{r echo=T, results='hide', fig.show='hide'}
+beta = data$map$beta
 gwas_df = gwas_summary %>% 
   mutate(true_causal = (beta != 0) - 0) %>%
   filter(true_causal == 1) %>%
@@ -89,7 +90,7 @@ gwaslog_df = gwaslog_summary %>%
   mutate(power = cumsum(causal_estimate)/sum(true_causal), Method='GWASlog') %>%
   select(estim, power, Method)
 
-ltfh_df = ltfh_summary %>% 
+ltfh_df = gwas_LTFH %>% 
   mutate(true_causal = (beta != 0) - 0) %>%
   filter(true_causal == 1) %>%
   arrange(abs(estim)) %>%
@@ -113,6 +114,10 @@ knitr::include_graphics("pow_compare.jpg")
 
 ```{r echo=T, results='hide', fig.show='hide'}
 
+plt_gwas_man = manhattan_plot(gwas_summary, beta, thresholds = c(5e-7, 0.05))
+plt_log_gwas_man = manhattan_plot(gwaslog_summary, beta, thresholds = c(5e-7, 0.05))
+plt_ltfh_man = manhattan_plot(gwas_LTFH, beta, thresholds = c(5e-7, 0.05))
+
 lgnd_m = cowplot::get_legend(plt_gwas_man + theme(legend.position = "top"))
 
 plt_gwas_man_m = plt_gwas_man + theme(legend.position="none")
@@ -131,6 +136,7 @@ gridExtra::grid.arrange(plt_gwas_man_m,
                         top = c("Manhattan plots for GWAS, GWAS using logistic regression, and LT-FH"))
 ```
 
+
 ```{r, echo = FALSE}
 knitr::include_graphics("man_compare.jpg")
 ```
@@ -138,9 +144,12 @@ knitr::include_graphics("man_compare.jpg")
 
 ### Scatter plot
 ```{r echo=T, results='hide', fig.show='hide'}
+plt_gwas_scat = scatter_plot(gwas_summary, beta)
+plt_ltfh_scat = scatter_plot(gwas_LTFH, beta)
+
 lgnd_s = cowplot::get_legend(plt_gwas_scat + theme(legend.position = "top"))
-plt_gwas_scat_s <- plt_gwas_scat + theme(legend.position="none")
-plt_ltfh_scat_s <- plt_ltfh_scat + theme(legend.position="none")
+plt_gwas_scat_s = plt_gwas_scat + theme(legend.position="none")
+plt_ltfh_scat_s = plt_ltfh_scat + theme(legend.position="none")
 
 gridExtra::grid.arrange(plt_gwas_scat_s, 
                         plt_ltfh_scat_s,
