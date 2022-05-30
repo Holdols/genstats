@@ -32,7 +32,7 @@ control_plot = function(phenos, h2, col="black"){
 #' @param PRS Output from PRS_cross.
 #' @param data List generated from gen_sim.
 #' @param method Indicates Which method each fold should be evaluated on.
-#' @return Plots method for each threshold for each fold and mean of all folds.
+#' @return List containing two plots for each threshold and fold, and mean of all folds.
 #' @importFrom magrittr "%>%"
 #' @export
 prs_plot = function(PRS, data, method='MSE'){
@@ -49,23 +49,25 @@ prs_plot = function(PRS, data, method='MSE'){
     tibble('Eval'=eval, 'Threshold'=pval_thrs, 'fold' = paste0('Fold ', i))
   }) %>% bind_rows
 
-  print(df %>%
-          ggplot(ggplot2::aes(y=Eval, x=Threshold)) +
-          ggplot2::geom_point() +
-          ggplot2::geom_line()+
-          ggplot2::xlab('Threshold for p value') +
-          ggplot2::ylab(method) +
-          ggplot2::facet_wrap(~fold))
+  plt1 = df %>%
+      ggplot(ggplot2::aes(y=Eval, x=Threshold)) +
+      ggplot2::geom_point() +
+      ggplot2::geom_line()+
+      ggplot2::xlab('Threshold for p value') +
+      ggplot2::ylab(method) +
+      ggplot2::facet_wrap(~fold)
 
-  df %>%
-    dplyr::group_by(Threshold) %>%
-    dplyr::summarise('mean_Eval'=mean(Eval), 'sd'=sd(Eval)) %>%
-    ggplot2::ggplot(ggplot2::aes(y=mean_Eval, x=Threshold)) +
-    ggplot2::geom_point() +
-    ggplot2::geom_line() +
-    ggplot2::xlab('Threshold for p value') +
-    ggplot2::ylab(paste0('Mean ', method)) +
-    ggplot2::geom_errorbar(ggplot2::aes(ymin=mean_Eval-sd, ymax=mean_Eval+sd), width=.2, position=position_dodge(0.05))
+  plt2 = df %>%
+      dplyr::group_by(Threshold) %>%
+      dplyr::summarise('mean_Eval'=mean(Eval), 'sd'=sd(Eval)) %>%
+      ggplot2::ggplot(ggplot2::aes(y=mean_Eval, x=Threshold)) +
+      ggplot2::geom_point() +
+      ggplot2::geom_line() +
+      ggplot2::xlab('Threshold for p value') +
+      ggplot2::ylab(paste0('Mean ', method)) +
+      ggplot2::geom_errorbar(ggplot2::aes(ymin=mean_Eval-sd, ymax=mean_Eval+sd), width=.2, position=position_dodge(0.05))
+
+  return(list('fold'=plt1, 'mean'=plt2)
 }
 
 
