@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 
 genstats provide easy access to tools for statistical analysis of
 genetic data. Genetic data is difficult to come by, but provides a very
-informative basis for statistical use. We have therefore through some
+informative basis for statistical anaysis. We have therefore through some
 assumptions provided method for simulating genetic data which can be
 used for both association analysis and predictive statistics. The
 package provides standard methods for association analysis such as GWAS

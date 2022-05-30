@@ -8,9 +8,9 @@
 
 genstats provide easy access to tools for statistical analysis of
 genetic data. Genetic data is difficult to come by, but provides a very
-informative basis for statistical use. We have therefore through some
-assumptions provided method for simulating genetic data which can be
-used for both association analysis and predictive statistics. The
+informative basis for statistical anaysis. We have therefore through
+some assumptions provided method for simulating genetic data which can
+be used for both association analysis and predictive statistics. The
 package provides standard methods for association analysis such as GWAS
 and LT-FH. Though the structure of simulated data is easy to use in
 combination with dplyr and it is therefor easy to implement your own
@@ -19,7 +19,7 @@ methods.
 Examples and details about each method can be found in the articles.
 
 The packages uses the method of LT-FH as described by Hujoel, M.L.A.,
-Gazal, S., Loh, PR. et al.. Link to article is found in Biblography.
+Gazal, S., Loh, PR. et al.. Link to article is found in Bibliography.
 
 The package is developed as a part of our bachelor’s program in data
 science at Aarhus University.
@@ -34,7 +34,7 @@ You can install the development version of genstats from
 devtools::install_github("Holdols/genstats")
 ```
 
-## Biblography
+## Bibliography
 
 -   Hujoel, M.L.A., Gazal, S., Loh, PR. et al. Liability threshold
     modeling of case–control status and family history of disease
