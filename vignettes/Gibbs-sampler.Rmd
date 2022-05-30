@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 An assumption made by Hujoel et al.(2020) is that the liabilities of subjects and families follow a multivariate normal distribution. With this assumption liabilities of each family member can be estimated if their phenotypes are provided. 
 
 These liabilities are estimated using Monte Carlo integration. In genstats a Gibbs sampler has been implemented, by sampling from a conditional distribution for each liability estimates are obtained iteratively. The obtained phenotypes of family members can be implemented in the model by sampling from a truncated normal distribution.
-To clarify if a family member is a case we know that the liability of the family member is above a threshold T, given a prevalence K. We the treshold given the standard normal distribution.
+To clarify if a family member is a case we know that the liability of the family member is above a threshold T, given a prevalence K. We calculate the threshold given the standard normal distribution.
 
 $$
 T = \Phi^{-1}(1-K)
@@ -28,13 +28,13 @@ The liability of person i is given by the conditional distribution.
 $$
 L_{p_i} \mid L_{p_1}, \ldots, L_{p_{i-1}}, L_{p_{i+1}}, \ldots,  L_{p_N} \sim N(\mu_p, \sigma_p)
 $$
-Using this we can sample from a truncated normal distribution. Given the probality of $L_{p_i}$ we write the following intervals.
+Using this we can sample from a truncated normal distribution. Given the distribution of $L_{p_i}$ we write the following intervals.
 $$
 P(L_{p_i} \leq T \mid L_{p_1}, \ldots, L_{p_{i-1}}, L_{p_{i+1}}, \ldots,  L_{p_N}) = F_{L_{p_i}}(T) \\
 \Downarrow
 \\
-\text{if p is case}: p_{l_p_i} \in [F_{L_{p_i}}(T) , 1 ]\\
-\text{else}: p_{l_p_i} \in [0,F_{L_{p_i}}(T)] \\
+\text{if p is case}: p_{l_{p_i}} \in [F_{L_{p_i}}(T) , 1 ]\\
+\text{else}: p_{l_{p_i}} \in [0,F_{L_{p_i}}(T)] \\
 $$
 
 Now we sample a value $p_{lp}$ uniformly from one of the two intervals given the family members case. To get a sample for $l_p$ we set $l_p = F_{L_p}^{-1}(p_{lp})$.
