@@ -21,7 +21,7 @@ library(bigsnpr)
 
 ## Simulation without family history
 
-The package offers different methods of simulating data. Fist we are going to show how to simply get out the genotypes of N subjects and the genetic and ful liabilities. We are here using a small scale test, but we recomend that if the data should be used for actual statistc analysis that at least $10,000\times10,000$ datapoints are simulated.
+The package offers different methods of simulating data. Fist we are going to show how to simply get out the genotypes of N subjects and the genetic and ful liabilities. We are here using a small scale test, but we recomend that if the data should be used for actual statistc analysis that at least $10^4\times10^4$ datapoints are simulated.
 
 ```{r eval=FALSE}
 gen_sim('simple_sim_example', N=1000, M=1000, C=50, block_size = 100, fam=FALSE)

@@ -7,7 +7,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-We are in this vignette showing the possibilities of using the result of association analysis in order to predict occurence of the trait by looking at genetic data. We are in this analysis only looking at genetic data, which normally would not be case. In predicting the prevelance of trait/sickness many other factors will have to be taken into account. This could be sex, age, BMI or other potential confounding variables. We are though going to show that it is possible to create a stronger model through the use of genetic data if there of course is a strong enough heritability. We are therefor going to use the method on $1e^5\times1e^3$ data with 500 casual SNPs. This is not realistic data, but i will show the potential of the method.
+We are in this vignette showing the possibilities of using the result of association analysis in order to predict occurence of the trait by looking at genetic data. We are in this analysis only looking at genetic data, which normally would not be case. In predicting the prevelance of trait/sickness many other factors will have to be taken into account. This could be sex, age, BMI or other potential confounding variables. We are though going to show that it is possible to create a stronger model through the use of genetic data if there of course is a strong enough heritability. We are therefore going to illustrate the method on $10^5\times10^3$ data with 500 casual SNPs with two siblings. This is not realistic, but i will show the potential of the method. Since $10^5\times10^3$ data is quite big the following code will be run on $10^4\times10^4$ data and will serve to illustrate how found the results we show.
 
 We use the following packages in this vignette.
 
@@ -41,7 +41,7 @@ prs = PRS_cross(train_data = train_set, y = y_ltfh, cross_folds = 4)
 
 We use these scores to evaluate the threshold. 
 
-The following plot has been evaluated on $1e^5\times1e^3$ data.
+The following plot has been evaluated on $10^5\times10^3$ data.
 
 ```{r echo=T, results='hide', fig.show='hide'}
 prs_plot(PRS = prs, train_set, 'AUC')
@@ -76,7 +76,7 @@ knitr::include_graphics("m2_r2.jpg")
 
 
 Looking at the above plot we find that the optimal threshold for the p-value is around 3.
-Next we would like to know for which value of PRS as a desicion boundary we could expect the best result. We not considering how may false negatives we experience. It is much more important that the amount of false positives is very low. Like GWAS or LT-FH would we prefer a much more conservative prediction. We are using cross validation again with the following output for the $^5\times1e^3$ matrix.
+Next we would like to know for which value of PRS as a desicion boundary we could expect the best result. We not considering how may false negatives we experience. It is much more important that the amount of false positives is very low. Like GWAS or LT-FH would we prefer a much more conservative prediction. We are using cross validation again with the following output for the $10^5\times10^3$ matrix.
 
 ```{r echo=T, results='hide', fig.show='hide'}
 decision_cross(train_data = train_set, y = y_ltfh, cross_folds = 4, bounds=seq(0.2, 0.3, 0.01), thr = 3)

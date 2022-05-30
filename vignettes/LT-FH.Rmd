@@ -40,7 +40,7 @@ Using the estimates of genetic liabilities instead of the phenotypes as target v
 
 ## Using LTFH
 
-In the following tutorial a file is used which have been generated using the method described in 'vignette("Simulation")'. First we load the data. We have here simulated $1e^3\times1e^3$ datapoints using two siblings. In the following 100 SNPs has a casual effect. This data is only used to show case the method and illustrate how the package can be used. If the methods should be used to actual statistical analysis we recomend simulating $1e^5\times1e^5$ datapoints with about 500-1000 casual SNPs. For practical reasons we have not been apple to show case the analysis. We have included pictures to illustrate the results on $1e^5\times1e^5$ data.
+In the following tutorial a file is used which have been generated using the method described in 'vignette("Simulation")'. First we load the data. We have here simulated $1e^4\times1e^4$ datapoints using two siblings. In the following 100 SNPs has a casual effect. This data is only used to show case the method and illustrate how the package can be used. If the methods should be used to actual statistical analysis we recomend simulating $1e^5\times1e^5$ datapoints with about 500-1000 casual SNPs. For practical reasons we have not been apple to show case the analysis. We have included pictures to illustrate the results on $1e^5\times1e^5$ data.
 
 ```{r}
 # The rds file containing simulated data is loaded
@@ -76,15 +76,15 @@ This looks great! It seems that the y=x line runs through the mean of each confi
 The estimated genetic liabilities can now be used as wanted. We are here using them as the target vector in a linear regression in order to estimate the causal effect of each SNP see `vignette("GWAS")`.
 
 ```{r}
-LTFH_summary = GWAS(G = G, y = LTFH_est$l_g_0, p = 5e-5, logreg = FALSE, ncores = 3)
+LTFH_summary = GWAS(G = G, y = LTFH_est$l_g_0, p = 5e-6, logreg = FALSE, ncores = 3)
 knitr::kable(LTFH_summary[1:10,], digite = 2, align = "c")
 ```
 
-In the above table we see the result of the association analysis, where we can se which SNP's is estimated as casual. We are using bonferronni correction to lower the amount of false positive causal SNP. And since we have $1e^3$ indiviuals we will use $p=\frac{0.05}{1000}=5e^{-5}$. We can se the result of our
+In the above table we see the result of the association analysis, where we can se which SNP's is estimated as casual. We are using bonferronni correction to lower the amount of false positive causal SNP. And since we have $10^4$ indiviuals we will use $p==5e\cdot 10^{-6}$.
 
 
 ## Outcome for realistic data
-We will below give the results of the association analysis on a data set with $1e^5\times1e^5$ datapoint. The process of getting these result is the same as shown above we have here used a p-value with bonferroni correction $p=\frac{0.05}{100000}=5e^{-7}$. The first plot shown below is a manhattan plot. The plot illustrates how well the analysis is to differentiate between casual and non causual snp. Two horisontal lines have been drawn illustrating the tresholds for the p-value. We can se that choosing to use the conservative method of bonferronni correction we describe the data better. Comparing this to the result of GWAS without using estimated liabilities we se that LTFH clearly performs better.
+We will below give the results of the association analysis on a data set with $10^5\times10^5$ datapoints. The process of getting these result is the same as shown above we have here used a p-value with bonferroni correction $p=5\cdot 10^{-7}$. The first plot shown below is a manhattan plot. The plot illustrates how well the analysis is to differentiate between casual and non causual snp. Two horisontal lines have been drawn illustrating the tresholds for the p-value. We can se that choosing to use the conservative method of bonferronni correction we describe the data better. Comparing this to the result of GWAS without using estimated liabilities we se that LTFH clearly performs better.
 
 
 ```{r echo=T, results='hide', , fig.show='hide'}
