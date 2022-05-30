@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">genstats</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -88,9 +88,11 @@ trait/sickness many other factors will have to be taken into account.
 This could be sex, age, BMI or other potential confounding variables. We
 are though going to show that it is possible to create a stronger model
 through the use of genetic data if there of course is a strong enough
-heritability. We are therefor going to use the method on <span class="math inline">\(1e^5\times1e^3\)</span> data with 500 casual SNPs.
-This is not realistic data, but i will show the potential of the
-method.</p>
+heritability. We are therefore going to illustrate the method on <span class="math inline">\(10^5\times10^3\)</span> data with 500 casual SNPs
+with two siblings. This is not realistic, but i will show the potential
+of the method. Since <span class="math inline">\(10^5\times10^3\)</span>
+data is quite big the following code will be run on <span class="math inline">\(10^4\times10^4\)</span> data and will serve to
+illustrate how found the results we show.</p>
 <p>We use the following packages in this vignette.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://holdols.github.io/genstats" class="external-link">genstats</a></span><span class="op">)</span>
@@ -118,7 +120,7 @@ the training data.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">prs</span> <span class="op">=</span> <span class="fu"><a href="../reference/PRS_cross.html">PRS_cross</a></span><span class="op">(</span>train_data <span class="op">=</span> <span class="va">train_set</span>, y <span class="op">=</span> <span class="va">y_ltfh</span>, cross_folds <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></code></pre></div>
 <p>We use these scores to evaluate the threshold.</p>
-<p>The following plot has been evaluated on <span class="math inline">\(1e^5\times1e^3\)</span> data.</p>
+<p>The following plot has been evaluated on <span class="math inline">\(10^5\times10^3\)</span> data.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/prs_plot.html">prs_plot</a></span><span class="op">(</span>PRS <span class="op">=</span> <span class="va">prs</span>, <span class="va">train_set</span>, <span class="st">'AUC'</span><span class="op">)</span></code></pre></div>
 <p><img src="m1_auc.jpg"><!-- --><img src="m2_auc.jpg"><!-- --></p>
@@ -134,7 +136,7 @@ as a desicion boundary we could expect the best result. We not
 considering how may false negatives we experience. It is much more
 important that the amount of false positives is very low. Like GWAS or
 LT-FH would we prefer a much more conservative prediction. We are using
-cross validation again with the following output for the <span class="math inline">\(^5\times1e^3\)</span> matrix.</p>
+cross validation again with the following output for the <span class="math inline">\(10^5\times10^3\)</span> matrix.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/decision_cross.html">decision_cross</a></span><span class="op">(</span>train_data <span class="op">=</span> <span class="va">train_set</span>, y <span class="op">=</span> <span class="va">y_ltfh</span>, cross_folds <span class="op">=</span> <span class="fl">4</span>, bounds<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="fl">0.01</span><span class="op">)</span>, thr <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></code></pre></div>
 <p><img src="decision.jpg"><!-- --></p>

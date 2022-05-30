@@ -51,16 +51,18 @@ reference:
 
 - title: "Data visulisation"
   desc: Functions to visualise methods and results
-  contents:
-  - subtitle: GWAS
+- subtitle: GWAS
+- contents:
     - scatter_plot
     - manhattan_plot
     - power_plot
-  - subtitle: LT-FH
+- subtitle: LT-FH
+- contents:
     - control_plot
     - LTFH_plot
     - plot_gibbs
-  - subtitle: Prediction
+- subtitle: Prediction
+- contents:
     - prs_plot
     - decision_cross
 - title: "Controls for distributions sampled from"
