@@ -206,7 +206,7 @@ decision_cross <- function(train_data, y, cross_folds, bounds, thr, ncores = 1, 
   folds = list()
   G = train_data$genotypes
   target = train_data$fam$pheno_0
-  indexes <- rows_along(G)
+  indexes <-  bigstatsr::rows_along(G)
   test_size = length(indexes)%/%cross_folds
 
   for (i in 1:cross_folds){
@@ -219,7 +219,7 @@ decision_cross <- function(train_data, y, cross_folds, bounds, thr, ncores = 1, 
   for (i in 1:cross_folds){
 
     ind_test <- folds[[i]]
-    ind_train <- setdiff(rows_along(G), ind_test)
+    ind_train <- setdiff( bigstatsr::rows_along(G), ind_test)
     if (LogReg == TRUE){
       gwas_train <- bigstatsr::big_univLogReg(G, y01.train = y[ind_train], ind.train = ind_train, ncores = ncores)
     } else {
