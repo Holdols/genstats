@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 An assumption made by Hujoel et al.(2020) is that the liabilities of subjects and families follow a multivariate normal distribution. With this assumption liabilities of each family member can be estimated if their phenotypes are provided. 
 
-These liabilitites are estimated using Monte Carlo integration. In genstats a Gibb sampler has been implemented, by sampling from a conditional distribution for each liability estimates are obtained iteratively. The obtained phenotypes of family members can be implemented in the model by sampling from a truncated normal distribution.
+These liabilities are estimated using Monte Carlo integration. In genstats a Gibbs sampler has been implemented, by sampling from a conditional distribution for each liability estimates are obtained iteratively. The obtained phenotypes of family members can be implemented in the model by sampling from a truncated normal distribution.
 To clarify if a family member is a case we know that the liability of the family member is above a threshold T, given a prevalence K. To sample from a a truncated normal distribution we sample a value from one of the two intervals shown below.
 $$
 T = \Phi^{-1}(1-K) \\
@@ -32,7 +32,7 @@ P(L_p \leq T) = F_{L_p}(T) \\
 $$
 Now we sample a value $p_{lp}$ uniformly from one of the two intervals given the family members case. To get a sample for $l_p$ we set $l_p = F_{L_p}^{-1}(p_{lp})$.
 
-Using Monte Carlo integration we find the conditional distribution of each liability. Using the assumption at liabilities follow a normal distribtion where $l_g\sim\mathcal{N}(0,h^2)$, $l_e\sim\mathcal{N}(0,1-h^2)$ and $l_{full} = l_g+l_e \sim\mathcal{N}(0,1)$ we can write the following mean and covariance matrix for the variables. We are here not using any siblings, but they can be added as wished.
+Using Monte Carlo integration we find the conditional distribution of each liability. Using the assumption at liabilities follow a normal distribution where $l_g\sim\mathcal{N}(0,h^2)$, $l_e\sim\mathcal{N}(0,1-h^2)$ and $l_{full} = l_g+l_e \sim\mathcal{N}(0,1)$ we can write the following mean and covariance matrix for the variables. We are here not using any siblings, but they can be added as wished.
 
 $$
 \mu =
@@ -92,7 +92,7 @@ l_{p_{2}}
 \end{pmatrix} \sim \mathcal{N}\left(\overline{\mu},\overline{\Sigma}
 \right)
 $$
-Using the multivariate normal the conditional distribution for each variable can easily be calculated. To illustrate that the simulated data has this distrubution we will calculate the covariance matrix of non truncated data using a heriability of 0.5 and one sibling.
+Using the multivariate normal the conditional distribution for each variable can easily be calculated. To illustrate that the simulated data has this distribution we will calculate the covariance matrix of non truncated data using a heritability of 0.5 and one sibling.
 
 ```{r}
 library(genstats)
@@ -103,7 +103,7 @@ knitr::kable(cov(estimated), digits = 2, caption = "Covariance Matrix")
 ```
 
 
-The pseudocode for the Gibbs Sampler is shown below
+The pseudo code for the Gibbs Sampler is shown below
 ![](Pseudocode.png)
 
 This code is within a while loop that break when standard error of the mean is under 0.1 to ensure convergence.
