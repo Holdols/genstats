@@ -1,5 +1,5 @@
 ---
-title: "Comparison"
+title: "Comparison between GWAS and LT-FH"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Comparison}

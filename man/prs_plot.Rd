@@ -14,7 +14,7 @@ prs_plot(PRS, data, method = "MSE")
 \item{method}{Indicates Which method each fold should be evaluated on.}
 }
 \value{
-Plots method for each threshold for each fold and mean of all folds.
+List containing two plots for each threshold and fold, and mean of all folds.
 }
 \description{
 The function creates one plot for each fold in PRS.
