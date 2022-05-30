@@ -83,7 +83,7 @@ manhattan_plot = function(gwas_summary, beta, thresholds = FALSE){
   plot = tibble::tibble('p_vals' = gwas_summary$p_vals) %>%
     dplyr::mutate('causal' = (beta!=0)-0) %>%
     ggplot2::ggplot(ggplot2::aes(x=(1:length(p_vals)), y=-log10(p_vals))) +
-    ggplot2::geom_point(ggplot2::aes(colour=as.character(causal))) +
+    ggplot2::geom_point(ggplot2::aes(colour=as.character(causal)),  alpha = 0.4) +
     ggplot2::ylab('-log10(P-value)') +
     ggplot2::xlab('Chromosome') +
     ggplot2::labs(color='True casual SNPs')
@@ -106,7 +106,7 @@ scatter_plot = function(gwas_summary, beta){
   plot = tibble::tibble('beta'= beta, 'estim'=gwas_summary$estim, 'causal_est'=gwas_summary$causal_estimate) %>%
     dplyr::mutate('causal' = (beta!=0)-0) %>%
     ggplot2::ggplot(ggplot2::aes(x=beta, y=estim)) +
-    ggplot2::geom_point(ggplot2::aes(colour=as.character(causal_est))) +
+    ggplot2::geom_point(ggplot2::aes(colour=as.character(causal_est)),  alpha = 0.4) +
     ggplot2::geom_abline(slope = 1) +
     ggplot2::labs(color='Estimated to have casual effect') +
     ggplot2::ylab('Estimated effect') +
@@ -171,7 +171,7 @@ LTFH_plot = function(LTFH_est, gaps=1){
 
   plot = new_df %>%
     ggplot2::ggplot(ggplot2::aes(x=l_g_est_0, y=l_g_0)) +
-    ggplot2::geom_point(ggplot2::aes(color=conf)) +
+    ggplot2::geom_point(ggplot2::aes(color=conf),  alpha = 0.4) +
     ggplot2::geom_abline(slope=1)  +
     guides(color = 'none') + xlab('Estimated liabilities') + ylab('True liabilities')
 
@@ -206,7 +206,7 @@ decision_cross <- function(train_data, y, cross_folds, bounds, thr, ncores = 1, 
   folds = list()
   G = train_data$genotypes
   target = train_data$fam$pheno_0
-  indexes <- rows_along(G)
+  indexes <-  bigstatsr::rows_along(G)
   test_size = length(indexes)%/%cross_folds
 
   for (i in 1:cross_folds){
@@ -219,7 +219,7 @@ decision_cross <- function(train_data, y, cross_folds, bounds, thr, ncores = 1, 
   for (i in 1:cross_folds){
 
     ind_test <- folds[[i]]
-    ind_train <- setdiff(rows_along(G), ind_test)
+    ind_train <- setdiff( bigstatsr::rows_along(G), ind_test)
     if (LogReg == TRUE){
       gwas_train <- bigstatsr::big_univLogReg(G, y01.train = y[ind_train], ind.train = ind_train, ncores = ncores)
     } else {
