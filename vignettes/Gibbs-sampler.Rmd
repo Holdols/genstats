@@ -18,10 +18,17 @@ knitr::opts_chunk$set(
 An assumption made by Hujoel et al.(2020) is that the liabilities of subjects and families follow a multivariate normal distribution. With this assumption liabilities of each family member can be estimated if their phenotypes are provided. 
 
 These liabilities are estimated using Monte Carlo integration. In genstats a Gibbs sampler has been implemented, by sampling from a conditional distribution for each liability estimates are obtained iteratively. The obtained phenotypes of family members can be implemented in the model by sampling from a truncated normal distribution.
-To clarify if a family member is a case we know that the liability of the family member is above a threshold T, given a prevalence K. To sample from a a truncated normal distribution we sample a value from one of the two intervals shown below.
+To clarify if a family member is a case we know that the liability of the family member is above a threshold T, given a prevalence K. We the treshold given the standard normal distribution.
+
 $$
-T = \Phi^{-1}(1-K) \\
-L_p \sim N(\mu_p, \sigma_p) \\
+T = \Phi^{-1}(1-K)
+$$
+The liability of person i is given by the conditional distribution $L_p_i \mid L_{p_1}, \cdots, L_{p_{i-1}}, L_{p_{i+1}}, \cdots  L_{p_N} \sim N(\mu_p, \sigma_p)$
+
+
+To sample from a truncated normal distribution we sample a value from one of the two intervals shown below.
+$$
+\wedge  \\
 \Downarrow
 \\
 P(L_p \leq T) = F_{L_p}(T) \\
@@ -30,6 +37,7 @@ P(L_p \leq T) = F_{L_p}(T) \\
 \text{if p is case}: p_{l_p} \in [F_{l_p}(T) , 1 ]\\
 \text{else}: p_{l_p} \in [0, F_{l_p}(T)] \\
 $$
+
 Now we sample a value $p_{lp}$ uniformly from one of the two intervals given the family members case. To get a sample for $l_p$ we set $l_p = F_{L_p}^{-1}(p_{lp})$.
 
 Using Monte Carlo integration we find the conditional distribution of each liability. Using the assumption at liabilities follow a normal distribution where $l_g\sim\mathcal{N}(0,h^2)$, $l_e\sim\mathcal{N}(0,1-h^2)$ and $l_{full} = l_g+l_e \sim\mathcal{N}(0,1)$ we can write the following mean and covariance matrix for the variables. We are here not using any siblings, but they can be added as wished.
