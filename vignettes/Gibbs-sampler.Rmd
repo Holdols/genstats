@@ -23,19 +23,18 @@ To clarify if a family member is a case we know that the liability of the family
 $$
 T = \Phi^{-1}(1-K)
 $$
-The liability of person i is given by the conditional distribution $L_p_i \mid L_{p_1}, \cdots, L_{p_{i-1}}, L_{p_{i+1}}, \cdots  L_{p_N} \sim N(\mu_p, \sigma_p)$
+The liability of person i is given by the conditional distribution.
 
-
-To sample from a truncated normal distribution we sample a value from one of the two intervals shown below.
 $$
-\wedge  \\
+L_{p_i} \mid L_{p_1}, \ldots, L_{p_{i-1}}, L_{p_{i+1}}, \ldots,  L_{p_N} \sim N(\mu_p, \sigma_p)
+$$
+Using this we can sample from a truncated normal distribution. Given the probality of $L_{p_i}$ we write the following intervals.
+$$
+P(L_{p_i} \leq T \mid L_{p_1}, \ldots, L_{p_{i-1}}, L_{p_{i+1}}, \ldots,  L_{p_N}) = F_{L_{p_i}}(T) \\
 \Downarrow
 \\
-P(L_p \leq T) = F_{L_p}(T) \\
-\Downarrow
-\\
-\text{if p is case}: p_{l_p} \in [F_{l_p}(T) , 1 ]\\
-\text{else}: p_{l_p} \in [0, F_{l_p}(T)] \\
+\text{if p is case}: p_{l_p_i} \in [F_{L_{p_i}}(T) , 1 ]\\
+\text{else}: p_{l_p_i} \in [0,F_{L_{p_i}}(T)] \\
 $$
 
 Now we sample a value $p_{lp}$ uniformly from one of the two intervals given the family members case. To get a sample for $l_p$ we set $l_p = F_{L_p}^{-1}(p_{lp})$.
