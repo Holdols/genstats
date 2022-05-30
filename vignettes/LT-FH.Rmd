@@ -80,11 +80,11 @@ LTFH_summary = GWAS(G = G, y = LTFH_est$l_g_0, p = 5e-5, logreg = FALSE, ncores 
 knitr::kable(LTFH_summary[1:10,], digite = 2, align = "c")
 ```
 
-In the above table we see the result of the association analysis, where we can se which SNP's is estimated as casual. We are using bonferronni correction to lower the amount of false positive causal SNP. And since we have $1e^3$ indiviuals we will use $p=\frac{0.05}{1000}=5e^{-5}$. We can se the result of our
+In the above table we see the result of the association analysis, where we can se which SNP's is estimated as casual. We are using bonferronni correction to lower the amount of false positive causal SNP. And since we have $1e^3$ indiviuals we will use $p=\frac{0.05}{1000}=5e^{-5}$.
 
 
 ## Outcome for realistic data
-We will below give the results of the association analysis on a data set with $1e^5\times1e^5$ datapoint. The process of getting these result is the same as shown above we have here used a p-value with bonferroni correction $p=\frac{0.05}{100000}=5e^{-7}$. The first plot shown below is a manhattan plot. The plot illustrates how well the analysis is to differentiate between casual and non causual snp. Two horisontal lines have been drawn illustrating the tresholds for the p-value. We can se that choosing to use the conservative method of bonferronni correction we describe the data better. Comparing this to the result of GWAS without using estimated liabilities we se that LTFH clearly performs better.
+We will below give the results of the association analysis on a data set with $1e^5\times1e^5$ datapoints. The process of getting these result is the same as shown above we have here used a p-value with bonferroni correction $p=\frac{0.05}{100000}=5e^{-7}$. The first plot shown below is a manhattan plot. The plot illustrates how well the analysis is to differentiate between casual and non causual snp. Two horisontal lines have been drawn illustrating the tresholds for the p-value. We can se that choosing to use the conservative method of bonferronni correction we describe the data better. Comparing this to the result of GWAS without using estimated liabilities we se that LTFH clearly performs better.
 
 
 ```{r echo=T, results='hide', , fig.show='hide'}
