@@ -7,7 +7,7 @@
 #' @param data List generated from gen_sim.
 #' @return Creates a qqplot, mean and sample variance for the liability of each family.
 #' @examples
-#' dist_check(snp_attach("test.rds"))
+#' dist_check(snp_attach("genetic_data.rds"))
 #' @export
 dist_check = function(data){
   l = data$fam %>% dplyr::select(., contains('l_f'))
