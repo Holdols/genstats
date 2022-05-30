@@ -33,7 +33,7 @@ Examples and details about each method can be found in the articles.
 
 
 The packages uses the method of LT-FH as described by Hujoel, M.L.A.,
-Gazal, S., Loh, PR. et al.. Link to article is found in Biblography.
+Gazal, S., Loh, PR. et al.. Link to article is found in Bibliography.
 
 The package is developed as a part of our bachelor’s program in data
 science at Aarhus University.
@@ -49,7 +49,7 @@ You can install the development version of genstats from [GitHub](https://github
 devtools::install_github("Holdols/genstats")
 ```
 
-## Biblography
+## Bibliography
 * Hujoel, M.L.A., Gazal, S., Loh, PR. et al. Liability threshold modeling of case–control status and family history of disease increases association power. Nat Genet 52, 541–547 (2020). https://doi.org/10.1038/s41588-020-0613-6"
 
 The package uses functions and methods from both bigsnpr: https://privefl.github.io/bigsnpr/  and bigstatsr: https://privefl.github.io/bigstatsr/index.html
