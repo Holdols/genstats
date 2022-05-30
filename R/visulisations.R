@@ -18,7 +18,7 @@ control_plot = function(phenos, h2, col="black"){
     ggplot2::stat_function(fun = dnorm, args = list(mean = mean, sd = sd), mapping = ggplot2::aes(x),color=col) +
     ggplot2::stat_function(fun = dnorm, args = list(mean = 0, sd = sqrt(h2)), mapping = ggplot2::aes(x)) +
     ggplot2::geom_vline(xintercept=mean, linetype="dashed",color=col) +
-    ggplot2::geom_text(ggplot2::aes(x=mean+0.2, label=round(mean,2), y=0), colour=col)
+    ggplot2::geom_text(ggplot2::aes(x=mean+0.2, label=round(mean,2), y=0.2), colour=col)
 }
 
 

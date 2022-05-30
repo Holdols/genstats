@@ -32,7 +32,9 @@ Below is shown three plots with the estimated posterior mean genetic liabilities
 ```{r}
 gridExtra::grid.arrange(control_plot(phenos = c(0,0,0), h2 = 0.5, col = "royalblue"),
                         control_plot(phenos = c(0,0,1), h2 = 0.5, col = "mediumorchid"),
-                        control_plot(phenos = c(1,1,1), h2 = 0.5, col = "firebrick"), heights = 0.5, top = c("Plots for configuration (0,0,0), (0,0,1), (1,1,1)"))
+                        control_plot(phenos = c(1,1,1), h2 = 0.5, col = "firebrick"),
+                        top = c("Plots for configuration (0,0,0), (0,0,1), (1,1,1)"),
+                        ncol = 1)
 ```
 
 Using the estimates of genetic liabilities instead of the phenotypes as target vector can be very beneficial. We are going to run through an example of this in the next section.
