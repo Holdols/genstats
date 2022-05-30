@@ -32,7 +32,7 @@ Below is shown three plots with the estimated posterior mean genetic liabilities
 ```{r}
 gridExtra::grid.arrange(control_plot(phenos = c(0,0,0), h2 = 0.5, col = "royalblue"),
                         control_plot(phenos = c(0,0,1), h2 = 0.5, col = "mediumorchid"),
-                        control_plot(phenos = c(1,1,1), h2 = 0.5, col = "firebrick"), heights = 0.5, name = c("Plots for configuration (0,0,0), (0,0,1), (1,1,1)"))
+                        control_plot(phenos = c(1,1,1), h2 = 0.5, col = "firebrick"), heights = 0.5, top = c("Plots for configuration (0,0,0), (0,0,1), (1,1,1)"))
 ```
 
 Using the estimates of genetic liabilities instead of the phenotypes as target vector can be very beneficial. We are going to run through an example of this in the next section.
@@ -40,7 +40,7 @@ Using the estimates of genetic liabilities instead of the phenotypes as target v
 
 ## Using LTFH
 
-In the following tutorial a file is used which have been generated using the method described in 'vignette("Simulation")'. First we load the data. We have here simulated $1e^4\times1e^4$ data points using two siblings. In the following 100 SNPs has a casual effect. This data is only used to show case the method and illustrate how the package can be used. If the methods should be used to actual statistical analysis we recommend simulating $1e^5\times1e^5$ data points with about 500-1000 casual SNPs. For practical reasons we have not been apple to show case the analysis. We have included pictures to illustrate the results on $1e^5\times1e^5$ data.
+In the following tutorial a file is used which have been generated using the method described in `vignette("Simulation")`. First we load the data. We have here simulated $1e^4\times1e^4$ data points using two siblings. In the following 100 SNPs has a casual effect. This data is only used to show case the method and illustrate how the package can be used. If the methods should be used to actual statistical analysis we recommend simulating $1e^5\times1e^5$ data points with about 500-1000 casual SNPs. For practical reasons we have not been apple to show case the analysis. We have included pictures to illustrate the results on $1e^5\times1e^5$ data.
 
 ```{r}
 # The rds file containing simulated data is loaded
@@ -96,7 +96,7 @@ knitr::include_graphics("LTFH_manhattan.jpg")
 ```
 
 
-This can also be illustrated using scatter plot. Here we see that we are very good at finding estimates of very extreme effects, though it is much more difficult to for the association analysis around the middle. Again this method very much out performs normal `vignette("GWAS")`. 
+This can also be illustrated using scatter plot. Here we see that we are very good at finding estimates of very extreme effects, though it is much more difficult to for the association analysis around the middle. Again this method very much outperforms normal `vignette("GWAS")`. 
 
 ```{r echo=T, results='hide', , fig.show='hide'}
 scatter_plot(gwas_summary = LTFH_summary, beta = beta)
