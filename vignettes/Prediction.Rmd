@@ -152,7 +152,6 @@ Using the same method as above we can see that the correlation between the genet
 
 ```{r, echo = FALSE}
 knitr::include_graphics("prs_pheno.jpg")
-
 ```
 
 
