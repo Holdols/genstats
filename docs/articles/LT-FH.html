@@ -102,7 +102,7 @@ the outcome of running the Gibbs sampler for the configurations (0,0,0),
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="fu"><a href="../reference/control_plot.html">control_plot</a></span><span class="op">(</span>phenos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, h2 <span class="op">=</span> <span class="fl">0.5</span>, col <span class="op">=</span> <span class="st">"royalblue"</span><span class="op">)</span>,
                         <span class="fu"><a href="../reference/control_plot.html">control_plot</a></span><span class="op">(</span>phenos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span>, h2 <span class="op">=</span> <span class="fl">0.5</span>, col <span class="op">=</span> <span class="st">"mediumorchid"</span><span class="op">)</span>,
-                        <span class="fu"><a href="../reference/control_plot.html">control_plot</a></span><span class="op">(</span>phenos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, h2 <span class="op">=</span> <span class="fl">0.5</span>, col <span class="op">=</span> <span class="st">"firebrick"</span><span class="op">)</span>, heights <span class="op">=</span> <span class="fl">0.5</span>, name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Plots for configuration (0,0,0), (0,0,1), (1,1,1)"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+                        <span class="fu"><a href="../reference/control_plot.html">control_plot</a></span><span class="op">(</span>phenos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, h2 <span class="op">=</span> <span class="fl">0.5</span>, col <span class="op">=</span> <span class="st">"firebrick"</span><span class="op">)</span>, heights <span class="op">=</span> <span class="fl">0.5</span>, top <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Plots for configuration (0,0,0), (0,0,1), (1,1,1)"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="LT-FH_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
 <p>Using the estimates of genetic liabilities instead of the phenotypes
 as target vector can be very beneficial. We are going to run through an
@@ -111,8 +111,8 @@ example of this in the next section.</p>
 <h2 id="using-ltfh">Using LTFH<a class="anchor" aria-label="anchor" href="#using-ltfh"></a>
 </h2>
 <p>In the following tutorial a file is used which have been generated
-using the method described in ‘vignette(“Simulation”)’. First we load
-the data. We have here simulated <span class="math inline">\(1e^4\times1e^4\)</span> data points using two
+using the method described in <code><a href="../articles/Simulation.html">vignette("Simulation")</a></code>. First
+we load the data. We have here simulated <span class="math inline">\(1e^4\times1e^4\)</span> data points using two
 siblings. In the following 100 SNPs has a casual effect. This data is
 only used to show case the method and illustrate how the package can be
 used. If the methods should be used to actual statistical analysis we
@@ -159,7 +159,7 @@ subjects genetic liabilities as a new column.</p>
 <td align="center">-0.34</td>
 <td align="center">-0.71</td>
 <td align="center">0</td>
-<td align="center">-0.13</td>
+<td align="center">-0.12</td>
 <td align="center">0</td>
 <td align="center">0</td>
 <td align="center">0</td>
@@ -169,7 +169,7 @@ subjects genetic liabilities as a new column.</p>
 <td align="center">1.43</td>
 <td align="center">0.49</td>
 <td align="center">0</td>
-<td align="center">0.31</td>
+<td align="center">0.32</td>
 <td align="center">0</td>
 <td align="center">0</td>
 <td align="center">1</td>
@@ -179,7 +179,7 @@ subjects genetic liabilities as a new column.</p>
 <td align="center">-1.08</td>
 <td align="center">-0.34</td>
 <td align="center">0</td>
-<td align="center">-0.13</td>
+<td align="center">-0.12</td>
 <td align="center">0</td>
 <td align="center">0</td>
 <td align="center">0</td>
@@ -189,7 +189,7 @@ subjects genetic liabilities as a new column.</p>
 <td align="center">1.27</td>
 <td align="center">0.58</td>
 <td align="center">0</td>
-<td align="center">-0.13</td>
+<td align="center">-0.12</td>
 <td align="center">0</td>
 <td align="center">0</td>
 <td align="center">0</td>
@@ -199,7 +199,7 @@ subjects genetic liabilities as a new column.</p>
 <td align="center">0.31</td>
 <td align="center">1.01</td>
 <td align="center">0</td>
-<td align="center">0.34</td>
+<td align="center">0.31</td>
 <td align="center">1</td>
 <td align="center">0</td>
 <td align="center">0</td>
@@ -209,7 +209,7 @@ subjects genetic liabilities as a new column.</p>
 <td align="center">-0.51</td>
 <td align="center">0.13</td>
 <td align="center">0</td>
-<td align="center">-0.13</td>
+<td align="center">-0.12</td>
 <td align="center">0</td>
 <td align="center">0</td>
 <td align="center">0</td>
@@ -219,7 +219,7 @@ subjects genetic liabilities as a new column.</p>
 <td align="center">0.32</td>
 <td align="center">0.10</td>
 <td align="center">0</td>
-<td align="center">-0.13</td>
+<td align="center">-0.12</td>
 <td align="center">0</td>
 <td align="center">0</td>
 <td align="center">0</td>
@@ -229,7 +229,7 @@ subjects genetic liabilities as a new column.</p>
 <td align="center">0.58</td>
 <td align="center">0.77</td>
 <td align="center">0</td>
-<td align="center">0.86</td>
+<td align="center">0.85</td>
 <td align="center">1</td>
 <td align="center">0</td>
 <td align="center">1</td>
@@ -239,7 +239,7 @@ subjects genetic liabilities as a new column.</p>
 <td align="center">0.23</td>
 <td align="center">-0.26</td>
 <td align="center">0</td>
-<td align="center">-0.13</td>
+<td align="center">-0.12</td>
 <td align="center">0</td>
 <td align="center">0</td>
 <td align="center">0</td>
@@ -249,7 +249,7 @@ subjects genetic liabilities as a new column.</p>
 <td align="center">-1.47</td>
 <td align="center">-0.98</td>
 <td align="center">0</td>
-<td align="center">-0.13</td>
+<td align="center">-0.12</td>
 <td align="center">0</td>
 <td align="center">0</td>
 <td align="center">0</td>
@@ -385,7 +385,7 @@ better.</p>
 <p>This can also be illustrated using scatter plot. Here we see that we
 are very good at finding estimates of very extreme effects, though it is
 much more difficult to for the association analysis around the middle.
-Again this method very much out performs normal
+Again this method very much outperforms normal
 <code><a href="../articles/GWAS.html">vignette("GWAS")</a></code>.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/scatter_plot.html">scatter_plot</a></span><span class="op">(</span>gwas_summary <span class="op">=</span> <span class="va">LTFH_summary</span>, beta <span class="op">=</span> <span class="va">beta</span><span class="op">)</span></code></pre></div>
