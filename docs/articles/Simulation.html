@@ -45,6 +45,7 @@
     <a class="dropdown-item" href="../articles/GWAS.html">GWAS</a>
     <a class="dropdown-item" href="../articles/Gibbs-sampler.html">Gibbs sampler</a>
     <a class="dropdown-item" href="../articles/LT-FH.html">LT-FH</a>
+    <a class="dropdown-item" href="../articles/Comparison.html">Comparison between GWAS and LT-FH</a>
     <a class="dropdown-item" href="../articles/Prediction.html">Prediction</a>
   </div>
 </li>
@@ -86,23 +87,23 @@
 <div class="section level2">
 <h2 id="simulation-without-family-history">Simulation without family history<a class="anchor" aria-label="anchor" href="#simulation-without-family-history"></a>
 </h2>
-<p>The package offers different methods of simulating data. First we are
-going to show how to simply get out the genotypes of N subjects and the
-genetic and full liabilities. We are here using a small scale test, but
-we recommend that if the data should be used for actual statistic
-analysis that at least <span class="math inline">\(10^4\times10^4\)</span> data points are
-simulated.</p>
+<p>The package offers different methods of simulating data. First, we
+are going to show how to simply get out the genotypes of N subjects and
+the genetic and full liabilities. We are using a small scale test, but
+if the data are going to be used for actual statistical analysis, we
+recommend that at least <span class="math inline">\(10^4\times10^4\)</span> data points are simulated.
+Further information about the parameters can be found here
+<code><a href="../reference/gen_sim.html">?gen_sim</a></code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/gen_sim.html">gen_sim</a></span><span class="op">(</span><span class="st">'simple_sim_example'</span>, N<span class="op">=</span><span class="fl">1000</span>, M<span class="op">=</span><span class="fl">1000</span>, C<span class="op">=</span><span class="fl">50</span>, block_size <span class="op">=</span> <span class="fl">100</span>, fam<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
-<p>Now there will exist a rds file in the working directory with the
-data, which we will load.</p>
+<code class="sourceCode R"><span class="fu"><a href="../reference/gen_sim.html">gen_sim</a></span><span class="op">(</span><span class="st">'simple_sim_example'</span>, N<span class="op">=</span><span class="fl">1000</span>, M<span class="op">=</span><span class="fl">1000</span>, K <span class="op">=</span> <span class="fl">0.05</span>, h2 <span class="op">=</span> <span class="fl">0.5</span>, C<span class="op">=</span><span class="fl">50</span>, block_size <span class="op">=</span> <span class="fl">100</span>, fam<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<p>Now there exists a rds file in the working directory with the data,
+which we will load.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">simple_data</span> <span class="op">=</span> <span class="fu"><a href="../reference/snp_attach.html">snp_attach</a></span><span class="op">(</span><span class="st">'simple_sim_example.rds'</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">simple_data</span><span class="op">)</span>
 <span class="co">#&gt; [1] "list"</span></code></pre></div>
-<p>Looking at the data we see that the file contains a list. We can here
-find the genotypes (G), information for each SNP (map) and liabilities
-(fam).</p>
+<p>Looking at the data the file contains a list. Here the genotypes (G),
+information for each SNP (map) and liabilities (fam) can be found.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">d1</span> <span class="op">=</span> <span class="va">simple_data</span><span class="op">$</span><span class="va">genotypes</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>
 <span class="va">d2</span> <span class="op">=</span> <span class="va">simple_data</span><span class="op">$</span><span class="va">map</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="op">]</span>
@@ -333,12 +334,19 @@ find the genotypes (G), information for each SNP (map) and liabilities
 </table>
 </td>
 </tr></tbody></table>
-<p>Here the effect of a each causal snip is of the distribution <span class="math inline">\(\mathcal{N}\left( 0, \frac{h^2}{c}\right)\)</span>
-and the each minor allele is of the distribution <span class="math inline">\(unif(0.01, 0.49)\)</span>. Using the function
-dist_check() we can see if the distribution of the full liabilities is
-as expected, which is standard normal. We are here using a small test
-set and we cannot expect the the mean and variance to be close to 0 and
-1.</p>
+<p>Each SNP is sampled from the distribution <span class="math inline">\(binom(2, MAF_j)\)</span>, the effect of a each
+causal SNP is sampled from the distribution <span class="math inline">\(\mathcal{N}\left( 0, \frac{h^2}{c}\right)\)</span>
+and each minor allele frequency (MAF) is sampled from the distribution
+<span class="math inline">\(unif(0.01, 0.49)\)</span>. The liabilities
+is computed by <span class="math inline">\(l_g =X \beta\)</span> and
+<span class="math inline">\(l_f = l_g + l_e\)</span> with the following
+distributions. <span class="math inline">\(l_g \sim \mathcal{N}(0,
+h^2),\ l_e \sim \mathcal{N}(0, 1-h^2)\ \text{and}\ l_f \sim
+\mathcal{N}(0,1)\)</span>. To clarify <span class="math inline">\(h^2\)</span> is defined as the variation in
+genetic liability. Using the function dist_check() we can see whether
+the distribution of the full liabilities is as expected, which is
+standard normal. We are using a small test set and we cannot expect the
+the mean and variance to be close to 0 and 1.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/dist_check.html">dist_check</a></span><span class="op">(</span><span class="va">simple_data</span><span class="op">)</span></code></pre></div>
 <p><img src="Simulation_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
@@ -346,10 +354,10 @@ set and we cannot expect the the mean and variance to be close to 0 and
 <span class="co">#&gt;   -0.552989    1.634673</span></code></pre>
 <p>We can see that the mean and variance differ a lot from 0 and 1, as
 stated this a a very small data set but with a larger simulation the
-distribution will come a lot closer to the expected values, the qqplot
+distribution will become a lot closer to the expected values. The qqplot
 however resembles a normal distribution. It is now possible to perform
 GWAS for association analysis <code><a href="../articles/GWAS.html">vignette("GWAS")</a></code> or use the
-genotypes for prediction `<code><a href="../articles/Prediction.html">vignette("Prediction")</a></code>.</p>
+genotypes for prediction <code><a href="../articles/Prediction.html">vignette("Prediction")</a></code>.</p>
 </div>
 <div class="section level2">
 <h2 id="simulation-with-family-history">Simulation with family history<a class="anchor" aria-label="anchor" href="#simulation-with-family-history"></a>
@@ -588,8 +596,8 @@ before.</p>
 <span class="co">#&gt;  -0.0031872   0.9506856</span></code></pre>
 <p>Now that a larger data set have been simulated the mean and variance
 is a lot closer to the expected values of the liabilities and the
-qqplots for each liability clearly resembles a normal distribution. Now
-this data is ready to be analysed using LTFH
+qqplots for each liability clearly resembles a normal distribution. This
+data is therefore ready to be analysed using LTFH
 <code><a href="../articles/LT-FH.html">vignette("LT-FH")</a></code> or used in predictive analysis
 <code><a href="../articles/Prediction.html">vignette("Prediction")</a></code>.</p>
 </div>
