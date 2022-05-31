@@ -106,7 +106,7 @@ We will choose a boundary around 0.25. We are now ready to create a prediction.
 
 
 ## Prediction using PRS
-Using this we can create our model. We are only using a linear regression, since we are using LT-FH estimates as our target vector.
+Using this we can create our model. We are only using a linear regression since we are using LT-FH estimates as our target vector.
 ```{r echo=T, results='hide', fig.show='hide'}
 ltfh_model = pred_model(train_data = train_set, y = y_ltfh, thr = 3, LogReg = FALSE)
 ```
@@ -115,7 +115,7 @@ ltfh_model = pred_model(train_data = train_set, y = y_ltfh, thr = 3, LogReg = FA
 knitr::include_graphics("prs_est_train.jpg")
 ```
 
-And creating our predictions
+And creating our predictions.
 
 ```{r echo=T, results='hide'}
 pred = prediction(test_data = test_set, gwas = ltfh_model, thr = 3)
