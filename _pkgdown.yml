@@ -17,7 +17,7 @@ navbar:
         href: articles/Gibbs-sampler.html
       - text: "LT-FH"
         href: articles/LT-FH.html
-      - text: "LT-FH"
+      - text: "Comparison between GWAS and LT-FH"
         href: articles/Comparison.html
       - text: "Prediction"
         href: articles/Prediction.html
