@@ -65,7 +65,7 @@ df %>%
 ```{r}
 knitr::include_graphics("confusion_comparison.jpg")
 ```
-GWAS using linear regression and logistic regression performs exactly the same, and LT-FH outperforms both correctly idenftifies twice the amount of causal SNPs.
+GWAS using linear regression and logistic regression performs exactly the same. LT-FH outperforms both correctly idenftifies twice the amount of causal SNPs.
 
 
 
@@ -139,7 +139,7 @@ gridExtra::grid.arrange(plt_gwas_man_m,
 ```{r, echo = FALSE}
 knitr::include_graphics("man_compare.jpg")
 ```
-Again both linear and logistic regression seem very alike, and LT-FH outperforms both.
+Again both linear and logistic regression seem very alike and LT-FH outperforms both.
 
 ### Scatter plot
 ```{r echo=T, results='hide', fig.show='hide'}
@@ -164,7 +164,7 @@ gridExtra::grid.arrange(plt_gwas_scat_s,
 ```{r, echo = FALSE}
 knitr::include_graphics("scat_compare.jpg")
 ```
-Again we would like the spread of data to be around the y = x line, and from these plot LT-FH is closer to the line than GWAS.
+Again we would like the spread of data to be around the identity line and from these plot LT-FH is closer to the line than GWAS.
 
 
 
