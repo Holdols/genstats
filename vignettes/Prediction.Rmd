@@ -18,7 +18,19 @@ library(tidyverse)
 ```
 
 
-## Introduction to PRS 
+## Introduction to PRS
+
+PRS, which stands for polygenic risk score, is a value, which can be used to indicate whether a person has a genetic liability for a given sickness. PRS summarises the estimated effect of each SNP and is given by the following.
+
+$$
+PRS_i = \sum_{j=1}^{M}\hat{\beta_j} X_{ij}
+$$
+Where $X$ is the genotype matrix and $\hat{\beta_j}$ is the estimated effect of casual SNPs. However not every casual estimate might be relevant to consider, which gives place to the following modification.
+
+$$
+PRS_i = \sum_{j=1}^{M}X_{ij}\;\hat{\beta_j} D_j, \quad \text{where}\;\; D_j = \begin{cases} 1 \;\; \text{if}\;\;p_j>\mathcal{T}\\  0 \;\; \text{if}\;\; p_j\leq \mathcal{T}\end{cases}
+$$
+Where $\mathcal{T}$ is the threshold used for which the p-value has to be greater for the SNP to be estimated casual.
 
 In prediction we use a training set and a test set. We are in the following section going to show a method which uses LT-FH estimates as its target vectors. For more information about this association method see `vignette("LT-FH")`) .
 ```{r}
