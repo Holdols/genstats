@@ -50,22 +50,22 @@ prs_plot = function(PRS, data, method='MSE'){
   }) %>% bind_rows
 
   plt1 = df %>%
-      ggplot(ggplot2::aes(y=Eval, x=Threshold)) +
-      ggplot2::geom_point() +
-      ggplot2::geom_line()+
-      ggplot2::xlab('Threshold for p value') +
-      ggplot2::ylab(method) +
-      ggplot2::facet_wrap(~fold)
+    ggplot2::ggplot(ggplot2::aes(y=Eval, x=Threshold)) +
+    ggplot2::geom_point() +
+    ggplot2::geom_line()+
+    ggplot2::xlab('Threshold for p value') +
+    ggplot2::ylab(method) +
+    ggplot2::facet_wrap(~fold)
 
   plt2 = df %>%
-      dplyr::group_by(Threshold) %>%
-      dplyr::summarise('mean_Eval'=mean(Eval), 'sd'=sd(Eval)) %>%
-      ggplot2::ggplot(ggplot2::aes(y=mean_Eval, x=Threshold)) +
-      ggplot2::geom_point() +
-      ggplot2::geom_line() +
-      ggplot2::xlab('Threshold for p value') +
-      ggplot2::ylab(paste0('Mean ', method)) +
-      ggplot2::geom_errorbar(ggplot2::aes(ymin=mean_Eval-sd, ymax=mean_Eval+sd), width=.2, position=position_dodge(0.05))
+    dplyr::group_by(Threshold) %>%
+    dplyr::summarise('mean_Eval'=mean(Eval), 'sd'=sd(Eval)) %>%
+    ggplot2::ggplot(ggplot2::aes(y=mean_Eval, x=Threshold)) +
+    ggplot2::geom_point() +
+    ggplot2::geom_line() +
+    ggplot2::xlab('Threshold for p value') +
+    ggplot2::ylab(paste0('Mean ', method)) +
+    ggplot2::geom_errorbar(ggplot2::aes(ymin=mean_Eval-sd, ymax=mean_Eval+sd), width=.2, position=ggplot2::position_dodge(0.05))
 
   return(list('fold'=plt1, 'mean'=plt2))
 }
@@ -183,7 +183,7 @@ LTFH_plot = function(LTFH_est, gaps=1){
 
   plot + geom_text(data=min_df,
                    ggplot2::aes(x=mean+sequence/5, y=min(min_)+sequence-0.5, label=conf, color=conf),  size = 3) +
-    geom_segment(data=min_df, ggplot2::aes(x=mean+sequence/5-0.09, y=min(min_)+sequence-0.49, xend=mean, yend=min_, color=conf))
+    ggplot2::geom_segment(data=min_df, ggplot2::aes(x=mean+sequence/5-0.09, y=min(min_)+sequence-0.49, xend=mean, yend=min_, color=conf))
 
 }
 

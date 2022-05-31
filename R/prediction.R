@@ -71,7 +71,7 @@ pred_model = function(train_data, y, thr, ncores = 1, LogReg = FALSE){
 
   print(train_data$fam %>%
           ggplot2::ggplot(ggplot2::aes(x=prs_, y=y)) +
-          ggplot2::geom_point(aes(color=as.character(pheno_0)), alpha = 0.4) +
+          ggplot2::geom_point(ggplot2::aes(color=as.character(pheno_0)), alpha = 0.4) +
           ggplot2::xlab('PRS') +
           ggplot2::ylab('Estimated genetic liability or phenotype') +
           ggplot2::labs(color='Phenotype'))
