@@ -12,13 +12,13 @@ informative basis for statistical anaysis. We have therefore through
 some assumptions provided method for simulating genetic data which can
 be used for both association analysis and predictive statistics. The
 package provides standard methods for association analysis such as GWAS
-and LT-FH. Moreover have we provided a method which can be used to
-predict, based on the subjects genotypes. Furthermore the structure of
-simulated data is easy to use in combination with dplyr and it is
-therefor easy to implement your own methods. This also means that the
-functions are very dependent on column names. It is therefore important
-if this package is used with data not simulated by genstats, that the
-columns match the following standard.
+and LT-FH. Furthermore, we have provided a method which can be used to
+predict the phenotypes of individuals, based on the their genotypes. The
+structure of simulated data is easy to use in combination with dplyr and
+it is therefore easy to implement your own methods. This also means that
+the functions are very dependent on column names. It is therefore
+important if this package is used with data not simulated by genstats,
+that the columns match the following column names.
 
 ``` r
 genstats::get_names(c('l', 'l_g', 'pheno'), n_sib = 1)
