@@ -45,6 +45,7 @@
     <a class="dropdown-item" href="../articles/GWAS.html">GWAS</a>
     <a class="dropdown-item" href="../articles/Gibbs-sampler.html">Gibbs sampler</a>
     <a class="dropdown-item" href="../articles/LT-FH.html">LT-FH</a>
+    <a class="dropdown-item" href="../articles/Comparison.html">Comparison between GWAS and LT-FH</a>
     <a class="dropdown-item" href="../articles/Prediction.html">Prediction</a>
   </div>
 </li>
@@ -80,7 +81,6 @@
 
     
     
-<p>We use the following packages in this vignette.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://holdols.github.io/genstats" class="external-link">genstats</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://privefl.github.io/bigsnpr/" class="external-link">bigsnpr</a></span><span class="op">)</span>
@@ -93,7 +93,7 @@ subject, it’s parent or siblings have the given trait or sickness. Using
 this estimate an updated expected value for the genetic liability can be
 obtained.</p>
 <p>LTFH is based on a sampling using Monte Carlo integration. More
-information about the process can be found here
+information about the process can be found in
 <code><a href="../articles/Gibbs-sampler.html">vignette("Gibbs-sampler")</a></code>. Below is shown three plots with
 the estimated posterior mean genetic liabilities compared to the
 standard normal distribution of the genetic liability. The plots shows
@@ -107,8 +107,8 @@ the outcome of running the Gibbs sampler for the configurations (0,0,0),
                         ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
 <p><img src="LT-FH_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
 <p>Using the estimates of genetic liabilities instead of the phenotypes
-as target vector can be very beneficial. We are going to run through an
-example of this in the next section.</p>
+as the target vector can be very beneficial. We are going to run through
+an example of this in the next section.</p>
 <div class="section level2">
 <h2 id="using-ltfh">Using LTFH<a class="anchor" aria-label="anchor" href="#using-ltfh"></a>
 </h2>
@@ -120,13 +120,10 @@ only used to show case the method and illustrate how the package can be
 used. If the methods should be used to actual statistical analysis we
 recommend simulating <span class="math inline">\(1e^5\times1e^5\)</span>
 data points with about 500-1000 casual SNPs. For practical reasons we
-have not been apple to show case the analysis. We have included pictures
+have not been able to show case the analysis. We have included pictures
 to illustrate the results on <span class="math inline">\(1e^5\times1e^5\)</span> data.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># The rds file containing simulated data is loaded</span>
-<span class="va">genetic_data</span> <span class="op">=</span> <span class="fu"><a href="../reference/snp_attach.html">snp_attach</a></span><span class="op">(</span><span class="st">'genetic_data.rds'</span><span class="op">)</span>
-
-<span class="co"># We save the genotypes and beta for later use</span>
+<code class="sourceCode R"><span class="va">genetic_data</span> <span class="op">=</span> <span class="fu"><a href="../reference/snp_attach.html">snp_attach</a></span><span class="op">(</span><span class="st">'genetic_data.rds'</span><span class="op">)</span>
 <span class="va">G</span> <span class="op">=</span> <span class="va">genetic_data</span><span class="op">$</span><span class="va">genotypes</span>
 <span class="va">beta</span> <span class="op">=</span> <span class="va">genetic_data</span><span class="op">$</span><span class="va">map</span><span class="op">$</span><span class="va">beta</span></code></pre></div>
 <p>We now run LT-FH and as we can see we get the estimates for each
@@ -171,7 +168,7 @@ subjects genetic liabilities as a new column.</p>
 <td align="center">1.43</td>
 <td align="center">0.49</td>
 <td align="center">0</td>
-<td align="center">0.32</td>
+<td align="center">0.29</td>
 <td align="center">0</td>
 <td align="center">0</td>
 <td align="center">1</td>
@@ -201,7 +198,7 @@ subjects genetic liabilities as a new column.</p>
 <td align="center">0.31</td>
 <td align="center">1.01</td>
 <td align="center">0</td>
-<td align="center">0.34</td>
+<td align="center">0.33</td>
 <td align="center">1</td>
 <td align="center">0</td>
 <td align="center">0</td>
@@ -260,8 +257,9 @@ subjects genetic liabilities as a new column.</p>
 </tbody>
 </table>
 <p>How the estimated expected genetic liability match the actual values
-of l_g_0 can be show by plotting estimated vs true. The plot below is
-done only with subject and parent to get a more clear plot.</p>
+of l_g_0 can be shown by plotting estimated value vs the true. The plot
+below is done only with subject and parent to get a more illustrative
+plot.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">genetic_data_nosib</span> <span class="op">=</span> <span class="va">genetic_data</span>
 
@@ -365,7 +363,7 @@ estimate the causal effect of each SNP see
 where we can see which SNPs is estimated as casual. We are using
 Bonferroni correction to lower the amount of false positive causal SNP.
 And since we have <span class="math inline">\(10^4\)</span> individuals
-we will use <span class="math inline">\(p==5e\cdot 10^{-6}\)</span>.</p>
+we will use <span class="math inline">\(p=5e\cdot 10^{-6}\)</span>.</p>
 </div>
 <div class="section level2">
 <h2 id="outcome-for-realistic-data">Outcome for realistic data<a class="anchor" aria-label="anchor" href="#outcome-for-realistic-data"></a>

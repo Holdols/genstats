@@ -45,6 +45,7 @@
     <a class="dropdown-item" href="../articles/GWAS.html">GWAS</a>
     <a class="dropdown-item" href="../articles/Gibbs-sampler.html">Gibbs sampler</a>
     <a class="dropdown-item" href="../articles/LT-FH.html">LT-FH</a>
+    <a class="dropdown-item" href="../articles/Comparison.html">Comparison between GWAS and LT-FH</a>
     <a class="dropdown-item" href="../articles/Prediction.html">Prediction</a>
   </div>
 </li>
@@ -101,6 +102,24 @@ illustrate how found the results we show.</p>
 <div class="section level2">
 <h2 id="introduction-to-prs">Introduction to PRS<a class="anchor" aria-label="anchor" href="#introduction-to-prs"></a>
 </h2>
+<p>PRS, which stands for polygenic risk score, is a value, which can be
+used to indicate whether a person has a genetic liability for a given
+sickness. PRS summarises the estimated effect of each SNP and is given
+by the following.</p>
+<p><span class="math display">\[
+PRS_i = \sum_{j=1}^{M}\hat{\beta_j} X_{ij}
+\]</span> Where <span class="math inline">\(X\)</span> is the genotype
+matrix and <span class="math inline">\(\hat{\beta_j}\)</span> is the
+estimated effect of casual SNPs. However not every casual estimate might
+be relevant to consider, which gives place to the following
+modification.</p>
+<p><span class="math display">\[
+PRS_i = \sum_{j=1}^{M}X_{ij}\;\hat{\beta_j} D_j, \quad \text{where}\;\;
+D_j = \begin{cases} 1 \;\; \text{if}\;\;p_j&gt;\mathcal{T}\\  0 \;\;
+\text{if}\;\; p_j\leq \mathcal{T}\end{cases}
+\]</span> Where <span class="math inline">\(\mathcal{T}\)</span> is the
+threshold used for which the p-value has to be greater for the SNP to be
+estimated casual.</p>
 <p>In prediction we use a training set and a test set. We are in the
 following section going to show a method which uses LT-FH estimates as
 its target vectors. For more information about this association method
@@ -137,10 +156,10 @@ the training data.</p>
 <p>Looking at the above plot we find that the optimal threshold for the
 p-value is around 3. Next we would like to know for which value of PRS
 as a decision boundary we could expect the best result. We not
-considering how may false negatives we experience. It is much more
-important that the amount of false positives is very low. Like GWAS or
-LT-FH would we prefer a much more conservative prediction. We are using
-cross validation again with the following output for the <span class="math inline">\(10^5\times10^3\)</span> matrix.</p>
+considering how may false negatives we experience. It is more important
+that the amount of false positives is very low. Like GWAS or LT-FH we
+would prefer a much more conservative prediction. We are using cross
+validation again with the following output for the <span class="math inline">\(10^5\times10^3\)</span> matrix.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/decision_cross.html">decision_cross</a></span><span class="op">(</span>train_data <span class="op">=</span> <span class="va">train_set</span>, y <span class="op">=</span> <span class="va">y_ltfh</span>, cross_folds <span class="op">=</span> <span class="fl">4</span>, bounds<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="fl">0.01</span><span class="op">)</span>, thr <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></code></pre></div>
 <p><img src="decision.jpg"><!-- --></p>
@@ -151,14 +170,14 @@ prediction.</p>
 <h2 id="prediction-using-prs">Prediction using PRS<a class="anchor" aria-label="anchor" href="#prediction-using-prs"></a>
 </h2>
 <p>Using this we can create our model. We are only using a linear
-regression, since we are using LT-FH estimates as our target vector.</p>
+regression since we are using LT-FH estimates as our target vector.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ltfh_model</span> <span class="op">=</span> <span class="fu"><a href="../reference/pred_model.html">pred_model</a></span><span class="op">(</span>train_data <span class="op">=</span> <span class="va">train_set</span>, y <span class="op">=</span> <span class="va">y_ltfh</span>, thr <span class="op">=</span> <span class="fl">3</span>, LogReg <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <p><img src="prs_est_train.jpg"><!-- --></p>
-<p>And creating our predictions</p>
+<p>And creating our predictions.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pred</span> <span class="op">=</span> <span class="fu"><a href="../reference/prediction.html">prediction</a></span><span class="op">(</span>test_data <span class="op">=</span> <span class="va">test_set</span>, gwas <span class="op">=</span> <span class="va">ltfh_model</span>, thr <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></code></pre></div>
-<p>We know use the value we found for the decision boundary and we have
+<p>Now we use the value we found for the decision boundary and we have
 the following result.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">preds</span> <span class="op">=</span> <span class="op">(</span><span class="va">pred</span> <span class="op">&gt;</span> <span class="fl">0.25</span><span class="op">)</span><span class="op">-</span><span class="fl">0</span>
@@ -170,6 +189,10 @@ the following result.</p>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"%1.0f"</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span>, vjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_gradient.html" class="external-link">scale_fill_gradient</a></span><span class="op">(</span>high <span class="op">=</span> <span class="st">"firebrick"</span>, low <span class="op">=</span> <span class="st">'dodgerblue3'</span>, trans<span class="op">=</span><span class="st">'pseudo_log'</span><span class="op">)</span></code></pre></div>
 <p><img src="result_decision.jpg"><!-- --></p>
+<p>However this is a suboptimal way of using PRS. Only using PRS to
+predict phenotypes is risky and out of 1072 cases only 6 is correctly
+identified and 2 of the controls are predicted as cases. So <span class="math inline">\(\frac{1}{4}\)</span> of the case predictions are
+wrong. In the next section we will discuss a better use for PRS.</p>
 </div>
 <div class="section level2">
 <h2 id="documentation">Documentation<a class="anchor" aria-label="anchor" href="#documentation"></a>
@@ -180,16 +203,17 @@ subject has a very low genetic liability, but high environmental
 liability we can of course not catch this with PRS. We are therefore
 going to plot the PRS against the genetic liability.</p>
 <p><img src="prs_true_train.jpg"><!-- --></p>
-<p>We can see from the above plot that these two values are very
-correlated. It is therefore reasonable to add PRS as a controlling
-variable when prediction studies is performed. We can also plot the PRS
-of the test set.</p>
+<p>We can see from the above plot that these two values are strongly
+correlated. We can also plot the PRS of the test set.</p>
 <p><img src="prs_true_test.jpg"><!-- --></p>
 <p>As expected boundary between cases and non cases is a bit less clear,
 but we still see a very high correlation.</p>
+<p>It is therefore reasonable to add PRS as a controlling variable when
+prediction studies is performed, this could be with other variables such
+as age, sex, BMI etc.</p>
 </div>
 <div class="section level2">
-<h2 id="using-phenotypes-instead-of-lt-fh-estimates">USing phenotypes instead of LT-FH estimates<a class="anchor" aria-label="anchor" href="#using-phenotypes-instead-of-lt-fh-estimates"></a>
+<h2 id="using-phenotypes-instead-of-lt-fh-estimates">Using phenotypes instead of LT-FH estimates<a class="anchor" aria-label="anchor" href="#using-phenotypes-instead-of-lt-fh-estimates"></a>
 </h2>
 <p>We have in the above used LT-FH estimates in our prediction. We have
 done this as we believe this is a superior method with higher power and
