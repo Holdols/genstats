@@ -2,7 +2,7 @@
 % Please edit documentation in R/GWAS.R
 \name{GWAS}
 \alias{GWAS}
-\title{Computes casusal SNP's}
+\title{Computes causal SNP's}
 \usage{
 GWAS(G, y, p, logreg = FALSE, ncores = 1)
 }
@@ -13,7 +13,7 @@ GWAS(G, y, p, logreg = FALSE, ncores = 1)
 
 \item{p}{The significance level.}
 
-\item{logreg}{if TRUE do logistic regression, else Linear regression.}
+\item{logreg}{If TRUE do logistic regression, else Linear regression.}
 
 \item{ncores}{Amount of cores to use.}
 }

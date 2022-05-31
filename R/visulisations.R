@@ -25,10 +25,10 @@ control_plot = function(phenos, h2, col="black"){
 
 #' Creates evaluation plot for MSE, AUC or r squared
 #'
-#'The function creates one plot for each fold in PRS.
-#'This plot will show the chosen method evaluated for each threshold.
-#'Lastly the function will plot the mean for each threshold.
-#'The function can be used to find which threshold. of p-values best can describe the data.
+#' The function creates one plot for each fold in PRS.
+#' This plot will show the chosen method evaluated for each threshold.
+#' Lastly the function will plot the mean for each threshold.
+#' The function can be used to find which threshold of p-values best can describe the data.
 #' @param PRS Output from PRS_cross.
 #' @param data List generated from gen_sim.
 #' @param method Indicates Which method each fold should be evaluated on.
@@ -72,15 +72,15 @@ prs_plot = function(PRS, data, method='MSE'){
 
 
 
-#' Creates a manhattan plot
+#' Creates a Manhattan plot
 #'
-#' This function returns a manhattan plot that vizualises the which
+#' This function returns a Manhattan plot.
 #'
 #' @param gwas_summary Output from GWAS.
 #' @param beta A vector containing the actual casual effect of each SNP.
-#' @param thresholds A vector containing p-values. The function draws a horisental
+#' @param thresholds A vector containing p-values. The function draws a horisontal
 #' line at the given values.
-#' @return A manhattan plot.
+#' @return A Manhattan plot.
 #' @importFrom magrittr "%>%"
 #' @export
 manhattan_plot = function(gwas_summary, beta, thresholds = FALSE){
@@ -99,7 +99,7 @@ manhattan_plot = function(gwas_summary, beta, thresholds = FALSE){
 }
 
 
-#' Plots true causal effects agianst estimated effects
+#' Plots true causal effects against estimated effects
 #'
 #' @param gwas_summary Output from GWAS.
 #' @param beta A vector containing the actual casual effect of each SNP.
@@ -124,7 +124,7 @@ scatter_plot = function(gwas_summary, beta){
 #' Plot the convergence of gibb_sampl
 #'
 #' @param ests Output from gibb_sampl with all_est=TRUE.
-#' @return Plots showing values at each iteration.
+#' @return Plots that shows values at each iteration.
 #' @importFrom magrittr "%>%"
 #' @export
 plot_gibbs <- function(ests){
@@ -146,6 +146,7 @@ plot_gibbs <- function(ests){
 
 #' Creates a power plot
 #'
+#' Creates a plot with values of estimates on the x-axis and power of estimates below the values on the x-axis.
 #' @param gwas_summary Output from GWAS.
 #' @param beta A vector containing the actual casual effect of each SNP.
 #' @return A power plot.
@@ -163,11 +164,11 @@ power_plot <- function(gwas_summary, beta){
 
 
 
-#' Plots estimated liabilities agianst true liabilities
+#' Plots estimated liabilities against true liabilities
 #'
 #' @param LTFH_est Output from LTFH.
-#' @param gaps Varaible for distance between labels.
-#' @return Plot of estimated liabilities agianst true liabilities.
+#' @param gaps Variable for distance between labels.
+#' @return Plot of estimated liabilities against true liabilities.
 #' @importFrom magrittr "%>%"
 #' @export
 LTFH_plot = function(LTFH_est, gaps=1){
@@ -194,16 +195,16 @@ LTFH_plot = function(LTFH_est, gaps=1){
 
 #' Creates evaluation plot for decision boundary
 #'
-#'The function creates one plot for each given bound. It shows the confusion matrix for mean of each bound.
-#'The function can be used to find which boundary for PRS best describes the data.
+#' The function creates one plot for each given bound. It shows the confusion matrix for the mean of each bound.
+#' The function can be used to find which boundary for PRS best describes the data.
 #' @param train_data List generated from gen_sim.
 #' @param y The target vector. Could either be estimated liabilities from LTFH or phenotypes.
 #' @param cross_folds Number of folds in cross validation.
 #' @param bounds Decision boundaries to plot outcome for.
-#' @param thr Treshold for p-value to be used in calculating PRS.
+#' @param thr Threshold for p-value to be used in calculating PRS.
 #' @param ncores Amount of cores to be used.
 #' @param LogReg Boolean indicating if logistic regression should be used to estimate the casual effect.
-#' @return List containing output from GWAS and Linear regression of PRS on phenotype of the subject. It
+#' @return The confusion matrix for the mean of each bound.
 #' @importFrom magrittr "%>%"
 #' @export
 decision_cross <- function(train_data, y, cross_folds, bounds, thr, ncores = 1, LogReg = FALSE){

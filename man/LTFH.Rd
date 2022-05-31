@@ -20,6 +20,6 @@ Tibble containing data$fam and estimated liabilities.
 }
 \description{
 This function takes the output from gen_sim and uses the phenotypes to estimate the genetic liability for each subject.
-The function estimated the liability for each configuration of phenotypes and joins these values on the existing dataframe.
+The function estimates the liability for each configuration of phenotypes and joins these values on the existing dataframe.
 Subjects having the same configuration will therefore have the same estimated genetic liability.
 }

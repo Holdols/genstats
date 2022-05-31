@@ -1,10 +1,10 @@
-#' Computes casusal SNP's
+#' Computes causal SNP's
 #'
 #' This function is heavily build onto bigstatsr::big_univLinReg. For more documentation check \cr https://privefl.github.io/bigstatsr/reference/big_univLinReg.html
 #' @param G A file backed matrix with SNP data.
 #' @param y A vector containing targets for each position.
 #' @param p The significance level.
-#' @param logreg if TRUE do logistic regression, else Linear regression.
+#' @param logreg If TRUE do logistic regression, else Linear regression.
 #' @param ncores Amount of cores to use.
 #' @return A matrix containing: \cr
 #'  - The slopes of each regression \cr

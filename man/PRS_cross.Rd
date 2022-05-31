@@ -21,8 +21,8 @@ PRS_cross(train_data, y, cross_folds, ncores = 1, LogReg = FALSE)
 List with estimated PRS for each fold.
 }
 \description{
-The funcion returns list of the PRS estimated of each fold for each threshold. The function will train on the remaining data and test for each fold.
-The function uses GWAS to estimate the casual SNP and uses these the find the PRS. The out will be a list containing matrices with a column for each threshold.
-The interpretation of this treshold is that a given effect of a SNP will not be included if the -log10 transformation of the p-value is is smaller than the threshold.
-Fx. a value of 3 will correspond to the p value being smaller than 0.001.
+The function returns list of the PRS estimated of each fold for each threshold. The function will train on the remaining data and test for each fold.
+The function uses GWAS to estimate the casual SNP and uses these the find the PRS. The output is a list containing matrices with a column for each threshold.
+The interpretation of this threshold is that a given effect of a SNP will not be included if the -log10 transformation of the p-value is is smaller than the threshold.
+e. g. a value of 3 will correspond to the p value being smaller than 0.001.
 }

@@ -10,7 +10,7 @@ plot_gibbs(ests)
 \item{ests}{Output from gibb_sampl with all_est=TRUE.}
 }
 \value{
-Plots showing values at each iteration.
+Plots that shows values at each iteration.
 }
 \description{
 Plot the convergence of gibb_sampl

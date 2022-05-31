@@ -1,9 +1,9 @@
 #'  Uses cross validation to train and estimate PRS for each fold
 #'
-#' The funcion returns list of the PRS estimated of each fold for each threshold. The function will train on the remaining data and test for each fold.
-#' The function uses GWAS to estimate the casual SNP and uses these the find the PRS. The out will be a list containing matrices with a column for each threshold.
-#' The interpretation of this treshold is that a given effect of a SNP will not be included if the -log10 transformation of the p-value is is smaller than the threshold.
-#' Fx. a value of 3 will correspond to the p value being smaller than 0.001.
+#' The function returns list of the PRS estimated of each fold for each threshold. The function will train on the remaining data and test for each fold.
+#' The function uses GWAS to estimate the casual SNP and uses these the find the PRS. The output is a list containing matrices with a column for each threshold.
+#' The interpretation of this threshold is that a given effect of a SNP will not be included if the -log10 transformation of the p-value is is smaller than the threshold.
+#' e. g. a value of 3 will correspond to the p value being smaller than 0.001.
 #' @param train_data List generated from gen_sim.
 #' @param y The target vector. Could either be estimated liabilities from LTFH or phenotypes.
 #' @param cross_folds Number of folds in cross validation.
@@ -52,15 +52,15 @@ PRS_cross <- function(train_data, y, cross_folds, ncores = 1, LogReg = FALSE){
 
 #' Trains model on train data given the target vector.
 #'
-#' The funcion will first use GWAS to find the casual effect of each SNP.
-#' It will then calculate the PRS and use a linear or logistic regression to estimate the phenotypes.
-#' The final output is list containing the model from GWAS and the regression. This can be used to predict the phenotypes of test data.
+#' The function will use GWAS to find the casual effect of each SNP.
+#' It will then calculate the PRS.
+#' The final output is list containing the model from GWAS. This can be used to predict the phenotypes of test data.
 #' @param train_data List generated from gen_sim.
 #' @param y The target vector. Could either be estimated liabilities from LTFH or phenotypes.
-#' @param thr Treshold for p-value to be used in calculating PRS.
+#' @param thr Threshold for p-value to be used in calculating PRS.
 #' @param LogReg Boolean indicating if logistic regression should be used to estimate the casual effect.
 #' @param ncores Amount of cores to be used.
-#' @return List containing output from GWAS and Linear regression of PRS on phenotype of the subject. It
+#' @return List containing output from GWAS and Linear regression of PRS on phenotype of the subject.
 #' @importFrom magrittr "%>%"
 #' @export
 pred_model = function(train_data, y, thr, ncores = 1, LogReg = FALSE){
@@ -83,11 +83,11 @@ pred_model = function(train_data, y, thr, ncores = 1, LogReg = FALSE){
 
 #' Predicts the probability of having the given trait
 #'
-#' The function will take outcome from pred_model() and use it an to find the estimated probability of each subject having the trait/sickness.
+#' The function will take outcome from pred_model and use it an to find the PRS of each subject having the trait/sickness.
 #' @param test_data List generated from gen_sim.
-#' @param model Output from pred_model().
-#' @param thr Treshold for p-value to be used in calculating PRS.
-#' @return Vector of estimated probabilities.
+#' @param model Output from pred_model.
+#' @param thr Threshold for p-value to be used in calculating PRS.
+#' @return A matrix containing predictions.
 #' @importFrom magrittr "%>%"
 #' @export
 prediction = function(test_data, gwas, thr) {

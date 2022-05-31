@@ -158,11 +158,11 @@ collapse_data = function(data, n_sib){
 
 #' Simulate SNP for all subjects and liabilities for family
 #'
-#' The function creates a bigsnpr object, saves it in a rds file.
-#' and fills the file backed matrix generated with geneotypes for each subject.
+#' The function creates a bigsnpr object, saves it in a rds file
+#' and fills the file backed matrix generated with genotypes for each subject.
 #' The function also returns the genetic liabilities for the parents of the subject
-#' since the parents genotypes are not saved. The liabilitiesfor the parents is therefore calculated
-#' in the same loop as genotype is simulated.
+#' since the parents genotypes are not saved. The liabilities for the parents is therefore calculated
+#' in the same loop as the genotypes is simulated.
 #' @param filename Filename for file backed matrix(FBM) and rds file.
 #' @param beta A vector containing the casual effect of each SNP.
 #' @param MAF A vector containing minor allele frequencies.
@@ -201,11 +201,10 @@ G_func_fam = function(filename, beta, MAF, N=1e5, M=1e5, n_sib = 0, block_size=1
 
 #'  Simulate SNP for all subjects
 #'
-#' The function creates a bigsnpr object, saves it in a rds file.
+#' The function creates a bigsnpr object, saves it in a rds file
 #' and fills the file backed matrix generated with geneotypes for each subject.
 #' @param filename Filename for file backed matrix(FBM) and rds file.
 #' @param MAF A vector containing minor allele frequencies.
-#' @param n_sib Amount of siblings.
 #' @param N Amount of subjects.
 #' @param block_size Size of FBM to be processed in each iteration.
 #' @return FBM containing simulated SNPs for all subjects.
@@ -343,12 +342,12 @@ MAF_func = function(M=1e5){
 
 #' Simulate beta
 #'
-#' The function simulates the casual effect of each SNP. S
-#' ince there are C causual SNPs the distribution of beta is sampled from is a normal distribution
+#' The function simulates the casual effect of each SNP. Since
+#' there are C causal SNPs the distribution of beta is sampled from is a normal distribution
 #' with zero mean and variance as the heritability divided by casual SNPs.
 #' @param C Amount of causal SNPs.
 #' @param h2 The heritability of trait.
-#' @param M size of the beta vector.
+#' @param M Size of the beta vector.
 #' @return A vector of size M containing a value from rnorm(1, 0, sqrt(h2/C)) at C random places.
 #' @export
 beta_func = function(M=1e5, h2=0.5, C=1000){
@@ -369,13 +368,13 @@ beta_func = function(M=1e5, h2=0.5, C=1000){
 #' Simulate genetic data
 #'
 #' This function is used to simulate genetic data. Using parallelization the function can simulate genotypes,
-#' liabilities both with and without family structure. The function will return a list were all information about
+#' liabilities both with and without family structure. The function will return a list where all information about
 #' the simulation can be found. This includes which SNP are casual and what their effect is, the genetic and full liabilities
 #' og subjects, parents and siblings and their phenotypes. This object can be used to further develop or test statistical analysis
 #' on genetic data.
 #' @param filename Filename for file backed matrix(FBM) and rds file.
-#' @param beta Vector containing casual effect of each SNP. If NULL a vector will be simulated
-#' @param beta Vector containing minor allele frequencies (MAF). If NULL a vector will be simulated
+#' @param beta Vector containing casual effect of each SNP. If NULL a vector will be simulated.
+#' @param MAF Vector containing minor allele frequencies (MAF). If NULL a vector will be simulated.
 #' @param h2 The heritability of trait.
 #' @param fam Boolean deciding if simulation should include a family structure.
 #' @param n_sibs Amount of siblings.
@@ -385,7 +384,7 @@ beta_func = function(M=1e5, h2=0.5, C=1000){
 #' @param M Amount of SNPs.
 #' @param block_size Size of FBM to be processed in each iteration.
 #' @param parallel_plan Plan for parallelization. See ?future::plan.
-#' @return rds file referring to a list containing FBM with genotypes, generated SNP info and information about subject and family for liabilities.
+#' @return rds file referring to a list containing FBM with genotypes, generated SNP info and information about subject and family.
 #' @export
 gen_sim = function (filename, beta=NULL, MAF= NULL, N=1e5, M=1e5, n_sib = 0, K=0.05, h2=0.5, C=1000, block_size=1000, fam = TRUE,
                     parallel_plan = "multisession") {

@@ -22,7 +22,9 @@ gen_sim(
 \arguments{
 \item{filename}{Filename for file backed matrix(FBM) and rds file.}
 
-\item{beta}{Vector containing minor allele frequencies (MAF). If NULL a vector will be simulated}
+\item{beta}{Vector containing casual effect of each SNP. If NULL a vector will be simulated.}
+
+\item{MAF}{Vector containing minor allele frequencies (MAF). If NULL a vector will be simulated.}
 
 \item{N}{Amount of subjects.}
 
@@ -43,11 +45,11 @@ gen_sim(
 \item{n_sibs}{Amount of siblings.}
 }
 \value{
-rds file referring to a list containing FBM with genotypes, generated SNP info and information about subject and family for liabilities.
+rds file referring to a list containing FBM with genotypes, generated SNP info and information about subject and family.
 }
 \description{
 This function is used to simulate genetic data. Using parallelization the function can simulate genotypes,
-liabilities both with and without family structure. The function will return a list were all information about
+liabilities both with and without family structure. The function will return a list where all information about
 the simulation can be found. This includes which SNP are casual and what their effect is, the genetic and full liabilities
 og subjects, parents and siblings and their phenotypes. This object can be used to further develop or test statistical analysis
 on genetic data.

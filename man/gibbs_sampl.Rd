@@ -39,5 +39,5 @@ The the phenotype is given by either a 0 or 1 indicating if the family member ha
 The function uses Monte Carlo integration to estimate the conditional distribution.
 }
 \examples{
-LTFH(get_cov(0.5, n_sib = 1), c(1, 1, 0, 0))
+gibbs_sampl(get_cov(0.5, n_sib = 1), c(1, 1, 0, 0))
 }

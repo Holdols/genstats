@@ -10,7 +10,7 @@ snp_attach(rds_file)
 \item{rds_file}{An rds file}
 }
 \value{
-the values from the rds file
+The values from the rds file.
 }
 \description{
 For ease of use this function is added

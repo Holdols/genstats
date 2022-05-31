@@ -23,16 +23,16 @@ decision_cross(
 
 \item{bounds}{Decision boundaries to plot outcome for.}
 
-\item{thr}{Treshold for p-value to be used in calculating PRS.}
+\item{thr}{Threshold for p-value to be used in calculating PRS.}
 
 \item{ncores}{Amount of cores to be used.}
 
 \item{LogReg}{Boolean indicating if logistic regression should be used to estimate the casual effect.}
 }
 \value{
-List containing output from GWAS and Linear regression of PRS on phenotype of the subject. It
+The confusion matrix for the mean of each bound.
 }
 \description{
-The function creates one plot for each given bound. It shows the confusion matrix for mean of each bound.
+The function creates one plot for each given bound. It shows the confusion matrix for the mean of each bound.
 The function can be used to find which boundary for PRS best describes the data.
 }

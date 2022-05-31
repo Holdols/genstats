@@ -14,13 +14,11 @@ G_func_simple(filename, MAF, N = 1e+05, M = 1e+05, block_size = 1000)
 \item{N}{Amount of subjects.}
 
 \item{block_size}{Size of FBM to be processed in each iteration.}
-
-\item{n_sib}{Amount of siblings.}
 }
 \value{
 FBM containing simulated SNPs for all subjects.
 }
 \description{
-The function creates a bigsnpr object, saves it in a rds file.
+The function creates a bigsnpr object, saves it in a rds file
 and fills the file backed matrix generated with geneotypes for each subject.
 }

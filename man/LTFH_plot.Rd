@@ -2,18 +2,18 @@
 % Please edit documentation in R/visulisations.R
 \name{LTFH_plot}
 \alias{LTFH_plot}
-\title{Plots estimated liabilities agianst true liabilities}
+\title{Plots estimated liabilities against true liabilities}
 \usage{
 LTFH_plot(LTFH_est, gaps = 1)
 }
 \arguments{
 \item{LTFH_est}{Output from LTFH.}
 
-\item{gaps}{Varaible for distance between labels.}
+\item{gaps}{Variable for distance between labels.}
 }
 \value{
-Plot of estimated liabilities agianst true liabilities.
+Plot of estimated liabilities against true liabilities.
 }
 \description{
-Plots estimated liabilities agianst true liabilities
+Plots estimated liabilities against true liabilities
 }

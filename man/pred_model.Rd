@@ -11,17 +11,17 @@ pred_model(train_data, y, thr, ncores = 1, LogReg = FALSE)
 
 \item{y}{The target vector. Could either be estimated liabilities from LTFH or phenotypes.}
 
-\item{thr}{Treshold for p-value to be used in calculating PRS.}
+\item{thr}{Threshold for p-value to be used in calculating PRS.}
 
 \item{ncores}{Amount of cores to be used.}
 
 \item{LogReg}{Boolean indicating if logistic regression should be used to estimate the casual effect.}
 }
 \value{
-List containing output from GWAS and Linear regression of PRS on phenotype of the subject. It
+List containing output from GWAS and Linear regression of PRS on phenotype of the subject.
 }
 \description{
-The funcion will first use GWAS to find the casual effect of each SNP.
-It will then calculate the PRS and use a linear or logistic regression to estimate the phenotypes.
-The final output is list containing the model from GWAS and the regression. This can be used to predict the phenotypes of test data.
+The function will use GWAS to find the casual effect of each SNP.
+It will then calculate the PRS.
+The final output is list containing the model from GWAS. This can be used to predict the phenotypes of test data.
 }

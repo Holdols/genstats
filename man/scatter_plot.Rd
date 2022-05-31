@@ -2,7 +2,7 @@
 % Please edit documentation in R/visulisations.R
 \name{scatter_plot}
 \alias{scatter_plot}
-\title{Plots true causal effects agianst estimated effects}
+\title{Plots true causal effects against estimated effects}
 \usage{
 scatter_plot(gwas_summary, beta)
 }
@@ -15,5 +15,5 @@ scatter_plot(gwas_summary, beta)
 Scatterplot of true causal effects agianst estimated effects.
 }
 \description{
-Plots true causal effects agianst estimated effects
+Plots true causal effects against estimated effects
 }

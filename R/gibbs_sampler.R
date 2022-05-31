@@ -84,7 +84,7 @@ trunc_estimate = function(j, phenos, K=0.05, mu, sigma){
 #' c(genetic_liability_subject, liability_subject, liability_parent1,
 #' liability_parent2, liability_sibling1, ..., liability_siblingN).
 #' @examples
-#' LTFH(get_cov(0.5, n_sib = 1), c(1, 1, 0, 0))
+#' gibbs_sampl(get_cov(0.5, n_sib = 1), c(1, 1, 0, 0))
 #' @export
 gibbs_sampl <- function(covmat, phenos, K = 0.05, s_val = 0, start_run=500, all_est=FALSE){
 

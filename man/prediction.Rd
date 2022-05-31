@@ -9,13 +9,13 @@ prediction(test_data, gwas, thr)
 \arguments{
 \item{test_data}{List generated from gen_sim.}
 
-\item{thr}{Treshold for p-value to be used in calculating PRS.}
+\item{thr}{Threshold for p-value to be used in calculating PRS.}
 
-\item{model}{Output from pred_model().}
+\item{model}{Output from pred_model.}
 }
 \value{
-Vector of estimated probabilities.
+A matrix containing predictions.
 }
 \description{
-The function will take outcome from pred_model() and use it an to find the estimated probability of each subject having the trait/sickness.
+The function will take outcome from pred_model and use it an to find the PRS of each subject having the trait/sickness.
 }

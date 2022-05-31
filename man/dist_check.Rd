@@ -14,10 +14,7 @@ Creates a qqplot, mean and sample variance for the liability of each family.
 }
 \description{
 The function calculates the mean and variance of each full liability returned by gen_sim().
-The assumption which the simulation is based on is that each full liability will be normaly distributed.
+The assumption which the simulation is based on is that each full liability will be normally distributed.
 The function therefore also returns the qqplot of each full liability. The purpose of this function is to provide
 certainty that the simulated data are correct.
-}
-\examples{
-dist_check(snp_attach("genetic_data.rds"))
 }

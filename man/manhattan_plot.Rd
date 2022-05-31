@@ -2,7 +2,7 @@
 % Please edit documentation in R/visulisations.R
 \name{manhattan_plot}
 \alias{manhattan_plot}
-\title{Creates a manhattan plot}
+\title{Creates a Manhattan plot}
 \usage{
 manhattan_plot(gwas_summary, beta, thresholds = FALSE)
 }
@@ -11,12 +11,12 @@ manhattan_plot(gwas_summary, beta, thresholds = FALSE)
 
 \item{beta}{A vector containing the actual casual effect of each SNP.}
 
-\item{thresholds}{A vector containing p-values. The function draws a horisental
+\item{thresholds}{A vector containing p-values. The function draws a horisontal
 line at the given values.}
 }
 \value{
-A manhattan plot.
+A Manhattan plot.
 }
 \description{
-This function returns a manhattan plot that vizualises the which
+This function returns a Manhattan plot.
 }

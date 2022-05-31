@@ -15,5 +15,5 @@ power_plot(gwas_summary, beta)
 A power plot.
 }
 \description{
-Creates a power plot
+Creates a plot with values of estimates on the x-axis and power of estimates below the values on the x-axis.
 }

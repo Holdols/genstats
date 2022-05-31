@@ -20,5 +20,5 @@ List containing two plots, one for each threshold and fold and one mean of all f
 The function creates one plot for each fold in PRS.
 This plot will show the chosen method evaluated for each threshold.
 Lastly the function will plot the mean for each threshold.
-The function can be used to find which threshold. of p-values best can describe the data.
+The function can be used to find which threshold of p-values best can describe the data.
 }
