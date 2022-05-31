@@ -115,5 +115,5 @@ power_plot(gwas_summary, beta)
 ```{r, echo = FALSE}
 knitr::include_graphics("GWASlog_power.jpg")
 ```
-Here the scatterplot has not been used since the estimates from a logistic regression is not directly comparable to the actual values. There is no noticeable difference in the manhattan plots, but from the power plots however the logistic regression seem weaker. But both of these methods are outperformed by `vignette("LT-FH")`. To see more documentation about the difference in performance beteen the association methods described see `vignette("Compariason between GWAS and LT-FH")`.
+Here the scatterplot has not been used since the estimates from a logistic regression is not directly comparable to the actual values. There is no noticeable difference in the manhattan plots, but from the power plots however the logistic regression seem weaker. But both of these methods are outperformed by `vignette("LT-FH")`. To see more documentation about the difference in performance between the association methods described see `vignette("Compariason between GWAS and LT-FH")`.
 
