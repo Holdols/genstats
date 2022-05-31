@@ -7,6 +7,13 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
 We are in this vignette showing the possibilities of using the result of association analysis in order to predict occurrence of the trait by looking at genetic data. We are in this analysis only looking at genetic data, which normally would not be case. In predicting the prevalence of trait/sickness many other factors will have to be taken into account. This could be sex, age, BMI or other potential confounding variables. We are though going to show that it is possible to create a stronger model through the use of genetic data if there of course is a strong enough heritability. We are therefore going to illustrate the method on $10^5\times10^3$ data with 500 casual SNPs with two siblings. This is not realistic, but i will show the potential of the method. Since $10^5\times10^3$ data is quite big the following code will be run on $10^4\times10^4$ data and will serve to illustrate how found the results we show.
 
 We use the following packages in this vignette.
@@ -80,10 +87,6 @@ Next we would like to know for which value of PRS as a decision boundary we coul
 
 ```{r echo=T, results='hide', fig.show='hide'}
 decision_cross(train_data = train_set, y = y_ltfh, cross_folds = 4, bounds=seq(0.2, 0.3, 0.01), thr = 3)
-```
-
-```{r, echo = FALSE}
-knitr::include_graphics("decision_cross.png")
 ```
 
 
