@@ -38,7 +38,8 @@ genstats::get_names(c('l', 'l_g', 'pheno'), n_sib = 1)
 ```
 With the amount of siblings being variable from 1 to what the computer can handle.
 
-Examples and details about each method can be found in the articles.
+Examples and details about each method can be found in the articles. Due to a large amount of data, many of the plots are included as images.
+Source code for all plots can be found in https://github.com/Holdols/genstats/blob/main/src_plots.Rmd. 
 
 
 The packages uses the method of LT-FH as described by Hujoel, M.L.A.,
