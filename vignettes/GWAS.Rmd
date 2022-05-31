@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 ## Simple association analysis
 
-Using the method of described in `vignette("Simulation")` to simulate genetic data, we can use that data to visualise both association studies and methods of prediction. In this artcle we are going to cover the use and theory of the method GWAS. GWAS, which stands for genome-wide association studies is a method used for, as the name implies, association studies. Meaning that based on large quantities of genetic data we would like to know which places on the genome is critical for developing the the given sickness or trait.  
+Using the method of described in `vignette("Simulation")` to simulate genetic data, we can use that data to visualise both association studies and methods of prediction. In this artcle we are going to cover the use and theory of GWAS. GWAS, which stands for genome-wide association studies is a method used for, as the name implies, association studies. Meaning that based on large quantities of genetic data we would like to know which places on the genome is critical for developing the the given sickness or trait.  
 
 GWAS is in simple terms a linear regression which for each SNP tries to estimate the casual effect of having a mutation on the probability of having the trait or sickenes. GWAS can therefore be written as the linear regression:
 
@@ -33,7 +33,7 @@ By default the function `?GWAS` will use a linear regression. The concept of $Y$
 
 ## Using GWAS
 
-In the following tutorial a file is used which have been generated using the method described in `vignette("Simulation")`. First we load the data. We have here simulated $10^4\times10^4$ datapoints using `fam=FALSE`. The family structure is unimportant since we are only using the trait of the subject.
+In the following tutorial a file is used which have been generated using the method described in `vignette("Simulation")`. First we load the data. We have simulated $10^4\times10^4$ datapoints using `fam=FALSE`. The family structure is unimportant since we are only using the trait of the subject.
 ```{r results='hide', warning=FALSE, message=FALSE}
 library(genstats)
 library(bigsnpr)
@@ -69,7 +69,7 @@ manhattan_plot(gwas_summary, beta, thresholds = c(5e-7, 0.05))
 knitr::include_graphics("GWAS_manhattan.jpg")
 ```
 
-This can also be illustrated using scatterplot. Here we see that we are good at finding estimates with very extreme effects, though it is much more difficult to for the association analysis around the middle. 
+This can also be illustrated using a scatterplot.
 
 ```{r echo=T, results='hide', fig.show='hide'}
 scatter_plot(gwas_summary, beta)
@@ -115,5 +115,5 @@ power_plot(gwas_summary, beta)
 ```{r, echo = FALSE}
 knitr::include_graphics("GWASlog_power.jpg")
 ```
-Here the scatterplot has not been used since the estimates from a logistic regression is not directly comparable to the actual values. There is no noticeable difference in the manhattan plots, but from the power plots however the logistic regression seem weaker. But both of these methods are outperformed by `vignette("LT-FH")`.  
+Here the scatterplot has not been used since the estimates from a logistic regression is not directly comparable to the actual values. There is no noticeable difference in the manhattan plots, but from the power plots however the logistic regression seem weaker. But both of these methods are outperformed by `vignette("LT-FH")`. To see more documentation about the difference in performance beteen the association methods described see `vignette("Compariason between GWAS and LT-FH")`.
 
