@@ -67,7 +67,7 @@ prs_plot = function(PRS, data, method='MSE'){
     ggplot2::ylab(paste0('Mean ', method)) +
     ggplot2::geom_errorbar(ggplot2::aes(ymin=mean_Eval-sd, ymax=mean_Eval+sd), width=.2, position=ggplot2::position_dodge(0.05))
 
-  return(list('fold'=plt1, 'mean'=plt2))
+  return(list('fold'=plt1, 'mean'=plt2)
 }
 
 
