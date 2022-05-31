@@ -10,14 +10,15 @@ library(genstats)
 ```
 
 ```{r}
-data = snp_attach("example_data.rds")
+#data = snp_attach("example_data.rds")
+data = snp_attach('genetic_data.rds')
 data_ltfh = LTFH(data = data, n_sib = 2, K = 0.05, h2 = 0.5)
 ```
 
 ```{r}
-gwas_summary <- GWAS(G = data$genotypes, y = data$fam$pheno_0, p = 0.05/100000, ncores = 6)
-gwaslog_summary <- GWAS(G = data$genotypes, y = data$fam$pheno_0, logreg = TRUE, p = 0.05/100000, ncores = 6)
-gwas_LTFH <- GWAS(G = data$genotypes, y = data_ltfh$l_g_est_0, p = 0.05/100000, ncores = 6)
+gwas_summary <- GWAS(G = data$genotypes, y = data$fam$pheno_0, p = 0.05/100000, ncores = 2)
+gwaslog_summary <- GWAS(G = data$genotypes, y = data$fam$pheno_0, logreg = TRUE, p = 0.05/100000, ncores = 2)
+gwas_LTFH <- GWAS(G = data$genotypes, y = data_ltfh$l_g_est_0, p = 0.05/100000, ncores = 2)
 ```
 ```{r}
 library(tidyverse)

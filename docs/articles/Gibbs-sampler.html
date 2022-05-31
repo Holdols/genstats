@@ -80,45 +80,22 @@
 
     
     
-<p>An assumption made by Hujoel et al.(2020) is that the liabilities of
-subjects and families follow a multivariate normal distribution. With
-this assumption liabilities of each family member can be estimated if
-their phenotypes are provided.</p>
-<p>These liabilities are estimated using Monte Carlo integration. In
-genstats a Gibbs sampler has been implemented, by sampling from a
-conditional distribution for each liability estimates are obtained
-iteratively. The obtained phenotypes of family members can be
-implemented in the model by sampling from a truncated normal
-distribution. To clarify if a family member is a case we know that the
-liability of the family member is above a threshold T, given a
-prevalence K. We calculate the threshold given the standard normal
-distribution.</p>
+<p>An assumption made by Hujoel et al.(2020) is that the liabilities of subjects and families follow a multivariate normal distribution. With this assumption liabilities of each family member can be estimated if their phenotypes are provided.</p>
+<p>These liabilities are estimated using Monte Carlo integration. In genstats a Gibbs sampler has been implemented, by sampling from a conditional distribution for each liability estimates are obtained iteratively. The obtained phenotypes of family members can be implemented in the model by sampling from a truncated normal distribution. To clarify if a family member is a case we know that the liability of the family member is above a threshold T, given a prevalence K. We calculate the threshold given the standard normal distribution.</p>
 <p><span class="math display">\[
 T = \Phi^{-1}(1-K)
-\]</span> The liability of person i is given by the conditional
-distribution.</p>
+\]</span> The liability of person i is given by the conditional distribution.</p>
 <p><span class="math display">\[
-L_{p_i} \mid L_{p_1}, \ldots, L_{p_{i-1}}, L_{p_{i+1}}, \ldots,  L_{p_N}
-\sim N(\mu_p, \sigma_p)
-\]</span> Using this we can sample from a truncated normal distribution.
-Given the distribution of <span class="math inline">\(L_{p_i}\)</span>
-we write the following intervals. <span class="math display">\[
-P(L_{p_i} \leq T \mid L_{p_1}, \ldots, L_{p_{i-1}}, L_{p_{i+1}},
-\ldots,  L_{p_N}) = F_{L_{p_i}}(T) \\
+L_{p_i} \mid L_{p_1}, \ldots, L_{p_{i-1}}, L_{p_{i+1}}, \ldots,  L_{p_N} \sim N(\mu_p, \sigma_p)
+\]</span> Using this we can sample from a truncated normal distribution. Given the distribution of <span class="math inline">\(L_{p_i}\)</span> we write the following intervals. <span class="math display">\[
+P(L_{p_i} \leq T \mid L_{p_1}, \ldots, L_{p_{i-1}}, L_{p_{i+1}}, \ldots,  L_{p_N}) = F_{L_{p_i}}(T) \\
 \Downarrow
 \\
 \text{if p is case}: p_{l_{p_i}} \in [F_{L_{p_i}}(T) , 1 ]\\
 \text{else}: p_{l_{p_i}} \in [0,F_{L_{p_i}}(T)] \\
 \]</span></p>
-<p>Now we sample a value <span class="math inline">\(p_{lp}\)</span>
-uniformly from one of the two intervals given the family members case.
-To get a sample for <span class="math inline">\(l_p\)</span> we set
-<span class="math inline">\(l_p = F_{L_p}^{-1}(p_{lp})\)</span>.</p>
-<p>Using Monte Carlo integration we find the conditional distribution of
-each liability. Using the assumption at liabilities follow a normal
-distribution where <span class="math inline">\(l_g\sim\mathcal{N}(0,h^2)\)</span>, <span class="math inline">\(l_e\sim\mathcal{N}(0,1-h^2)\)</span> and <span class="math inline">\(l_{full} = l_g+l_e \sim\mathcal{N}(0,1)\)</span>
-we can write the following mean and covariance matrix for the variables.
-We are here not using any siblings, but they can be added as wished.</p>
+<p>Now we sample a value <span class="math inline">\(p_{lp}\)</span> uniformly from one of the two intervals given the family members case. To get a sample for <span class="math inline">\(l_p\)</span> we set <span class="math inline">\(l_p = F_{L_p}^{-1}(p_{lp})\)</span>.</p>
+<p>Using Monte Carlo integration we find the conditional distribution of each liability. Using the assumption at liabilities follow a normal distribution where <span class="math inline">\(l_g\sim\mathcal{N}(0,h^2)\)</span>, <span class="math inline">\(l_e\sim\mathcal{N}(0,1-h^2)\)</span> and <span class="math inline">\(l_{full} = l_g+l_e \sim\mathcal{N}(0,1)\)</span> we can write the following mean and covariance matrix for the variables. We are here not using any siblings, but they can be added as wished.</p>
 <p><span class="math display">\[
 \mu =
 \begin{pmatrix}
@@ -127,7 +104,7 @@ We are here not using any siblings, but they can be added as wished.</p>
 0 \\
 0
 \end{pmatrix}, \quad
-\Sigma =
+\Sigma = 
 \begin{pmatrix}
 1-h^{2} &amp; 0 &amp; 0 &amp; 0 \\
 0 &amp; h^{2} &amp; \frac{h^{2}}{2} &amp; \frac{h^{2}}{2} \\
@@ -154,7 +131,7 @@ l_{p_{2}}
 0 \\
 0
 \end{pmatrix}, \quad
-\overline{\Sigma} =
+\overline{\Sigma} = 
 \begin{pmatrix}
 h^{2} &amp; h^{2} &amp; \frac{h^{2}}{2} &amp; \frac{h^{2}}{2} \\
 h^{2} &amp; 1 &amp; \frac{h^{2}}{2} &amp; \frac{h^{2}}{2} \\
@@ -170,10 +147,7 @@ l_{p_{1}} \\
 l_{p_{2}}
 \end{pmatrix} \sim \mathcal{N}\left(\overline{\mu},\overline{\Sigma}
 \right)
-\]</span> Using the multivariate normal the conditional distribution for
-each variable can easily be calculated. To illustrate that the simulated
-data has this distribution we will calculate the covariance matrix of
-non truncated data using a heritability of 0.5 and one sibling.</p>
+\]</span> Using the multivariate normal the conditional distribution for each variable can easily be calculated. To illustrate that the simulated data has this distribution we will calculate the covariance matrix of non truncated data using a heritability of 0.5 and one sibling.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://holdols.github.io/genstats" class="external-link">genstats</a></span><span class="op">)</span>
 
@@ -187,50 +161,43 @@ non truncated data using a heritability of 0.5 and one sibling.</p>
 <td align="right">0.50</td>
 <td align="right">0.50</td>
 <td align="right">0.25</td>
-<td align="right">0.26</td>
-<td align="right">0.26</td>
+<td align="right">0.25</td>
+<td align="right">0.25</td>
 </tr>
 <tr class="even">
 <td align="right">0.50</td>
-<td align="right">1.01</td>
+<td align="right">1.02</td>
+<td align="right">0.25</td>
 <td align="right">0.25</td>
 <td align="right">0.26</td>
-<td align="right">0.25</td>
 </tr>
 <tr class="odd">
 <td align="right">0.25</td>
 <td align="right">0.25</td>
 <td align="right">1.01</td>
-<td align="right">0.02</td>
-<td align="right">0.26</td>
+<td align="right">-0.02</td>
+<td align="right">0.25</td>
 </tr>
 <tr class="even">
-<td align="right">0.26</td>
-<td align="right">0.26</td>
-<td align="right">0.02</td>
-<td align="right">0.97</td>
-<td align="right">0.26</td>
+<td align="right">0.25</td>
+<td align="right">0.25</td>
+<td align="right">-0.02</td>
+<td align="right">0.99</td>
+<td align="right">0.24</td>
 </tr>
 <tr class="odd">
-<td align="right">0.26</td>
 <td align="right">0.25</td>
 <td align="right">0.26</td>
-<td align="right">0.26</td>
+<td align="right">0.25</td>
+<td align="right">0.24</td>
 <td align="right">1.00</td>
 </tr>
 </tbody>
 </table>
-<p>The pseudo code for the Gibbs Sampler is shown below <img src="Pseudocode.png"></p>
-<p>This code is within a while loop that break when standard error of
-the mean is under 0.1 to ensure convergence. With this constraint, we’ve
-tried to ensure convergence. Convergence can be shown by plotting the
-values for each iteration. For the plot below the configuration is
-(1,1,0,1,0), where 1 refers to CASE and 0 is control, and each number
-refers to the phenotype of a family member of the following form. <span class="math display">\[
-(\text{phenotype}_{subject}, \text{phenotype}_{parent1},
-\text{phenotype}_{parent2}, \text{phenotype}_{sibling1},
-...,\text{phenotype}_{siblingN})
-\]</span></p>
+<p>The pseudo code for the Gibbs Sampler is shown below <img src="../../../../4.%20Semester/Dataprojekt/genstats/articles/Pseudocode.png"></p>
+<p>Where <span class="math inline">\(F^{-1}_{l_j^{(i)}}(1-k)\)</span> is the CDF of <span class="math inline">\(\mathcal{N}\left(\mu_{j}^{(i)}, \sigma_{j}^{(i)}\right)\)</span> This code is within a while loop that break when standard error of the mean is under 0.1 to ensure convergence. With this constraint, we’ve tried to ensure convergence. Convergence can be shown by plotting the values for each iteration. For the plot below the configuration is (1,1,0,1,0), where 1 refers to CASE and 0 is control, and each number refers to the phenotype of a family member of the following form. <span class="math display">\[
+(z_{subject}, z_{parent1}, z_{parent2}, z_{sibling1}, ...,z_{siblingN})
+\]</span> Where <span class="math inline">\(z \in {0,1}\)</span> denotes the phenotype</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ests</span> <span class="op">=</span> <span class="fu"><a href="../reference/gibbs_sampl.html">gibbs_sampl</a></span><span class="op">(</span>covmat <span class="op">=</span> <span class="fu"><a href="../reference/get_cov.html">get_cov</a></span><span class="op">(</span><span class="fl">0.5</span>, n_sib <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>, phenos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span><span class="op">)</span>, K <span class="op">=</span> <span class="fl">0.05</span>, start_run <span class="op">=</span> <span class="fl">500</span>, all_est <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">ests</span><span class="op">)</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Genetic Liability subject"</span>,
@@ -239,20 +206,10 @@ refers to the phenotype of a family member of the following form. <span class="m
                    <span class="st">"Liability parent2, CONTROL"</span>,
                    <span class="st">"Liability sibling1, CASE"</span>,
                    <span class="st">"Liability sibling2, CONTROL"</span><span class="op">)</span>
-<span class="fu"><a href="../reference/plot_gibbs.html">plot_gibbs</a></span><span class="op">(</span><span class="va">ests</span><span class="op">)</span>
-<span class="co">#&gt; Registered S3 methods overwritten by 'tibble':</span>
-<span class="co">#&gt;   method     from  </span>
-<span class="co">#&gt;   format.tbl pillar</span>
-<span class="co">#&gt;   print.tbl  pillar</span></code></pre></div>
+<span class="fu"><a href="../reference/plot_gibbs.html">plot_gibbs</a></span><span class="op">(</span><span class="va">ests</span><span class="op">)</span></code></pre></div>
 <p><img src="Gibbs-sampler_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
-<p>The plots shows that all the the liabilities are converged with a
-starting value of 0. And also it seems that the Gibbs sampler converges
-incredibly fast. The Gibbs sampler is therefore performing as we would
-expect.</p>
-<p>The standard values for the <code><a href="../reference/gibbs_sampl.html">?gibbs_sampl</a></code> is a starting
-value at 0 and a burn in of 500. The method is used in
-<code>?LT-FH</code>, see <code><a href="../articles/LT-FH.html">vignette("LT-FH")</a></code> for further
-information.</p>
+<p>The plots shows that all the the liabilities are converged with a starting value of 0. And also it seems that the Gibbs sampler converges incredibly fast. The Gibbs sampler is therefore performing as we would expect.</p>
+<p>The standard values for the <code><a href="../reference/gibbs_sampl.html">?gibbs_sampl</a></code> is a starting value at 0 and a burn in of 500. The method is used in <code>?LT-FH</code>, see <code><a href="../articles/LT-FH.html">vignette("LT-FH")</a></code> for further information.</p>
   </main>
 </div>
 

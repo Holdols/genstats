@@ -78,6 +78,7 @@
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>A matrix containing: <br></p><ul><li><p>The slopes of each regression <br></p></li>
 <li><p>The standard errors of each slope <br></p></li>
+<li><p>If logreg = T: the number of iterations for each slope. If NA, it means that the algorithm didn't converge, and glm was used instead.</p></li>
 <li><p>The t-scores associated with each slope. <br></p></li>
 <li><p>The p-values for each slope <br></p></li>
 <li><p>And a binary vector saying if the position is causal or not given p</p></li>
