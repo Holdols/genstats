@@ -40,6 +40,9 @@ Gazal, S., Loh, PR. et al.. Link to article is found in Bibliography.
 The package is developed as a part of our bachelor’s program in data
 science at Aarhus University.
 
+We would like to thank our supervisor Emil Michael Pedersen for patience
+and great supervision!
+
 ## Installation
 
 You can install the development version of genstats from
