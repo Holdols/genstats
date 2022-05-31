@@ -82,6 +82,10 @@ Next we would like to know for which value of PRS as a decision boundary we coul
 decision_cross(train_data = train_set, y = y_ltfh, cross_folds = 4, bounds=seq(0.2, 0.3, 0.01), thr = 3)
 ```
 
+```{r, echo = FALSE}
+knitr::include_graphics("decision_cross.png")
+```
+
 
 ```{r, echo = FALSE}
 knitr::include_graphics("decision.jpg")
