@@ -22,6 +22,8 @@ library(tidyverse)
 
 We will in the this vignette provide visual comparison between GWAS, GWAS using logistic regression and LT-FH. We load the $10^4 \times 10^4$ data but the following plots have been evaluated on $10^5 \times 10^5$ data. Just like `vignette('GWAS')` and `vignette('LT-FH')`.
 
+
+## Confusion matrices
 ```{r echo=T, results='hide', fig.show='hide'}
 data = snp_attach('genetic_data.rds')
 data_ltfh = LTFH(data = data, n_sib = 2, K = 0.05, h2 = 0.5)
@@ -35,7 +37,6 @@ gwas_LTFH <- GWAS(G = data$genotypes, y = data_ltfh$l_g_est_0, p = 5e-7)
 
 ```{r echo=T, results='hide', fig.show='hide'}
 true_causal = (data$map$beta != 0) - 0
-estimate <- tibble(estimate_gwas = gwas_summary$estim, estimate_gwasLTFH = gwas_LTFH$estim)
 causal <- tibble(causal_gwas = gwas_summary$causal_estimate, 
                  causal_gwaslog = gwaslog_summary$causal_estimate,
                  causal_gwasLTFH = gwas_LTFH$causal_estimate)
@@ -61,11 +62,11 @@ df %>%
   facet_wrap(~method)
 ```
 
-```{r echo=T, results='hide', fig.show='hide'}
-mse <- sapply(X = estimate, function(pred,target) mean((pred-target)^2), target = data$map$beta)
-names(mse) = c("GWAS", "LTFH")
-knitr::kable(x = mse,col.names = "MSE", align = "c")
+```{r}
+knitr::include_graphics("confusion_comparison.jpg")
 ```
+GWAS using linear regression and logistic regression performs exactly the same, and LT-FH outperforms both correctly idenftifies twice the amount of causal SNPs.
+
 
 
 
@@ -106,7 +107,7 @@ bind_rows(gwas_df, gwaslog_df, ltfh_df) %>%
 ```{r, echo = FALSE}
 knitr::include_graphics("pow_compare.jpg")
 ```
-
+It is clear to see that LTFH is more powerful than both of the other GWAS methods. Logistic regression seems quite weak, but this has to be taken with a grain of salt since the estimates from logistic regression is of another form than linear regression.
 
 ### Manhattan plot
 
@@ -138,7 +139,7 @@ gridExtra::grid.arrange(plt_gwas_man_m,
 ```{r, echo = FALSE}
 knitr::include_graphics("man_compare.jpg")
 ```
-
+Again both linear and logistic regression seem very alike, and LT-FH outperforms both.
 
 ### Scatter plot
 ```{r echo=T, results='hide', fig.show='hide'}
@@ -163,7 +164,7 @@ gridExtra::grid.arrange(plt_gwas_scat_s,
 ```{r, echo = FALSE}
 knitr::include_graphics("scat_compare.jpg")
 ```
-
+Again we would like the spread of data to be around the y = x line, and from these plot LT-FH is closer to the line than GWAS.
 
 
 
