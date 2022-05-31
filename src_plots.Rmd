@@ -1,0 +1,402 @@
+---
+title: "Make pictures"
+output: html_document
+---
+
+```{r}
+library(genstats)
+library(bigsnpr)
+library(bigstatsr)
+library(dplyr)
+library(ggplot2)
+```
+
+
+
+# Getting data
+
+```{r eval=FALSE}
+data = snp_attach('example_data.rds')
+cor = 10
+```
+
+
+# GWAS
+```{r eval=FALSE}
+# Models
+gwas_summary = GWAS(G = data$genotypes, y=data$fam$pheno_0, p=5e-7, ncores=cor)
+gwaslog_summary = GWAS(G = data$genotypes, y=data$fam$pheno_0, p=5e-7, logreg = TRUE, ncores=cor)
+beta = data$map$beta
+
+# Plots
+plt_gwas_man = manhattan_plot(gwas_summary, beta, thresholds = c(5e-7, 0.05))
+plt_gwas_scat = scatter_plot(gwas_summary, beta)
+plt_gwas_pow = power_plot(gwas_summary, beta)
+plt_log_gwas_man = manhattan_plot(gwaslog_summary, beta, thresholds = c(5e-7, 0.05))
+plt_log_gwas_pow = power_plot(gwaslog_summary, beta)
+```
+
+
+# LTFH
+```{r eval=FALSE}
+# Models
+est = LTFH(data, n_sib=2)
+y_ltfh = est$l_g_est_0
+ltfh_summary = GWAS(G = data$genotypes, y=y_ltfh, p=5e-7, ncores=cor)
+
+#Plots
+plt_ltfh_man = manhattan_plot(ltfh_summary, beta, thresholds = c(5e-7, 0.05))
+plt_ltfh_scat = scatter_plot(ltfh_summary, beta)
+plt_ltfh_pow = power_plot(ltfh_summary, beta)
+```
+
+# Compare
+
+## Confussion
+
+```{r eval=FALSE}
+true_causal = (data$map$beta != 0) - 0
+estimate <- tibble(estimate_gwas = gwas_summary$estim, estimate_gwasLTFH = ltfh_summary$estim)
+causal <- tibble(causal_gwas = gwas_summary$causal_estimate, 
+                 causal_gwaslog = gwaslog_summary$causal_estimate,
+                 causal_gwasLTFH = gwas_LTFH$causal_estimate)
+
+df = causal %>% 
+  pivot_longer(cols = everything(), names_to = "method") %>% 
+  group_by(method) %>% 
+  summarise("11" = sum(value == 1 & true_causal == 1),                                                
+            "10" = sum(value == 1 & true_causal == 0),                                                
+            "01" = sum(value == 0 & true_causal == 1),                                                
+            "00" = sum(value == 0 & true_causal == 0)) %>% 
+  pivot_longer(cols = !method) %>% group_by(method) %>% 
+  mutate(
+    'Prediction' = as.character(c(1,1,0,0)),
+    'Actual' =  as.character(c(1, 0, 1, 0)))
+
+
+conf_compare = df %>% 
+  ggplot(aes(x = Actual, y = Prediction)) +
+  geom_tile(aes(fill = value), colour = "white", show.legend = FALSE) +
+  geom_text(ggplot2::aes(label = sprintf("%1.0f", value)), vjust = 1) +
+  scale_fill_gradient(high = "firebrick", low = 'dodgerblue3', trans='pseudo_log') +
+  facet_wrap(~method)
+
+
+```
+
+
+## Powerplot
+
+```{r eval=FALSE}
+
+gwas_df = gwas_summary %>% 
+  mutate(true_causal = (beta != 0) - 0) %>%
+  filter(true_causal == 1) %>%
+  arrange(abs(estim)) %>%
+  mutate(power = cumsum(causal_estimate)/sum(true_causal), Method='GWAS') %>%
+  select(estim, power, Method)
+
+gwaslog_df = gwaslog_summary %>% 
+  mutate(true_causal = (beta != 0) - 0) %>%
+  filter(true_causal == 1) %>%
+  arrange(abs(estim)) %>%
+  mutate(power = cumsum(causal_estimate)/sum(true_causal), Method='GWASlog') %>%
+  select(estim, power, Method)
+
+ltfh_df = ltfh_summary %>% 
+  mutate(true_causal = (beta != 0) - 0) %>%
+  filter(true_causal == 1) %>%
+  arrange(abs(estim)) %>%
+  mutate(power = cumsum(causal_estimate)/sum(true_causal), Method='LT-FH') %>%
+  select(estim, power, Method)
+
+
+pow_compare = bind_rows(gwas_df, gwaslog_df, ltfh_df) %>%
+  ggplot() + 
+  geom_line(aes(x = estim, y = power, color=Method)) + xlim(-0.3, 0.3)
+
+```
+
+## Manhattan
+
+```{r eval=FALSE}
+
+lgnd_m = cowplot::get_legend(plt_gwas_man + theme(legend.position = "top"))
+
+plt_gwas_man_m = plt_gwas_man + theme(legend.position="none")
+plt_log_gwas_man_m = plt_log_gwas_man + theme(legend.position="none")
+plt_ltfh_man_m = plt_ltfh_man + theme(legend.position="none")
+
+man_compare = gridExtra::grid.arrange(plt_gwas_man_m, 
+                                      plt_log_gwas_man_m, 
+                                      plt_ltfh_man_m,
+                                      lgnd_m, 
+                                      ncol=3,
+                                      nrow=2,
+                                      layout_matrix = rbind(c(1,2, 3), c(4,4,4)),
+                                      widths = c(4, 4, 4),  
+                                      heights = c(5, 0.5),
+                                      top = c("Manhattan plots for GWAS, GWAS using logistic regression, and LT-FH"))
+
+
+
+
+lgnd_s = cowplot::get_legend(plt_gwas_scat + theme(legend.position = "top"))
+plt_gwas_scat_s <- plt_gwas_scat + theme(legend.position="none")
+plt_ltfh_scat_s <- plt_ltfh_scat + theme(legend.position="none")
+
+scat_compare = gridExtra::grid.arrange(plt_gwas_scat_s, 
+                                      plt_ltfh_scat_s,
+                                      lgnd_m, 
+                                      ncol=2,
+                                      nrow=2,
+                                      layout_matrix = rbind(c(1,2), c(3,3)),
+                                      widths = c(4, 4),  
+                                      heights = c(5, 0.5),
+                                      top = c("Scatter plots for GWAS and LT-FH"))
+
+```
+
+
+# Prediction
+
+## getting data
+```{r eval=FALSE}
+setwd('E:/Data')
+train_set = snp_attach("example_data_small.rds")
+test_set <- snp_attach("example_data_small_test.rds")
+```
+
+## Parameters
+
+
+```{r eval=FALSE}
+est_p = LTFH(train_set, n_sib=2)
+y_ltfh_p = est_p$l_g_est_0
+
+prs <- PRS_cross(train_data = train_set, y = y_ltfh_p, cross_folds = 4)
+
+prs_auc = prs_plot(PRS = prs, train_set, 'AUC')
+prs_mse = prs_plot(PRS = prs, train_set, 'MSE')
+prs_r2 = prs_plot(PRS = prs, train_set, 'R2')
+
+
+eval_prs_auc = gridExtra::grid.arrange(prs_auc$fold, prs_auc$mean, ncol=2)
+eval_prs_mse = gridExtra::grid.arrange(prs_mse$fold, prs_mse$mean, ncol=2)
+eval_prs_r2 = gridExtra::grid.arrange(prs_r2$fold, prs_r2$mean, ncol=2)
+
+```
+
+
+
+```{r eval=FALSE}
+dc_plt = decision_cross(train_set, y_ltfh_p, cross_folds = 4, thr = 3, bounds=seq(0.2, 0.3, 0.01))
+
+```
+
+## LTFH
+```{r eval=FALSE}
+# Models
+ltfh_summary_p = GWAS(G = train_set$genotypes, y=y_ltfh_p, p=5e-7, ncores=cor)
+prs1 <- bigsnpr::snp_PRS(G = train_set$genotypes, betas.keep =ltfh_summary_p$estim, lpS.keep = -log10(ltfh_summary_p$p_vals), thr.list = 3)
+m = pred_model(train_set, y_ltfh_p, 3, LogReg = FALSE, ncores=cor)
+pred = prediction(test_set, m, 3)
+
+# Plots
+prs_model = train_set$fam %>%
+          ggplot2::ggplot(ggplot2::aes(x=prs1, y=y_ltfh_p)) +
+          ggplot2::geom_point(aes(color=as.character(pheno_0)), alpha=0.4) +
+          ggplot2::xlab('PRS') +
+          ggplot2::ylab('Estimated genetic liability or phenotype') +
+          ggplot2::labs(color='Phenotype')
+
+prs_lt_train = train_set$fam %>% ggplot(aes(x=prs1, y=l_g_0)) + geom_point(aes(color=(as.character(pheno_0))), alpha=0.4) + 
+  xlab('PRS from train set') + 
+  ylab('True genetic liability') + 
+  labs(color='Phenotype') 
+
+prs_lt_test = test_set$fam %>% ggplot(aes(x=pred, y=l_g_0)) + 
+  geom_point(aes(color=(as.character(pheno_0))), alpha=0.4)  + 
+  xlab('PRS from test set') + 
+  ylab('True genetic liability') + 
+  labs(color='Phenotype')
+```
+
+
+
+## Result
+```{r eval=FALSE}
+preds = (pred > 0.28)-0
+confusion_matrix = as_tibble(table('Predicted' = preds[,1], 'Actual'= test_set$fam$pheno_0))
+
+dc_result = confusion_matrix %>% 
+  ggplot(aes(x = Predicted, y = Actual)) +
+  geom_tile(aes(fill = n), show.legend = FALSE) +
+  geom_text(aes(label = sprintf("%1.0f", n)), vjust = 1) +
+  scale_fill_gradient(high = "firebrick", low = 'dodgerblue3', trans='pseudo_log')
+```
+
+
+
+## GWAS
+Models
+```{r eval=FALSE}
+gwas_summary_p = GWAS(G = train_set$genotypes, y=train_set$fam$pheno_0, p=5e-7, ncores=cor)
+gwaslog_summary_p = GWAS(G = train_set$genotypes, y=train_set$fam$pheno_0, p=5e-7, logreg = TRUE, ncores=cor)
+y01 = train_set$fam$pheno_0
+
+# Pheno + linear
+prs2 = bigsnpr::snp_PRS(G = train_set$genotypes, betas.keep =gwas_summary_p$estim, lpS.keep = -log10(gwas_summary_p$p_vals), thr.list = 3)
+m1 = pred_model(train_set, y01, 3, LogReg = FALSE, ncores=cor)
+pred1 = prediction(test_set, m1, 3)
+
+# Pheno + logistic
+prs3 = bigsnpr::snp_PRS(G = train_set$genotypes, betas.keep =gwaslog_summary_p$estim, lpS.keep = -log10(gwaslog_summary_p$p_vals), thr.list = 3)
+m2 = pred_model(train_set, y01, 3, LogReg = TRUE, ncores=cor)
+pred2 = prediction(test_set, m2, 3)
+
+```
+
+
+Creating plot
+```{r eval=FALSE}
+# Pheno + linear
+prs_lin01_train = train_set$fam %>% ggplot(aes(x=prs2, y=l_g_0)) + 
+  geom_point(aes(color=(as.character(pheno_0))), alpha=0.4) + 
+  xlab('PRS from train set using linear regression') + 
+  ylab('True genetic liability') + 
+  labs(color='Phenotype') + theme(legend.position = "top")
+  
+prs_lin01_test = test_set$fam %>% ggplot(aes(x=pred1, y=l_g_0)) + 
+  geom_point(aes(color=(as.character(pheno_0))), alpha=0.4,  show.legend = FALSE)  + 
+  xlab('PRS from test set using linear regression') + 
+  ylab('True genetic liability') + 
+  labs(color='Phenotype')
+
+# Pheno + logistic
+prs_log01_train = train_set$fam %>% ggplot(aes(x=prs3, y=l_g_0)) + 
+  geom_point(aes(color=(as.character(pheno_0))), alpha=0.4, show.legend = FALSE) + 
+  xlab('PRS from train set using logistic regression') + 
+  ylab('True genetic liability') + 
+  labs(color='Phenotype') 
+
+prs_log01_test = test_set$fam %>% ggplot(aes(x=pred2, y=l_g_0)) + 
+  geom_point(aes(color=(as.character(pheno_0))), alpha=0.4, show.legend = FALSE)  + 
+  xlab('PRS from test set using logistic regression') + 
+  ylab('True genetic liability') + 
+  labs(color='Phenotype')
+
+# Grid
+lgnd = cowplot::get_legend(prs_lin01_train)
+prs_lin01_train <- prs_lin01_train + theme(legend.position="none")
+
+prs_pheno = gridExtra::grid.arrange(prs_lin01_train, 
+                        prs_lin01_test, 
+                        prs_log01_test,
+                        prs_log01_test,
+                        lgnd, 
+                        ncol=2, 
+                        nrow=3, 
+                        layout_matrix = rbind(c(1,2), c(3,4), c(5,5)),
+                        widths = c(4, 4), 
+                        heights = c(5, 5, 0.5))
+
+
+```
+
+# Saving plots
+
+```{r eval=FALSE}
+plt_gwas_man 
+plt_gwas_scat
+plt_gwas_pow 
+plt_log_gwas_man 
+plt_log_gwas_pow
+plt_ltfh_man 
+plt_ltfh_scat
+plt_ltfh_pow
+eval_prs_auc
+eval_prs_mse
+eval_prs_r2
+prs_model
+dc_plt
+prs_lt_train
+prs_lt_test
+dc_result
+pow_compare
+man_compare
+scat_compare
+conf_compare
+```
+
+Filenames(jpg):
+'GWAS_manhattan'
+'GWAS_scatter'
+'GWAS_power'
+
+'GWASlog_manhattan'
+'GWASlog_power'
+
+'pow_compare'
+'man_compare'
+'scat_compare'
+'conf_compare'
+
+'LTFH_manhattan'
+'LTFH_scatter'
+'LTFH_power'
+
+
+'prs_true_test'
+'prs_true_train'
+'prs_est_train'
+'prs_pheno'
+
+'decision'
+'result_decision'
+
+'eval_prs_auc'
+'eval_prs_mse'
+'eval_prs_r2' 
+
+```{r eval=FALSE}
+
+## GWAS
+#ggsave('GWAS_manhattan.jpg', plt_gwas_man, height = 20, width = 20, units='cm')
+#ggsave('GWAS_scatter.jpg', plt_gwas_scat, height = 20, width = 20, units='cm')
+#ggsave('GWAS_power.jpg', plt_gwas_pow, height = 20, width = 20, units='cm')
+
+## GWAS log
+#ggsave('GWASlog_manhattan.jpg', plt_log_gwas_man, height = 20, width = 20, units='cm')
+#ggsave('GWASlog_power.jpg', plt_log_gwas_pow, height = 20, width = 20, units='cm')
+
+## Compare
+#ggsave('pow_compare.jpg', pow_compare, height = 20, width = 20, units='cm')
+#ggsave('man_compare.jpg', man_compare, height = 20, width = 20, units='cm')
+#ggsave('scat_compare.jpg', scat_compare, height = 20, width = 20, units='cm')
+#ggsave("confusion_comparison.jpg", conf_compare, width = 20, height = 20, units = "cm")
+
+## LT-FH
+#ggsave('LTFH_manhattan.jpg', plt_ltfh_man, height = 20, width = 20, units='cm') 
+#ggsave('LTFH_scatter.jpg', plt_ltfh_scat, height = 20, width = 20, units='cm')
+#ggsave('LTFH_power.jpg', plt_ltfh_pow, height = 20, width = 20, units='cm')
+
+## Prediction 
+#ggsave('prs_est_train.jpg', prs_model, height = 20, width = 20, units='cm')
+#ggsave('prs_true_train.jpg', prs_lt_train, height = 20, width = 20, units='cm')
+#ggsave('prs_true_test.jpg', prs_lt_test, height = 20, width = 20, units='cm')
+#ggsave('prs_pheno.jpg', prs_pheno, height = 20, width = 20, units='cm')
+#ggsave('result_decision.jpg', dc_result, height = 20, width = 20, units='cm')
+
+## PRS pram    
+#ggsave('decision.jpg', dc_plt, height = 20, width = 20, units='cm')
+#ggsave('eval_prs_auc.jpg', eval_prs_auc, height = 20, width = 20, units='cm')
+#ggsave('eval_prs_mse.jpg', eval_prs_mse, height = 20, width = 20, units='cm')
+#ggsave('eval_prs_r2.jpg', eval_prs_r2, height = 20, width = 20, units='cm')
+
+
+``` 
+ 
+
+
+
