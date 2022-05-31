@@ -2,27 +2,6 @@ url: https://github.com/Holdols/genstats
 template:
   bootstrap: 5
   bootswatch: sandstone
-navbar:
-  title: "genstats"
-  left:
-    - text: "Reference"
-      href: reference/index.html
-    - text: "Articles"
-      menu:
-      - text: "Simulating data"
-        href: articles/Simulation.html
-      - text: "GWAS"
-        href: articles/GWAS.html
-      - text: "Gibbs sampler"
-        href: articles/Gibbs-sampler.html
-      - text: "LT-FH"
-        href: articles/LT-FH.html
-      - text: "Comparison between GWAS and LT-FH"
-        href: articles/Comparison.html
-      - text: "Prediction"
-        href: articles/Prediction.html
-    - icon: fa-github fa
-      href: https://github.com/Holdols/genstats
 
 reference:
 - title: "Generate simulated subjects"
