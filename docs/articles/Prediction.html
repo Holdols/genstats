@@ -123,14 +123,17 @@ the training data.</p>
 <p>We use these scores to evaluate the threshold.</p>
 <p>The following plot has been evaluated on <span class="math inline">\(10^5\times10^3\)</span> data.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/prs_plot.html">prs_plot</a></span><span class="op">(</span>PRS <span class="op">=</span> <span class="va">prs</span>, <span class="va">train_set</span>, <span class="st">'AUC'</span><span class="op">)</span></code></pre></div>
-<p><img src="m1_auc.jpg"><!-- --><img src="m2_auc.jpg"><!-- --></p>
+<code class="sourceCode R"><span class="va">prs_auc</span> <span class="op">=</span> <span class="fu"><a href="../reference/prs_plot.html">prs_plot</a></span><span class="op">(</span>PRS <span class="op">=</span> <span class="va">prs</span>, <span class="va">train_set</span>, <span class="st">'AUC'</span><span class="op">)</span>
+<span class="va">eval_prs_auc</span> <span class="op">=</span> <span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="va">prs_auc</span><span class="op">$</span><span class="va">fold</span>, <span class="va">prs_auc</span><span class="op">$</span><span class="va">mean</span>, ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
+<p><img src="eval_prs_auc.jpg"><!-- --></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/prs_plot.html">prs_plot</a></span><span class="op">(</span>PRS <span class="op">=</span> <span class="va">prs</span>, <span class="va">train_set</span>, <span class="st">'MSE'</span><span class="op">)</span></code></pre></div>
-<p><img src="m1_mse.jpg"><!-- --><img src="m2_mse.jpg"><!-- --></p>
+<code class="sourceCode R"><span class="va">prs_mse</span> <span class="op">=</span> <span class="fu"><a href="../reference/prs_plot.html">prs_plot</a></span><span class="op">(</span>PRS <span class="op">=</span> <span class="va">prs</span>, <span class="va">train_set</span>, <span class="st">'MSE'</span><span class="op">)</span>
+<span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="va">prs_mse</span><span class="op">$</span><span class="va">fold</span>, <span class="va">prs_mse</span><span class="op">$</span><span class="va">mean</span>, ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
+<p><img src="eval_prs_mse.jpg"><!-- --></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/prs_plot.html">prs_plot</a></span><span class="op">(</span>PRS <span class="op">=</span> <span class="va">prs</span>, <span class="va">train_set</span>, <span class="st">'R2'</span><span class="op">)</span></code></pre></div>
-<p><img src="m1_r2.jpg"><!-- --><img src="m2_r2.jpg"><!-- --></p>
+<code class="sourceCode R"><span class="va">prs_r2</span> <span class="op">=</span> <span class="fu"><a href="../reference/prs_plot.html">prs_plot</a></span><span class="op">(</span>PRS <span class="op">=</span> <span class="va">prs</span>, <span class="va">train_set</span>, <span class="st">'R2'</span><span class="op">)</span>
+<span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="va">prs_r2</span><span class="op">$</span><span class="va">fold</span>, <span class="va">prs_r2</span><span class="op">$</span><span class="va">mean</span>, ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
+<p><img src="eval_prs_r2.jpg"><!-- --></p>
 <p>Looking at the above plot we find that the optimal threshold for the
 p-value is around 3. Next we would like to know for which value of PRS
 as a decision boundary we could expect the best result. We not
