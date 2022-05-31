@@ -20,7 +20,7 @@ library(bigsnpr)
 library(tidyverse)
 ```
 
-We will in the this vignette provide visual comparison between GWAS, GWAS using logistic regression and LT-FH. We load the $10^4 \times 10^4$ data but the following plots have been evaluated on $10^5 \times 10^5$ data. Just like `vignette('GWAS')` and `vignette('LT-FH')`.
+We will in the this vignette provide visual comparison between GWAS, GWAS using logistic regression and LT-FH. We load the $10^4 \times 10^4$ data, but the following plots have been evaluated on $10^5 \times 10^5$ data. Just like `vignette('GWAS')` and `vignette('LT-FH')`.
 
 
 ## Confusion matrices
