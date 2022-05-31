@@ -15,10 +15,10 @@ knitr::opts_chunk$set(
 ```
 
 
-An assumption made by Hujoel et al.(2020) is that the liabilities of subjects and families follow a multivariate normal distribution. With this assumption liabilities of each family member can be estimated if their phenotypes are provided. 
+An assumption made by Hujoel et al.(2020) is that the liabilities of subjects and families follow a multivariate normal distribution. With this assumption liabilities of each family member can be estimated if their phenotypes are known. 
 
-These liabilities are estimated using Monte Carlo integration. In genstats a Gibbs sampler has been implemented, by sampling from a conditional distribution for each liability estimates are obtained iteratively. The obtained phenotypes of family members can be implemented in the model by sampling from a truncated normal distribution.
-To clarify if a family member is a case we know that the liability of the family member is above a threshold T, given a prevalence K. We calculate the threshold given the standard normal distribution.
+These liabilities are estimated using Monte Carlo integration. In genstats a Gibbs sampler has been implemented. By sampling from a each liability's conditional distribution, estimates are obtained iteratively. The obtained phenotypes of family members can be implemented in the model by sampling from a truncated normal distribution.
+To clarify if a family member is a case we know that the liability of the family member is above a threshold $T$, where $P(l > T)$ is equal to the prevalence $K$. We calculate the threshold given the standard normal distribution.
 
 $$
 T = \Phi^{-1}(1-K)
@@ -37,9 +37,9 @@ P(L_{p_i} \leq T \mid L_{p_1}, \ldots, L_{p_{i-1}}, L_{p_{i+1}}, \ldots,  L_{p_N
 \text{else}: p_{l_{p_i}} \in [0,F_{L_{p_i}}(T)] \\
 $$
 
-Now we sample a value $p_{lp}$ uniformly from one of the two intervals given the family members case. To get a sample for $l_p$ we set $l_p = F_{L_p}^{-1}(p_{lp})$.
+A value $p_{lp}$ is sampled uniformly from one of the two intervals given the family members case. To get a sample for $l_p$ we set $l_p = F_{L_p}^{-1}(p_{lp})$.
 
-Using Monte Carlo integration we find the conditional distribution of each liability. Using the assumption at liabilities follow a normal distribution where $l_g\sim\mathcal{N}(0,h^2)$, $l_e\sim\mathcal{N}(0,1-h^2)$ and $l_{full} = l_g+l_e \sim\mathcal{N}(0,1)$ we can write the following mean and covariance matrix for the variables. We are here not using any siblings, but they can be added as wished.
+Using Monte Carlo integration we find the conditional distribution of each liability. With the assumption that liabilities follow a normal distribution where $l_g\sim\mathcal{N}(0,h^2)$, $l_e\sim\mathcal{N}(0,1-h^2)$ and $l_{full} = l_g+l_e \sim\mathcal{N}(0,1)$ we can write the following mean and covariance matrix for the variables. Here we are not using any siblings, but they can be added as required.
 
 $$
 \mu =
@@ -70,7 +70,7 @@ l_{p_{2}}
 \right)
 $$
 
-This we can transform into
+This can be transformed into:
 
 $$
 \overline{\mu} =
@@ -99,7 +99,7 @@ l_{p_{2}}
 \end{pmatrix} \sim \mathcal{N}\left(\overline{\mu},\overline{\Sigma}
 \right)
 $$
-Using the multivariate normal the conditional distribution for each variable can easily be calculated. To illustrate that the simulated data has this distribution we will calculate the covariance matrix of non truncated data using a heritability of 0.5 and one sibling.
+Using the multivariate normal distribution the conditional distribution for each variable can easily be calculated. To illustrate that the simulated data has this distribution, we will calculate the covariance matrix of non truncated data using a heritability of 0.5 and one sibling.
 
 ```{r}
 library(genstats)
@@ -113,14 +113,15 @@ knitr::kable(cov(estimated), digits = 2, caption = "Covariance Matrix")
 The pseudo code for the Gibbs Sampler is shown below
 ![](Pseudocode.png)
 
-Where $F^{-1}_{l_j^{(i)}}(1-k)$ is the CDF of $\mathcal{N}\left(\mu_{j}^{(i)}, \sigma_{j}^{(i)}\right)$
-This code is within a while loop that break when standard error of the mean is under 0.1 to ensure convergence.
+Where $F^{-1}_{l_j^{(i)}}(1-k)$ is the CDF of $\mathcal{N}\left(\mu_{j}^{(i)}, \sigma_{j}^{(i)}\right)$.
+
+This code is within a while loop that break when standard error of the mean is under 0.1.
 With this constraint, we've tried to ensure convergence. Convergence can be shown by plotting the values for each iteration.
 For the plot below the configuration is (1,1,0,1,0), where 1 refers to CASE and 0 is control, and each number refers to the phenotype of a family member of the following form.
 $$
 (z_{subject}, z_{parent1}, z_{parent2}, z_{sibling1}, ...,z_{siblingN})
 $$
-Where $z \in {0,1}$ denotes the phenotype
+Where $z \in \{0,1\}$ denotes the phenotype.
 
 ```{r}
 ests = gibbs_sampl(covmat = get_cov(0.5, n_sib = 2), phenos = c(1,1,0,1,0), K = 0.05, start_run = 500, all_est = TRUE)
@@ -134,6 +135,6 @@ plot_gibbs(ests)
 ```
 
 
-The plots shows that all the the liabilities are converged with a starting value of 0. And also it seems that the Gibbs sampler converges incredibly fast. The Gibbs sampler is therefore performing as we would expect.
+The plots show that all the liabilities are converged with a starting value of 0. It also seems that the Gibbs sampler converges incredibly fast. The Gibbs sampler is therefore performing as we would expect.
 
-The standard values for the `?gibbs_sampl` is a starting value at 0 and a burn in of 500. The method is used in `?LT-FH`, see `vignette("LT-FH")` for further information.
+The standard values for `?gibbs_sampl` is a starting value at 0 and a burn in of 500. The method is used in `?LTFH`, see `vignette("LT-FH")` for further information.
