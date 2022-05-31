@@ -12,7 +12,7 @@ scatter_plot(gwas_summary, beta)
 \item{beta}{A vector containing the actual casual effect of each SNP.}
 }
 \value{
-Scatterplot of true causal effects agianst estimated effects
+Scatterplot of true causal effects agianst estimated effects.
 }
 \description{
 Plots true causal effects agianst estimated effects

@@ -10,6 +10,9 @@ manhattan_plot(gwas_summary, beta, thresholds = FALSE)
 \item{gwas_summary}{Output from GWAS.}
 
 \item{beta}{A vector containing the actual casual effect of each SNP.}
+
+\item{thresholds}{A vector containing p-values. The function draws a horisental
+line at the given values.}
 }
 \value{
 A manhattan plot.

@@ -32,7 +32,7 @@ control_plot = function(phenos, h2, col="black"){
 #' @param PRS Output from PRS_cross.
 #' @param data List generated from gen_sim.
 #' @param method Indicates Which method each fold should be evaluated on.
-#' @return List containing two plots for each threshold and fold, and mean of all folds.
+#' @return List containing two plots, one for each threshold and fold and one mean of all folds.
 #' @importFrom magrittr "%>%"
 #' @export
 prs_plot = function(PRS, data, method='MSE'){
@@ -41,13 +41,13 @@ prs_plot = function(PRS, data, method='MSE'){
   df = lapply(1:length(PRS), function(i) {
     targ = data$fam$pheno_0[as.numeric(row.names(PRS[[i]]))]
 
-    if (method=='AUC') {eval = apply(PRS[[i]], 2, AUC, target = targ)}
+    if (method=='AUC') {eval = apply(PRS[[i]], 2, bigstatsr::AUC, target = targ)}
     else if (method=='R2') {
       eval = apply(PRS[[i]], 2, function(pred,target) summary(lm(target~pred))$r.squared,  target = targ)}
     else {eval = apply(PRS[[i]], 2, function(pred,target) mean((pred-target)^2), target = targ)}
 
-    tibble('Eval'=eval, 'Threshold'=pval_thrs, 'fold' = paste0('Fold ', i))
-  }) %>% bind_rows
+    tibble::tibble('Eval'=eval, 'Threshold'=pval_thrs, 'fold' = paste0('Fold ', i))
+  }) %>% dplyr::bind_rows()
 
   plt1 = df %>%
     ggplot2::ggplot(ggplot2::aes(y=Eval, x=Threshold)) +
@@ -78,6 +78,8 @@ prs_plot = function(PRS, data, method='MSE'){
 #'
 #' @param gwas_summary Output from GWAS.
 #' @param beta A vector containing the actual casual effect of each SNP.
+#' @param thresholds A vector containing p-values. The function draws a horisental
+#' line at the given values.
 #' @return A manhattan plot.
 #' @importFrom magrittr "%>%"
 #' @export
@@ -101,7 +103,7 @@ manhattan_plot = function(gwas_summary, beta, thresholds = FALSE){
 #'
 #' @param gwas_summary Output from GWAS.
 #' @param beta A vector containing the actual casual effect of each SNP.
-#' @return Scatterplot of true causal effects agianst estimated effects
+#' @return Scatterplot of true causal effects agianst estimated effects.
 #' @importFrom magrittr "%>%"
 #' @export
 scatter_plot = function(gwas_summary, beta){
@@ -164,7 +166,7 @@ power_plot <- function(gwas_summary, beta){
 #' Plots estimated liabilities agianst true liabilities
 #'
 #' @param LTFH_est Output from LTFH.
-#' @param gaps Varaible for distance between labels
+#' @param gaps Varaible for distance between labels.
 #' @return Plot of estimated liabilities agianst true liabilities.
 #' @importFrom magrittr "%>%"
 #' @export
