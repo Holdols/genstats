@@ -87,22 +87,22 @@
 <div class="section level2">
 <h2 id="simulation-without-family-history">Simulation without family history<a class="anchor" aria-label="anchor" href="#simulation-without-family-history"></a>
 </h2>
-<p>The package offers different methods of simulating data. First, we
-are going to show how to simply get out the genotypes of N subjects and
-the genetic and full liabilities. We are using a small scale test, but
-if the data are going to be used for actual statistical analysis, we
+<p>genstats offers different methods of simulating data. First, we are
+going to show how to simply simulate the genotypes of N subjects and the
+genetic and full liabilities. We are using a small scale test, but if
+the data are going to be used for actual statistical analysis, we
 recommend that at least <span class="math inline">\(10^4\times10^4\)</span> data points are simulated.
-Further information about the parameters can be found here
-<code><a href="../reference/gen_sim.html">?gen_sim</a></code>.</p>
+Data is simulated by the chunk below, further information about the
+parameters can be found here <code><a href="../reference/gen_sim.html">?gen_sim</a></code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/gen_sim.html">gen_sim</a></span><span class="op">(</span><span class="st">'simple_sim_example'</span>, N<span class="op">=</span><span class="fl">1000</span>, M<span class="op">=</span><span class="fl">1000</span>, K <span class="op">=</span> <span class="fl">0.05</span>, h2 <span class="op">=</span> <span class="fl">0.5</span>, C<span class="op">=</span><span class="fl">50</span>, block_size <span class="op">=</span> <span class="fl">100</span>, fam<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
-<p>Now there exists a rds file in the working directory with the data,
+<p>Now there exists an rds file in the working directory with the data,
 which we will load.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">simple_data</span> <span class="op">=</span> <span class="fu"><a href="../reference/snp_attach.html">snp_attach</a></span><span class="op">(</span><span class="st">'simple_sim_example.rds'</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">simple_data</span><span class="op">)</span>
 <span class="co">#&gt; [1] "list"</span></code></pre></div>
-<p>Looking at the data the file contains a list. Here the genotypes (G),
+<p>Looking at the data the file contains a list. Here genotypes (G),
 information for each SNP (map) and liabilities (fam) can be found.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">d1</span> <span class="op">=</span> <span class="va">simple_data</span><span class="op">$</span><span class="va">genotypes</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>
@@ -344,9 +344,9 @@ distributions. <span class="math inline">\(l_g \sim \mathcal{N}(0,
 h^2),\ l_e \sim \mathcal{N}(0, 1-h^2)\ \text{and}\ l_f \sim
 \mathcal{N}(0,1)\)</span>. To clarify <span class="math inline">\(h^2\)</span> is defined as the variation in
 genetic liability. Using the function dist_check() we can see whether
-the distribution of the full liabilities is as expected, which is
-standard normal. We are using a small test set and we cannot expect the
-the mean and variance to be close to 0 and 1.</p>
+the distribution of the full liabilities is as expected. We are using a
+small data set and we cannot expect the the mean and variance to be
+close to 0 and 1.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/dist_check.html">dist_check</a></span><span class="op">(</span><span class="va">simple_data</span><span class="op">)</span></code></pre></div>
 <p><img src="Simulation_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
@@ -356,8 +356,8 @@ the mean and variance to be close to 0 and 1.</p>
 stated this a a very small data set but with a larger simulation the
 distribution will become a lot closer to the expected values. The qqplot
 however resembles a normal distribution. It is now possible to perform
-GWAS for association analysis <code><a href="../articles/GWAS.html">vignette("GWAS")</a></code> or use the
-genotypes for prediction <code><a href="../articles/Prediction.html">vignette("Prediction")</a></code>.</p>
+GWAS for association analysis <code><a href="../articles/GWAS.html">vignette("GWAS")</a></code> and/or use
+the genotypes for prediction <code><a href="../articles/Prediction.html">vignette("Prediction")</a></code>.</p>
 </div>
 <div class="section level2">
 <h2 id="simulation-with-family-history">Simulation with family history<a class="anchor" aria-label="anchor" href="#simulation-with-family-history"></a>
@@ -577,9 +577,9 @@ without.</p>
 </tr>
 </tbody>
 </table>
-<p>We see here that we have a bit more family history, but the same same
-values each family member as we have for the subject. Again can we check
-the distribution of each full liability using the same function as
+<p>Now there is a bit more family history, but the same values for each
+family member as we had for the subject. Again we can check the
+distribution of each full liability using the same function as
 before.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/dist_check.html">dist_check</a></span><span class="op">(</span><span class="va">family_data</span><span class="op">)</span></code></pre></div>
@@ -598,22 +598,22 @@ before.</p>
 is a lot closer to the expected values of the liabilities and the
 qqplots for each liability clearly resembles a normal distribution. This
 data is therefore ready to be analysed using LTFH
-<code><a href="../articles/LT-FH.html">vignette("LT-FH")</a></code> or used in predictive analysis
+<code><a href="../articles/LT-FH.html">vignette("LT-FH")</a></code> and/or used in predictive analysis
 <code><a href="../articles/Prediction.html">vignette("Prediction")</a></code>.</p>
 </div>
 <div class="section level2">
-<h2 id="note-on-parrellelisation-block-size-and-memory-use-">Note on parrellelisation, block size and memory use.<a class="anchor" aria-label="anchor" href="#note-on-parrellelisation-block-size-and-memory-use-"></a>
+<h2 id="note-on-parallelisation-block-size-and-memory-use-">Note on parallelisation, block size and memory use.<a class="anchor" aria-label="anchor" href="#note-on-parallelisation-block-size-and-memory-use-"></a>
 </h2>
 <p>The functions for the simulation have been optimized with
-parrellelisation and do this with all available cores as a standard.
+parallelisation and do this with all available cores as a standard.
 Depending on the computer running the simulation, the size of the
 simulation, the block size and amount of RAM this will take up a lot of
 memory of the computer. If a user specified amount of cores is
 preferred, this can be specified by running options(mc.cores =
-core_amount) where core_amount is the amount of cores available to R.
-Furthermore depending on the specified block size R will need to
-allocate quite a bit of memory, this can create an error on some
-computers depending on the RAM, it could be relevant to check <a href="https://www.rdocumentation.org/packages/utils/versions/3.6.2/topics/memory.size" class="external-link uri">https://www.rdocumentation.org/packages/utils/versions/3.6.2/topics/memory.size</a>.
+core_amount) where core_amount is the amount of cores R will have
+available. Furthermore depending on the specified block size, R will
+need to allocate quite a bit of memory, this can create an error on some
+computers depending on the RAM. It could be relevant to check <a href="https://www.rdocumentation.org/packages/utils/versions/3.6.2/topics/memory.size" class="external-link uri">https://www.rdocumentation.org/packages/utils/versions/3.6.2/topics/memory.size</a>.
 If this doesn’t fix the error, decreasing the block size and/or amount
 of cores is recommended.</p>
 </div>
@@ -625,7 +625,7 @@ of cores is recommended.</p>
 
     <footer><div class="pkgdown-footer-left">
   <p></p>
-<p>Developed by Louise Mølgaard Laustsen, Ole Sahlholdt Hansen, Holdols.</p>
+<p>Developed by Holdols, Louise Mølgaard Laustsen, Ole Sahlholdt Hansen.</p>
 </div>
 
 <div class="pkgdown-footer-right">
