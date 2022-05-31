@@ -17,6 +17,8 @@ navbar:
         href: articles/Gibbs-sampler.html
       - text: "LT-FH"
         href: articles/LT-FH.html
+      - text: "LT-FH"
+        href: articles/Comparison.html
       - text: "Prediction"
         href: articles/Prediction.html
     - icon: fa-github fa
