@@ -1,0 +1,48 @@
+---
+title: "Untitled"
+output: html_document
+date: '2022-05-30'
+---
+
+
+```{r}
+library(genstats)
+```
+
+```{r}
+data = snp_attach("example_data.rds")
+data_ltfh = LTFH(data = data, n_sib = 2, K = 0.05, h2 = 0.5)
+```
+
+```{r}
+gwas_summary <- GWAS(G = data$genotypes, y = data$fam$pheno_0, p = 0.05/100000, ncores = 6)
+gwaslog_summary <- GWAS(G = data$genotypes, y = data$fam$pheno_0, logreg = TRUE, p = 0.05/100000, ncores = 6)
+gwas_LTFH <- GWAS(G = data$genotypes, y = data_ltfh$l_g_est_0, p = 0.05/100000, ncores = 6)
+```
+```{r}
+library(tidyverse)
+true_causal = (data$map$beta != 0) - 0
+estimate <- tibble(estimate_gwas = gwas_summary$estim, estimate_gwasLTFH = gwas_LTFH$estim)
+causal <- tibble(causal_gwas = gwas_summary$causal_estimate, 
+           causal_gwaslog = gwaslog_summary$causal_estimate,
+           causal_gwasLTFH = gwas_LTFH$causal_estimate)
+
+k <- causal %>% pivot_longer(cols = everything(), ,names_to = "method") %>% group_by(method) %>% summarise("11" = sum(value == 1 & true_causal == 1),                                                "10" = sum(value == 1 & true_causal == 0),                                                "01" = sum(value == 0 & true_causal == 1),                                                "00" = sum(value == 0 & true_causal == 0)) %>% 
+  pivot_longer(cols = !method) %>% group_by(method) %>% mutate(
+                                                X = as.character(c(1,1,0,0)),
+                                                Y =  as.character(c(1, 0, 1, 0)))
+
+
+k %>% 
+  ggplot(aes(x = X, y = Y)) +
+  geom_tile(aes(fill = value), colour = "white", show.legend = FALSE) +
+  ggplot2::geom_text(ggplot2::aes(label = sprintf("%1.0f", value)), vjust = 1) +
+  ggplot2::scale_fill_gradient(high = "firebrick", low = 'dodgerblue3', trans='pseudo_log') +
+  facet_wrap(~method)
+```
+
+```{r}
+sapply(X = estimate, function(pred,target) mean((pred-target)^2), target = data$map$beta) %>% knitr::kable(col.names = "MSE")
+```
+
+

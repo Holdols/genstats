@@ -44,34 +44,34 @@ We use these scores to evaluate the threshold.
 The following plot has been evaluated on $10^5\times10^3$ data.
 
 ```{r echo=T, results='hide', fig.show='hide'}
-prs_auc = prs_plot(PRS = prs, train_set, 'AUC')
-eval_prs_auc = gridExtra::grid.arrange(prs_auc$fold, prs_auc$mean, ncol=2)
+prs_plot(PRS = prs, train_set, 'AUC')
 ```
 
 ```{r, echo = FALSE}
-knitr::include_graphics("eval_prs_auc.jpg")
+knitr::include_graphics("m1_auc.jpg")
+knitr::include_graphics("m2_auc.jpg")
 ```
 
 
 ```{r echo=T, results='hide', fig.show='hide'}
-prs_mse = prs_plot(PRS = prs, train_set, 'MSE')
-gridExtra::grid.arrange(prs_mse$fold, prs_mse$mean, ncol=2)
+prs_plot(PRS = prs, train_set, 'MSE')
 ```
 
 
 ```{r, echo = FALSE}
-knitr::include_graphics("eval_prs_mse.jpg")
+knitr::include_graphics("m1_mse.jpg")
+knitr::include_graphics("m2_mse.jpg")
 ```
 
 
 ```{r echo=T, results='hide', fig.show='hide'}
-prs_r2 = prs_plot(PRS = prs, train_set, 'R2')
-gridExtra::grid.arrange(prs_r2$fold, prs_r2$mean, ncol=2)
+prs_plot(PRS = prs, train_set, 'R2')
 ```
 
 
 ```{r, echo = FALSE}
-knitr::include_graphics("eval_prs_r2.jpg")
+knitr::include_graphics("m1_r2.jpg")
+knitr::include_graphics("m2_r2.jpg")
 ```
 
 
@@ -114,7 +114,7 @@ pred = prediction(test_data = test_set, gwas = ltfh_model, thr = 3)
 We know use the value we found for the decision boundary and we have the following result.
 
 ```{r echo=T, results='hide', fig.show='hide'}
-preds = (pred > 0.28)-0
+preds = (pred > 0.25)-0
 confusion_matrix = as_tibble(table('Predicted' = preds[,1], 'Actual'= test_set$fam$pheno_0))
 
 confusion_matrix %>% 
