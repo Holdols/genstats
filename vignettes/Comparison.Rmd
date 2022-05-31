@@ -42,7 +42,9 @@ k %>%
 ```
 
 ```{r}
-sapply(X = estimate, function(pred,target) mean((pred-target)^2), target = data$map$beta) %>% knitr::kable(col.names = "MSE")
+mse <- sapply(X = estimate, function(pred,target) mean((pred-target)^2), target = data$map$beta)
+names(mse) = c("GWAS", "LTFH")
+knitr::kable(x = mse,col.names = "MSE", align = "c")
 ```
 
 
